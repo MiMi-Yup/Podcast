@@ -1,0 +1,12 @@
+{
+    "databaseException": "Database exception",
+    "cancelled": "Cancelled",
+    "connectTimeout": "Connect timeout",
+    "receiveTimeout": "Receive timeout",
+    "sendTimeout": "Send timeout",
+    "connectionProblem": "Không có kết nối mạng",
+    "connectionProblemDesc": "Vui lòng kiểm tra lại tín hiệu Wifi hoặc 3G/4G của bạn.",
+    "serverNotFound": "Server not found",
+    "serverUnknownError": "Hệ thống có chút vấn đề",
+    "getSetting": "Get setting"
+}
