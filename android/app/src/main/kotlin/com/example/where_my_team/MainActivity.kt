@@ -1,4 +1,4 @@
-package com.example.where_my_team
+package com.example.join_podcast
 
 import io.flutter.embedding.android.FlutterActivity
 

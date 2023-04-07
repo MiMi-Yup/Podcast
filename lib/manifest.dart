@@ -1,9 +1,15 @@
-import 'presentation/home_page/home_page_route.dart';
+import 'package:join_podcast/presentation/auth/login/login_page_route.dart';
+import 'package:join_podcast/presentation/introduction_page/introduction_page_route.dart';
+import 'package:join_podcast/presentation/welcome_page/welcome_page_route.dart';
 
 const routerIds = {
-  HomePageRoute: 'HomePageRoute',
+  WelcomePageRoute: 'WelcomePageRoute',
+  LoginPageRoute: 'LoginPageRoute',
+  IntroductionPageRoute: 'IntroductionPageRoute'
 };
 
 void generateRoutes() {
-  HomePageRoute();
+  WelcomePageRoute();
+  LoginPageRoute();
+  IntroductionPageRoute();
 }

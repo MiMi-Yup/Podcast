@@ -6,7 +6,7 @@ import 'package:configuration/route/route_define.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:where_my_team/di/di.dart';
+import 'package:join_podcast/di/di.dart';
 import 'manifest.dart';
 import 'presentation/main/main_application.dart';
 

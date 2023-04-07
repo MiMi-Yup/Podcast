@@ -1,4 +1,4 @@
-name: where_my_team
+name: join_podcast
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -39,17 +39,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   injectable: ^2.1.1
   get_it: ^7.2.0
-  location: ^4.4.0
-  geocoding: ^2.0.5
   sliding_up_panel: ^2.0.0+1
   searchable_paginated_dropdown: ^1.0.0
-  google_maps_flutter: ^2.2.5
   retrofit: ^4.0.1
   configuration:
     path: ./configuration
   flutter_bloc: ^8.1.2
   equatable: ^2.0.5
   shared_preferences_web: ^2.0.6
+  flutter_secure_storage: ^8.0.0
+  pin_code_fields: ^7.4.0
+  smooth_page_indicator: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +81,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/img/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

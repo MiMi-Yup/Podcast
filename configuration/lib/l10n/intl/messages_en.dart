@@ -31,13 +31,20 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vui lòng kiểm tra lại tín hiệu Wifi hoặc 3G/4G của bạn."),
         "databaseException":
             MessageLookupByLibrary.simpleMessage("Database exception"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Get setting"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "otherLogin": MessageLookupByLibrary.simpleMessage("or continue with"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
         "serverNotFound":
             MessageLookupByLibrary.simpleMessage("Server not found"),
         "serverUnknownError":
-            MessageLookupByLibrary.simpleMessage("Hệ thống có chút vấn đề")
+            MessageLookupByLibrary.simpleMessage("Hệ thống có chút vấn đề"),
+        "systemError": MessageLookupByLibrary.simpleMessage(
+            "Something wrong! Please try later."),
+        "tryIt": MessageLookupByLibrary.simpleMessage("Try it")
       };
 }

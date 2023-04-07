@@ -149,6 +149,66 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Something wrong! Please try later.`
+  String get systemError {
+    return Intl.message(
+      'Something wrong! Please try later.',
+      name: 'systemError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login {
+    return Intl.message(
+      'Login',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try it`
+  String get tryIt {
+    return Intl.message(
+      'Try it',
+      name: 'tryIt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `or continue with`
+  String get otherLogin {
+    return Intl.message(
+      'or continue with',
+      name: 'otherLogin',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

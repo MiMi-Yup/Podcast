@@ -290,14 +290,54 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_plugin_android_lifecycle:
-    dependency: transitive
+  flutter_secure_storage:
+    dependency: "direct main"
     description:
-      name: flutter_plugin_android_lifecycle
-      sha256: c224ac897bed083dabf11f238dd11a239809b446740be0c2044608c50029ffdf
+      name: flutter_secure_storage
+      sha256: "98352186ee7ad3639ccc77ad7924b773ff6883076ab952437d20f18a61f0a7c5"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.9"
+    version: "8.0.0"
+  flutter_secure_storage_linux:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_linux
+      sha256: "0912ae29a572230ad52d8a4697e5518d7f0f429052fd51df7e5a7952c7efe2a3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.3"
+  flutter_secure_storage_macos:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_macos
+      sha256: "083add01847fc1c80a07a08e1ed6927e9acd9618a35e330239d4422cd2a58c50"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
+  flutter_secure_storage_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_platform_interface
+      sha256: b3773190e385a3c8a382007893d678ae95462b3c2279e987b55d140d3b0cb81b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  flutter_secure_storage_web:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_web
+      sha256: "42938e70d4b872e856e678c423cc0e9065d7d294f45bc41fc1981a4eb4beaffe"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
+  flutter_secure_storage_windows:
+    dependency: transitive
+    description:
+      name: flutter_secure_storage_windows
+      sha256: fc2910ec9b28d60598216c29ea763b3a96c401f0ce1d13cdf69ccb0e5c93c3ee
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -316,38 +356,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  geocoding:
-    dependency: "direct main"
-    description:
-      name: geocoding
-      sha256: b34c0501bbbaf3190b85bef3078b27cf66c28a8915c6d3af50d67f356aa7da31
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
-  geocoding_android:
-    dependency: transitive
-    description:
-      name: geocoding_android
-      sha256: "5a1fc0cec9b0497b44ca31c1fa8d1c891f3aded1053e6bb2eac075d3bd1bf046"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
-  geocoding_ios:
-    dependency: transitive
-    description:
-      name: geocoding_ios
-      sha256: c85495ce8fb34e4fbd2dd8fc5f79263d622d9f88c4af948c965daf6b27a7f3a1
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
-  geocoding_platform_interface:
-    dependency: transitive
-    description:
-      name: geocoding_platform_interface
-      sha256: "8848605d307d844d89937cdb4b8ad7dfa880552078f310fa24d8a460f6dddab4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   get:
     dependency: transitive
     description:
@@ -372,38 +380,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  google_maps_flutter:
-    dependency: "direct main"
-    description:
-      name: google_maps_flutter
-      sha256: "24392ef192f3b00bcd93151375676805a9933574423a5bd5509a0ead2e8a4215"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.5"
-  google_maps_flutter_android:
-    dependency: transitive
-    description:
-      name: google_maps_flutter_android
-      sha256: ee3c1a63983b8ba17a9a7c1233c3542fbfbc0ebf540d3aa9b8fd5162681e0219
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.10"
-  google_maps_flutter_ios:
-    dependency: transitive
-    description:
-      name: google_maps_flutter_ios
-      sha256: e9ad74415a222573625a2c1717adc1e375b18e8ce660fc12db734d1bda1132d4
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.1"
-  google_maps_flutter_platform_interface:
-    dependency: transitive
-    description:
-      name: google_maps_flutter_platform_interface
-      sha256: a07811d2b82055815ede75e1fe4b7b76f71a0b4820b26f71bdaddd157d6a3e20
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.6"
   graphs:
     dependency: transitive
     description:
@@ -492,30 +468,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  location:
-    dependency: "direct main"
-    description:
-      name: location
-      sha256: "9051959f6f2ccadd887b28b66e9cbbcc25b6838e37cf9e894c421ccc0ebf80b5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.4.0"
-  location_platform_interface:
-    dependency: transitive
-    description:
-      name: location_platform_interface
-      sha256: "62eeaf1658e92e4459b727f55a3c328eccbac8ba043fa6d262ac5286ad48384c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.0"
-  location_web:
-    dependency: transitive
-    description:
-      name: location_web
-      sha256: "6c08c408a040534c0269c4ff9fe17eebb5a36dea16512fbaf116b9c8bc21545b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.1"
   logger:
     dependency: transitive
     description:
@@ -588,6 +540,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  pin_code_fields:
+    dependency: "direct main"
+    description:
+      name: pin_code_fields
+      sha256: c8652519d14688f3fe2a8288d86910a46aa0b9046d728f292d3bf6067c31b4c7
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.4.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -713,6 +673,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0+1"
+  smooth_page_indicator:
+    dependency: "direct main"
+    description:
+      name: smooth_page_indicator
+      sha256: "8c301bc686892306cd41672c1880167f140c16be305d5ede8201fefd9fcda829"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   socket_io_client:
     dependency: transitive
     description:
@@ -859,4 +827,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.19.4 <3.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.0.0"

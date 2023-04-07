@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.where_my_team">
+    package="com.example.join_podcast">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
    <application
-        android:label="where_my_team"
+        android:label="join_podcast"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

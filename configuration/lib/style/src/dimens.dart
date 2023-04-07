@@ -5,6 +5,8 @@ double mPaddingLarge = 32;
 double mPaddingNormal = 12;
 double mPadding = 16;
 
+double mSpacing = 10;
+
 double mMargin = 16.0;
 
 // radius

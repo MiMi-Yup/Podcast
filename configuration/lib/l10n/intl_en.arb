@@ -8,5 +8,11 @@
     "connectionProblemDesc": "Vui lòng kiểm tra lại tín hiệu Wifi hoặc 3G/4G của bạn.",
     "serverNotFound": "Server not found",
     "serverUnknownError": "Hệ thống có chút vấn đề",
-    "getSetting": "Get setting"
+    "getSetting": "Get setting",
+    "systemError": "Something wrong! Please try later.",
+    "login": "Login",
+    "tryIt": "Try it",
+    "email": "Email",
+    "password": "Password",
+    "otherLogin": "or continue with"
 }
