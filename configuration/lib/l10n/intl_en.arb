@@ -14,5 +14,12 @@
     "tryIt": "Try it",
     "email": "Email",
     "password": "Password",
-    "otherLogin": "or continue with"
+    "otherLogin": "or continue with",
+    "signUp": "Sign up",
+    "loginTitle": "Login to Your Account",
+    "signUpTitle": "Create Your Account",
+    "loginSuggest": "Already have an account? ",
+    "signUpSuggest": "Don't hae an account? ",
+    "rememberAccount": "Remember me",
+    "inValidInput": "Email or password is invalid"
 }

@@ -209,6 +209,76 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Sign up`
+  String get signUp {
+    return Intl.message(
+      'Sign up',
+      name: 'signUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login to Your Account`
+  String get loginTitle {
+    return Intl.message(
+      'Login to Your Account',
+      name: 'loginTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Your Account`
+  String get signUpTitle {
+    return Intl.message(
+      'Create Your Account',
+      name: 'signUpTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account? `
+  String get loginSuggest {
+    return Intl.message(
+      'Already have an account? ',
+      name: 'loginSuggest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't hae an account? `
+  String get signUpSuggest {
+    return Intl.message(
+      'Don\'t hae an account? ',
+      name: 'signUpSuggest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remember me`
+  String get rememberAccount {
+    return Intl.message(
+      'Remember me',
+      name: 'rememberAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email or password is invalid`
+  String get inValidInput {
+    return Intl.message(
+      'Email or password is invalid',
+      name: 'inValidInput',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

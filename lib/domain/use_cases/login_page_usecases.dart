@@ -12,6 +12,9 @@ class LoginUseCases {
   LoginUseCases({required this.unitOfWork});
 
   Future<UserModel?> login(String email, String password) async {
+    //for test
+    return new UserModel(id: 1, name: 'Admin', email: 'admin@gmail.com');
+    // end for test
     LoginUserResponse? user = await unitOfWork.auth
         .loginByPassword(LoginUserRequest(email: email, password: password));
     if (user != null && user.token != null && user.token!.isNotEmpty) {
@@ -21,6 +24,9 @@ class LoginUseCases {
   }
 
   Future<UserModel?> signUp(String name, String email, String password) async {
+    //for test
+    return new UserModel(id: 1, name: 'Admin', email: 'admin@gmail.com');
+    // end for test
     LoginUserResponse? user = await unitOfWork.auth
         .signUp(NewUserRequest(name: name, email: email, password: password));
     return user?.user;

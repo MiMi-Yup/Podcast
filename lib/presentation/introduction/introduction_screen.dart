@@ -6,6 +6,9 @@ import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_primary_button.dart';
+import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/auth/login/login_route.dart';
+import 'package:join_podcast/presentation/home/ui/home_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroductionModel {
@@ -15,14 +18,14 @@ class IntroductionModel {
   IntroductionModel(this.imageAsset, this.title, this.subTitle);
 }
 
-class IntroductionPageScreen extends StatefulWidget {
-  const IntroductionPageScreen({Key? key}) : super(key: key);
+class IntroductionScreen extends StatefulWidget {
+  const IntroductionScreen({Key? key}) : super(key: key);
 
   @override
-  State<IntroductionPageScreen> createState() => _IntroductionPageScreenState();
+  State<IntroductionScreen> createState() => _IntroductionScreenState();
 }
 
-class _IntroductionPageScreenState extends State<IntroductionPageScreen> {
+class _IntroductionScreenState extends State<IntroductionScreen> {
   final _pages = 3;
   late PageController _controller;
   late Timer _timer;
@@ -42,7 +45,7 @@ class _IntroductionPageScreenState extends State<IntroductionPageScreen> {
   void initState() {
     super.initState();
     _controller = PageController(initialPage: currentPosition);
-    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
       switch (currentPosition) {
         case 0:
           endPage = false;
@@ -126,7 +129,7 @@ class _IntroductionPageScreenState extends State<IntroductionPageScreen> {
             child: MPrimaryButton(
                 text: MultiLanguage.of(context).login,
                 onPressed: () =>
-                    XMDRouter.pushNamedAndRemoveUntil('LoginPageRoute'),
+                    XMDRouter.pushNamed(routerIds[LoginRoute]!),
                 background: mCPrimary),
           ),
           Container(
@@ -136,7 +139,7 @@ class _IntroductionPageScreenState extends State<IntroductionPageScreen> {
             child: MPrimaryButton(
                 text: MultiLanguage.of(context).tryIt,
                 onPressed: () =>
-                    XMDRouter.pushNamedAndRemoveUntil('HomePageRoute'),
+                    XMDRouter.pushNamed(routerIds[HomeScreen]!),
                 background: mCSecondary),
           )
         ],

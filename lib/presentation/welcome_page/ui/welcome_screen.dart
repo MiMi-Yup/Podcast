@@ -4,17 +4,20 @@ import 'package:configuration/route/xmd_router.dart';
 import 'package:flutter/material.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:join_podcast/presentation/welcome_page/cubit/welcome_page_cubit.dart';
+import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/home/ui/home_screen.dart';
+import 'package:join_podcast/presentation/introduction_page/introduction_screen.dart';
+import 'package:join_podcast/presentation/welcome_page/cubit/welcome_cubit.dart';
 import 'package:join_podcast/utils/alert_util.dart';
 
-class WelcomePageScreen extends StatefulWidget {
-  const WelcomePageScreen({Key? key}) : super(key: key);
+class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<WelcomePageScreen> createState() => _WelcomePageScreenState();
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomePageScreenState extends State<WelcomePageScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen> {
   double opacityLevel = 0.0;
   Timer? _timer;
 
@@ -27,7 +30,7 @@ class _WelcomePageScreenState extends State<WelcomePageScreen> {
     super.initState();
     _timer =
         Timer.periodic(const Duration(seconds: 2), (timer) => _changeOpacity());
-    context.read<WelcomePageCubit>().init();
+    context.read<WelcomeCubit>().init();
   }
 
   @override
@@ -38,14 +41,14 @@ class _WelcomePageScreenState extends State<WelcomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<WelcomePageCubit, WelcomePageState>(
+    return BlocConsumer<WelcomeCubit, WelcomeState>(
       listener: (context, state) {
         switch (state.status) {
           case WelcomeStatus.newUser:
-            XMDRouter.pushNamedAndRemoveUntil('IntroductionPageRoute');
+            XMDRouter.pushNamedAndRemoveUntil(routerIds[IntroductionScreen]!);
             break;
           case WelcomeStatus.login:
-            XMDRouter.pushNamedAndRemoveUntil('HomePageRoute');
+            XMDRouter.pushNamedAndRemoveUntil(routerIds[HomeScreen]!);
             break;
           case WelcomeStatus.error:
             AlertUtil.showToast(MultiLanguage.of(context).systemError);

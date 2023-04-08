@@ -12,7 +12,7 @@ class MPrimaryButton extends StatelessWidget {
   const MPrimaryButton(
       {super.key,
       this.textColor = Colors.white,
-      this.background = Colors.purple,
+      this.background = const Color.fromARGB(255, 150, 16, 255),
       required this.text,
       this.style,
       required this.onPressed,
@@ -36,8 +36,8 @@ class MPrimaryButton extends StatelessWidget {
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(borderRadius))),
               backgroundColor: MaterialStateProperty.all(background)),
-          child: Text(text,
-              style: style ?? mST20M.copyWith(color: Colors.white))),
+          child:
+              Text(text, style: style ?? mST20M.copyWith(color: Colors.white))),
     );
   }
 }

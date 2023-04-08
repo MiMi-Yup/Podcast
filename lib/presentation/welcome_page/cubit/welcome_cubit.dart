@@ -1,18 +1,17 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:join_podcast/domain/use_cases/login_page_usecases.dart';
 import 'package:join_podcast/domain/use_cases/welcome_page_usecases.dart';
 import 'package:join_podcast/models/user_model.dart';
 
-part 'welcome_page_state.dart';
+part 'welcome_state.dart';
 
 @injectable
-class WelcomePageCubit extends Cubit<WelcomePageState> {
+class WelcomeCubit extends Cubit<WelcomeState> {
   final WelcomeUseCases welcomeUserCases;
 
-  WelcomePageCubit({required this.welcomeUserCases})
-      : super(WelcomePageState.initial());
+  WelcomeCubit({required this.welcomeUserCases})
+      : super(WelcomeState.initial());
 
   void init() {
     // welcomeUserCases

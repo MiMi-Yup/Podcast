@@ -28,9 +28,9 @@ import 'package:join_podcast/domain/repositories/user_repository.dart' as _i8;
 import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i15;
 import 'package:join_podcast/domain/use_cases/welcome_page_usecases.dart'
     as _i14;
-import 'package:join_podcast/presentation/auth/login/cubit/login_page_cubit.dart'
+import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart'
     as _i17;
-import 'package:join_podcast/presentation/welcome_page/cubit/welcome_page_cubit.dart'
+import 'package:join_podcast/presentation/welcome_page/cubit/welcome_cubit.dart'
     as _i16;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -63,10 +63,10 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i14.WelcomeUseCases(unitOfWork: gh<_i12.UnitOfWork>()));
     gh.factory<_i15.LoginUseCases>(
         () => _i15.LoginUseCases(unitOfWork: gh<_i12.UnitOfWork>()));
-    gh.factory<_i16.WelcomePageCubit>(() =>
-        _i16.WelcomePageCubit(welcomeUserCases: gh<_i14.WelcomeUseCases>()));
-    gh.factory<_i17.LoginPageCubit>(
-        () => _i17.LoginPageCubit(loginUserCases: gh<_i15.LoginUseCases>()));
+    gh.factory<_i16.WelcomeCubit>(
+        () => _i16.WelcomeCubit(welcomeUserCases: gh<_i14.WelcomeUseCases>()));
+    gh.factory<_i17.LoginCubit>(
+        () => _i17.LoginCubit(loginUserCases: gh<_i15.LoginUseCases>()));
     return this;
   }
 }

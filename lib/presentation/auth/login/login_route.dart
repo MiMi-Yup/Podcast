@@ -3,30 +3,30 @@ import 'package:configuration/route/xmd_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/auth/login/cubit/login_page_cubit.dart';
-import 'package:join_podcast/presentation/auth/login/ui/login_page_screen.dart';
+import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart';
+import 'package:join_podcast/presentation/auth/login/ui/login_screen.dart';
 
-class LoginPageRoute extends RouteDefine {
+class LoginRoute extends RouteDefine {
   @override
   List<Path> initRoute(Map? arguments) => [
         Path(
-          route: LoginPageRoute,
+          route: LoginRoute,
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider<LoginPageCubit>(
-                create: (_) => getIt<LoginPageCubit>(),
+              BlocProvider<LoginCubit>(
+                create: (_) => getIt<LoginCubit>(),
               ),
             ],
-            child: const LoginPageScreen(),
+            child: const LoginScreen(),
           ),
         ),
       ];
 
   static pushAndRemoveAll() {
-    XMDRouter.pushNamedAndRemoveUntil(routerIds[LoginPageRoute]!);
+    XMDRouter.pushNamedAndRemoveUntil(routerIds[LoginRoute]!);
   }
 
   static popAndRemoveAll() {
-    XMDRouter.popNamedAndRemoveUntil(routerIds[LoginPageRoute]!);
+    XMDRouter.popNamedAndRemoveUntil(routerIds[LoginRoute]!);
   }
 }

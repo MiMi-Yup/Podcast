@@ -33,16 +33,28 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Database exception"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Get setting"),
+        "inValidInput": MessageLookupByLibrary.simpleMessage(
+            "Email or password is invalid"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginSuggest":
+            MessageLookupByLibrary.simpleMessage("Already have an account? "),
+        "loginTitle":
+            MessageLookupByLibrary.simpleMessage("Login to Your Account"),
         "otherLogin": MessageLookupByLibrary.simpleMessage("or continue with"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
+        "rememberAccount": MessageLookupByLibrary.simpleMessage("Remember me"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
         "serverNotFound":
             MessageLookupByLibrary.simpleMessage("Server not found"),
         "serverUnknownError":
             MessageLookupByLibrary.simpleMessage("Hệ thống có chút vấn đề"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
+        "signUpSuggest":
+            MessageLookupByLibrary.simpleMessage("Don\'t hae an account? "),
+        "signUpTitle":
+            MessageLookupByLibrary.simpleMessage("Create Your Account"),
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Something wrong! Please try later."),
         "tryIt": MessageLookupByLibrary.simpleMessage("Try it")
