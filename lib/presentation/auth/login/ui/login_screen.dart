@@ -10,7 +10,6 @@ import 'package:join_podcast/common/widgets/m_secondary_button.dart';
 import 'package:join_podcast/common/widgets/m_text_field.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart';
-import 'package:join_podcast/presentation/home/ui/home_screen.dart';
 import 'package:join_podcast/utils/alert_util.dart';
 import 'package:join_podcast/utils/extensions/context_extension.dart';
 
@@ -130,9 +129,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           break;
                         case LoginStatus.success:
                           if (state is SignUpState) {
-                            XMDRouter.pushNamed('AccountSetupRoute');
+                            // XMDRouter.pushNamed('AccountSetupRoute');
                           } else {
-                            XMDRouter.pushNamed(routerIds[HomeScreen]!);
+                            // XMDRouter.pushNamed(routerIds[HomeRoute]!);
                           }
                           break;
                         case LoginStatus.submitting:

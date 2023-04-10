@@ -6,7 +6,8 @@ import 'package:configuration/style/style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/home/ui/home_screen.dart';
-import 'package:join_podcast/presentation/introduction_page/introduction_screen.dart';
+import 'package:join_podcast/presentation/introduction/introduction_route.dart';
+import 'package:join_podcast/presentation/introduction/introduction_screen.dart';
 import 'package:join_podcast/presentation/welcome_page/cubit/welcome_cubit.dart';
 import 'package:join_podcast/utils/alert_util.dart';
 
@@ -45,10 +46,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       listener: (context, state) {
         switch (state.status) {
           case WelcomeStatus.newUser:
-            XMDRouter.pushNamedAndRemoveUntil(routerIds[IntroductionScreen]!);
+            XMDRouter.pushNamedAndRemoveUntil(routerIds[IntroductionRoute]!);
             break;
           case WelcomeStatus.login:
-            XMDRouter.pushNamedAndRemoveUntil(routerIds[HomeScreen]!);
+            // XMDRouter.pushNamedAndRemoveUntil(routerIds[HomeRoute]!);
             break;
           case WelcomeStatus.error:
             AlertUtil.showToast(MultiLanguage.of(context).systemError);
