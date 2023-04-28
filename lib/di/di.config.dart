@@ -19,19 +19,32 @@ import 'package:join_podcast/data/data_source/remote/auth_service.dart' as _i6;
 import 'package:join_podcast/data/preferences_repository_impl.dart' as _i11;
 import 'package:join_podcast/data/unit_of_work_impl.dart' as _i13;
 import 'package:join_podcast/data/user/user_repository_impl.dart' as _i9;
-import 'package:join_podcast/di/module/network_module.dart' as _i18;
+import 'package:join_podcast/di/module/network_module.dart' as _i25;
 import 'package:join_podcast/domain/repositories/auth_repository.dart' as _i4;
 import 'package:join_podcast/domain/repositories/preferences_repository.dart'
     as _i10;
 import 'package:join_podcast/domain/repositories/unit_of_work.dart' as _i12;
 import 'package:join_podcast/domain/repositories/user_repository.dart' as _i8;
-import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i15;
+import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i18;
 import 'package:join_podcast/domain/use_cases/welcome_page_usecases.dart'
     as _i14;
+import 'package:join_podcast/presentation/auth/add_info/cubit/add_info_cubit.dart'
+    as _i22;
 import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart'
-    as _i17;
-import 'package:join_podcast/presentation/welcome_page/cubit/welcome_cubit.dart'
+    as _i24;
+import 'package:join_podcast/presentation/author/cubit/author_cubit.dart'
+    as _i15;
+import 'package:join_podcast/presentation/bottom_bar/cubit/bottom_bar_cubit.dart'
     as _i16;
+import 'package:join_podcast/presentation/home/cubit/home_cubit.dart' as _i17;
+import 'package:join_podcast/presentation/interested/cubit/interested_cubit.dart'
+    as _i23;
+import 'package:join_podcast/presentation/notification/cubit/notification_cubit.dart'
+    as _i19;
+import 'package:join_podcast/presentation/subscription/cubit/subscription_cubit.dart'
+    as _i20;
+import 'package:join_podcast/presentation/welcome_page/cubit/welcome_cubit.dart'
+    as _i21;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -61,14 +74,28 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i14.WelcomeUseCases>(
         () => _i14.WelcomeUseCases(unitOfWork: gh<_i12.UnitOfWork>()));
-    gh.factory<_i15.LoginUseCases>(
-        () => _i15.LoginUseCases(unitOfWork: gh<_i12.UnitOfWork>()));
-    gh.factory<_i16.WelcomeCubit>(
-        () => _i16.WelcomeCubit(welcomeUserCases: gh<_i14.WelcomeUseCases>()));
-    gh.factory<_i17.LoginCubit>(
-        () => _i17.LoginCubit(loginUserCases: gh<_i15.LoginUseCases>()));
+    gh.factory<_i15.AuthorCubit>(
+        () => _i15.AuthorCubit(unitOfWork: gh<_i12.UnitOfWork>()));
+    gh.factory<_i16.BottomBarCubit>(
+        () => _i16.BottomBarCubit(unitOfWork: gh<_i12.UnitOfWork>()));
+    gh.factory<_i17.HomeCubit>(
+        () => _i17.HomeCubit(unitOfWork: gh<_i12.UnitOfWork>()));
+    gh.factory<_i18.LoginUseCases>(
+        () => _i18.LoginUseCases(unitOfWork: gh<_i12.UnitOfWork>()));
+    gh.factory<_i19.NotificationCubit>(
+        () => _i19.NotificationCubit(unitOfWork: gh<_i12.UnitOfWork>()));
+    gh.factory<_i20.SubscriptionCubit>(
+        () => _i20.SubscriptionCubit(unitOfWork: gh<_i12.UnitOfWork>()));
+    gh.factory<_i21.WelcomeCubit>(
+        () => _i21.WelcomeCubit(welcomeUserCases: gh<_i14.WelcomeUseCases>()));
+    gh.factory<_i22.AddInfoCubit>(
+        () => _i22.AddInfoCubit(loginUserCases: gh<_i18.LoginUseCases>()));
+    gh.factory<_i23.InterestedCubit>(
+        () => _i23.InterestedCubit(loginUserCases: gh<_i18.LoginUseCases>()));
+    gh.factory<_i24.LoginCubit>(
+        () => _i24.LoginCubit(loginUserCases: gh<_i18.LoginUseCases>()));
     return this;
   }
 }
 
-class _$NetworkModule extends _i18.NetworkModule {}
+class _$NetworkModule extends _i25.NetworkModule {}

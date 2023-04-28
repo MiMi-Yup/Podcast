@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 
-part 'home_state.dart';
+part 'subscription_state.dart';
 
 @injectable
-class HomeCubit extends Cubit<HomeState> {
+class SubscriptionCubit extends Cubit<SubscriptionState> {
   final UnitOfWork unitOfWork;
-  HomeCubit({required this.unitOfWork})
-      : super(HomeStateInitial(currentIndex: 0));
+  SubscriptionCubit({required this.unitOfWork})
+      : super(SubscriptionStateInitial(currentIndex: 0));
 }

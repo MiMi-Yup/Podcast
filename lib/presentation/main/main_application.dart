@@ -12,7 +12,7 @@ final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
 class MainApplication extends StatefulWidget {
   const MainApplication({Key? key}) : super(key: key);
   @override
-  _MainApplicationState createState() => _MainApplicationState();
+  State<MainApplication> createState() => _MainApplicationState();
 }
 
 class _MainApplicationState extends State<MainApplication>
@@ -24,12 +24,12 @@ class _MainApplicationState extends State<MainApplication>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -68,12 +68,17 @@ class _MainApplicationState extends State<MainApplication>
       debugShowCheckedModeBanner: false,
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en'),
+      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey,
+      ),
+      //change ThemeMode to change theme
+      themeMode: ThemeMode.light,
       initialRoute: route,
-      onGenerateRoute: (settings) =>
-          manifest(
-            generateRoutes,
-            settings,
-          ),
+      onGenerateRoute: (settings) => manifest(
+        generateRoutes,
+        settings,
+      ),
     );
   }
 }

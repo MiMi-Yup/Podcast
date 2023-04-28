@@ -30,6 +30,8 @@ class LoginCubit extends Cubit<ALoginState> {
   }
 
   void primaryAction() async {
+    //bypass login
+    emit(state.copyWith(status: LoginStatus.success));
     if (state.isFormValid) {
       emit(state.copyWith(status: LoginStatus.submitting));
       UserModel? user = null;
@@ -42,16 +44,5 @@ class LoginCubit extends Cubit<ALoginState> {
     } else {
       emit(state.copyWith(status: LoginStatus.error));
     }
-  }
-
-  void loginClickedEvent() {
-    if (state.status == LoginStatus.submitting) return;
-    emit(state.copyWith(status: LoginStatus.submitting));
-    loginUserCases.login(state.email, state.password).then((value) => {
-          if (value != null)
-            emit(state.copyWith(status: LoginStatus.success))
-          else
-            emit(state.copyWith(status: LoginStatus.error))
-        });
   }
 }

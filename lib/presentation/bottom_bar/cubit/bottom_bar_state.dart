@@ -1,22 +1,22 @@
-part of 'home_cubit.dart';
+part of 'bottom_bar_cubit.dart';
 
 @immutable
-abstract class HomeState extends Equatable {}
+abstract class BottomBarState extends Equatable {}
 
-class HomeStateInitial extends HomeState {
+class BottomBarInitial extends BottomBarState {
   final int currentIndex;
   final bool isHidden;
 
-  HomeStateInitial({required this.currentIndex, this.isHidden = false});
+  BottomBarInitial({required this.currentIndex, this.isHidden = false});
 
   @override
   List<Object?> get props => [currentIndex, isHidden];
 
-  HomeStateInitial copyWith({
+  BottomBarInitial copyWith({
     int? currentIndex,
     bool? isHidden,
   }) {
-    return HomeStateInitial(
+    return BottomBarInitial(
       currentIndex: currentIndex ?? this.currentIndex,
       isHidden: isHidden ?? this.isHidden,
     );

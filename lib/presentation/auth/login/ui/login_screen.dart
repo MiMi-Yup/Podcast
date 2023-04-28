@@ -9,7 +9,9 @@ import 'package:join_podcast/common/widgets/m_primary_button.dart';
 import 'package:join_podcast/common/widgets/m_secondary_button.dart';
 import 'package:join_podcast/common/widgets/m_text_field.dart';
 import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/auth/add_info/add_info_route.dart';
 import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart';
+import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
 import 'package:join_podcast/utils/alert_util.dart';
 import 'package:join_podcast/utils/extensions/context_extension.dart';
 
@@ -23,6 +25,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  
   @override
   void initState() {
     super.initState();
@@ -128,10 +131,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               MultiLanguage.of(context).inValidInput);
                           break;
                         case LoginStatus.success:
+                          AlertUtil.hideLoading();
                           if (state is SignUpState) {
-                            // XMDRouter.pushNamed('AccountSetupRoute');
+                            XMDRouter.pushNamed(routerIds[AddInfoRoute]!);
                           } else {
-                            // XMDRouter.pushNamed(routerIds[HomeRoute]!);
+                            XMDRouter.pushNamed(routerIds[BottomBarRoute]!);
                           }
                           break;
                         case LoginStatus.submitting:

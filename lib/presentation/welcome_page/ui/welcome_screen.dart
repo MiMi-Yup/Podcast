@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
+import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +63,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         return Scaffold(
           appBar: null,
           body: Container(
-            decoration: BoxDecoration(color: mCLightBackground),
             child: AnimatedOpacity(
                 duration: Duration(seconds: 2),
                 opacity: opacityLevel,
@@ -71,7 +71,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image(
-                          image: AssetImage("assets/img/logo.png"),
+                          image: AssetImage(mALogo),
                           width: 75,
                         ),
                         SizedBox(width: mSpacing),
