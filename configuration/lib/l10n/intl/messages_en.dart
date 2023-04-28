@@ -22,39 +22,67 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "author": MessageLookupByLibrary.simpleMessage("Author"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
+        "clear": MessageLookupByLibrary.simpleMessage("Clear"),
         "connectTimeout":
             MessageLookupByLibrary.simpleMessage("Connect timeout"),
         "connectionProblem":
             MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
         "connectionProblemDesc": MessageLookupByLibrary.simpleMessage(
             "Vui lòng kiểm tra lại tín hiệu Wifi hoặc 3G/4G của bạn."),
+        "country": MessageLookupByLibrary.simpleMessage("Country"),
         "databaseException":
             MessageLookupByLibrary.simpleMessage("Database exception"),
+        "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
+        "discover": MessageLookupByLibrary.simpleMessage("Discover"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
+        "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Get setting"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
             "Email or password is invalid"),
+        "library": MessageLookupByLibrary.simpleMessage("Library"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginSuggest":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
         "loginTitle":
             MessageLookupByLibrary.simpleMessage("Login to Your Account"),
+        "m_continue": MessageLookupByLibrary.simpleMessage("Continue"),
+        "markDone": MessageLookupByLibrary.simpleMessage("Mark done"),
+        "mins": MessageLookupByLibrary.simpleMessage("mins"),
+        "newUpdates": MessageLookupByLibrary.simpleMessage("New Updates"),
+        "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "otherLogin": MessageLookupByLibrary.simpleMessage("or continue with"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
         "rememberAccount": MessageLookupByLibrary.simpleMessage("Remember me"),
+        "report": MessageLookupByLibrary.simpleMessage("Report"),
+        "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
         "serverNotFound":
             MessageLookupByLibrary.simpleMessage("Server not found"),
         "serverUnknownError":
             MessageLookupByLibrary.simpleMessage("Hệ thống có chút vấn đề"),
+        "share": MessageLookupByLibrary.simpleMessage("Share"),
+        "showLess": MessageLookupByLibrary.simpleMessage("show less"),
+        "showMore": MessageLookupByLibrary.simpleMessage("show more"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "signUpSuggest":
             MessageLookupByLibrary.simpleMessage("Don\'t hae an account? "),
         "signUpTitle":
             MessageLookupByLibrary.simpleMessage("Create Your Account"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "sortByName": MessageLookupByLibrary.simpleMessage("Sort by Name"),
+        "sortByPodcast":
+            MessageLookupByLibrary.simpleMessage("Sort by Podcasts"),
+        "subcribe": MessageLookupByLibrary.simpleMessage("Subcribe"),
+        "subcribed": MessageLookupByLibrary.simpleMessage("Subcribed"),
+        "subscription": MessageLookupByLibrary.simpleMessage("Subscriptions"),
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Something wrong! Please try later."),
         "tryIt": MessageLookupByLibrary.simpleMessage("Try it")

@@ -1,150 +1,123 @@
 part of style;
 
 void setStyleDefault() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: mCInk500,
       systemNavigationBarIconBrightness: Brightness.light));
 }
 
-final mST48M =  TextStyle(
+const mST48M = TextStyle(
   fontFamily: 'SvnGilroy',
   fontWeight: FontWeight.w700,
-  color: mCInk500,
   fontSize: 48.0,
 );
 
-final mST48R =  TextStyle(
-    fontFamily: 'SvnGilroy',
-    fontWeight: FontWeight.w400,
-    color: mCInk500,
-    fontSize: 48.0,
-
-);
-
-final mST32M = TextStyle(
-    fontFamily: 'SvnGilroy',
-    fontWeight: FontWeight.w700,
-    color: mCInk500,
-    fontSize: 32.0,
-
-);
-
-final mST32R =  TextStyle(
-    fontFamily: 'SvnGilroy',
-    fontWeight: FontWeight.w400,
-    color: mCInk500,
-    fontSize: 32.0,
-
-);
-
-final mST24M = TextStyle(
-    fontFamily: 'SvnGilroy',
-    fontWeight: FontWeight.w700,
-    color: mCInk500,
-    fontSize: 24.0,
-
-);
-
-final mST24R = TextStyle(
-    fontFamily: 'SvnGilroy',
-    fontWeight: FontWeight.w400,
-    color: mCInk500,
-    fontSize: 24.0,
-
-);
-
-
-final mST20M = TextStyle(
-    fontFamily: 'SvnGilroy',
-    fontWeight: FontWeight.w700,
-    color: mCInk500,
-    fontSize: 20.0,
-
-);
-
-final mST20R = TextStyle(
+const mST48R = TextStyle(
   fontFamily: 'SvnGilroy',
   fontWeight: FontWeight.w400,
-  color: mCInk500,
+  fontSize: 48.0,
+);
+
+const mST32M = TextStyle(
+  fontFamily: 'SvnGilroy',
+  fontWeight: FontWeight.w700,
+  fontSize: 32.0,
+);
+
+const mST32R = TextStyle(
+  fontFamily: 'SvnGilroy',
+  fontWeight: FontWeight.w400,
+  fontSize: 32.0,
+);
+
+const mST24M = TextStyle(
+  fontFamily: 'SvnGilroy',
+  fontWeight: FontWeight.w700,
+  fontSize: 24.0,
+);
+
+const mST24R = TextStyle(
+  fontFamily: 'SvnGilroy',
+  fontWeight: FontWeight.w400,
+  fontSize: 24.0,
+);
+
+const mST20M = TextStyle(
+  fontFamily: 'SvnGilroy',
+  fontWeight: FontWeight.w700,
   fontSize: 20.0,
 );
 
-final mST18M = TextStyle(
+const mST20R = TextStyle(
+  fontFamily: 'SvnGilroy',
+  fontWeight: FontWeight.w400,
+  fontSize: 20.0,
+);
+
+const mST18M = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w500,
-  color: mCInk500,
   fontSize: 18.0,
 );
 
-final mST18R = TextStyle(
+const mST18R = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w400,
-  color: mCInk500,
   fontSize: 18.0,
 );
 
-final mST16M = TextStyle(
+const mST16M = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w500,
-  color: mCInk500,
   fontSize: 16.0,
 );
 
-final mST16R = TextStyle(
+const mST16R = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w400,
-  color: mCInk500,
   fontSize: 16.0,
 );
 
-final mST14M = TextStyle(
+const mST14M = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w500,
-  color: mCInk500,
   fontSize: 14.0,
 );
 
-final mST14R = TextStyle(
+const mST14R = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w400,
-  color: mCInk500,
   fontSize: 14.0,
 );
 
-final mST12M = TextStyle(
+const mST12M = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w500,
-  color: mCInk500,
   fontSize: 12.0,
 );
 
-final mST12R = TextStyle(
+const mST12R = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w400,
-  color: mCInk500,
   fontSize: 12.0,
 );
 
-final mST10M = TextStyle(
+const mST10M = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w500,
-  color: mCInk500,
   fontSize: 12.0,
 );
 
-final mST10R = TextStyle(
+const mST10R = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w400,
-  color: mCInk500,
   fontSize: 12.0,
 );
 
 //Old text style
 
 final textTitleStyleH1 = TextStyle(
-  color: mCInk500,
   fontSize: mH1,
   fontFamily: "SvnGilroy",
   fontStyle: FontStyle.normal,
@@ -152,7 +125,6 @@ final textTitleStyleH1 = TextStyle(
 );
 
 final textTitleStyleH2 = TextStyle(
-  color: mCInk500,
   fontSize: mH2,
   fontFamily: "SvnGilroy",
   fontStyle: FontStyle.normal,
@@ -160,7 +132,6 @@ final textTitleStyleH2 = TextStyle(
 );
 
 final textTitleStyleH3 = TextStyle(
-  color: mCInk500,
   fontSize: mH3,
   fontFamily: "Roboto",
   fontStyle: FontStyle.normal,
@@ -168,7 +139,6 @@ final textTitleStyleH3 = TextStyle(
 );
 
 final textTitleStyleH4 = TextStyle(
-  color: mCInk500,
   fontSize: mH4,
   fontFamily: "Roboto",
   fontStyle: FontStyle.normal,
@@ -176,21 +146,18 @@ final textTitleStyleH4 = TextStyle(
 );
 
 final textStyleSmall = TextStyle(
-  color: mCInk500,
   fontSize: mFontSizeSmall,
   fontFamily: "Roboto",
   fontStyle: FontStyle.normal,
 );
 
 final textStylePrimary = TextStyle(
-  color: mCInk500,
   fontSize: mFontSizePrimary,
   fontFamily: "Roboto",
   fontStyle: FontStyle.normal,
 );
 
 final textStyleSecondary = TextStyle(
-  color: mCInk400,
   fontSize: mFontSizeSecondary,
   fontFamily: "Roboto",
   fontStyle: FontStyle.normal,

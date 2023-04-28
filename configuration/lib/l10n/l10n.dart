@@ -279,6 +279,276 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Fill Your Profile`
+  String get fillInfo {
+    return Intl.message(
+      'Fill Your Profile',
+      name: 'fillInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get m_continue {
+    return Intl.message(
+      'Continue',
+      name: 'm_continue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
+  String get fullName {
+    return Intl.message(
+      'Full name',
+      name: 'fullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nickname`
+  String get nickname {
+    return Intl.message(
+      'Nickname',
+      name: 'nickname',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of birth`
+  String get dateOfBirth {
+    return Intl.message(
+      'Date of birth',
+      name: 'dateOfBirth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Country`
+  String get country {
+    return Intl.message(
+      'Country',
+      name: 'country',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message(
+      'Home',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discover`
+  String get discover {
+    return Intl.message(
+      'Discover',
+      name: 'discover',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Library`
+  String get library {
+    return Intl.message(
+      'Library',
+      name: 'library',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message(
+      'Profile',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Author`
+  String get author {
+    return Intl.message(
+      'Author',
+      name: 'author',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscriptions`
+  String get subscription {
+    return Intl.message(
+      'Subscriptions',
+      name: 'subscription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Updates`
+  String get newUpdates {
+    return Intl.message(
+      'New Updates',
+      name: 'newUpdates',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See all`
+  String get seeAll {
+    return Intl.message(
+      'See all',
+      name: 'seeAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `mins`
+  String get mins {
+    return Intl.message(
+      'mins',
+      name: 'mins',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subcribe`
+  String get subcribe {
+    return Intl.message(
+      'Subcribe',
+      name: 'subcribe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subcribed`
+  String get subcribed {
+    return Intl.message(
+      'Subcribed',
+      name: 'subcribed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report`
+  String get report {
+    return Intl.message(
+      'Report',
+      name: 'report',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `show more`
+  String get showMore {
+    return Intl.message(
+      'show more',
+      name: 'showMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `show less`
+  String get showLess {
+    return Intl.message(
+      'show less',
+      name: 'showLess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification`
+  String get notification {
+    return Intl.message(
+      'Notification',
+      name: 'notification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark done`
+  String get markDone {
+    return Intl.message(
+      'Mark done',
+      name: 'markDone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear`
+  String get clear {
+    return Intl.message(
+      'Clear',
+      name: 'clear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort by Name`
+  String get sortByName {
+    return Intl.message(
+      'Sort by Name',
+      name: 'sortByName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort by Podcasts`
+  String get sortByPodcast {
+    return Intl.message(
+      'Sort by Podcasts',
+      name: 'sortByPodcast',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {
