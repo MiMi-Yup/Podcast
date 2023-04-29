@@ -46,7 +46,6 @@ dependencies:
     path: ./configuration
   flutter_bloc: ^8.1.2
   equatable: ^2.0.5
-  shared_preferences_web: ^2.0.6
   flutter_secure_storage: ^8.0.0
   pin_code_fields: ^7.4.0
   smooth_page_indicator: ^1.0.1

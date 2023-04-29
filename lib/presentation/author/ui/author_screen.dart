@@ -25,7 +25,7 @@ class AuthorScreen extends StatelessWidget {
                 value: 0,
                 child: Row(
                   children: [
-                    Icon(Icons.share, color: Theme.of(context).primaryColor),
+                    Icon(Icons.share),
                     SizedBox(
                       width: 10.0,
                     ),
@@ -37,7 +37,7 @@ class AuthorScreen extends StatelessWidget {
                 value: 1,
                 child: Row(
                   children: [
-                    Icon(Icons.wifi, color: Theme.of(context).primaryColor),
+                    Icon(Icons.wifi),
                     SizedBox(
                       width: 10.0,
                     ),
@@ -49,7 +49,7 @@ class AuthorScreen extends StatelessWidget {
                 value: 2,
                 child: Row(
                   children: [
-                    Icon(Icons.report, color: Theme.of(context).primaryColor),
+                    Icon(Icons.report),
                     SizedBox(
                       width: 10.0,
                     ),
@@ -135,6 +135,10 @@ class AuthorScreen extends StatelessWidget {
         ]),
         MSection(
             title: "1.258 Episodes",
+            headerColor: Theme.of(context).scaffoldBackgroundColor,
+            titleColor: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
             onPressed: () => showModalBottomSheet(
                   context: context,
                   shape: RoundedRectangleBorder(
@@ -147,7 +151,7 @@ class AuthorScreen extends StatelessWidget {
                     child: Text("data"),
                   ),
                 ),
-            action: Icon(Icons.sort),
+            action: IconButton(onPressed: () => null, icon: Icon(Icons.sort)),
             content: Container(
               child: ListView.separated(
                 shrinkWrap: true,

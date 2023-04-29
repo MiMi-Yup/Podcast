@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           toolbarHeight: 80,
+          elevation: 0.0,
           title: Row(
             children: [
               SizedBox(
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
                   width: 60,
                   child: CircleAvatar(
                     foregroundImage: AssetImage(mALogo),
-                    backgroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   )),
               SizedBox(
                 width: 10.0,
@@ -62,7 +63,15 @@ class HomeScreen extends StatelessWidget {
               slivers: [
                 MSection(
                     title: MultiLanguage.of(context).subscription,
-                    action: Text(MultiLanguage.of(context).seeAll),
+                    headerColor: Theme.of(context).scaffoldBackgroundColor,
+                    titleColor: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    action: TextButton(
+                      onPressed: () =>
+                          XMDRouter.pushNamed(routerIds[SubscriptionRoute]!),
+                      child: Text(MultiLanguage.of(context).seeAll),
+                    ),
                     onPressed: () =>
                         XMDRouter.pushNamed(routerIds[SubscriptionRoute]!),
                     content: SizedBox(
@@ -84,8 +93,15 @@ class HomeScreen extends StatelessWidget {
                     )).builder(),
                 MSection(
                     title: MultiLanguage.of(context).newUpdates,
+                    headerColor: Theme.of(context).scaffoldBackgroundColor,
+                    titleColor: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     onPressed: () => null,
-                    action: Text(MultiLanguage.of(context).seeAll),
+                    action: TextButton(
+                      onPressed: () => null,
+                      child: Text(MultiLanguage.of(context).seeAll),
+                    ),
                     content: Container(
                       child: ListView.separated(
                         shrinkWrap: true,

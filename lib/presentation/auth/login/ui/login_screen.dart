@@ -25,7 +25,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
-  
+
   @override
   void initState() {
     super.initState();
@@ -168,6 +168,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     MSecondaryButton(
+                        background:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey.shade800
+                                : null,
                         onTap: null,
                         padding: EdgeInsets.only(
                             left: mPaddingLarge,
@@ -177,6 +181,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         child:
                             Image.asset(mAGoogle, scale: 2, isAntiAlias: true)),
                     MSecondaryButton(
+                        background:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey.shade800
+                                : null,
                         onTap: null,
                         padding: EdgeInsets.only(
                             left: mPaddingLarge,
@@ -186,6 +194,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Image.asset(mAFacebook,
                             scale: 2, isAntiAlias: true)),
                     MSecondaryButton(
+                        background:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey.shade800
+                                : null,
                         onTap: null,
                         padding: EdgeInsets.only(
                             left: mPaddingLarge,

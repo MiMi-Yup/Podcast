@@ -21,7 +21,7 @@ class NotificationScreen extends StatelessWidget {
                 value: 0,
                 child: Row(
                   children: [
-                    Icon(Icons.done_all, color: Theme.of(context).primaryColor),
+                    Icon(Icons.done_all),
                     SizedBox(
                       width: 10.0,
                     ),
@@ -33,7 +33,7 @@ class NotificationScreen extends StatelessWidget {
                 value: 1,
                 child: Row(
                   children: [
-                    Icon(Icons.delete, color: Theme.of(context).primaryColor),
+                    Icon(Icons.delete),
                     SizedBox(
                       width: 10.0,
                     ),
@@ -53,43 +53,45 @@ class NotificationScreen extends StatelessWidget {
         slivers: [
           MSection(
               title: "New Podcast Release Today",
-              content: Container(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  itemBuilder: (context, index) => MPodcastComponent(
-                    title:
-                        "927: Deep Dive | How to Quit Your Job the Right Way",
-                    author: "Apple Talk",
-                    duration: Duration(minutes: 52, seconds: 25),
-                    networkImage: null,
-                  ),
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: 16.0,
-                  ),
-                  itemCount: 5,
+              headerColor: Theme.of(context).scaffoldBackgroundColor,
+              titleColor: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              content: ListView.separated(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                itemBuilder: (context, index) => MPodcastComponent(
+                  title: "927: Deep Dive | How to Quit Your Job the Right Way",
+                  author: "Apple Talk",
+                  duration: Duration(minutes: 52, seconds: 25),
+                  networkImage: null,
                 ),
+                separatorBuilder: (context, index) => SizedBox(
+                  height: 16.0,
+                ),
+                itemCount: 5,
               )).builder(),
           MSection(
               title: "Yesterday",
-              content: Container(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  itemBuilder: (context, index) => MPodcastComponent(
-                    title:
-                        "927: Deep Dive | How to Quit Your Job the Right Way",
-                    author: "Apple Talk",
-                    duration: Duration(minutes: 52, seconds: 25),
-                    networkImage: null,
-                  ),
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: 16.0,
-                  ),
-                  itemCount: 5,
+              headerColor: Theme.of(context).scaffoldBackgroundColor,
+              titleColor: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              content: ListView.separated(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                itemBuilder: (context, index) => MPodcastComponent(
+                  title: "927: Deep Dive | How to Quit Your Job the Right Way",
+                  author: "Apple Talk",
+                  duration: Duration(minutes: 52, seconds: 25),
+                  networkImage: null,
                 ),
+                separatorBuilder: (context, index) => SizedBox(
+                  height: 16.0,
+                ),
+                itemCount: 5,
               )).builder()
         ],
       ),

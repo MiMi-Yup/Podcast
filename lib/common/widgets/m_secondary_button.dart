@@ -6,11 +6,13 @@ class MSecondaryButton extends StatelessWidget {
   final EdgeInsets? margin;
   final double? borderRadius;
   final Widget child;
+  final Color? background;
   final void Function()? onTap;
   const MSecondaryButton(
       {super.key,
       required this.child,
       required this.onTap,
+      this.background,
       this.padding,
       this.margin,
       this.borderRadius});
@@ -21,6 +23,7 @@ class MSecondaryButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
+            color: background,
             border: Border.all(color: Colors.grey.withAlpha(50)),
             borderRadius: BorderRadius.circular(borderRadius ?? mPadding)),
         padding: padding,

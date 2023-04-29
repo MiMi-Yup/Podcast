@@ -1,5 +1,6 @@
 import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/route_define.dart';
+import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -68,10 +69,21 @@ class _MainApplicationState extends State<MainApplication>
       debugShowCheckedModeBanner: false,
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en'),
-      darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: mCDarkBackground,
+          appBarTheme: AppBarTheme(color: mCDarkBackground),
+          iconTheme: IconThemeData(color: Colors.grey),
+          bottomNavigationBarTheme:
+              BottomNavigationBarThemeData(backgroundColor: mCDarkBackground)),
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
+          primarySwatch: Colors.blueGrey,
+          scaffoldBackgroundColor: mCLightBackground,
+          appBarTheme: AppBarTheme(
+            color: mCLightBackground,
+            foregroundColor: Colors.black,
+          ),
+          bottomNavigationBarTheme:
+              BottomNavigationBarThemeData(backgroundColor: mCLightBackground)),
       //change ThemeMode to change theme
       themeMode: ThemeMode.light,
       initialRoute: route,
