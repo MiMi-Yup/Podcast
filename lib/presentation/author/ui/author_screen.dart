@@ -137,8 +137,8 @@ class AuthorScreen extends StatelessWidget {
             title: "1.258 Episodes",
             headerColor: Theme.of(context).scaffoldBackgroundColor,
             titleColor: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
+                ? Colors.white
+                : Colors.black,
             onPressed: () => showModalBottomSheet(
                   context: context,
                   shape: RoundedRectangleBorder(
@@ -151,7 +151,132 @@ class AuthorScreen extends StatelessWidget {
                     child: Text("data"),
                   ),
                 ),
-            action: IconButton(onPressed: () => null, icon: Icon(Icons.sort)),
+            action: IconButton(
+                onPressed: () => {
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(30),
+                          )),
+                          builder: (context) => Container(
+                                padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Center(
+                                        child: Container(
+                                          width: 50,
+                                          padding: EdgeInsets.only(bottom: 20),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Divider(
+                                            color: mCGray100,
+                                            thickness: 3,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Sort & Filter",
+                                        style: textBigTitleStyleH2,
+                                      ),
+                                      Divider(
+                                        color: mCGray200,
+                                        thickness: 0.5,
+                                        height: 40,
+                                      ),
+                                      FlutterLogo(
+                                        size: 120,
+                                      ),
+                                      Divider(
+                                        color: mCGray200,
+                                        thickness: 0.5,
+                                        height: 40,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Expanded(
+                                            child: ElevatedButton(
+                                                child: Text(
+                                                    MultiLanguage.of(context)
+                                                        .reset,
+                                                    style: mST16M.copyWith(
+                                                        color: mCGreen500)),
+                                                style: ButtonStyle(
+                                                  padding: MaterialStateProperty
+                                                      .all<EdgeInsets>(
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 15)),
+                                                  elevation:
+                                                      MaterialStateProperty.all<
+                                                          double>(5),
+                                                  shadowColor:
+                                                      MaterialStateProperty.all<
+                                                          Color>(mCGreen100),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all<
+                                                          Color>(mCGreen100),
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                    RoundedRectangleBorder(
+                                                      // Change your radius here
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30),
+                                                    ),
+                                                  ),
+                                                ),
+                                                onPressed: () => null),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Expanded(
+                                            child: ElevatedButton(
+                                                child: Text(
+                                                    MultiLanguage.of(context)
+                                                        .apply,
+                                                    style: mST16M.copyWith(
+                                                        color: Colors.white)),
+                                                style: ButtonStyle(
+                                                  padding: MaterialStateProperty
+                                                      .all<EdgeInsets>(
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 15)),
+                                                  elevation:
+                                                      MaterialStateProperty.all<
+                                                          double>(5),
+                                                  shadowColor:
+                                                      MaterialStateProperty.all<
+                                                          Color>(mCGreen300),
+                                                  textStyle:
+                                                      MaterialStateProperty.all(
+                                                    const TextStyle(
+                                                        fontSize: 20),
+                                                  ),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all<
+                                                          Color>(mCGreen500),
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                    RoundedRectangleBorder(
+                                                      // Change your radius here
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30),
+                                                    ),
+                                                  ),
+                                                ),
+                                                onPressed: () => null),
+                                          ),
+                                        ],
+                                      )
+                                    ]),
+                              ))
+                    },
+                icon: Icon(Icons.sort)),
             content: Container(
               child: ListView.separated(
                 shrinkWrap: true,
