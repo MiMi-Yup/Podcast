@@ -569,6 +569,26 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Episode`
+  String get episode685 {
+    return Intl.message(
+      'Episode 685',
+      name: 'episode685',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // `About Product`
+  String get about_product {
+    return Intl.message(
+      'About It:',
+      name: 'about_product',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

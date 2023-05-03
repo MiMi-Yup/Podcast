@@ -75,7 +75,7 @@ class AuthorScreen extends StatelessWidget {
                   width: 10.0,
                 ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(

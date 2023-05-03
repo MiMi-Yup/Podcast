@@ -5,6 +5,7 @@ import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/author/cubit/author_cubit.dart';
 import 'package:join_podcast/presentation/author/ui/author_screen.dart';
+import 'package:join_podcast/presentation/author/ui/episode_screen.dart';
 
 class AuthorRoute extends RouteDefine {
   @override
@@ -18,6 +19,12 @@ class AuthorRoute extends RouteDefine {
               ),
             ],
             child: const AuthorScreen(),
+            // child: const EpisodeScreen(
+            //   title: "Steve Rambam | The Real Life of a Private Investigator",
+            //   author: "Jordan Harbinger",
+            //   duration: Duration(minutes: 52, seconds: 25),
+            //   networkImage: null,
+            // ),
           ),
         ),
       ];
