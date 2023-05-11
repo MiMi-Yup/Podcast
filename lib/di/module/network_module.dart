@@ -4,14 +4,15 @@ import 'package:injectable/injectable.dart';
 import 'package:join_podcast/data/data_source/remote/api_service.dart';
 import 'package:join_podcast/data/data_source/remote/auth_service.dart';
 import 'package:join_podcast/di/di.dart';
-import 'package:join_podcast/domain/repositories/preferences_repository.dart';
+import 'package:join_podcast/domain/repositories/secure_preferences_repository.dart';
 
 @module
 abstract class NetworkModule {
   @injectable
   ApiService get apiService {
     Dio dio = getIt<Dio>();
-    PreferencesRepository preferencesRepo = getIt<PreferencesRepository>();
+    SecurePreferencesRepository preferencesRepo =
+        getIt<SecurePreferencesRepository>();
     dio.interceptors
         .add(InterceptorsWrapper(onRequest: (options, handler) async {
       String? token = await preferencesRepo.getToken();

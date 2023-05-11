@@ -4,6 +4,8 @@ import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:join_podcast/di/di.dart';
+import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/welcome_page/welcome_route.dart';
 
@@ -57,39 +59,43 @@ class _MainApplicationState extends State<MainApplication>
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      scaffoldMessengerKey: rootScaffoldMessengerKey,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        MultiLanguage.delegate,
-      ],
-      supportedLocales: MultiLanguage.delegate.supportedLocales,
-      debugShowCheckedModeBanner: false,
-      locale: Get.deviceLocale,
-      fallbackLocale: const Locale('en'),
-      darkTheme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: mCDarkBackground,
-          appBarTheme: AppBarTheme(color: mCDarkBackground),
-          iconTheme: IconThemeData(color: Colors.grey),
-          bottomNavigationBarTheme:
-              BottomNavigationBarThemeData(backgroundColor: mCDarkBackground)),
-      theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
-          scaffoldBackgroundColor: mCLightBackground,
-          appBarTheme: AppBarTheme(
-            color: mCLightBackground,
-            foregroundColor: Colors.black,
-          ),
-          bottomNavigationBarTheme:
-              BottomNavigationBarThemeData(backgroundColor: mCLightBackground)),
-      //change ThemeMode to change theme
-      themeMode: ThemeMode.light,
-      initialRoute: route,
-      onGenerateRoute: (settings) => manifest(
-        generateRoutes,
-        settings,
+    return FutureBuilder<ThemeMode>(
+      initialData: ThemeMode.system,
+      future: getIt<SharedPreferencesRepository>().getTheme(),
+      builder: (context, snapshot) => GetMaterialApp(
+        scaffoldMessengerKey: rootScaffoldMessengerKey,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          MultiLanguage.delegate,
+        ],
+        supportedLocales: MultiLanguage.delegate.supportedLocales,
+        debugShowCheckedModeBanner: false,
+        locale: Get.deviceLocale,
+        fallbackLocale: const Locale('en'),
+        darkTheme: ThemeData.dark().copyWith(
+            scaffoldBackgroundColor: mCDarkBackground,
+            appBarTheme: AppBarTheme(color: mCDarkBackground),
+            iconTheme: IconThemeData(color: Colors.grey),
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                backgroundColor: mCDarkBackground)),
+        theme: ThemeData(
+            primarySwatch: Colors.blueGrey,
+            scaffoldBackgroundColor: mCLightBackground,
+            appBarTheme: AppBarTheme(
+              color: mCLightBackground,
+              foregroundColor: Colors.black,
+            ),
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                backgroundColor: mCLightBackground)),
+        //change ThemeMode to change theme
+        themeMode: snapshot.data!,
+        initialRoute: route,
+        onGenerateRoute: (settings) => manifest(
+          generateRoutes,
+          settings,
+        ),
       ),
     );
   }

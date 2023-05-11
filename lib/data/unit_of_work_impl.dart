@@ -1,13 +1,13 @@
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/auth_repository.dart';
-import 'package:join_podcast/domain/repositories/preferences_repository.dart';
+import 'package:join_podcast/domain/repositories/secure_preferences_repository.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 import 'package:join_podcast/domain/repositories/user_repository.dart';
 
 @Injectable(as: UnitOfWork)
 class UnitOfWorkImpl implements UnitOfWork {
   final UserRepository userRepo;
-  final PreferencesRepository preferencesRepo;
+  final SecurePreferencesRepository preferencesRepo;
   final AuthRepository authRepo;
 
   @override
@@ -17,7 +17,7 @@ class UnitOfWorkImpl implements UnitOfWork {
   AuthRepository get auth => authRepo;
 
   @override
-  PreferencesRepository get preferences => preferencesRepo;
+  SecurePreferencesRepository get preferences => preferencesRepo;
 
   UnitOfWorkImpl(
       {required this.userRepo,
