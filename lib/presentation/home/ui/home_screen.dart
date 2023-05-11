@@ -49,6 +49,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           actions: [
+            IconButton(onPressed: () => null, icon: Icon(Icons.search)),
             IconButton(
                 onPressed: () =>
                     XMDRouter.pushNamed(routerIds[NotificationRoute]!),

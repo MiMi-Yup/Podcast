@@ -1,9 +1,12 @@
 import 'package:configuration/l10n/l10n.dart';
+import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_Author.dart';
 import 'package:join_podcast/common/widgets/m_podcast_component.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
+import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/episode/episode_route.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:expandable_text/expandable_text.dart';
 
@@ -137,8 +140,8 @@ class AuthorScreen extends StatelessWidget {
             title: "1.258 Episodes",
             headerColor: Theme.of(context).scaffoldBackgroundColor,
             titleColor: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
+                ? Colors.white
+                : Colors.black,
             onPressed: () => showModalBottomSheet(
                   context: context,
                   shape: RoundedRectangleBorder(
@@ -162,6 +165,8 @@ class AuthorScreen extends StatelessWidget {
                   author: "Apple Talk",
                   duration: Duration(minutes: 52, seconds: 25),
                   networkImage: null,
+                  onPressed: () =>
+                      XMDRouter.pushNamed(routerIds[EpisodeRoute]!),
                 ),
                 separatorBuilder: (context, index) => SizedBox(
                   height: 16.0,

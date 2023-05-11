@@ -35,7 +35,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "databaseException":
             MessageLookupByLibrary.simpleMessage("Database exception"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
-        "discover": MessageLookupByLibrary.simpleMessage("Discover"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
@@ -85,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscription": MessageLookupByLibrary.simpleMessage("Subscriptions"),
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Something wrong! Please try later."),
-        "tryIt": MessageLookupByLibrary.simpleMessage("Try it")
+        "tryIt": MessageLookupByLibrary.simpleMessage("Try it"),
+        "upload": MessageLookupByLibrary.simpleMessage("Upload")
       };
 }

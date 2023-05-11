@@ -360,11 +360,11 @@ class MultiLanguage {
     );
   }
 
-  /// `Discover`
-  String get discover {
+  /// `Upload`
+  String get upload {
     return Intl.message(
-      'Discover',
-      name: 'discover',
+      'Upload',
+      name: 'upload',
       desc: '',
       args: [],
     );
