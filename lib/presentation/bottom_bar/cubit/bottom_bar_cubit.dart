@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:join_podcast/di/di.dart';
+import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 import 'package:join_podcast/presentation/home/home_page.dart';
 import 'package:join_podcast/presentation/profile/profile_screen.dart';
@@ -18,7 +20,9 @@ class BottomBarCubit extends Cubit<BottomBarState> {
     const HomePage(),
     const Placeholder(),
     const Placeholder(),
-    const ProfileScreen()
+    ProfileScreen(
+      prefsRepo: getIt<SharedPreferencesRepository>(),
+    )
   ];
 
   void changePage(int i) {

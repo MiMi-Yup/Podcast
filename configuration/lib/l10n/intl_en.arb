@@ -48,5 +48,6 @@
     "markDone": "Mark done",
     "clear": "Clear",
     "sortByName": "Sort by Name",
-    "sortByPodcast": "Sort by Podcasts"
+    "sortByPodcast": "Sort by Podcasts",
+    "language": "English"
 }

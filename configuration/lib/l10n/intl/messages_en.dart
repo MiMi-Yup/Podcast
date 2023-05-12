@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
             "Email or password is invalid"),
+        "language": MessageLookupByLibrary.simpleMessage("English"),
         "library": MessageLookupByLibrary.simpleMessage("Library"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginSuggest":

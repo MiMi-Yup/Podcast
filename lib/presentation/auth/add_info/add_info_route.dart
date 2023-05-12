@@ -17,7 +17,7 @@ class AddInfoRoute extends RouteDefine {
                 create: (_) => getIt<AddInfoCubit>(),
               ),
             ],
-            child: const AddInfoScreen(),
+            child: AddInfoScreen(),
           ),
         ),
       ];

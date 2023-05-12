@@ -549,6 +549,16 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `English`
+  String get language {
+    return Intl.message(
+      'English',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {
@@ -557,6 +567,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'vi'),
     ];
   }
 

@@ -3,6 +3,7 @@ part of 'add_info_cubit.dart';
 enum Status { initial, submitting, success, error }
 
 class AddInfoState extends Equatable {
+  final XFile? avatar;
   final String? fullname;
   final String? nickname;
   final DateTime? dateOfBirth;
@@ -14,7 +15,8 @@ class AddInfoState extends Equatable {
       required this.nickname,
       required this.dateOfBirth,
       required this.country,
-      required this.state});
+      required this.state,
+      required this.avatar});
 
   factory AddInfoState.initial() {
     return const AddInfoState(
@@ -22,6 +24,7 @@ class AddInfoState extends Equatable {
         nickname: null,
         dateOfBirth: null,
         country: null,
+        avatar: null,
         state: Status.initial);
   }
 
@@ -29,18 +32,21 @@ class AddInfoState extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [fullname, nickname, dateOfBirth, country, state];
+  List<Object?> get props =>
+      [fullname, nickname, dateOfBirth, country, state, avatar];
 
   AddInfoState copyWith(
           {String? fullname,
           String? nickname,
           DateTime? dateOfBirth,
           String? country,
-          Status? state}) =>
+          Status? state,
+          XFile? avatar}) =>
       AddInfoState(
           fullname: fullname ?? this.fullname,
           nickname: nickname ?? this.nickname,
           dateOfBirth: dateOfBirth ?? this.dateOfBirth,
           country: country ?? this.country,
-          state: state ?? this.state);
+          state: state ?? this.state,
+          avatar: avatar ?? this.avatar);
 }

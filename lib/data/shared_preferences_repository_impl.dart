@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:configuration/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/data/data_source/local/shared_preferences_service.dart';
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
+import 'package:collection/src/iterable_extensions.dart';
 
 @Injectable(as: SharedPreferencesRepository)
 class SharedPreferencesRepositoryImpl implements SharedPreferencesRepository {
@@ -12,7 +14,7 @@ class SharedPreferencesRepositoryImpl implements SharedPreferencesRepository {
   SharedPreferencesRepositoryImpl({required this.storage});
 
   @override
-  Future<ThemeMode> getTheme() async {
+  Future<ThemeMode> get getTheme async {
     String? value = await storage.readValue("theme");
     switch (value) {
       case "dark":
@@ -36,5 +38,17 @@ class SharedPreferencesRepositoryImpl implements SharedPreferencesRepository {
       default:
         break;
     }
+  }
+
+  @override
+  Future<Locale?> get getLanguage async {
+    String? value = await storage.readValue("language");
+    return MultiLanguage.delegate.supportedLocales.firstWhereOrNull(
+        (element) => element.languageCode == value);
+  }
+
+  @override
+  void setLanguage(Locale locale) async {
+    await storage.writeValue('language', locale.languageCode);
   }
 }
