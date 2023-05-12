@@ -49,5 +49,30 @@
     "clear": "Clear",
     "sortByName": "Sort by Name",
     "sortByPodcast": "Sort by Podcasts",
-    "language": "English"
+    "languageName": "English",
+    "editProfile": "Edit Profile",
+    "downloads": "Downloads",
+    "language": "Language",
+    "darkTheme": "Dark Theme",
+    "helpCenter": "Help Center",
+    "logout": "Logout",
+    "profile": "Profile",
+    "cancel": "Cancel",
+    "confirm": "Yes",
+    "after": "After {day} day(s)",
+    "@after": {
+        "description": "Day do something",
+        "placeholders": {
+            "day": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "downloaded": "Downloaded",
+    "globalSettings": "Global Settings",
+    "autoDownload": "Auto Download New Episodes",
+    "downloadIfWifi": "Download Only if Connected to Wi-Fi",
+    "removeCompletedAfter": "Remove Completed Episodes",
+    "removeUnfinishedAfter": "Remove Unfinished Episodes"
 }

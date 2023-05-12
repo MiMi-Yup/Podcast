@@ -49,5 +49,30 @@
     "clear": "Dọn dẹp",
     "sortByName": "Sắp xếp theo tên",
     "sortByPodcast": "Sắp xếp theo số lượng",
-    "language": "Tiếng việt"
+    "languageName": "Tiếng việt",
+    "editProfile": "Chỉnh sử thông tin",
+    "downloads": "Tải xuống",
+    "language": "Ngôn ngữ",
+    "darkTheme": "Chế độ tối",
+    "helpCenter": "Trung tâm hỗ trợ",
+    "logout": "Đăng xuất",
+    "profile": "Cá nhân",
+    "cancel": "Hủy",
+    "confirm": "Có",
+    "after": "Sau {day} ngày",
+    "@after": {
+        "description": "Ngày thực hiện gì đó",
+        "placeholders": {
+            "day": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "downloaded": "Đã tải xuống",
+    "globalSettings": "Cài đặt chung",
+    "autoDownload": "Tự động tải xuống khi có phần mới",
+    "downloadIfWifi": "Chỉ tải xuống khi có Wi-Fi",
+    "removeCompletedAfter": "Xóa các phần đã xem",
+    "removeUnfinishedAfter": "Xóa các phần chưa xem xong"
 }

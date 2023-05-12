@@ -8,4 +8,16 @@ abstract class SharedPreferencesRepository{
 
   Future<Locale?> get getLanguage;
   void setLanguage(Locale locale);
+
+  Future<int?> get getRemoveCompleted;
+  void setRemoveCompleted(int value);
+
+  Future<int?> get getRemoveUnfinished;
+  void setRemoveUnfinished(int value);
+
+  Future<bool> get getAutodownload;
+  void setAutodownload(bool value);
+
+  Future<bool> get getDownloadWifi;
+  void setDownloadWifi(bool value);
 }

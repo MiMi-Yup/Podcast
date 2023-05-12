@@ -29,8 +29,7 @@ class SubscriptionScreen extends StatelessWidget {
                   value: 0,
                   child: Row(
                     children: [
-                      Icon(Icons.sort_by_alpha,
-                          color: Theme.of(context).primaryColor),
+                      Icon(Icons.sort_by_alpha),
                       SizedBox(
                         width: 10.0,
                       ),
@@ -42,7 +41,7 @@ class SubscriptionScreen extends StatelessWidget {
                   value: 1,
                   child: Row(
                     children: [
-                      Icon(Icons.sort, color: Theme.of(context).primaryColor),
+                      Icon(Icons.sort),
                       SizedBox(
                         width: 10.0,
                       ),

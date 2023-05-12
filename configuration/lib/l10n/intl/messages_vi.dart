@@ -20,11 +20,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'vi';
 
+  static String m0(day) => "Sau ${day} ngày";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "after": m0,
         "author": MessageLookupByLibrary.simpleMessage("Author"),
+        "autoDownload": MessageLookupByLibrary.simpleMessage(
+            "Tự động tải xuống khi có phần mới"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Đã hủy"),
         "clear": MessageLookupByLibrary.simpleMessage("Dọn dẹp"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Có"),
         "connectTimeout":
             MessageLookupByLibrary.simpleMessage("Connect timeout"),
         "connectionProblem":
@@ -32,23 +39,34 @@ class MessageLookup extends MessageLookupByLibrary {
         "connectionProblemDesc": MessageLookupByLibrary.simpleMessage(
             "Vui lòng kiểm tra lại tín hiệu Wifi hoặc 3G/4G của bạn."),
         "country": MessageLookupByLibrary.simpleMessage("Quốc gia"),
+        "darkTheme": MessageLookupByLibrary.simpleMessage("Chế độ tối"),
         "databaseException":
             MessageLookupByLibrary.simpleMessage("Lỗi database"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Ngày sinh"),
+        "downloadIfWifi":
+            MessageLookupByLibrary.simpleMessage("Chỉ tải xuống khi có Wi-Fi"),
+        "downloaded": MessageLookupByLibrary.simpleMessage("Đã tải xuống"),
+        "downloads": MessageLookupByLibrary.simpleMessage("Tải xuống"),
+        "editProfile":
+            MessageLookupByLibrary.simpleMessage("Chỉnh sử thông tin"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Thông tin cá nhân"),
         "fullName": MessageLookupByLibrary.simpleMessage("Tên đầy đủ"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Tới cài đặt"),
+        "globalSettings": MessageLookupByLibrary.simpleMessage("Cài đặt chung"),
+        "helpCenter": MessageLookupByLibrary.simpleMessage("Trung tâm hỗ trợ"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
             "Email hoặc mật khẩu không hợp lệ"),
-        "language": MessageLookupByLibrary.simpleMessage("Tiếng việt"),
+        "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
+        "languageName": MessageLookupByLibrary.simpleMessage("Tiếng việt"),
         "library": MessageLookupByLibrary.simpleMessage("Thư viên"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "loginSuggest":
             MessageLookupByLibrary.simpleMessage("Bạn đã có tài khoản? "),
         "loginTitle": MessageLookupByLibrary.simpleMessage(
             "Đăng nhập vào tài khoản của bạn"),
+        "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "m_continue": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
         "markDone": MessageLookupByLibrary.simpleMessage("Đánh hoàn thành"),
         "mins": MessageLookupByLibrary.simpleMessage("phút"),
@@ -63,6 +81,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
         "rememberAccount":
             MessageLookupByLibrary.simpleMessage("Ghi nhớ tài khoản"),
+        "removeCompletedAfter":
+            MessageLookupByLibrary.simpleMessage("Xóa các phần đã xem"),
+        "removeUnfinishedAfter":
+            MessageLookupByLibrary.simpleMessage("Xóa các phần chưa xem xong"),
         "report": MessageLookupByLibrary.simpleMessage("Kiếu nại"),
         "seeAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),

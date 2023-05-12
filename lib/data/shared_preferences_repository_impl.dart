@@ -15,7 +15,7 @@ class SharedPreferencesRepositoryImpl implements SharedPreferencesRepository {
 
   @override
   Future<ThemeMode> get getTheme async {
-    String? value = await storage.readValue("theme");
+    String? value = await storage.readStringValue("theme");
     switch (value) {
       case "dark":
         return ThemeMode.dark;
@@ -30,10 +30,10 @@ class SharedPreferencesRepositoryImpl implements SharedPreferencesRepository {
   void setTheme(ThemeMode mode) async {
     switch (mode) {
       case ThemeMode.dark:
-        await storage.writeValue("theme", "dark");
+        await storage.writeStringValue("theme", "dark");
         break;
       case ThemeMode.light:
-        storage.writeValue("theme", "light");
+        storage.writeStringValue("theme", "light");
         break;
       default:
         break;
@@ -42,13 +42,53 @@ class SharedPreferencesRepositoryImpl implements SharedPreferencesRepository {
 
   @override
   Future<Locale?> get getLanguage async {
-    String? value = await storage.readValue("language");
-    return MultiLanguage.delegate.supportedLocales.firstWhereOrNull(
-        (element) => element.languageCode == value);
+    String? value = await storage.readStringValue("language");
+    return MultiLanguage.delegate.supportedLocales
+        .firstWhereOrNull((element) => element.languageCode == value);
   }
 
   @override
   void setLanguage(Locale locale) async {
-    await storage.writeValue('language', locale.languageCode);
+    await storage.writeStringValue('language', locale.languageCode);
+  }
+
+  @override
+  Future<bool> get getAutodownload async {
+    bool? value = await storage.readBoolValue("autoDownload");
+    return value ?? false;
+  }
+
+  @override
+  Future<bool> get getDownloadWifi async {
+    bool? value = await storage.readBoolValue("downloadIfWifi");
+    return value ?? false;
+  }
+
+  @override
+  Future<int?> get getRemoveCompleted async =>
+      await storage.readIntValue("removeCompleted");
+
+  @override
+  Future<int?> get getRemoveUnfinished async =>
+      await storage.readIntValue("removeUnfinished");
+
+  @override
+  void setAutodownload(bool value) async {
+    await storage.writeBoolValue("autoDownload", value);
+  }
+
+  @override
+  void setDownloadWifi(bool value) async {
+    await storage.writeBoolValue("downloadIfWifi", value);
+  }
+
+  @override
+  void setRemoveCompleted(int value) async {
+    await storage.writeIntValue("removeCompleted", value);
+  }
+
+  @override
+  void setRemoveUnfinished(int value) async {
+    await storage.writeIntValue("removeUnfinished", value);
   }
 }

@@ -4,11 +4,13 @@ import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_button_setting.dart';
-import 'package:join_podcast/di/di.dart';
+import 'package:join_podcast/common/widgets/m_confirm_bottom_modal.dart';
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:get/get.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/auth/add_info/add_info_route.dart';
+import 'package:join_podcast/presentation/auth/login/login_route.dart';
+import 'package:join_podcast/presentation/download/download_route.dart';
 
 class ProfileScreen extends StatelessWidget {
   final SharedPreferencesRepository prefsRepo;
@@ -19,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text("Profile"),
+            title: Text(MultiLanguage.of(context).profile),
             elevation: 0.0,
             actions: [
               PopupMenuButton<int>(
@@ -34,13 +36,24 @@ class ProfileScreen extends StatelessWidget {
                         SizedBox(
                           width: 10.0,
                         ),
-                        Text("Logout")
+                        Text(MultiLanguage.of(context).logout)
                       ],
                     ),
                   )
                 ],
                 offset: Offset(0, 50),
-                onSelected: null,
+                onSelected: (index) {
+                  switch (index) {
+                    case 0:
+                      showConfirmBottomModal(
+                          context, "Are you sure you want to log out?",
+                          whenConfirm: () => XMDRouter.pushNamedAndRemoveUntil(
+                              routerIds[LoginRoute]!));
+                      break;
+                    default:
+                      break;
+                  }
+                },
                 icon: Icon(Icons.more_horiz),
               )
             ]),
@@ -102,17 +115,20 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 10.0),
               MButtonSetting(
-                title: "Edit Profile",
+                title: MultiLanguage.of(context).editProfile,
                 icon: Icon(Icons.person_outline),
                 onPressed: (_) => XMDRouter.pushNamed(routerIds[AddInfoRoute]!),
               ),
               MButtonSetting(
-                title: "Downloads",
+                title: MultiLanguage.of(context).downloads,
                 icon: Icon(Icons.download_done),
+                onPressed: (_) =>
+                    XMDRouter.pushNamed(routerIds[DownloadRoute]!),
               ),
               MButtonSetting(
-                title: "Language",
+                title: MultiLanguage.of(context).language,
                 icon: const Icon(Icons.language),
                 onPressed: (_) => showModalBottomSheet(
                     context: context,
@@ -142,7 +158,7 @@ class ProfileScreen extends StatelessWidget {
                                 locale: itemLocale,
                                 child: Builder(
                                     builder: (context) => Text(
-                                        MultiLanguage.of(context).language,
+                                        MultiLanguage.of(context).languageName,
                                         style: mST16M)),
                               ),
                             );
@@ -150,7 +166,7 @@ class ProfileScreen extends StatelessWidget {
                     }),
               ),
               MButtonSetting(
-                title: "Dark theme",
+                title: MultiLanguage.of(context).darkTheme,
                 icon: Icon(Icons.brightness_2),
                 isSwitch: true,
                 initState: Theme.of(context).brightness == Brightness.dark,
@@ -161,7 +177,7 @@ class ProfileScreen extends StatelessWidget {
                 },
               ),
               MButtonSetting(
-                title: "Help Center",
+                title: MultiLanguage.of(context).helpCenter,
                 icon: Icon(Icons.help_center),
               ),
             ],
