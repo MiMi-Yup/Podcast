@@ -1,10 +1,10 @@
 import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/style/style.dart';
-import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_Author.dart';
 
 class EpisodeScreen extends StatelessWidget {
+  final int ordinalNumber;
   final String title;
   final String author;
   final Duration duration;
@@ -15,6 +15,7 @@ class EpisodeScreen extends StatelessWidget {
   final void Function()? onDownload;
   const EpisodeScreen({
     super.key,
+    required this.ordinalNumber,
     required this.title,
     required this.author,
     required this.duration,
@@ -31,7 +32,7 @@ class EpisodeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text(MultiLanguage.of(context).episode685),
+        title: Text(MultiLanguage.of(context).episode + '${ordinalNumber}'),
         actions: [
           PopupMenuButton<int>(
             shape: const RoundedRectangleBorder(
@@ -139,7 +140,7 @@ class EpisodeScreen extends StatelessWidget {
                       Container(
                         width: c_width,
                         child: Text(
-                          title,
+                          "${ordinalNumber}: ${title}",
                           maxLines: 2,
                           softWrap: true,
                           style: mST24M,

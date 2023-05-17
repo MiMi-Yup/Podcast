@@ -480,6 +480,26 @@ class MultiLanguage {
     );
   }
 
+  /// `Speed`
+  String get speed {
+    return Intl.message(
+      'Speed',
+      name: 'speed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reminder`
+  String get reminder {
+    return Intl.message(
+      'Reminder',
+      name: 'reminder',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `show more`
   String get showMore {
     return Intl.message(
@@ -571,10 +591,10 @@ class MultiLanguage {
   }
 
   /// `Episode`
-  String get episode685 {
+  String get episode {
     return Intl.message(
-      'Episode 685',
-      name: 'episode685',
+      'Episode ',
+      name: 'episode',
       desc: '',
       args: [],
     );
