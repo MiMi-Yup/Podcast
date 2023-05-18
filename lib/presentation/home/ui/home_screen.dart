@@ -12,7 +12,7 @@ import 'package:join_podcast/presentation/library/library_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/subscription/subscription_route.dart';
 
-import '../../playing/playing_route.dart';
+import '../../podcast/podcast_route.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -117,9 +117,9 @@ class HomeScreen extends StatelessWidget {
                           duration: Duration(minutes: 52, seconds: 25),
                           networkImage: null,
                           onPlay: () =>
-                              XMDRouter.pushNamed(routerIds[PlayingRoute]!),
+                              XMDRouter.pushNamed(routerIds[PodcastRoute]!),
                           onPressed: () =>
-                              XMDRouter.pushNamed(routerIds[PlayingRoute]!),
+                              XMDRouter.pushNamed(routerIds[PodcastRoute]!),
                         ),
                         separatorBuilder: (context, index) => SizedBox(
                           height: 16.0,

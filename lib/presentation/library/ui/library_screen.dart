@@ -12,7 +12,7 @@ import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/subscription/subscription_route.dart';
 
-import '../../playing/playing_route.dart';
+import '../../podcast/podcast_route.dart';
 
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
@@ -88,9 +88,12 @@ class LibraryScreen extends StatelessWidget {
                               ListView.separated(
                                 shrinkWrap: true,
                                 physics: const BouncingScrollPhysics(),
-                                padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-                                itemBuilder: (context, index) => MPodcastComponent(
-                                  title: "927: Deep Dive | How to Quit Your Job the Right Way",
+                                padding: EdgeInsets.only(
+                                    left: 10.0, right: 10.0, top: 15.0),
+                                itemBuilder: (context, index) =>
+                                    MPodcastComponent(
+                                  title:
+                                      "927: Deep Dive | How to Quit Your Job the Right Way",
                                   author: "Apple Talk",
                                   duration: Duration(minutes: 52, seconds: 25),
                                   networkImage: null,
@@ -107,21 +110,23 @@ class LibraryScreen extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             children: [
                               ListView.separated(
-                              shrinkWrap: true,
-                              physics: const BouncingScrollPhysics(),
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-                              itemBuilder: (context, index) => MAuthorFull(
-                                author: "Apple Talk",
-                                quantity: 888,
-                                networkImage: null,
-                                onPressed: () => XMDRouter.pushNamed(routerIds[AuthorRoute]!,
-                                    arguments: {index: index}),
-                              ),
-                              separatorBuilder: (context, index) => SizedBox(
-                                height: 16.0,
-                              ),
-                              itemCount: 10,
-                            )
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                padding: EdgeInsets.only(
+                                    left: 10.0, right: 10.0, top: 15.0),
+                                itemBuilder: (context, index) => MAuthorFull(
+                                  author: "Apple Talk",
+                                  quantity: 888,
+                                  networkImage: null,
+                                  onPressed: () => XMDRouter.pushNamed(
+                                      routerIds[AuthorRoute]!,
+                                      arguments: {index: index}),
+                                ),
+                                separatorBuilder: (context, index) => SizedBox(
+                                  height: 16.0,
+                                ),
+                                itemCount: 10,
+                              )
                             ],
                           ),
                         ],
