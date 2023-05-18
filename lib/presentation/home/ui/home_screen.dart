@@ -8,8 +8,11 @@ import 'package:join_podcast/common/widgets/m_podcast_component.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/author/author_route.dart';
+import 'package:join_podcast/presentation/library/library_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/subscription/subscription_route.dart';
+
+import '../../playing/playing_route.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -82,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) => MAuthor(
                           networkImage: null,
                           onPressed: () => XMDRouter.pushNamed(
-                              routerIds[AuthorRoute]!,
+                              routerIds[SubscriptionRoute]!,
                               arguments: {index: index}),
                         ),
                         separatorBuilder: (context, index) => SizedBox(
@@ -113,6 +116,10 @@ class HomeScreen extends StatelessWidget {
                           author: "Apple Talk",
                           duration: Duration(minutes: 52, seconds: 25),
                           networkImage: null,
+                          onPlay: () =>
+                              XMDRouter.pushNamed(routerIds[PlayingRoute]!),
+                          onPressed: () =>
+                              XMDRouter.pushNamed(routerIds[PlayingRoute]!),
                         ),
                         separatorBuilder: (context, index) => SizedBox(
                           height: 16.0,
