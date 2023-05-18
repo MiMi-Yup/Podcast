@@ -609,6 +609,16 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  // `Background Music`
+  String get background_music {
+    return Intl.message(
+      'Background Music',
+      name: 'Background Music',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {
