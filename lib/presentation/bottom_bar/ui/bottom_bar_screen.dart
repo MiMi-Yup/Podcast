@@ -39,9 +39,9 @@ class BottomBarScreen extends StatelessWidget {
                         label: MultiLanguage.of(context).home,
                       ),
                       BottomNavigationBarItem(
-                        icon: const Icon(Icons.mic),
-                        activeIcon: const Icon(Icons.mic),
-                        label: MultiLanguage.of(context).record,
+                        icon: const Icon(Icons.explore_outlined),
+                        activeIcon: const Icon(Icons.explore),
+                        label: MultiLanguage.of(context).discover,
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.library_books_outlined),

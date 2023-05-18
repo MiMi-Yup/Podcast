@@ -361,10 +361,10 @@ class MultiLanguage {
   }
 
   /// `Discover`
-  String get record {
+  String get discover {
     return Intl.message(
-      'Record',
-      name: 'record',
+      'Discover',
+      name: 'discover',
       desc: '',
       args: [],
     );
