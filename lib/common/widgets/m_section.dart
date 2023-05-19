@@ -34,6 +34,9 @@ class MSection {
     final header = Text(
       title ?? "",
       style: mST18M.copyWith(color: titleColor),
+      maxLines: 2,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
     );
 
     final _action = action ??
@@ -50,7 +53,7 @@ class MSection {
 
     final structure = Container(
       color: headerColor,
-      height: height ?? 50,
+      height: height ?? 75,
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.all(10.0),
       child: title == null

@@ -95,28 +95,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   preIcon: Icons.lock,
                 ),
               )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              BlocBuilder<LoginCubit, ALoginState>(
-                  builder: (context, state) => Checkbox(
+          BlocBuilder<LoginCubit, ALoginState>(
+              buildWhen: (previous, current) =>
+                  previous.rememberAccount != current.rememberAccount,
+              builder: (context, state) {
+                toogleState(value) =>
+                    context.read<LoginCubit>().rememberAccount(value ?? false);
+                return GestureDetector(
+                  onTap: () => toogleState(!state.rememberAccount),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Checkbox(
                         value: state.rememberAccount,
                         checkColor: Colors.white,
                         fillColor: MaterialStateProperty.all<Color>(mCPrimary),
-                        onChanged: (value) => context
-                            .read<LoginCubit>()
-                            .rememberAccount(value ?? false),
+                        onChanged: toogleState,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(mPadding / 4)),
                         side: BorderSide(color: mCPrimary),
                         materialTapTargetSize: MaterialTapTargetSize.padded,
-                      )),
-              Text(
-                MultiLanguage.of(context).rememberAccount,
-                style: mST16R.copyWith(color: mCPrimary),
-              )
-            ],
-          ),
+                      ),
+                      Text(
+                        MultiLanguage.of(context).rememberAccount,
+                        style: mST16R.copyWith(color: mCPrimary),
+                      )
+                    ],
+                  ),
+                );
+              }),
           //login button
           Padding(
             padding: EdgeInsets.all(mPadding),

@@ -21,7 +21,7 @@ class BackgroundMusicScreen extends StatelessWidget {
           ),
           centerTitle: true,
           title: Text(
-            "Background Music",
+            MultiLanguage.of(context).background_music,
             style: mST24R.copyWith(fontWeight: FontWeight.w500),
           )
           // actions: [
@@ -97,7 +97,7 @@ class BackgroundMusicScreen extends StatelessWidget {
           ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: const Column(
+        child: Column(
           children: [
             Center(
               child: Text("data"),
