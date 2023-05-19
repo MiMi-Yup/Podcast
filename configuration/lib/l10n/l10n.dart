@@ -709,6 +709,86 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `About It:`
+  String get about_product {
+    return Intl.message(
+      'About It:',
+      name: 'about_product',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Background Music`
+  String get background_music {
+    return Intl.message(
+      'Background Music',
+      name: 'background_music',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Episode`
+  String get episode {
+    return Intl.message(
+      'Episode',
+      name: 'episode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply`
+  String get apply {
+    return Intl.message(
+      'Apply',
+      name: 'apply',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset`
+  String get reset {
+    return Intl.message(
+      'Reset',
+      name: 'reset',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speed`
+  String get speed {
+    return Intl.message(
+      'Speed',
+      name: 'speed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reminder`
+  String get reminder {
+    return Intl.message(
+      'Reminder',
+      name: 'reminder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Record`
+  String get record {
+    return Intl.message(
+      'Record',
+      name: 'record',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

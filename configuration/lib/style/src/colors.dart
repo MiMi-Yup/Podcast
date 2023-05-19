@@ -54,6 +54,13 @@ final Color mCRed300 = HexColor.fromHex('#FEB4B4');
 final Color mCRed200 = HexColor.fromHex('#FFDCDC');
 final Color mCRed100 = HexColor.fromHex('#FFEFEF');
 
+// gray
+final Color mCGray100 = HexColor.fromHex('#d1d5db');
+final Color mCGray200 = HexColor.fromHex('#9ca3af');
+final Color mCGray300 = HexColor.fromHex('#6b7280');
+final Color mCGray400 = HexColor.fromHex('#4b5563');
+final Color mCGray500 = HexColor.fromHex('#374151');
+
 // shadow
 final Color mCShadow = HexColor.fromHex('#011222');
 

@@ -7,6 +7,8 @@ import 'package:join_podcast/presentation/episode/episode_route.dart';
 import 'package:join_podcast/presentation/interested/interested_route.dart';
 import 'package:join_podcast/presentation/introduction/introduction_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
+import 'package:join_podcast/presentation/podcast/podcast_route.dart';
+import 'package:join_podcast/presentation/record/background_music/background_music_route.dart';
 import 'package:join_podcast/presentation/subscription/subscription_route.dart';
 import 'package:join_podcast/presentation/welcome_page/welcome_route.dart';
 
@@ -20,6 +22,8 @@ const routerIds = {
   NotificationRoute: "NotificationRoute",
   SubscriptionRoute: "SubscriptionRoute",
   AuthorRoute: "AuthorRoute",
+  PodcastRoute: "PodcastRoute",
+  BackgroundMusicRoute: "BackgroundMusicRoute",
   EpisodeRoute: "EpisodeRoute",
   DownloadRoute: "DownloadRoute"
 };
@@ -34,6 +38,8 @@ void generateRoutes() {
   NotificationRoute();
   SubscriptionRoute();
   AuthorRoute();
+  PodcastRoute();
+  BackgroundMusicRoute();
   EpisodeRoute();
   DownloadRoute();
 }

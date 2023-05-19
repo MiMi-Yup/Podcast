@@ -24,10 +24,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "about_product": MessageLookupByLibrary.simpleMessage("About It:"),
         "after": m0,
+        "apply": MessageLookupByLibrary.simpleMessage("Apply"),
         "author": MessageLookupByLibrary.simpleMessage("Author"),
         "autoDownload":
             MessageLookupByLibrary.simpleMessage("Auto Download New Episodes"),
+        "background_music":
+            MessageLookupByLibrary.simpleMessage("Background Music"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
         "clear": MessageLookupByLibrary.simpleMessage("Clear"),
@@ -49,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "downloads": MessageLookupByLibrary.simpleMessage("Downloads"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "episode": MessageLookupByLibrary.simpleMessage("Episode"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Get setting"),
@@ -78,12 +83,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
+        "record": MessageLookupByLibrary.simpleMessage("Record"),
         "rememberAccount": MessageLookupByLibrary.simpleMessage("Remember me"),
+        "reminder": MessageLookupByLibrary.simpleMessage("Reminder"),
         "removeCompletedAfter":
             MessageLookupByLibrary.simpleMessage("Remove Completed Episodes"),
         "removeUnfinishedAfter":
             MessageLookupByLibrary.simpleMessage("Remove Unfinished Episodes"),
         "report": MessageLookupByLibrary.simpleMessage("Report"),
+        "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
         "serverNotFound":
@@ -102,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sortByName": MessageLookupByLibrary.simpleMessage("Sort by Name"),
         "sortByPodcast":
             MessageLookupByLibrary.simpleMessage("Sort by Podcasts"),
+        "speed": MessageLookupByLibrary.simpleMessage("Speed"),
         "subcribe": MessageLookupByLibrary.simpleMessage("Subcribe"),
         "subcribed": MessageLookupByLibrary.simpleMessage("Subcribed"),
         "subscription": MessageLookupByLibrary.simpleMessage("Subscriptions"),

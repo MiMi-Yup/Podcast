@@ -24,10 +24,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "about_product": MessageLookupByLibrary.simpleMessage("Về sản phẩm"),
         "after": m0,
+        "apply": MessageLookupByLibrary.simpleMessage("Áp dụng"),
         "author": MessageLookupByLibrary.simpleMessage("Author"),
         "autoDownload": MessageLookupByLibrary.simpleMessage(
             "Tự động tải xuống khi có phần mới"),
+        "background_music": MessageLookupByLibrary.simpleMessage("Nhạc nền"),
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Đã hủy"),
         "clear": MessageLookupByLibrary.simpleMessage("Dọn dẹp"),
@@ -50,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editProfile":
             MessageLookupByLibrary.simpleMessage("Chỉnh sử thông tin"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "episode": MessageLookupByLibrary.simpleMessage("Phần"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Thông tin cá nhân"),
         "fullName": MessageLookupByLibrary.simpleMessage("Tên đầy đủ"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Tới cài đặt"),
@@ -79,13 +83,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Cá nhân"),
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
+        "record": MessageLookupByLibrary.simpleMessage("Ghi âm"),
         "rememberAccount":
             MessageLookupByLibrary.simpleMessage("Ghi nhớ tài khoản"),
+        "reminder": MessageLookupByLibrary.simpleMessage("Nhắc nhở"),
         "removeCompletedAfter":
             MessageLookupByLibrary.simpleMessage("Xóa các phần đã xem"),
         "removeUnfinishedAfter":
             MessageLookupByLibrary.simpleMessage("Xóa các phần chưa xem xong"),
         "report": MessageLookupByLibrary.simpleMessage("Kiếu nại"),
+        "reset": MessageLookupByLibrary.simpleMessage("Mặc định"),
         "seeAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
         "serverNotFound":
@@ -104,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sortByName": MessageLookupByLibrary.simpleMessage("Sắp xếp theo tên"),
         "sortByPodcast":
             MessageLookupByLibrary.simpleMessage("Sắp xếp theo số lượng"),
+        "speed": MessageLookupByLibrary.simpleMessage("Tốc độ"),
         "subcribe": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "subcribed": MessageLookupByLibrary.simpleMessage("Đã đăng ký"),
         "subscription": MessageLookupByLibrary.simpleMessage("Đăng ký"),

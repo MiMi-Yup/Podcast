@@ -74,5 +74,13 @@
     "autoDownload": "Tự động tải xuống khi có phần mới",
     "downloadIfWifi": "Chỉ tải xuống khi có Wi-Fi",
     "removeCompletedAfter": "Xóa các phần đã xem",
-    "removeUnfinishedAfter": "Xóa các phần chưa xem xong"
+    "removeUnfinishedAfter": "Xóa các phần chưa xem xong",
+    "about_product": "Về sản phẩm",
+    "background_music": "Nhạc nền",
+    "episode": "Phần",
+    "apply": "Áp dụng",
+    "reset": "Mặc định",
+    "speed": "Tốc độ",
+    "reminder": "Nhắc nhở",
+    "record": "Ghi âm"
 }

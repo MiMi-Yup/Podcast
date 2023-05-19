@@ -162,3 +162,10 @@ final textStyleSecondary = TextStyle(
   fontFamily: "Roboto",
   fontStyle: FontStyle.normal,
 );
+
+final textBigTitleStyleH2 = TextStyle(
+  fontSize: mH1,
+  fontFamily: "Roboto",
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w700,
+);

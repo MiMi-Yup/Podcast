@@ -3,21 +3,28 @@ import 'package:flutter/material.dart';
 
 class MAuthor extends StatelessWidget {
   final String? networkImage;
+  final double? width;
+  final double? height;
   final void Function()? onPressed;
-  const MAuthor({super.key, required this.networkImage, this.onPressed});
+  const MAuthor(
+      {super.key,
+      required this.networkImage,
+      this.onPressed,
+      this.width,
+      this.height});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-          width: 125.0,
-          height: 125.0,
+          width: width ?? 125.0,
+          height: height ?? 125.0,
           decoration: BoxDecoration(
               color: Colors.amber,
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(30.0),
               image: networkImage == null
-                  ? DecorationImage(
+                  ? const DecorationImage(
                       image: AssetImage(mAIntroduction1),
                       filterQuality: FilterQuality.high,
                       fit: BoxFit.cover)

@@ -74,5 +74,13 @@
     "autoDownload": "Auto Download New Episodes",
     "downloadIfWifi": "Download Only if Connected to Wi-Fi",
     "removeCompletedAfter": "Remove Completed Episodes",
-    "removeUnfinishedAfter": "Remove Unfinished Episodes"
+    "removeUnfinishedAfter": "Remove Unfinished Episodes",
+    "about_product": "About It:",
+    "background_music": "Background Music",
+    "episode": "Episode",
+    "apply": "Apply",
+    "reset": "Reset",
+    "speed": "Speed",
+    "reminder": "Reminder",
+    "record": "Record"
 }
