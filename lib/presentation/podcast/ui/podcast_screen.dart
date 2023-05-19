@@ -118,7 +118,7 @@ class _PodcastScreen extends State<PodcastScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 1,
                 child: Row(
                   children: [

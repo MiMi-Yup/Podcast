@@ -6,7 +6,9 @@ import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 import 'package:join_podcast/presentation/home/home_page.dart';
+import 'package:join_podcast/presentation/library/library_page.dart';
 import 'package:join_podcast/presentation/profile/profile_screen.dart';
+import 'package:join_podcast/presentation/record/list_record/list_record.dart';
 
 part 'bottom_bar_state.dart';
 
@@ -18,8 +20,8 @@ class BottomBarCubit extends Cubit<BottomBarState> {
 
   final List<Widget> listPage = [
     const HomePage(),
-    const Placeholder(),
-    const Placeholder(),
+    const ListRecordPage(),
+    const LibraryPage(),
     ProfileScreen(
       prefsRepo: getIt<SharedPreferencesRepository>(),
     )
