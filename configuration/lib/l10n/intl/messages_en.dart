@@ -20,11 +20,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(day) => "After ${day} day(s)";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "after": m0,
         "author": MessageLookupByLibrary.simpleMessage("Author"),
+        "autoDownload":
+            MessageLookupByLibrary.simpleMessage("Auto Download New Episodes"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
         "clear": MessageLookupByLibrary.simpleMessage("Clear"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Yes"),
         "connectTimeout":
             MessageLookupByLibrary.simpleMessage("Connect timeout"),
         "connectionProblem":
@@ -32,23 +39,34 @@ class MessageLookup extends MessageLookupByLibrary {
         "connectionProblemDesc": MessageLookupByLibrary.simpleMessage(
             "Vui lòng kiểm tra lại tín hiệu Wifi hoặc 3G/4G của bạn."),
         "country": MessageLookupByLibrary.simpleMessage("Country"),
+        "darkTheme": MessageLookupByLibrary.simpleMessage("Dark Theme"),
         "databaseException":
             MessageLookupByLibrary.simpleMessage("Database exception"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
-        "discover": MessageLookupByLibrary.simpleMessage("Discover"),
+        "downloadIfWifi": MessageLookupByLibrary.simpleMessage(
+            "Download Only if Connected to Wi-Fi"),
+        "downloaded": MessageLookupByLibrary.simpleMessage("Downloaded"),
+        "downloads": MessageLookupByLibrary.simpleMessage("Downloads"),
+        "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Get setting"),
+        "globalSettings":
+            MessageLookupByLibrary.simpleMessage("Global Settings"),
+        "helpCenter": MessageLookupByLibrary.simpleMessage("Help Center"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
             "Email or password is invalid"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "languageName": MessageLookupByLibrary.simpleMessage("English"),
         "library": MessageLookupByLibrary.simpleMessage("Library"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginSuggest":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
         "loginTitle":
             MessageLookupByLibrary.simpleMessage("Login to Your Account"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "m_continue": MessageLookupByLibrary.simpleMessage("Continue"),
         "markDone": MessageLookupByLibrary.simpleMessage("Mark done"),
         "mins": MessageLookupByLibrary.simpleMessage("mins"),
@@ -61,6 +79,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
         "rememberAccount": MessageLookupByLibrary.simpleMessage("Remember me"),
+        "removeCompletedAfter":
+            MessageLookupByLibrary.simpleMessage("Remove Completed Episodes"),
+        "removeUnfinishedAfter":
+            MessageLookupByLibrary.simpleMessage("Remove Unfinished Episodes"),
         "report": MessageLookupByLibrary.simpleMessage("Report"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
@@ -85,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscription": MessageLookupByLibrary.simpleMessage("Subscriptions"),
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Something wrong! Please try later."),
-        "tryIt": MessageLookupByLibrary.simpleMessage("Try it")
+        "tryIt": MessageLookupByLibrary.simpleMessage("Try it"),
+        "upload": MessageLookupByLibrary.simpleMessage("Upload")
       };
 }

@@ -79,7 +79,7 @@ class MPodcastComponent extends StatelessWidget {
                                 color: mCPrimary,
                                 borderRadius: BorderRadius.circular(50.0)),
                             child: TextButton(
-                                onPressed: () => onPlay,
+                                onPressed: onPlay,
                                 child: Row(
                                   children: [
                                     Icon(
@@ -96,10 +96,10 @@ class MPodcastComponent extends StatelessWidget {
                                 )),
                           ),
                           IconButton(
-                              onPressed: () => onPlaylist,
+                              onPressed: onPlaylist,
                               icon: Icon(Icons.playlist_add)),
                           IconButton(
-                              onPressed: () => onDownload,
+                              onPressed: onDownload,
                               icon: Icon(Icons.download_for_offline_outlined))
                         ],
                       )),

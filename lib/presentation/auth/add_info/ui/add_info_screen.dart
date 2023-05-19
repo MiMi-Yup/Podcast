@@ -2,11 +2,18 @@ import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_primary_button.dart';
 import 'package:join_podcast/common/widgets/m_text_field.dart';
+import 'package:join_podcast/presentation/auth/add_info/cubit/add_info_cubit.dart';
+import 'package:join_podcast/utils/extensions/date_extension.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddInfoScreen extends StatelessWidget {
-  const AddInfoScreen({super.key});
+  AddInfoScreen({super.key});
+
+  final TextEditingController _dateController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -23,42 +30,72 @@ class AddInfoScreen extends StatelessWidget {
             padding: EdgeInsets.all(mPadding),
             child: Column(
               children: [
-                Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    Container(
-                      height: 100,
-                      width: 100,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(image: AssetImage(mAGoogle)),
-                          color: Colors.grey),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 165, 51, 255),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Icon(Icons.edit),
-                    )
-                  ],
+                GestureDetector(
+                  onTap: () async {
+                    final file =
+                        await _picker.pickImage(source: ImageSource.gallery);
+                  },
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      BlocBuilder<AddInfoCubit, AddInfoState>(
+                        buildWhen: (previous, current) =>
+                            previous.avatar != current.avatar,
+                        builder: (context, state) => Container(
+                          height: 100,
+                          width: 100,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image:
+                                  DecorationImage(image: AssetImage(mAGoogle)),
+                              color: Colors.grey),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 165, 51, 255),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Icon(Icons.edit),
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(height: 10),
                 MTextField(
                   hintText: MultiLanguage.of(context).fullName,
+                  onChanged: (value) =>
+                      context.read<AddInfoCubit>().changeName(value),
                 ),
                 SizedBox(height: 10),
                 MTextField(
                   hintText: MultiLanguage.of(context).nickname,
+                  onChanged: (value) =>
+                      context.read<AddInfoCubit>().changeNickname(value),
                 ),
                 SizedBox(height: 10),
                 MTextField(
                   hintText: MultiLanguage.of(context).dateOfBirth,
+                  controller: _dateController,
+                  readOnly: true,
+                  onTap: () async {
+                    final datePicker = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900, 1, 1),
+                        lastDate: DateTime.now());
+                    if (datePicker != null) {
+                      _dateController.text = datePicker.toStringDateEx;
+                      context.read<AddInfoCubit>().changeBirth(datePicker);
+                    }
+                  },
                 ),
                 SizedBox(height: 10),
                 MTextField(
                   hintText: MultiLanguage.of(context).country,
+                  onChanged: (value) =>
+                      context.read<AddInfoCubit>().changeCountry(value),
                 )
               ],
             ),

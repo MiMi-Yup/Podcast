@@ -49,6 +49,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           actions: [
+            IconButton(onPressed: () => null, icon: Icon(Icons.search)),
             IconButton(
                 onPressed: () =>
                     XMDRouter.pushNamed(routerIds[NotificationRoute]!),
@@ -113,6 +114,7 @@ class HomeScreen extends StatelessWidget {
                           author: "Apple Talk",
                           duration: Duration(minutes: 52, seconds: 25),
                           networkImage: null,
+                          onPlay: ()=>XMDRouter.pushNamed(routerIds[NotificationRoute]!),
                         ),
                         separatorBuilder: (context, index) => SizedBox(
                           height: 16.0,
