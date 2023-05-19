@@ -64,6 +64,7 @@ class ProfileScreen extends StatelessWidget {
               Container(
                 height: 75,
                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                margin: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Row(
                   children: [
                     Stack(
@@ -115,7 +116,6 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 10.0),
               MButtonSetting(
                 title: MultiLanguage.of(context).editProfile,
                 icon: Icon(Icons.person_outline),

@@ -15,12 +15,7 @@ Future<T?> showConfirmBottomModal<T>(BuildContext context, String title,
               padding: const EdgeInsets.all(10.0),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Text(title, style: mST18M),
-                Divider(
-                  color: Colors.grey.withOpacity(0.5),
-                  thickness: 5,
-                  indent: 125,
-                  endIndent: 125,
-                ),
+                SizedBox(height: 10.0,),
                 Row(
                   children: [
                     Expanded(
@@ -39,6 +34,7 @@ Future<T?> showConfirmBottomModal<T>(BuildContext context, String title,
                       padding: const EdgeInsets.all(8.0),
                       child: MPrimaryButton(
                           text: confirm ?? MultiLanguage.of(context).confirm,
+                          background: mCPrimary,
                           onPressed: whenConfirm),
                     ))
                   ],
