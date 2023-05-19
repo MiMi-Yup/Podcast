@@ -1,11 +1,8 @@
-import 'dart:isolate';
 import 'package:flutter/material.dart';
 import 'package:configuration/l10n/l10n.dart';
 import 'package:join_podcast/presentation/podcast/ui/widgets/seekbar.dart';
 import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:typed_data';
 
 class PodcastScreen extends StatefulWidget {
   final int ordinalNumber;
