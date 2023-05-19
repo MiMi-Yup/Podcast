@@ -360,11 +360,11 @@ class MultiLanguage {
     );
   }
 
-  /// `Discover`
-  String get record {
+  /// `Upload`
+  String get upload {
     return Intl.message(
-      'Record',
-      name: 'record',
+      'Upload',
+      name: 'upload',
       desc: '',
       args: [],
     );
@@ -480,26 +480,6 @@ class MultiLanguage {
     );
   }
 
-  /// `Speed`
-  String get speed {
-    return Intl.message(
-      'Speed',
-      name: 'speed',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Reminder`
-  String get reminder {
-    return Intl.message(
-      'Reminder',
-      name: 'reminder',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `show more`
   String get showMore {
     return Intl.message(
@@ -569,6 +549,246 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `English`
+  String get languageName {
+    return Intl.message(
+      'English',
+      name: 'languageName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Profile`
+  String get editProfile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'editProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Downloads`
+  String get downloads {
+    return Intl.message(
+      'Downloads',
+      name: 'downloads',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark Theme`
+  String get darkTheme {
+    return Intl.message(
+      'Dark Theme',
+      name: 'darkTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help Center`
+  String get helpCenter {
+    return Intl.message(
+      'Help Center',
+      name: 'helpCenter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message(
+      'Logout',
+      name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get confirm {
+    return Intl.message(
+      'Yes',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `After {day} day(s)`
+  String after(int day) {
+    return Intl.message(
+      'After $day day(s)',
+      name: 'after',
+      desc: 'Day do something',
+      args: [day],
+    );
+  }
+
+  /// `Downloaded`
+  String get downloaded {
+    return Intl.message(
+      'Downloaded',
+      name: 'downloaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Global Settings`
+  String get globalSettings {
+    return Intl.message(
+      'Global Settings',
+      name: 'globalSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Auto Download New Episodes`
+  String get autoDownload {
+    return Intl.message(
+      'Auto Download New Episodes',
+      name: 'autoDownload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download Only if Connected to Wi-Fi`
+  String get downloadIfWifi {
+    return Intl.message(
+      'Download Only if Connected to Wi-Fi',
+      name: 'downloadIfWifi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Completed Episodes`
+  String get removeCompletedAfter {
+    return Intl.message(
+      'Remove Completed Episodes',
+      name: 'removeCompletedAfter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Unfinished Episodes`
+  String get removeUnfinishedAfter {
+    return Intl.message(
+      'Remove Unfinished Episodes',
+      name: 'removeUnfinishedAfter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About It:`
+  String get about_product {
+    return Intl.message(
+      'About It:',
+      name: 'about_product',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Background Music`
+  String get background_music {
+    return Intl.message(
+      'Background Music',
+      name: 'background_music',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Episode`
+  String get episode {
+    return Intl.message(
+      'Episode',
+      name: 'episode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply`
+  String get apply {
+    return Intl.message(
+      'Apply',
+      name: 'apply',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset`
+  String get reset {
+    return Intl.message(
+      'Reset',
+      name: 'reset',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speed`
+  String get speed {
+    return Intl.message(
+      'Speed',
+      name: 'speed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reminder`
+  String get reminder {
+    return Intl.message(
+      'Reminder',
+      name: 'reminder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Record`
+  String get record {
+    return Intl.message(
+      'Record',
+      name: 'record',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {
@@ -577,6 +797,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'vi'),
     ];
   }
 

@@ -8,7 +8,6 @@ import 'package:join_podcast/common/widgets/m_podcast_component.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/author/author_route.dart';
-import 'package:join_podcast/presentation/library/library_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/subscription/subscription_route.dart';
 
@@ -52,6 +51,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           actions: [
+            IconButton(onPressed: () => null, icon: Icon(Icons.search)),
             IconButton(
                 onPressed: () =>
                     XMDRouter.pushNamed(routerIds[NotificationRoute]!),
@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) => MAuthor(
                           networkImage: null,
                           onPressed: () => XMDRouter.pushNamed(
-                              routerIds[SubscriptionRoute]!,
+                              routerIds[AuthorRoute]!,
                               arguments: {index: index}),
                         ),
                         separatorBuilder: (context, index) => SizedBox(
