@@ -569,56 +569,6 @@ class MultiLanguage {
       args: [],
     );
   }
-
-  /// `apply`
-  String get apply {
-    return Intl.message(
-      'Apply',
-      name: 'apply',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `reset`
-  String get reset {
-    return Intl.message(
-      'Reset',
-      name: 'reset',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Episode`
-  String get episode {
-    return Intl.message(
-      'Episode ',
-      name: 'episode',
-      desc: '',
-      args: [],
-    );
-  }
-
-  // `About Product`
-  String get about_product {
-    return Intl.message(
-      'About It:',
-      name: 'about_product',
-      desc: '',
-      args: [],
-    );
-  }
-
-  // `Background Music`
-  String get background_music {
-    return Intl.message(
-      'Background Music',
-      name: 'Background Music',
-      desc: '',
-      args: [],
-    );
-  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

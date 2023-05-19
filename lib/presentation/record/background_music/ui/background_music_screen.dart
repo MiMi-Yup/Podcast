@@ -21,7 +21,7 @@ class BackgroundMusicScreen extends StatelessWidget {
           ),
           centerTitle: true,
           title: Text(
-            MultiLanguage.of(context).background_music,
+            "Background Music",
             style: mST24R.copyWith(fontWeight: FontWeight.w500),
           )
           // actions: [

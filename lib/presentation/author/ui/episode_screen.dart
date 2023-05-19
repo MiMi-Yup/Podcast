@@ -32,7 +32,7 @@ class EpisodeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text(MultiLanguage.of(context).episode + '${ordinalNumber}'),
+        title: Text('Episode $ordinalNumber'),
         actions: [
           PopupMenuButton<int>(
             shape: const RoundedRectangleBorder(
@@ -195,7 +195,7 @@ class EpisodeScreen extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        MultiLanguage.of(context).about_product,
+                        "About it:",
                         style: textTitleStyleH2,
                       ),
                       Center(

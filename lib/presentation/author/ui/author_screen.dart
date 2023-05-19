@@ -201,9 +201,7 @@ class AuthorScreen extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: ElevatedButton(
-                                                child: Text(
-                                                    MultiLanguage.of(context)
-                                                        .reset,
+                                                child: Text("Reset",
                                                     style: mST16M.copyWith(
                                                         color: mCGreen500)),
                                                 style: ButtonStyle(
@@ -235,9 +233,7 @@ class AuthorScreen extends StatelessWidget {
                                           SizedBox(width: 20),
                                           Expanded(
                                             child: ElevatedButton(
-                                                child: Text(
-                                                    MultiLanguage.of(context)
-                                                        .apply,
+                                                child: Text("Apply",
                                                     style: mST16M.copyWith(
                                                         color: Colors.white)),
                                                 style: ButtonStyle(
