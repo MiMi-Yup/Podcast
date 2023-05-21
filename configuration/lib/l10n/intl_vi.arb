@@ -82,5 +82,7 @@
     "reset": "Mặc định",
     "speed": "Tốc độ",
     "reminder": "Nhắc nhở",
-    "record": "Ghi âm"
+    "record": "Ghi âm",
+    "verifyCreate": "Xác nhận tạo tài khoản",
+    "forgotAccount": "Quên mật khẩu"
 }

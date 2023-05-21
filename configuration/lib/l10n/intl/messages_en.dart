@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "episode": MessageLookupByLibrary.simpleMessage("Episode"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
+        "forgotAccount":
+            MessageLookupByLibrary.simpleMessage("Fotgot password"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Get setting"),
         "globalSettings":
@@ -117,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Something wrong! Please try later."),
         "tryIt": MessageLookupByLibrary.simpleMessage("Try it"),
-        "upload": MessageLookupByLibrary.simpleMessage("Upload")
+        "upload": MessageLookupByLibrary.simpleMessage("Upload"),
+        "verifyCreate": MessageLookupByLibrary.simpleMessage("Verify new user")
       };
 }

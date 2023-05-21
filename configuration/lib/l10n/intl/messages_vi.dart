@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "episode": MessageLookupByLibrary.simpleMessage("Phần"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Thông tin cá nhân"),
+        "forgotAccount": MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
         "fullName": MessageLookupByLibrary.simpleMessage("Tên đầy đủ"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Tới cài đặt"),
         "globalSettings": MessageLookupByLibrary.simpleMessage("Cài đặt chung"),
@@ -118,6 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Đã xảy ra lỗi, vui lòng thử lại sau!"),
         "tryIt": MessageLookupByLibrary.simpleMessage("Dùng thử"),
-        "upload": MessageLookupByLibrary.simpleMessage("Tải lên")
+        "upload": MessageLookupByLibrary.simpleMessage("Tải lên"),
+        "verifyCreate":
+            MessageLookupByLibrary.simpleMessage("Xác nhận tạo tài khoản")
       };
 }

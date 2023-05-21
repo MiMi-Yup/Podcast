@@ -1,6 +1,6 @@
 part of 'login_cubit.dart';
 
-enum LoginStatus { initial, submitting, success, error }
+enum LoginStatus { initial, submitting, success, error, inputInValid }
 
 abstract class ALoginState extends Equatable {
   final String email;

@@ -19,7 +19,7 @@ class _AuthService implements AuthService {
   String? baseUrl;
 
   @override
-  Future<LoginUserResponse> login(login) async {
+  Future<LoginUserResponse> login(LoginUserRequest login) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -43,7 +43,7 @@ class _AuthService implements AuthService {
   }
 
   @override
-  Future<LoginUserResponse> signUp(signUp) async {
+  Future<LoginUserResponse> signUp(NewUserRequest signUp) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -57,13 +57,103 @@ class _AuthService implements AuthService {
     )
             .compose(
               _dio.options,
-              '',
+              '/auth/signup',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = LoginUserResponse.fromJson(_result.data!);
     return value;
+  }
+
+  @override
+  Future<void> verifyCreate(VerifyUserRequest signUp) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(signUp.toJson());
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/auth/verification',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<TokenResponse> verifyForgot(VerifyUserRequest signUp) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(signUp.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<TokenResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/auth/forgot-password/verification',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = TokenResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<void> forgotAccount(VerifyUserRequest signUp) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(signUp.toJson());
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/auth/forgot-password',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<void> resetAccount(
+    String token,
+    ResetUserRequest signUp,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(signUp.toJson());
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/auth/reset-password/${token}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

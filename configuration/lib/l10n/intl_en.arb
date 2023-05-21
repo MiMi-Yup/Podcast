@@ -82,5 +82,7 @@
     "reset": "Reset",
     "speed": "Speed",
     "reminder": "Reminder",
-    "record": "Record"
+    "record": "Record",
+    "verifyCreate": "Verify new user",
+    "forgotAccount": "Fotgot password"
 }

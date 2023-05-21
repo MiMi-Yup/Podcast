@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_primary_button.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/auth/login/login_route.dart';
+import 'package:join_podcast/presentation/auth/verify/verify_create_route.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroductionModel {
@@ -127,7 +128,9 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             margin: EdgeInsets.all(10),
             child: MPrimaryButton(
                 text: MultiLanguage.of(context).login,
-                onPressed: () => XMDRouter.pushNamed(routerIds[LoginRoute]!),
+                onPressed: () => XMDRouter.pushNamed(
+                    routerIds[VerifyCreateRoute]!,
+                    arguments: {'email': 'johnwick'}),
                 background: mCPrimary),
           ),
           Container(

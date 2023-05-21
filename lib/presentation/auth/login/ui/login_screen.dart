@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: BlocConsumer<LoginCubit, ALoginState>(
                     listener: (context, state) {
                       switch (state.status) {
-                        case LoginStatus.error:
+                        case LoginStatus.inputInValid:
                           AlertUtil.showToast(
                               MultiLanguage.of(context).inValidInput);
                           break;

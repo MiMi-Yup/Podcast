@@ -789,6 +789,26 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Verify new user`
+  String get verifyCreate {
+    return Intl.message(
+      'Verify new user',
+      name: 'verifyCreate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fotgot password`
+  String get forgotAccount {
+    return Intl.message(
+      'Fotgot password',
+      name: 'forgotAccount',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

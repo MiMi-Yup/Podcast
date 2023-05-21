@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: BuildConfig, env: [CustomEnv.prod])
 class BuildConfigProd extends BuildConfig {
   @override
-  String get host => 'https://.../';
+  String get host => 'http://10.0.2.2:8080/';
 
   @override
   String get hostSocketIO => 'wss://...';
