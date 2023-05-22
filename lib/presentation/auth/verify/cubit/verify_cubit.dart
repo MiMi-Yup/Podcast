@@ -9,9 +9,11 @@ abstract class VerifyCubit extends Cubit<VerifyState> {
   VerifyCubit({required this.loginUserCases, required this.email})
       : super(VerifyState.initial());
 
-  void changeCode(String value){
-    emit(state.copyWith(code: value));
+  void changeCode(String value) {
+    emit(state.copyWith(
+        code: value, status: VerifyStatus.initial));
   }
 
   Future<void> verify();
+  Future<bool> request();
 }

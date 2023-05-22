@@ -31,4 +31,8 @@ class AddInfoCubit extends Cubit<AddInfoState> {
   void changeAvatar(XFile file) {
     emit(state.copyWith(avatar: file));
   }
+
+  Future<void> updateProfile() {
+    return Future.delayed(Duration(seconds: 5), () => null);
+  }
 }

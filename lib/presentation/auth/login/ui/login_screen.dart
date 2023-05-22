@@ -9,8 +9,9 @@ import 'package:join_podcast/common/widgets/m_primary_button.dart';
 import 'package:join_podcast/common/widgets/m_secondary_button.dart';
 import 'package:join_podcast/common/widgets/m_text_field.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/auth/add_info/add_info_route.dart';
 import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart';
+import 'package:join_podcast/presentation/auth/verify/verify_create_route.dart';
+import 'package:join_podcast/presentation/auth/verify/verify_forgot_route.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
 import 'package:join_podcast/utils/alert_util.dart';
 import 'package:join_podcast/utils/extensions/context_extension.dart';
@@ -25,17 +26,22 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  late TextEditingController _confirmPasswordController;
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
 
     _emailController.addListener(
         () => context.read<LoginCubit>().emailChanged(_emailController.text));
     _passwordController.addListener(() =>
         context.read<LoginCubit>().passwordChanged(_passwordController.text));
+    _confirmPasswordController.addListener(() => context
+        .read<LoginCubit>()
+        .confirmPasswordChanged(_confirmPasswordController.text));
   }
 
   @override
@@ -55,6 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
           Image.asset(mAChilling, height: context.screenSize.height / 3.5),
           //login text
           BlocBuilder<LoginCubit, ALoginState>(
+            buildWhen: (previous, current) =>
+                current.runtimeType != previous.runtimeType,
             builder: (context, state) => Text(
               state is SignUpState
                   ? MultiLanguage.of(context).signUpTitle
@@ -95,6 +103,30 @@ class _LoginScreenState extends State<LoginScreen> {
                   preIcon: Icons.lock,
                 ),
               )),
+          BlocConsumer<LoginCubit, ALoginState>(
+              listenWhen: (previous, current) => current is SignUpState,
+              listener: (context, state) {
+                if (state is SignUpState &&
+                    state.confirmPassword != _confirmPasswordController.text) {
+                  _confirmPasswordController.text = state.confirmPassword;
+                  _confirmPasswordController.selection =
+                      TextSelection.collapsed(
+                          offset: state.confirmPassword.length);
+                }
+              },
+              buildWhen: (previous, current) =>
+                  current.runtimeType != previous.runtimeType,
+              builder: (context, state) => state is SignUpState
+                  ? Padding(
+                      padding: EdgeInsets.all(mPaddingNormal),
+                      child: MTextField(
+                        controller: _confirmPasswordController,
+                        obscureText: true,
+                        hintText: MultiLanguage.of(context).confirmPassword,
+                        preIcon: Icons.lock,
+                      ),
+                    )
+                  : const SizedBox.shrink()),
           BlocBuilder<LoginCubit, ALoginState>(
               buildWhen: (previous, current) =>
                   previous.rememberAccount != current.rememberAccount,
@@ -141,7 +173,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         case LoginStatus.success:
                           AlertUtil.hideLoading();
                           if (state is SignUpState) {
-                            XMDRouter.pushNamed(routerIds[AddInfoRoute]!);
+                            XMDRouter.pushNamed(routerIds[VerifyCreateRoute]!,
+                                arguments: {'email': state.email});
                           } else {
                             XMDRouter.pushNamed(routerIds[BottomBarRoute]!);
                           }
@@ -152,6 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         default:
                       }
                     },
+                    buildWhen: (previous, current) =>
+                        current.runtimeType != previous.runtimeType,
                     builder: (context, state) => MPrimaryButton(
                         text: state is SignUpState
                             ? MultiLanguage.of(context).signUp
@@ -162,6 +197,22 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
+          BlocBuilder<LoginCubit, ALoginState>(
+              buildWhen: (previous, current) =>
+                  current.runtimeType != previous.runtimeType,
+              builder: (context, state) => state is LoginState
+                  ? TextButton(
+                      onPressed: () {
+                        final state = context.read<LoginCubit>().state;
+                        if (state.isEmailValid) {
+                          XMDRouter.pushNamed(routerIds[VerifyForgotRoute]!,
+                              arguments: {'email': state.email});
+                        } else {
+                          AlertUtil.showToast(MultiLanguage.of(context).emailInvalid);
+                        }
+                      },
+                      child: Text(MultiLanguage.of(context).forgotTheAccount))
+                  : const SizedBox.shrink()),
           Expanded(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -187,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             top: mPadding,
                             bottom: mPadding),
                         child:
-                            Image.asset(mAGoogle, scale: 2, isAntiAlias: true)),
+                            Image.asset(mAGoogle, scale: 3, isAntiAlias: true)),
                     MSecondaryButton(
                         background:
                             Theme.of(context).brightness == Brightness.dark
@@ -200,7 +251,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             top: mPadding,
                             bottom: mPadding),
                         child: Image.asset(mAFacebook,
-                            scale: 2, isAntiAlias: true)),
+                            scale: 3, isAntiAlias: true)),
                     MSecondaryButton(
                         background:
                             Theme.of(context).brightness == Brightness.dark
@@ -213,30 +264,33 @@ class _LoginScreenState extends State<LoginScreen> {
                             top: mPadding,
                             bottom: mPadding),
                         child:
-                            Image.asset(mAApple, scale: 2, isAntiAlias: true)),
+                            Image.asset(mAApple, scale: 3, isAntiAlias: true)),
                   ],
                 ),
               ),
               BlocBuilder<LoginCubit, ALoginState>(
-                  builder: (context, state) => Text.rich(
-                        TextSpan(children: [
-                          TextSpan(
-                              text: state is SignUpState
-                                  ? MultiLanguage.of(context).loginSuggest
-                                  : MultiLanguage.of(context).signUpSuggest),
-                          TextSpan(
-                              text: state is SignUpState
-                                  ? MultiLanguage.of(context).login
-                                  : MultiLanguage.of(context).signUp,
-                              style: mST16M.copyWith(color: mCPrimary),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = context.read<LoginCubit>().swapAccess)
-                        ]),
-                        style: mST16M.copyWith(color: Colors.grey),
+                  buildWhen: (previous, current) =>
+                      current.runtimeType != previous.runtimeType,
+                  builder: (context, state) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: mSpacing),
+                        child: Text.rich(
+                          TextSpan(children: [
+                            TextSpan(
+                                text: state is SignUpState
+                                    ? MultiLanguage.of(context).loginSuggest
+                                    : MultiLanguage.of(context).signUpSuggest),
+                            TextSpan(
+                                text: state is SignUpState
+                                    ? MultiLanguage.of(context).login
+                                    : MultiLanguage.of(context).signUp,
+                                style: mST16M.copyWith(color: mCPrimary),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap =
+                                      context.read<LoginCubit>().swapAccess)
+                          ]),
+                          style: mST16M.copyWith(color: Colors.grey),
+                        ),
                       )),
-              SizedBox(
-                height: mPaddingLarge,
-              )
             ],
           ))
         ],

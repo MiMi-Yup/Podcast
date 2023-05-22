@@ -15,7 +15,7 @@ class VerifyState extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [code];
+  List<Object?> get props => [code, status];
 
   VerifyState copyWith({String? code, VerifyStatus? status}) =>
       VerifyState(code: code ?? this.code, status: status ?? this.status);

@@ -3,30 +3,30 @@ import 'package:configuration/route/xmd_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/auth/add_info/cubit/add_info_cubit.dart';
-import 'package:join_podcast/presentation/auth/add_info/ui/add_info_screen.dart';
+import 'package:join_podcast/presentation/new_user/interest/cubit/interest_cubit.dart';
+import 'package:join_podcast/presentation/new_user/interest/ui/interest_screen.dart';
 
-class AddInfoRoute extends RouteDefine {
+class InterestRoute extends RouteDefine {
   @override
   List<Path> initRoute(Map? arguments) => [
         Path(
-          route: AddInfoRoute,
+          route: InterestRoute,
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider<AddInfoCubit>(
-                create: (_) => getIt<AddInfoCubit>(),
+              BlocProvider<InterestCubit>(
+                create: (_) => getIt<InterestCubit>(),
               ),
             ],
-            child: AddInfoScreen(),
+            child: InterestScreen(),
           ),
         ),
       ];
 
   static pushAndRemoveAll() {
-    XMDRouter.pushNamedAndRemoveUntil(routerIds[AddInfoRoute]!);
+    XMDRouter.pushNamedAndRemoveUntil(routerIds[InterestRoute]!);
   }
 
   static popAndRemoveAll() {
-    XMDRouter.popNamedAndRemoveUntil(routerIds[AddInfoRoute]!);
+    XMDRouter.popNamedAndRemoveUntil(routerIds[InterestRoute]!);
   }
 }
