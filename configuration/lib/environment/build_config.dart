@@ -10,5 +10,5 @@ abstract class BuildConfig {
 
   String get hostSocketIO;
 
-  String get apiUrl => '${host}api';
+  String get apiUrl => '${host}api/v1';
 }

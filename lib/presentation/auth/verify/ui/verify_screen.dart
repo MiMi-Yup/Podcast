@@ -42,6 +42,7 @@ class VerifyScreen extends StatelessWidget {
                             ? Text(
                                 "${MultiLanguage.of(context).codeHaveBeenSend} ${context.read<VerifyCubit>().email}",
                                 style: mST18R,
+                                textAlign: TextAlign.center,
                               )
                             : Text(MultiLanguage.of(context).systemError)
                         : const LinearProgressIndicator(),

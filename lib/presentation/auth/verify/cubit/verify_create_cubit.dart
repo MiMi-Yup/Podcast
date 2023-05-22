@@ -23,6 +23,6 @@ class VerifyCreateCubit extends VerifyCubit {
 
   @override
   Future<bool> request() {
-    return Future.delayed(Duration(seconds: 5), () => true);
+    return Future.value(true);
   }
 }

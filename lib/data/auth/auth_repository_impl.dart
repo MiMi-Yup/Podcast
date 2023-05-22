@@ -19,18 +19,18 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.authService});
 
   @override
-  FutureOr<LoginUserResponse?> loginByPassword(LoginUserRequest login) {
+  FutureOr<TokenResponse?> loginByPassword(LoginUserRequest login) {
     return authService?.login(login).catchError((onError) {
       ExceptionUtil.handle(onError);
-      return LoginUserResponse();
+      return TokenResponse();
     });
   }
 
   @override
-  FutureOr<LoginUserResponse?> signUp(NewUserRequest signUp) {
-    return authService?.signUp(signUp).catchError((onError) {
+  FutureOr<bool?> signUp(NewUserRequest signUp) {
+    return authService?.signUp(signUp).then((_) => true).catchError((onError) {
       ExceptionUtil.handle(onError);
-      return LoginUserResponse();
+      return false;
     });
   }
 

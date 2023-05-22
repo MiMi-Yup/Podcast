@@ -4,7 +4,6 @@ import 'package:join_podcast/models/response/token_response.dart';
 import 'package:retrofit/http.dart';
 import 'package:join_podcast/models/request/login_user_request.dart';
 import 'package:join_podcast/models/request/new_user_request.dart';
-import 'package:join_podcast/models/response/login_user_response.dart';
 import 'package:dio/dio.dart';
 
 part 'auth_service.g.dart';
@@ -14,10 +13,10 @@ abstract class AuthService {
   factory AuthService(Dio dio, {String baseUrl}) = _AuthService;
 
   @POST('/auth/login')
-  Future<LoginUserResponse> login(@Body() LoginUserRequest login);
+  Future<TokenResponse> login(@Body() LoginUserRequest login);
 
   @POST('/auth/signup')
-  Future<LoginUserResponse> signUp(@Body() NewUserRequest signUp);
+  Future<void> signUp(@Body() NewUserRequest signUp);
 
   @POST('/auth/verification')
   Future<void> verifyCreate(@Body() VerifyUserRequest signUp);

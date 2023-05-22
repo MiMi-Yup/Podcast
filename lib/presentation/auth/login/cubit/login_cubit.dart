@@ -40,19 +40,21 @@ class LoginCubit extends Cubit<ALoginState> {
   void primaryAction() async {
     if (state.isFormValid) {
       emit(state.copyWith(status: LoginStatus.submitting));
-      UserModel? user;
+      bool accept = false;
       if (state is SignUpState) {
-        // user = await loginUserCases.signUp(
-        //     email: state.email, password: state.password);
+        accept = await loginUserCases.signUp(
+                email: state.email, password: state.password) ??
+            false;
         //uncomment below to disable bypass
-        user = UserModel(email: 'johnwick@gmail.com');
+        //user = UserModel(email: 'johnwick@gmail.com');
       } else {
-        user = await loginUserCases.login(
+        final user = await loginUserCases.login(
             email: state.email,
             password: state.password,
             remember: state.rememberAccount);
+        if (user != null) accept = true;
       }
-      if (user != null) {
+      if (accept) {
         emit(state.copyWith(status: LoginStatus.success));
       } else {
         emit(state.copyWith(status: LoginStatus.error));
