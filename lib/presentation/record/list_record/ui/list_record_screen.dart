@@ -10,7 +10,7 @@ import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
-import 'package:join_podcast/presentation/record/background_music/background_music_route.dart';
+import 'package:join_podcast/presentation/record/background_music/background_music_home/background_music_home_route.dart';
 import 'package:join_podcast/presentation/subscription/subscription_route.dart';
 
 class ListRecordScreen extends StatefulWidget {
@@ -87,7 +87,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                   : PlayStopButton(),
               TextButton(
                 onPressed: () {
-                  XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
+                  XMDRouter.pushNamed(routerIds[BackgroundMusicHomeRoute]!);
                 },
                 child: const Icon(
                   Icons.stop,
