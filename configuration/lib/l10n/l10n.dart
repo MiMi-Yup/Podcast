@@ -250,10 +250,10 @@ class MultiLanguage {
     );
   }
 
-  /// `Don't hae an account? `
+  /// `Don't have an account? `
   String get signUpSuggest {
     return Intl.message(
-      'Don\'t hae an account? ',
+      'Don\'t have an account? ',
       name: 'signUpSuggest',
       desc: '',
       args: [],
@@ -440,21 +440,21 @@ class MultiLanguage {
     );
   }
 
-  /// `Subcribe`
-  String get subcribe {
+  /// `Subscribe`
+  String get subscribe {
     return Intl.message(
-      'Subcribe',
-      name: 'subcribe',
+      'Subscribe',
+      name: 'subscribe',
       desc: '',
       args: [],
     );
   }
 
-  /// `Subcribed`
-  String get subcribed {
+  /// `Subscribed`
+  String get subscribed {
     return Intl.message(
-      'Subcribed',
-      name: 'subcribed',
+      'Subscribed',
+      name: 'subscribed',
       desc: '',
       args: [],
     );
@@ -785,6 +785,146 @@ class MultiLanguage {
     return Intl.message(
       'Record',
       name: 'record',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify new user`
+  String get verifyCreate {
+    return Intl.message(
+      'Verify new user',
+      name: 'verifyCreate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fotgot password`
+  String get forgotAccount {
+    return Intl.message(
+      'Fotgot password',
+      name: 'forgotAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm password`
+  String get confirmPassword {
+    return Intl.message(
+      'Confirm password',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email invalid`
+  String get emailInvalid {
+    return Intl.message(
+      'Email invalid',
+      name: 'emailInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot the password?`
+  String get forgotTheAccount {
+    return Intl.message(
+      'Forgot the password?',
+      name: 'forgotTheAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset Password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code have been send to`
+  String get codeHaveBeenSend {
+    return Intl.message(
+      'Code have been send to',
+      name: 'codeHaveBeenSend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Code invalid`
+  String get codeInvalid {
+    return Intl.message(
+      'Code invalid',
+      name: 'codeInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscribe Authors`
+  String get initSubscribeTitle {
+    return Intl.message(
+      'Subscribe Authors',
+      name: 'initSubscribeTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscribe your favorite Podcast Authors. Or you can skip it for now.`
+  String get initSubscribe {
+    return Intl.message(
+      'Subscribe your favorite Podcast Authors. Or you can skip it for now.',
+      name: 'initSubscribe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Your Interest`
+  String get chooseInterestTitle {
+    return Intl.message(
+      'Choose Your Interest',
+      name: 'chooseInterestTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your interests and get the best podcast recommendations. Don't worry, you can always change it later.`
+  String get chooseInterest {
+    return Intl.message(
+      'Choose your interests and get the best podcast recommendations. Don\'t worry, you can always change it later.',
+      name: 'chooseInterest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify`
+  String get verify {
+    return Intl.message(
+      'Verify',
+      name: 'verify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get askLogout {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'askLogout',
       desc: '',
       args: [],
     );

@@ -1,14 +1,21 @@
-import 'package:join_podcast/presentation/auth/add_info/add_info_route.dart';
 import 'package:join_podcast/presentation/auth/login/login_route.dart';
+import 'package:join_podcast/presentation/auth/reset/reset_route.dart';
+import 'package:join_podcast/presentation/auth/verify/verify_create_route.dart';
+import 'package:join_podcast/presentation/auth/verify/verify_forgot_route.dart';
 import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
 import 'package:join_podcast/presentation/download/download_route.dart';
 import 'package:join_podcast/presentation/episode/episode_route.dart';
-import 'package:join_podcast/presentation/interested/interested_route.dart';
 import 'package:join_podcast/presentation/introduction/introduction_route.dart';
+import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart';
+import 'package:join_podcast/presentation/new_user/init_subscribe/init_subscribe_route.dart';
+import 'package:join_podcast/presentation/new_user/interest/interest_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 import 'package:join_podcast/presentation/record/background_music/background_music_home/background_music_home_route.dart';
+import 'package:join_podcast/presentation/record/background_music/background_music_route.dart';
+import 'package:join_podcast/presentation/record/list_record/list_record.dart';
+import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';
 import 'package:join_podcast/presentation/subscription/subscription_route.dart';
 import 'package:join_podcast/presentation/welcome_page/welcome_route.dart';
 import 'package:join_podcast/presentation/record/background_music/background_music_details/background_music_detail_route.dart';
@@ -18,16 +25,23 @@ const routerIds = {
   LoginRoute: 'LoginRoute',
   IntroductionRoute: 'IntroductionRoute',
   AddInfoRoute: "AddInfoRoute",
-  InterestedRoute: "InterestedRoute",
+  InterestRoute: "InterestRoute",
   BottomBarRoute: "BottomBarRoute",
   NotificationRoute: "NotificationRoute",
   SubscriptionRoute: "SubscriptionRoute",
   AuthorRoute: "AuthorRoute",
   PodcastRoute: "PodcastRoute",
-  EpisodeRoute: "EpisodeRoute",
-  DownloadRoute: "DownloadRoute",
   BackgroundMusicHomeRoute: "BackgroundMusicHomeRoute",
   BackgroundMusicDetailRoute: "BackgroundMusicDetailRoute"
+  BackgroundMusicRoute: "BackgroundMusicRoute",
+  RecordPageRoute: "RecordPageRoute",
+  EpisodeRoute: "EpisodeRoute",
+  DownloadRoute: "DownloadRoute",
+  ListRecordPage: "ListRecordPage",
+  VerifyForgotRoute: "VerifyForgotRoute",
+  VerifyCreateRoute: "VerifyCreateRoute",
+  ResetAccountRoute: "ResetAccountRoute",
+  InitSubscribeRoute: "InitSubscribeRoute",
 };
 
 void generateRoutes() {
@@ -35,7 +49,7 @@ void generateRoutes() {
   LoginRoute();
   IntroductionRoute();
   AddInfoRoute();
-  InterestedRoute();
+  InterestRoute();
   BottomBarRoute();
   NotificationRoute();
   SubscriptionRoute();
@@ -45,4 +59,11 @@ void generateRoutes() {
   DownloadRoute();
   BackgroundMusicHomeRoute();
   BackgroundMusicDetailRoute();
+  BackgroundMusicRoute();
+  RecordPageRoute();
+  ListRecordPage();
+  VerifyForgotRoute();
+  VerifyCreateRoute();
+  ResetAccountRoute();
+  InitSubscribeRoute();
 }
