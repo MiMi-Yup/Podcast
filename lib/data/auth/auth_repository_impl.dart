@@ -8,7 +8,7 @@ import 'package:join_podcast/models/request/login_user_request.dart';
 import 'package:join_podcast/models/request/verify_user_request.dart';
 import 'package:join_podcast/models/request/reset_user_request.dart';
 import 'package:join_podcast/models/response/login_user_response.dart';
-import 'package:join_podcast/models/response/token_response.dart';
+import 'package:join_podcast/models/response/reset_token_response.dart';
 import 'package:join_podcast/utils/exception_util.dart';
 
 @Injectable(as: AuthRepository)
@@ -57,7 +57,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  FutureOr<TokenResponse?> verifyForgotAccount(VerifyUserRequest request) {
+  FutureOr<ResetTokenResponse?> verifyForgotAccount(VerifyUserRequest request) {
     return authService
         ?.verifyForgot(request)
         .then((value) => value.data)

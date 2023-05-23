@@ -88,7 +88,7 @@ class _AuthService implements AuthService {
   }
 
   @override
-  Future<ApiResponse<TokenResponse>> verifyForgot(
+  Future<ApiResponse<ResetTokenResponse>> verifyForgot(
       VerifyUserRequest signUp) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -96,7 +96,7 @@ class _AuthService implements AuthService {
     final _data = <String, dynamic>{};
     _data.addAll(signUp.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<TokenResponse>>(Options(
+        _setStreamType<ApiResponse<ResetTokenResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -108,9 +108,9 @@ class _AuthService implements AuthService {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<TokenResponse>.fromJson(
+    final value = ApiResponse<ResetTokenResponse>.fromJson(
       _result.data!,
-      (json) => TokenResponse.fromJson(json as Map<String, dynamic>),
+      (json) => ResetTokenResponse.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

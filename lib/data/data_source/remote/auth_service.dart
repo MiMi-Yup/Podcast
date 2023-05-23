@@ -2,7 +2,7 @@ import 'package:join_podcast/models/request/reset_user_request.dart';
 import 'package:join_podcast/models/request/verify_user_request.dart';
 import 'package:join_podcast/models/response/api_response.dart';
 import 'package:join_podcast/models/response/login_user_response.dart';
-import 'package:join_podcast/models/response/token_response.dart';
+import 'package:join_podcast/models/response/reset_token_response.dart';
 import 'package:retrofit/http.dart';
 import 'package:join_podcast/models/request/login_user_request.dart';
 import 'package:join_podcast/models/request/new_user_request.dart';
@@ -24,7 +24,7 @@ abstract class AuthService {
   Future<void> verifyCreate(@Body() VerifyUserRequest signUp);
 
   @POST('/auth/forgot-password/verification')
-  Future<ApiResponse<TokenResponse>> verifyForgot(@Body() VerifyUserRequest signUp);
+  Future<ApiResponse<ResetTokenResponse>> verifyForgot(@Body() VerifyUserRequest signUp);
 
   @POST('/auth/forgot-password')
   Future<void> forgotAccount(@Body() VerifyUserRequest signUp);

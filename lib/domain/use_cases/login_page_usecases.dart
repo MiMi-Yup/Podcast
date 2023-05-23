@@ -5,7 +5,7 @@ import 'package:join_podcast/models/request/new_user_request.dart';
 import 'package:join_podcast/models/request/reset_user_request.dart';
 import 'package:join_podcast/models/request/verify_user_request.dart';
 import 'package:join_podcast/models/response/login_user_response.dart';
-import 'package:join_podcast/models/response/token_response.dart';
+import 'package:join_podcast/models/response/reset_token_response.dart';
 import 'package:join_podcast/models/user_model.dart';
 
 @injectable
