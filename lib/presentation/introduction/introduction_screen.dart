@@ -127,7 +127,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             margin: EdgeInsets.all(10),
             child: MPrimaryButton(
                 text: MultiLanguage.of(context).login,
-                onPressed: () => XMDRouter.pushNamed(routerIds[LoginRoute]!),
+                onPressed: () => XMDRouter.pushNamed(
+                    routerIds[LoginRoute]!),
                 background: mCPrimary),
           ),
           Container(

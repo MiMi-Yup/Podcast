@@ -10,7 +10,8 @@ class MTextField extends StatefulWidget {
       this.obscureText = false,
       this.preIcon,
       this.readOnly = false,
-      this.onTap})
+      this.onTap,
+      this.errorText})
       : super(key: key);
 
   final TextEditingController? controller;
@@ -20,6 +21,7 @@ class MTextField extends StatefulWidget {
   final IconData? preIcon;
   final bool readOnly;
   final void Function()? onTap;
+  final String? errorText;
 
   @override
   State<MTextField> createState() => _MTextFieldState();
@@ -42,6 +44,7 @@ class _MTextFieldState extends State<MTextField> {
       readOnly: widget.readOnly,
       onTap: widget.onTap,
       decoration: InputDecoration(
+        errorText: widget.errorText,
         prefixIcon: widget.preIcon != null ? Icon(widget.preIcon) : null,
         suffixIcon: widget.obscureText
             ? GestureDetector(

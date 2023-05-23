@@ -24,7 +24,7 @@ import 'package:join_podcast/data/shared_preferences_repository_impl.dart'
     as _i14;
 import 'package:join_podcast/data/unit_of_work_impl.dart' as _i16;
 import 'package:join_podcast/data/user/user_repository_impl.dart' as _i10;
-import 'package:join_podcast/di/module/network_module.dart' as _i29;
+import 'package:join_podcast/di/module/network_module.dart' as _i35;
 import 'package:join_podcast/domain/repositories/auth_repository.dart' as _i4;
 import 'package:join_podcast/domain/repositories/secure_preferences_repository.dart'
     as _i11;
@@ -32,28 +32,40 @@ import 'package:join_podcast/domain/repositories/shared_preferences_repository.d
     as _i13;
 import 'package:join_podcast/domain/repositories/unit_of_work.dart' as _i15;
 import 'package:join_podcast/domain/repositories/user_repository.dart' as _i9;
-import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i22;
+import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i25;
 import 'package:join_podcast/domain/use_cases/welcome_page_usecases.dart'
     as _i17;
-import 'package:join_podcast/presentation/auth/add_info/cubit/add_info_cubit.dart'
-    as _i26;
 import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart'
+    as _i34;
+import 'package:join_podcast/presentation/auth/reset/cubit/reset_cubit.dart'
     as _i28;
 import 'package:join_podcast/presentation/author/cubit/author_cubit.dart'
     as _i18;
 import 'package:join_podcast/presentation/bottom_bar/cubit/bottom_bar_cubit.dart'
-    as _i19;
-import 'package:join_podcast/presentation/download/cubit/download_cubit.dart'
     as _i20;
-import 'package:join_podcast/presentation/home/cubit/home_cubit.dart' as _i21;
-import 'package:join_podcast/presentation/interested/cubit/interested_cubit.dart'
-    as _i27;
-import 'package:join_podcast/presentation/notification/cubit/notification_cubit.dart'
+import 'package:join_podcast/presentation/download/cubit/download_cubit.dart'
+    as _i21;
+import 'package:join_podcast/presentation/home/cubit/home_cubit.dart' as _i22;
+import 'package:join_podcast/presentation/library/cubit/library_cubit.dart'
     as _i23;
-import 'package:join_podcast/presentation/subscription/cubit/subscription_cubit.dart'
+import 'package:join_podcast/presentation/new_user/add_info/cubit/add_info_cubit.dart'
+    as _i31;
+import 'package:join_podcast/presentation/new_user/init_subscribe/cubit/init_subscribe_cubit.dart'
+    as _i32;
+import 'package:join_podcast/presentation/new_user/interest/cubit/interest_cubit.dart'
+    as _i33;
+import 'package:join_podcast/presentation/notification/cubit/notification_cubit.dart'
+    as _i26;
+import 'package:join_podcast/presentation/podcast/cubit/podcast_cubit.dart'
+    as _i27;
+import 'package:join_podcast/presentation/record/background_music/cubit/background_music_cubit.dart'
+    as _i19;
+import 'package:join_podcast/presentation/record/list_record/cubit/list_record_cubit.dart'
     as _i24;
+import 'package:join_podcast/presentation/subscription/cubit/subscription_cubit.dart'
+    as _i29;
 import 'package:join_podcast/presentation/welcome_page/cubit/welcome_cubit.dart'
-    as _i25;
+    as _i30;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -91,28 +103,42 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i17.WelcomeUseCases(unitOfWork: gh<_i15.UnitOfWork>()));
     gh.factory<_i18.AuthorCubit>(
         () => _i18.AuthorCubit(unitOfWork: gh<_i15.UnitOfWork>()));
-    gh.factory<_i19.BottomBarCubit>(
-        () => _i19.BottomBarCubit(unitOfWork: gh<_i15.UnitOfWork>()));
-    gh.factory<_i20.DownloadCubit>(
-        () => _i20.DownloadCubit(unitOfWork: gh<_i15.UnitOfWork>()));
-    gh.factory<_i21.HomeCubit>(
-        () => _i21.HomeCubit(unitOfWork: gh<_i15.UnitOfWork>()));
-    gh.factory<_i22.LoginUseCases>(
-        () => _i22.LoginUseCases(unitOfWork: gh<_i15.UnitOfWork>()));
-    gh.factory<_i23.NotificationCubit>(
-        () => _i23.NotificationCubit(unitOfWork: gh<_i15.UnitOfWork>()));
-    gh.factory<_i24.SubscriptionCubit>(
-        () => _i24.SubscriptionCubit(unitOfWork: gh<_i15.UnitOfWork>()));
-    gh.factory<_i25.WelcomeCubit>(
-        () => _i25.WelcomeCubit(welcomeUserCases: gh<_i17.WelcomeUseCases>()));
-    gh.factory<_i26.AddInfoCubit>(
-        () => _i26.AddInfoCubit(loginUserCases: gh<_i22.LoginUseCases>()));
-    gh.factory<_i27.InterestedCubit>(
-        () => _i27.InterestedCubit(loginUserCases: gh<_i22.LoginUseCases>()));
-    gh.factory<_i28.LoginCubit>(
-        () => _i28.LoginCubit(loginUserCases: gh<_i22.LoginUseCases>()));
+    gh.factory<_i19.BackgroundMusicCubit>(
+        () => _i19.BackgroundMusicCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i20.BottomBarCubit>(
+        () => _i20.BottomBarCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i21.DownloadCubit>(
+        () => _i21.DownloadCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i22.HomeCubit>(
+        () => _i22.HomeCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i23.LibraryCubit>(
+        () => _i23.LibraryCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i24.ListRecordCubit>(
+        () => _i24.ListRecordCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i25.LoginUseCases>(
+        () => _i25.LoginUseCases(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i26.NotificationCubit>(
+        () => _i26.NotificationCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i27.PodcastCubit>(
+        () => _i27.PodcastCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i28.ResetAccountCubit>(() => _i28.ResetAccountCubit(
+          loginUserCases: gh<_i25.LoginUseCases>(),
+          token: gh<String>(),
+        ));
+    gh.factory<_i29.SubscriptionCubit>(
+        () => _i29.SubscriptionCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+    gh.factory<_i30.WelcomeCubit>(
+        () => _i30.WelcomeCubit(welcomeUserCases: gh<_i17.WelcomeUseCases>()));
+    gh.factory<_i31.AddInfoCubit>(
+        () => _i31.AddInfoCubit(loginUserCases: gh<_i25.LoginUseCases>()));
+    gh.factory<_i32.InitSubscribeCubit>(() =>
+        _i32.InitSubscribeCubit(loginUserCases: gh<_i25.LoginUseCases>()));
+    gh.factory<_i33.InterestCubit>(
+        () => _i33.InterestCubit(loginUserCases: gh<_i25.LoginUseCases>()));
+    gh.factory<_i34.LoginCubit>(
+        () => _i34.LoginCubit(loginUserCases: gh<_i25.LoginUseCases>()));
     return this;
   }
 }
 
-class _$NetworkModule extends _i29.NetworkModule {}
+class _$NetworkModule extends _i35.NetworkModule {}

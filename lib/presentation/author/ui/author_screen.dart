@@ -108,7 +108,7 @@ class AuthorScreen extends StatelessWidget {
                                   SizedBox(
                                     width: 8.0,
                                   ),
-                                  Text(MultiLanguage.of(context).subcribe,
+                                  Text(MultiLanguage.of(context).subscribe,
                                       style:
                                           mST14M.copyWith(color: Colors.white))
                                 ],
