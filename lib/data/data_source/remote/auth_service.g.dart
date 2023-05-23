@@ -19,14 +19,14 @@ class _AuthService implements AuthService {
   String? baseUrl;
 
   @override
-  Future<TokenResponse> login(LoginUserRequest login) async {
+  Future<ApiResponse<TokenResponse>> login(LoginUserRequest login) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(login.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TokenResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<TokenResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -38,7 +38,10 @@ class _AuthService implements AuthService {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TokenResponse.fromJson(_result.data!);
+    final value = ApiResponse<TokenResponse>.fromJson(
+      _result.data!,
+      (json) => TokenResponse.fromJson(json as Map<String, dynamic>),
+    );
     return value;
   }
 
@@ -85,14 +88,15 @@ class _AuthService implements AuthService {
   }
 
   @override
-  Future<TokenResponse> verifyForgot(VerifyUserRequest signUp) async {
+  Future<ApiResponse<TokenResponse>> verifyForgot(
+      VerifyUserRequest signUp) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(signUp.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TokenResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<TokenResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -104,7 +108,10 @@ class _AuthService implements AuthService {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = TokenResponse.fromJson(_result.data!);
+    final value = ApiResponse<TokenResponse>.fromJson(
+      _result.data!,
+      (json) => TokenResponse.fromJson(json as Map<String, dynamic>),
+    );
     return value;
   }
 
@@ -140,7 +147,7 @@ class _AuthService implements AuthService {
     final _data = <String, dynamic>{};
     _data.addAll(signUp.toJson());
     await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'POST',
+      method: 'PATCH',
       headers: _headers,
       extra: _extra,
     )

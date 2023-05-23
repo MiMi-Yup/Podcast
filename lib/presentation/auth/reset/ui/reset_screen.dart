@@ -1,10 +1,14 @@
 import 'package:configuration/l10n/l10n.dart';
+import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_primary_button.dart';
 import 'package:join_podcast/common/widgets/m_text_field.dart';
+import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/auth/reset/cubit/reset_cubit.dart';
+import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
+import 'package:join_podcast/utils/alert_util.dart';
 
 class ResetAccountScreen extends StatefulWidget {
   const ResetAccountScreen({super.key});
@@ -62,10 +66,10 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                   controller: _passwordController,
                   obscureText: true,
                   preIcon: Icons.lock,
-                  hintText: MultiLanguage.of(context).email,
+                  hintText: MultiLanguage.of(context).password,
                 ),
               )),
-          BlocListener<ResetAccountCubit, ResetAccountState>(
+          BlocConsumer<ResetAccountCubit, ResetAccountState>(
               listener: (context, state) {
                 if (state.confirmPassword != _confirmPasswordController.text) {
                   _confirmPasswordController.text = state.confirmPassword;
@@ -74,15 +78,22 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                           offset: state.confirmPassword.length);
                 }
               },
-              child: Padding(
-                padding: EdgeInsets.all(mPaddingNormal),
-                child: MTextField(
-                  controller: _confirmPasswordController,
-                  obscureText: true,
-                  hintText: MultiLanguage.of(context).confirmPassword,
-                  preIcon: Icons.lock,
-                ),
-              )),
+              buildWhen: (previous, current) =>
+                  previous.password != current.password ||
+                  previous.confirmPassword != current.confirmPassword,
+              builder: (context, state) => Padding(
+                    padding: EdgeInsets.all(mPaddingNormal),
+                    child: MTextField(
+                      controller: _confirmPasswordController,
+                      obscureText: true,
+                      hintText: MultiLanguage.of(context).confirmPassword,
+                      preIcon: Icons.lock,
+                      errorText: state.password.isNotEmpty &&
+                              state.password != state.confirmPassword
+                          ? "Password not match"
+                          : null,
+                    ),
+                  )),
           BlocBuilder<ResetAccountCubit, ResetAccountState>(
               buildWhen: (previous, current) =>
                   previous.rememberAccount != current.rememberAccount,
@@ -117,8 +128,26 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
           Container(
             width: double.maxFinite,
             padding: EdgeInsets.all(mSpacing),
-            child: MPrimaryButton(
-                text: MultiLanguage.of(context).m_continue, onPressed: null),
+            child: BlocListener<ResetAccountCubit, ResetAccountState>(
+              listenWhen: (previous, current) =>
+                  previous.status != current.status,
+              listener: (context, state) {
+                switch (state.status) {
+                  case ResetAccountStatus.done:
+                    XMDRouter.pushNamedAndRemoveUntil(
+                        routerIds[BottomBarRoute]!);
+                    break;
+                  case ResetAccountStatus.submitting:
+                    AlertUtil.showLoading();
+                    break;
+                  default:
+                    break;
+                }
+              },
+              child: MPrimaryButton(
+                  text: MultiLanguage.of(context).m_continue,
+                  onPressed: context.read<ResetAccountCubit>().submit),
+            ),
           )
         ],
       ),

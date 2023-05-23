@@ -11,6 +11,7 @@ import 'package:join_podcast/presentation/auth/verify/cubit/verify_cubit.dart';
 import 'package:join_podcast/presentation/auth/verify/cubit/verify_forgot_cubit.dart';
 import 'package:join_podcast/presentation/auth/verify/cubit/verify_state.dart';
 import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart';
+import 'package:join_podcast/utils/alert_util.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyScreen extends StatelessWidget {
@@ -50,68 +51,81 @@ class VerifyScreen extends StatelessWidget {
                   SizedBox(
                     height: mSpacing,
                   ),
-                  PinCodeTextField(
-                    appContext: context,
-                    pastedTextStyle: const TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
+                  BlocListener<VerifyCubit, VerifyState>(
+                    listenWhen: (previous, current) =>
+                        previous.code != current.code,
+                    listener: (context, state) {
+                      if (_controller.text != state.code) {
+                        _controller.text = state.code;
+                        _controller.text = state.code;
+                        _controller.selection =
+                            TextSelection.collapsed(offset: state.code.length);
+                      }
+                    },
+                    child: PinCodeTextField(
+                      appContext: context,
+                      pastedTextStyle: const TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      length: 5,
+                      blinkWhenObscuring: true,
+                      animationType: AnimationType.fade,
+                      pinTheme: PinTheme(
+                          shape: PinCodeFieldShape.box,
+                          borderRadius: BorderRadius.circular(10.0),
+                          fieldHeight: 60,
+                          fieldWidth: 70,
+                          activeFillColor: Colors.grey.withAlpha(25),
+                          activeColor: Colors.grey.withAlpha(25),
+                          inactiveColor: Colors.grey.withAlpha(25),
+                          inactiveFillColor: Colors.grey.withAlpha(25),
+                          selectedFillColor: mCPrimary),
+                      animationDuration: const Duration(milliseconds: 300),
+                      enableActiveFill: true,
+                      controller: _controller,
+                      keyboardType: TextInputType.number,
+                      boxShadows: const [
+                        BoxShadow(
+                          offset: Offset(0, 1),
+                          color: Colors.black12,
+                          blurRadius: 5,
+                        )
+                      ],
+                      onCompleted: (_) => context.read<VerifyCubit>().verify(),
+                      onChanged: (value) {
+                        context.read<VerifyCubit>().changeCode(value);
+                      },
+                      beforeTextPaste: (text) {
+                        return true;
+                      },
                     ),
-                    length: 5,
-                    blinkWhenObscuring: true,
-                    animationType: AnimationType.fade,
-                    pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(10.0),
-                        fieldHeight: 60,
-                        fieldWidth: 70,
-                        activeFillColor: Colors.grey.withAlpha(25),
-                        activeColor: Colors.grey.withAlpha(25),
-                        inactiveColor: Colors.grey.withAlpha(25),
-                        inactiveFillColor: Colors.grey.withAlpha(25),
-                        selectedFillColor: mCPrimary),
-                    animationDuration: const Duration(milliseconds: 300),
-                    enableActiveFill: true,
-                    controller: _controller,
-                    keyboardType: TextInputType.number,
-                    boxShadows: const [
-                      BoxShadow(
-                        offset: Offset(0, 1),
-                        color: Colors.black12,
-                        blurRadius: 5,
-                      )
-                    ],
-                    onCompleted: (_) => context.read<VerifyCubit>().verify(),
-                    onChanged: (value) {
-                      context.read<VerifyCubit>().changeCode(value);
-                    },
-                    beforeTextPaste: (text) {
-                      return true;
-                    },
-                  ),
-                  BlocBuilder<VerifyCubit, VerifyState>(
-                      buildWhen: (previous, current) =>
-                          previous.status != current.status,
-                      builder: (context, state) {
-                        switch (state.status) {
-                          case VerifyStatus.failed:
-                            return Text(MultiLanguage.of(context).codeInvalid);
-                          default:
-                            return const SizedBox.shrink();
-                        }
-                      })
+                  )
                 ],
               ),
             )),
             BlocListener<VerifyCubit, VerifyState>(
               listenWhen: (previous, current) =>
-                  current.status == VerifyStatus.confirmed,
+                  previous.status != current.status,
               listener: (context, state) {
-                final cubit = context.read<VerifyCubit>();
-                if (cubit is VerifyCreateCubit) {
-                  XMDRouter.popAndPushNamed(routerIds[AddInfoRoute]!);
-                } else if (cubit is VerifyForgotCubit) {
-                  XMDRouter.popAndPushNamed(routerIds[ResetAccountRoute]!,
-                      arguments: {'token': cubit.token});
+                switch (state.status) {
+                  case VerifyStatus.checking:
+                    AlertUtil.showLoading();
+                    break;
+                  case VerifyStatus.confirmed:
+                    final cubit = context.read<VerifyCubit>();
+                    if (cubit is VerifyCreateCubit) {
+                      XMDRouter.popAndPushNamed(routerIds[AddInfoRoute]!);
+                    } else if (cubit is VerifyForgotCubit) {
+                      XMDRouter.popAndPushNamed(routerIds[ResetAccountRoute]!,
+                          arguments: {'token': cubit.token});
+                    }
+                    break;
+                  case VerifyStatus.failed:
+                    context.read<VerifyCubit>().changeCode('');
+                    break;
+                  default:
+                    break;
                 }
               },
               child: Container(

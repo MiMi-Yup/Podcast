@@ -14,7 +14,6 @@ import 'package:join_podcast/presentation/auth/verify/verify_create_route.dart';
 import 'package:join_podcast/presentation/auth/verify/verify_forgot_route.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
 import 'package:join_podcast/utils/alert_util.dart';
-import 'package:join_podcast/utils/extensions/context_extension.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -58,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(mAChilling, height: context.screenSize.height / 3.5),
+          Expanded(child: Image.asset(mAChilling)),
           //login text
           BlocBuilder<LoginCubit, ALoginState>(
             buildWhen: (previous, current) =>
@@ -115,16 +114,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               buildWhen: (previous, current) =>
-                  current.runtimeType != previous.runtimeType,
+                  current.runtimeType != previous.runtimeType ||
+                  (current is SignUpState &&
+                      (previous.password != current.password ||
+                          (previous as SignUpState).confirmPassword !=
+                              current.confirmPassword)),
               builder: (context, state) => state is SignUpState
                   ? Padding(
                       padding: EdgeInsets.all(mPaddingNormal),
                       child: MTextField(
-                        controller: _confirmPasswordController,
-                        obscureText: true,
-                        hintText: MultiLanguage.of(context).confirmPassword,
-                        preIcon: Icons.lock,
-                      ),
+                          controller: _confirmPasswordController,
+                          obscureText: true,
+                          hintText: MultiLanguage.of(context).confirmPassword,
+                          preIcon: Icons.lock,
+                          errorText: state.password.isNotEmpty &&
+                                  state.password != state.confirmPassword
+                              ? "Password not match"
+                              : null),
                     )
                   : const SizedBox.shrink()),
           BlocBuilder<LoginCubit, ALoginState>(
@@ -208,7 +214,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           XMDRouter.pushNamed(routerIds[VerifyForgotRoute]!,
                               arguments: {'email': state.email});
                         } else {
-                          AlertUtil.showToast(MultiLanguage.of(context).emailInvalid);
+                          AlertUtil.showToast(
+                              MultiLanguage.of(context).emailInvalid);
                         }
                       },
                       child: Text(MultiLanguage.of(context).forgotTheAccount))

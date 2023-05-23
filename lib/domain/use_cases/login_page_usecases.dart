@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 import 'package:join_podcast/models/request/login_user_request.dart';
 import 'package:join_podcast/models/request/new_user_request.dart';
+import 'package:join_podcast/models/request/reset_user_request.dart';
 import 'package:join_podcast/models/request/verify_user_request.dart';
 import 'package:join_podcast/models/response/token_response.dart';
 import 'package:join_podcast/models/user_model.dart';
@@ -24,7 +25,7 @@ class LoginUseCases {
     if (user != null && user.token != null && user.token!.isNotEmpty) {
       await unitOfWork.preferences.setToken(user.token!);
     }
-    return UserModel();
+    return user?.token == null ? null : UserModel();
   }
 
   Future<bool?> signUp(
@@ -40,5 +41,24 @@ class LoginUseCases {
       {required String email, required String code}) async {
     return await unitOfWork.auth
         .verifyCreateAccount(VerifyUserRequest(email: email, code: code));
+  }
+
+  Future<void> requestForgotPassword({required String email}) async {
+    return unitOfWork.auth.forgotAccount(email: email);
+  }
+
+  Future<String?> verifyForgot(
+      {required String email, required String code}) async {
+    final result = await unitOfWork.auth
+        .verifyForgotAccount(VerifyUserRequest(email: email, code: code));
+    return result?.token;
+  }
+
+  Future<bool?> resetPassword(
+      {required String token, required String password}) async {
+    return unitOfWork.auth.resetAccount(
+        token: token,
+        request:
+            ResetUserRequest(password: password, confirmPassword: password));
   }
 }

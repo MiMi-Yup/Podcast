@@ -6,11 +6,6 @@ class VerifyCreateCubit extends VerifyCubit {
 
   @override
   Future<void> verify() async {
-    //bypass
-    emit(state.copyWith(status: VerifyStatus.confirmed));
-    return;
-    //end bypass
-
     emit(state.copyWith(status: VerifyStatus.checking));
     if (state.code.length != 5 ||
         await loginUserCases.verifyCreate(email: email, code: state.code) ==

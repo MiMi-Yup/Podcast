@@ -25,4 +25,16 @@ class ResetAccountCubit extends Cubit<ResetAccountState> {
   void confirmPasswordChanged(String value) {
     emit(state.copyWith(confirmPassword: value));
   }
+
+  Future<void> submit() async {
+    emit(state.copyWith(status: ResetAccountStatus.submitting));
+    if (state.inValidForm &&
+        await loginUserCases.resetPassword(
+                token: token, password: state.password) ==
+            true) {
+      emit(state.copyWith(status: ResetAccountStatus.done));
+    } else {
+      emit(state.copyWith(status: ResetAccountStatus.failed));
+    }
+  }
 }
