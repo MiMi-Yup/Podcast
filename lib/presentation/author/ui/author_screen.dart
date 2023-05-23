@@ -36,10 +36,10 @@ class AuthorScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 1,
                 child: Row(
-                  children: [
+                  children: const [
                     Icon(Icons.wifi),
                     SizedBox(
                       width: 10.0,

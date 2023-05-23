@@ -1,15 +1,7 @@
-import 'package:configuration/l10n/l10n.dart';
-import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
-import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/author/author_route.dart';
-import 'package:join_podcast/presentation/notification/notification_route.dart';
-import 'package:join_podcast/presentation/record/background_music/background_music_home/background_music_home_route.dart';
-import 'package:join_podcast/presentation/subscription/subscription_route.dart';
-import 'package:join_podcast/presentation/record/background_music/background_music_route.dart';
 import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';
 
 class ListRecordScreen extends StatefulWidget {
@@ -89,19 +81,14 @@ class DottedRectanglePainter extends CustomPainter {
   }
 }
 
-
 class _ListRecordScreen extends State<ListRecordScreen> {
   bool isFirstTime = false;
   List<String> recordComponents = ['Component 1', 'Component 2', 'Component 3'];
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       // recordpce (432:182)
       padding: const EdgeInsets.all(20),
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Color(0xffffffff),
-      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -144,113 +131,89 @@ class _ListRecordScreen extends State<ListRecordScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(
-                width: 80,
-                height: 120,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        // Xử lý sự kiện khi nhấn vào nút
-                        XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
-                      },
-                      child: Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: Colors.green.shade500,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.music_note,
-                          color: Colors.white,
-                          size: 30,
-                        ),
+              Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      // Xử lý sự kiện khi nhấn vào nút
+                      // XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
+                    },
+                    child: Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.green.shade500,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.music_note,
+                        color: Colors.white,
+                        size: 30,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Music',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Music',
+                    style: mST16R,
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 80,
-                height: 120,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        // Xử lý sự kiện khi nhấn vào nút
-                        XMDRouter.pushNamed(routerIds[RecordPageRoute]!);
-                      },
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.red.shade500,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.mic,
-                          color: Colors.white,
-                          size: 40,
-                        ),
+              Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      // Xử lý sự kiện khi nhấn vào nút
+                      XMDRouter.pushNamed(routerIds[RecordPageRoute]!);
+                    },
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade500,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.mic,
+                        color: Colors.white,
+                        size: 40,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Record',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Record',
+                    style: mST16R,
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 80,
-                height: 120,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        // Xử lý sự kiện khi nhấn vào nút
-                        XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
-                      },
-                      child: Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: Colors.purple.shade500,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.library_music,
-                          color: Colors.white,
-                          size: 30,
-                        ),
+              Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      // Xử lý sự kiện khi nhấn vào nút
+                      // XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
+                    },
+                    child: Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.purple.shade500,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.library_music,
+                        color: Colors.white,
+                        size: 30,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Saved',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Saved',
+                    style: mST16R,
+                  ),
+                ],
               ),
             ],
           ),

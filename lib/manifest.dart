@@ -13,7 +13,6 @@ import 'package:join_podcast/presentation/new_user/interest/interest_route.dart'
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 import 'package:join_podcast/presentation/record/background_music/background_music_home/background_music_home_route.dart';
-import 'package:join_podcast/presentation/record/background_music/background_music_route.dart';
 import 'package:join_podcast/presentation/record/list_record/list_record.dart';
 import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';
 import 'package:join_podcast/presentation/subscription/subscription_route.dart';
@@ -32,8 +31,7 @@ const routerIds = {
   AuthorRoute: "AuthorRoute",
   PodcastRoute: "PodcastRoute",
   BackgroundMusicHomeRoute: "BackgroundMusicHomeRoute",
-  BackgroundMusicDetailRoute: "BackgroundMusicDetailRoute"
-  BackgroundMusicRoute: "BackgroundMusicRoute",
+  BackgroundMusicDetailRoute: "BackgroundMusicDetailRoute",
   RecordPageRoute: "RecordPageRoute",
   EpisodeRoute: "EpisodeRoute",
   DownloadRoute: "DownloadRoute",
@@ -59,7 +57,6 @@ void generateRoutes() {
   DownloadRoute();
   BackgroundMusicHomeRoute();
   BackgroundMusicDetailRoute();
-  BackgroundMusicRoute();
   RecordPageRoute();
   ListRecordPage();
   VerifyForgotRoute();
