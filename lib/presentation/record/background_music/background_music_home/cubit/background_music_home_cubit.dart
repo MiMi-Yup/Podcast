@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 
-part 'background_music_state.dart';
+part 'background_music_home_state.dart';
 
 @injectable
-class BackgroundMusicCubit extends Cubit<BackgroundMusicState> {
+class BackgroundMusicHomeCubit extends Cubit<BackgroundMusicHomeState> {
   final UnitOfWork unitOfWork;
-  BackgroundMusicCubit({required this.unitOfWork})
-      : super(BackgroundMusicStateInitial(currentIndex: 0));
+  BackgroundMusicHomeCubit({required this.unitOfWork})
+      : super(BackgroundMusicHomeStateInitial(currentIndex: 0));
 }

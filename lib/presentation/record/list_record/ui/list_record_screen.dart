@@ -5,6 +5,10 @@ import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/author/author_route.dart';
+import 'package:join_podcast/presentation/notification/notification_route.dart';
+import 'package:join_podcast/presentation/record/background_music/background_music_home/background_music_home_route.dart';
+import 'package:join_podcast/presentation/subscription/subscription_route.dart';
 import 'package:join_podcast/presentation/record/background_music/background_music_route.dart';
 import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';
 

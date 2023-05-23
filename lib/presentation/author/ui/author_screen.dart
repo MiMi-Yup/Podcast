@@ -21,22 +21,22 @@ class AuthorScreen extends StatelessWidget {
         title: Text(MultiLanguage.of(context).author),
         actions: [
           PopupMenuButton<int>(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 0,
                 child: Row(
                   children: [
-                    Icon(Icons.share),
-                    SizedBox(
+                    const Icon(Icons.share),
+                    const SizedBox(
                       width: 10.0,
                     ),
                     Text(MultiLanguage.of(context).share)
                   ],
                 ),
               ),
-              PopupMenuItem(
+              const PopupMenuItem(
                 value: 1,
                 child: Row(
                   children: [
@@ -52,8 +52,8 @@ class AuthorScreen extends StatelessWidget {
                 value: 2,
                 child: Row(
                   children: [
-                    Icon(Icons.report),
-                    SizedBox(
+                    const Icon(Icons.report),
+                    const SizedBox(
                       width: 10.0,
                     ),
                     Text(MultiLanguage.of(context).report)
@@ -61,20 +61,20 @@ class AuthorScreen extends StatelessWidget {
                 ),
               )
             ],
-            offset: Offset(0, 50),
+            offset: const Offset(0, 50),
             onSelected: null,
           )
         ],
       ),
-      body: CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
+      body: CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
         MultiSliver(children: [
           Container(
             margin: const EdgeInsets.all(10.0),
             height: 125.0,
             child: Row(
               children: [
-                MAuthor(networkImage: null),
-                SizedBox(
+                const MAuthor(networkImage: null),
+                const SizedBox(
                   width: 10.0,
                 ),
                 Column(
