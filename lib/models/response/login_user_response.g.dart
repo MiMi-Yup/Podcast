@@ -8,14 +8,14 @@ part of 'login_user_response.dart';
 
 LoginUserResponse _$LoginUserResponseFromJson(Map<String, dynamic> json) =>
     LoginUserResponse(
-      user: json['data'] == null
+      user: json['user'] == null
           ? null
-          : UserModel.fromJson(json['data'] as Map<String, dynamic>),
+          : UserModel.fromJson(json['user'] as Map<String, dynamic>),
       token: json['token'] as String?,
     );
 
 Map<String, dynamic> _$LoginUserResponseToJson(LoginUserResponse instance) =>
     <String, dynamic>{
-      'data': instance.user,
+      'user': instance.user,
       'token': instance.token,
     };

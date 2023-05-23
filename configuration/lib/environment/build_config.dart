@@ -2,6 +2,7 @@ abstract class CustomEnv {
   // static const String qc = 'qc';
   // static const String beta = 'beta';
   static const String prod = 'prod';
+  static const String dev = 'dev';
 }
 
 abstract class BuildConfig {
@@ -10,5 +11,5 @@ abstract class BuildConfig {
 
   String get hostSocketIO;
 
-  String get apiUrl => '${host}api/v1';
+  String get apiUrl => '$host/api/v1';
 }

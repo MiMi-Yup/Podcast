@@ -7,6 +7,7 @@ import 'package:join_podcast/models/request/new_user_request.dart';
 import 'package:join_podcast/models/request/login_user_request.dart';
 import 'package:join_podcast/models/request/verify_user_request.dart';
 import 'package:join_podcast/models/request/reset_user_request.dart';
+import 'package:join_podcast/models/response/login_user_response.dart';
 import 'package:join_podcast/models/response/token_response.dart';
 import 'package:join_podcast/utils/exception_util.dart';
 
@@ -17,13 +18,13 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.authService});
 
   @override
-  FutureOr<TokenResponse?> loginByPassword(LoginUserRequest login) {
+  FutureOr<LoginUserResponse?> loginByPassword(LoginUserRequest login) {
     return authService
         ?.login(login)
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);
-      return TokenResponse();
+      return null;
     });
   }
 

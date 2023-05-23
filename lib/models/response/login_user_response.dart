@@ -6,7 +6,7 @@ part 'login_user_response.g.dart';
 
 @JsonSerializable()
 class LoginUserResponse {
-  @JsonKey(name: "data")
+  @JsonKey(name: "user")
   UserModel? user;
   @JsonKey(name: "token")
   String? token;

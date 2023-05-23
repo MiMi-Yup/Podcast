@@ -4,6 +4,7 @@ import 'package:join_podcast/models/request/login_user_request.dart';
 import 'package:join_podcast/models/request/new_user_request.dart';
 import 'package:join_podcast/models/request/reset_user_request.dart';
 import 'package:join_podcast/models/request/verify_user_request.dart';
+import 'package:join_podcast/models/response/login_user_response.dart';
 import 'package:join_podcast/models/response/token_response.dart';
 import 'package:join_podcast/models/user_model.dart';
 
@@ -20,12 +21,12 @@ class LoginUseCases {
     //for test
     //return new UserModel(id: 1, name: 'Admin', email: 'admin@gmail.com');
     // end for test
-    TokenResponse? user = await unitOfWork.auth
+    LoginUserResponse? user = await unitOfWork.auth
         .loginByPassword(LoginUserRequest(email: email, password: password));
     if (user != null && user.token != null && user.token!.isNotEmpty) {
       await unitOfWork.preferences.setToken(user.token!);
     }
-    return user?.token == null ? null : UserModel();
+    return user?.user;
   }
 
   Future<bool?> signUp(

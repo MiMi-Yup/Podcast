@@ -1,13 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
 
 extension HandleDioError on DioError {
   String get errorMessage {
     final message = response?.data?["message"];
     if (message is List) {
       return message.join(' - ');
-    } else if (message is Map) {
-      return message.toString();
     } else if (message is String) {
       return message;
     }

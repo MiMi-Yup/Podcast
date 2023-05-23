@@ -19,14 +19,14 @@ class _AuthService implements AuthService {
   String? baseUrl;
 
   @override
-  Future<ApiResponse<TokenResponse>> login(LoginUserRequest login) async {
+  Future<ApiResponse<LoginUserResponse>> login(LoginUserRequest login) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(login.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<TokenResponse>>(Options(
+        _setStreamType<ApiResponse<LoginUserResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -38,9 +38,9 @@ class _AuthService implements AuthService {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<TokenResponse>.fromJson(
+    final value = ApiResponse<LoginUserResponse>.fromJson(
       _result.data!,
-      (json) => TokenResponse.fromJson(json as Map<String, dynamic>),
+      (json) => LoginUserResponse.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
