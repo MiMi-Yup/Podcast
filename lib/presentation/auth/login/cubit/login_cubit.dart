@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/use_cases/login_page_usecases.dart';
 import 'package:join_podcast/models/user_model.dart';
+import 'package:join_podcast/utils/validation.dart';
 
 part 'login_state.dart';
 
@@ -20,6 +21,13 @@ class LoginCubit extends Cubit<ALoginState> {
     emit(state.copyWith(password: value, status: LoginStatus.initial));
   }
 
+  void confirmPasswordChanged(String value) {
+    if (state is SignUpState) {
+      emit((state as SignUpState)
+          .copyWith(confirmPassword: value, status: LoginStatus.initial));
+    }
+  }
+
   void rememberAccount(bool remember) {
     emit(
         state.copyWith(rememberAccount: remember, status: LoginStatus.initial));
@@ -30,19 +38,31 @@ class LoginCubit extends Cubit<ALoginState> {
   }
 
   void primaryAction() async {
-    //bypass login
-    emit(state.copyWith(status: LoginStatus.success));
     if (state.isFormValid) {
       emit(state.copyWith(status: LoginStatus.submitting));
-      UserModel? user = null;
+      UserModel? user;
       if (state is SignUpState) {
-        user = await loginUserCases.signUp('', state.email, state.password);
+        final accept = await loginUserCases.signUp(
+            email: state.email, password: state.password);
+        if (accept == true) {
+          user = await loginUserCases.login(
+              email: state.email,
+              password: state.password,
+              remember: state.rememberAccount);
+        }
       } else {
-        user = await loginUserCases.login(state.email, state.password);
+        user = await loginUserCases.login(
+            email: state.email,
+            password: state.password,
+            remember: state.rememberAccount);
       }
-      if (user != null) emit(state.copyWith(status: LoginStatus.success));
+      if (user != null) {
+        emit(state.copyWith(status: LoginStatus.success));
+      } else {
+        emit(state.copyWith(status: LoginStatus.error));
+      }
     } else {
-      emit(state.copyWith(status: LoginStatus.error));
+      emit(state.copyWith(status: LoginStatus.inputInValid));
     }
   }
 }

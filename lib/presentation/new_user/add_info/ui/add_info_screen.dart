@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:configuration/l10n/l10n.dart';
+import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_primary_button.dart';
 import 'package:join_podcast/common/widgets/m_text_field.dart';
-import 'package:join_podcast/presentation/auth/add_info/cubit/add_info_cubit.dart';
+import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/new_user/add_info/cubit/add_info_cubit.dart';
+import 'package:join_podcast/presentation/new_user/interest/interest_route.dart';
+import 'package:join_podcast/utils/alert_util.dart';
 import 'package:join_podcast/utils/extensions/date_extension.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -34,24 +40,31 @@ class AddInfoScreen extends StatelessWidget {
                   onTap: () async {
                     final file =
                         await _picker.pickImage(source: ImageSource.gallery);
+                    if (file != null) {
+                      context.read<AddInfoCubit>().changeAvatar(file);
+                    }
                   },
                   child: Stack(
                     alignment: Alignment.bottomRight,
                     children: [
                       BlocBuilder<AddInfoCubit, AddInfoState>(
-                        buildWhen: (previous, current) =>
-                            previous.avatar != current.avatar,
-                        builder: (context, state) => Container(
-                          height: 100,
-                          width: 100,
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image:
-                                  DecorationImage(image: AssetImage(mAGoogle)),
-                              color: Colors.grey),
-                        ),
-                      ),
+                          buildWhen: (previous, current) =>
+                              previous.avatar != current.avatar,
+                          builder: (context, state) => Container(
+                                height: 100,
+                                width: 100,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: state.avatar == null
+                                            ? const AssetImage(mAGoogle)
+                                            : FileImage(
+                                                    File(state.avatar!.path))
+                                                as ImageProvider),
+                                    color: Colors.grey),
+                              )),
                       Container(
                         padding: EdgeInsets.all(2),
                         decoration: BoxDecoration(
@@ -107,7 +120,8 @@ class AddInfoScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: MPrimaryButton(
                     text: MultiLanguage.of(context).skip,
-                    onPressed: null,
+                    onPressed: () =>
+                        XMDRouter.popAndPushNamed(routerIds[InterestRoute]!),
                     background: const Color.fromARGB(255, 245, 231, 255),
                     textColor: const Color.fromARGB(255, 165, 51, 255),
                   ),
@@ -118,7 +132,12 @@ class AddInfoScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: MPrimaryButton(
                     text: MultiLanguage.of(context).m_continue,
-                    onPressed: null),
+                    onPressed: () async {
+                      AlertUtil.showLoading();
+                      await context.read<AddInfoCubit>().updateProfile();
+                      AlertUtil.hideLoading();
+                      XMDRouter.popAndPushNamed(routerIds[InterestRoute]!);
+                    }),
               ))
             ],
           )

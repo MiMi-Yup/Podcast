@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "about_product": MessageLookupByLibrary.simpleMessage("About It:"),
         "after": m0,
         "apply": MessageLookupByLibrary.simpleMessage("Apply"),
+        "askLogout": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
         "author": MessageLookupByLibrary.simpleMessage("Author"),
         "autoDownload":
             MessageLookupByLibrary.simpleMessage("Auto Download New Episodes"),
@@ -34,8 +36,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Background Music"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
+        "chooseInterest": MessageLookupByLibrary.simpleMessage(
+            "Choose your interests and get the best podcast recommendations. Don\'t worry, you can always change it later."),
+        "chooseInterestTitle":
+            MessageLookupByLibrary.simpleMessage("Choose Your Interest"),
         "clear": MessageLookupByLibrary.simpleMessage("Clear"),
+        "codeHaveBeenSend":
+            MessageLookupByLibrary.simpleMessage("Code have been send to"),
+        "codeInvalid": MessageLookupByLibrary.simpleMessage("Code invalid"),
         "confirm": MessageLookupByLibrary.simpleMessage("Yes"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm password"),
         "connectTimeout":
             MessageLookupByLibrary.simpleMessage("Connect timeout"),
         "connectionProblem":
@@ -53,8 +64,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "downloads": MessageLookupByLibrary.simpleMessage("Downloads"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "emailInvalid": MessageLookupByLibrary.simpleMessage("Email invalid"),
         "episode": MessageLookupByLibrary.simpleMessage("Episode"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
+        "forgotAccount":
+            MessageLookupByLibrary.simpleMessage("Fotgot password"),
+        "forgotTheAccount":
+            MessageLookupByLibrary.simpleMessage("Forgot the password?"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Get setting"),
         "globalSettings":
@@ -63,6 +79,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
             "Email or password is invalid"),
+        "initSubscribe": MessageLookupByLibrary.simpleMessage(
+            "Subscribe your favorite Podcast Authors. Or you can skip it for now."),
+        "initSubscribeTitle":
+            MessageLookupByLibrary.simpleMessage("Subscribe Authors"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "languageName": MessageLookupByLibrary.simpleMessage("English"),
         "library": MessageLookupByLibrary.simpleMessage("Library"),
@@ -92,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Remove Unfinished Episodes"),
         "report": MessageLookupByLibrary.simpleMessage("Report"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
         "serverNotFound":
@@ -103,7 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showMore": MessageLookupByLibrary.simpleMessage("show more"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "signUpSuggest":
-            MessageLookupByLibrary.simpleMessage("Don\'t hae an account? "),
+            MessageLookupByLibrary.simpleMessage("Don\'t have an account? "),
         "signUpTitle":
             MessageLookupByLibrary.simpleMessage("Create Your Account"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
@@ -111,12 +132,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "sortByPodcast":
             MessageLookupByLibrary.simpleMessage("Sort by Podcasts"),
         "speed": MessageLookupByLibrary.simpleMessage("Speed"),
-        "subcribe": MessageLookupByLibrary.simpleMessage("Subcribe"),
-        "subcribed": MessageLookupByLibrary.simpleMessage("Subcribed"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
+        "subscribed": MessageLookupByLibrary.simpleMessage("Subscribed"),
         "subscription": MessageLookupByLibrary.simpleMessage("Subscriptions"),
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Something wrong! Please try later."),
         "tryIt": MessageLookupByLibrary.simpleMessage("Try it"),
-        "upload": MessageLookupByLibrary.simpleMessage("Upload")
+        "upload": MessageLookupByLibrary.simpleMessage("Upload"),
+        "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "verifyCreate": MessageLookupByLibrary.simpleMessage("Verify new user")
       };
 }

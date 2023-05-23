@@ -55,7 +55,10 @@ class BottomBarScreen extends StatelessWidget {
                       ),
                     ],
                     currentIndex: state.currentIndex,
-                    selectedItemColor: mCPrimary,
+                    selectedItemColor:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : mCPrimary,
                     unselectedItemColor: Colors.grey,
                     onTap: (i) => context.read<BottomBarCubit>().changePage(i),
                   ),

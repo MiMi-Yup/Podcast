@@ -8,9 +8,9 @@ import 'package:join_podcast/common/widgets/m_confirm_bottom_modal.dart';
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:get/get.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/auth/add_info/add_info_route.dart';
 import 'package:join_podcast/presentation/auth/login/login_route.dart';
 import 'package:join_podcast/presentation/download/download_route.dart';
+import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart';
 
 class ProfileScreen extends StatelessWidget {
   final SharedPreferencesRepository prefsRepo;
@@ -46,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
                   switch (index) {
                     case 0:
                       showConfirmBottomModal(
-                          context, "Are you sure you want to log out?",
+                          context, MultiLanguage.of(context).askLogout,
                           whenConfirm: () => XMDRouter.pushNamedAndRemoveUntil(
                               routerIds[LoginRoute]!));
                       break;

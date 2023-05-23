@@ -1,11 +1,15 @@
-import 'package:join_podcast/presentation/auth/add_info/add_info_route.dart';
 import 'package:join_podcast/presentation/auth/login/login_route.dart';
+import 'package:join_podcast/presentation/auth/reset/reset_route.dart';
+import 'package:join_podcast/presentation/auth/verify/verify_create_route.dart';
+import 'package:join_podcast/presentation/auth/verify/verify_forgot_route.dart';
 import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
 import 'package:join_podcast/presentation/download/download_route.dart';
 import 'package:join_podcast/presentation/episode/episode_route.dart';
-import 'package:join_podcast/presentation/interested/interested_route.dart';
 import 'package:join_podcast/presentation/introduction/introduction_route.dart';
+import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart';
+import 'package:join_podcast/presentation/new_user/init_subscribe/init_subscribe_route.dart';
+import 'package:join_podcast/presentation/new_user/interest/interest_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 import 'package:join_podcast/presentation/record/background_music/background_music_route.dart';
@@ -19,7 +23,7 @@ const routerIds = {
   LoginRoute: 'LoginRoute',
   IntroductionRoute: 'IntroductionRoute',
   AddInfoRoute: "AddInfoRoute",
-  InterestedRoute: "InterestedRoute",
+  InterestRoute: "InterestRoute",
   BottomBarRoute: "BottomBarRoute",
   NotificationRoute: "NotificationRoute",
   SubscriptionRoute: "SubscriptionRoute",
@@ -30,6 +34,10 @@ const routerIds = {
   EpisodeRoute: "EpisodeRoute",
   DownloadRoute: "DownloadRoute",
   ListRecordPage: "ListRecordPage",
+  VerifyForgotRoute: "VerifyForgotRoute",
+  VerifyCreateRoute: "VerifyCreateRoute",
+  ResetAccountRoute: "ResetAccountRoute",
+  InitSubscribeRoute: "InitSubscribeRoute",
 };
 
 void generateRoutes() {
@@ -37,7 +45,7 @@ void generateRoutes() {
   LoginRoute();
   IntroductionRoute();
   AddInfoRoute();
-  InterestedRoute();
+  InterestRoute();
   BottomBarRoute();
   NotificationRoute();
   SubscriptionRoute();
@@ -48,4 +56,8 @@ void generateRoutes() {
   EpisodeRoute();
   DownloadRoute();
   ListRecordPage();
+  VerifyForgotRoute();
+  VerifyCreateRoute();
+  ResetAccountRoute();
+  InitSubscribeRoute();
 }

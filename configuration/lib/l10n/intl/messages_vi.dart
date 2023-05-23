@@ -27,14 +27,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "about_product": MessageLookupByLibrary.simpleMessage("Về sản phẩm"),
         "after": m0,
         "apply": MessageLookupByLibrary.simpleMessage("Áp dụng"),
+        "askLogout":
+            MessageLookupByLibrary.simpleMessage("Bạn muốn đăng xuất?"),
         "author": MessageLookupByLibrary.simpleMessage("Author"),
         "autoDownload": MessageLookupByLibrary.simpleMessage(
             "Tự động tải xuống khi có phần mới"),
         "background_music": MessageLookupByLibrary.simpleMessage("Nhạc nền"),
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Đã hủy"),
+        "chooseInterest": MessageLookupByLibrary.simpleMessage(
+            "Choose your interests and get the best podcast recommendations. Don\'t worry, you can always change it later."),
+        "chooseInterestTitle":
+            MessageLookupByLibrary.simpleMessage("Chọn chủ đề"),
         "clear": MessageLookupByLibrary.simpleMessage("Dọn dẹp"),
+        "codeHaveBeenSend":
+            MessageLookupByLibrary.simpleMessage("Mã xác thực đã được gửi tới"),
+        "codeInvalid":
+            MessageLookupByLibrary.simpleMessage("Mã xác thực không hợp lệ"),
         "confirm": MessageLookupByLibrary.simpleMessage("Có"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
         "connectTimeout":
             MessageLookupByLibrary.simpleMessage("Connect timeout"),
         "connectionProblem":
@@ -53,8 +65,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "editProfile":
             MessageLookupByLibrary.simpleMessage("Chỉnh sử thông tin"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "emailInvalid":
+            MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
         "episode": MessageLookupByLibrary.simpleMessage("Phần"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Thông tin cá nhân"),
+        "forgotAccount": MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
+        "forgotTheAccount":
+            MessageLookupByLibrary.simpleMessage("Quên mật khẩu?"),
         "fullName": MessageLookupByLibrary.simpleMessage("Tên đầy đủ"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Tới cài đặt"),
         "globalSettings": MessageLookupByLibrary.simpleMessage("Cài đặt chung"),
@@ -62,6 +79,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
             "Email hoặc mật khẩu không hợp lệ"),
+        "initSubscribe": MessageLookupByLibrary.simpleMessage(
+            "Subscribe your favorite Podcast Authors. Or you can skip it for now."),
+        "initSubscribeTitle": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "languageName": MessageLookupByLibrary.simpleMessage("Tiếng việt"),
         "library": MessageLookupByLibrary.simpleMessage("Thư viên"),
@@ -93,6 +113,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Xóa các phần chưa xem xong"),
         "report": MessageLookupByLibrary.simpleMessage("Kiếu nại"),
         "reset": MessageLookupByLibrary.simpleMessage("Mặc định"),
+        "resetPassword":
+            MessageLookupByLibrary.simpleMessage("Khôi phục mật khẩu"),
         "seeAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
         "serverNotFound":
@@ -112,12 +134,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "sortByPodcast":
             MessageLookupByLibrary.simpleMessage("Sắp xếp theo số lượng"),
         "speed": MessageLookupByLibrary.simpleMessage("Tốc độ"),
-        "subcribe": MessageLookupByLibrary.simpleMessage("Đăng ký"),
-        "subcribed": MessageLookupByLibrary.simpleMessage("Đã đăng ký"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("Đăng ký"),
+        "subscribed": MessageLookupByLibrary.simpleMessage("Đã đăng ký"),
         "subscription": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Đã xảy ra lỗi, vui lòng thử lại sau!"),
         "tryIt": MessageLookupByLibrary.simpleMessage("Dùng thử"),
-        "upload": MessageLookupByLibrary.simpleMessage("Tải lên")
+        "upload": MessageLookupByLibrary.simpleMessage("Tải lên"),
+        "verify": MessageLookupByLibrary.simpleMessage("Xác nhận"),
+        "verifyCreate":
+            MessageLookupByLibrary.simpleMessage("Xác nhận tạo tài khoản")
       };
 }
