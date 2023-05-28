@@ -6,6 +6,9 @@ import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
 
 import '../../../../manifest.dart';
@@ -23,12 +26,97 @@ IconData getRecordingIcon() {
     case RecordingState.Stop:
       print("Stop");
       return Icons.stop;
-    case RecordingState.Pause:
-      print("Pause");
-      return Icons.pause;
+    // case RecordingState.Pause:
+    //   print("Pause");
+    //   return Icons.pause;
     default:
       return Icons.mic;
   }
+}
+
+final pathToSaveAudio = 'audio_temp.aac';
+
+class SoundRecorder {
+  FlutterSoundRecorder? _audioRecorder;
+  bool _isRecorderInitialized = false;
+
+  bool get isRecording => _audioRecorder!.isRecording;
+
+  Future init() async {
+    _audioRecorder = FlutterSoundRecorder();
+
+    final status = await Permission.microphone.request();
+    if (status != PermissionStatus.granted) {
+      throw RecordingPermissionException('Microphone permission');
+    }
+
+    await _audioRecorder!.openRecorder();
+    _isRecorderInitialized = true;
+  }
+
+  void dispose() {
+    if (!_isRecorderInitialized) return;
+
+    _audioRecorder!.closeRecorder();
+    _audioRecorder = null;
+    _isRecorderInitialized = false;
+  }
+
+  Future _record() async {
+    if (!_isRecorderInitialized) return;
+
+    await _audioRecorder!.startRecorder(toFile: pathToSaveAudio);
+  }
+
+  Future _stop() async {
+    if (!_isRecorderInitialized) return;
+
+    await _audioRecorder!.stopRecorder();
+  }
+
+  Future toggleRecording() async {
+    if (_audioRecorder!.isStopped) {
+      await _record();
+    } else {
+      await _stop();
+    }
+  }
+}
+
+class SoundPlayer {
+  FlutterSoundPlayer? _audioPlayer;
+  bool get isPlaying => _audioPlayer!.isPlaying;
+
+  Future init() async {
+    _audioPlayer = FlutterSoundPlayer();
+
+    await _audioPlayer!.openPlayer();
+  }
+
+  void dispose() {
+    _audioPlayer!.closePlayer();
+    _audioPlayer = null;
+  }
+
+  Future _play(VoidCallback whenFinished) async {
+    await _audioPlayer!.startPlayer(
+      fromURI: pathToSaveAudio,
+      whenFinished: whenFinished,
+    );
+  }
+
+  Future _stop() async {
+    await _audioPlayer!.stopPlayer();
+  }
+
+  Future togglePlaying({required VoidCallback whenFinished}) async {
+    if (_audioPlayer!.isStopped) {
+      await _play(whenFinished);
+    } else {
+      await _stop();
+    }
+  }
+
 }
 
 class RecordingPageScreen extends StatefulWidget {
@@ -37,15 +125,21 @@ class RecordingPageScreen extends StatefulWidget {
 }
 
 class _RecordingScreenState extends State<RecordingPageScreen> {
-  bool isRecording = false;
+  bool isFirstTime = true;
+
+  //Bo dem thoi gian ghi am
   Stopwatch stopwatch = Stopwatch();
   Timer? timer;
 
-  void _navigateToRecordList() {
-    Navigator.push(
-      context,
-        XMDRouter.pushNamed(routerIds[ListRecordPage]!),
-    );
+  //Ghi am và phat lai
+  final recorder = SoundRecorder();
+  final player = SoundPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    recorder.init();
+    player.init();
   }
 
   void _showSaveDialog(BuildContext context) {
@@ -72,7 +166,6 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
                 // Xử lý sự kiện khi nhấn nút Save trong Dialog mới
                 print('User input: $userInput');
                 Navigator.pop(context); // Đóng Dialog mới
-                _navigateToRecordList(); // Chuyển đến màn hình danh sách
               },
               child: Text('Save', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
@@ -95,60 +188,6 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
   void stopRecording() {
     stopwatch.stop();
     timer?.cancel();
-    showDialog(
-      context: context,
-      builder: (BuildContext context)
-    {
-      return AlertDialog(
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-              child: const Text('Edit'),
-              onPressed: () {
-                setState(() {
-                  recordingState = RecordingState.Record;
-                  stopwatch.stop();
-                  stopwatch.reset();
-                  timer?.cancel();
-                });
-                Navigator.pop(context);
-              },
-            ),
-            TextButton(
-              child: Text('Save'),
-
-              onPressed: () {
-                setState(() {
-                  recordingState = RecordingState.Record;
-                  stopwatch.stop();
-                  stopwatch.reset();
-                  timer?.cancel();
-                });
-                Navigator.pop(context);
-                _showSaveDialog(context);
-              },
-            ),
-            TextButton(
-              child: Text('Delete'),
-              onPressed: () {
-                setState(() {
-                  recordingState = RecordingState.Record;
-                  stopwatch.stop();
-                  stopwatch.reset();
-                  timer?.cancel();
-                });
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ]
-    );
-  },
-);
 }
 
   String formatDuration(Duration duration) {
@@ -159,8 +198,33 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
     return '$hours:$minutes:$seconds';
   }
 
+  //Custom nut nghe thu
+  Widget buildPlay() {
+    var isPlaying = player.isPlaying;
+    final icon = isPlaying ? Icons.stop : Icons.play_arrow;
+    final text = isPlaying ? 'Stop Playing' : 'Play Recording';
+
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(175, 50),
+      ),
+      icon: Icon(icon),
+      label: Text(
+          text,
+        style: mST18M,
+      ),
+      onPressed: recorder.isRecording
+          ? null // Nếu đang ghi âm, không thực hiện hành động khi nhấn nút
+          : () async {
+              await player.togglePlaying(whenFinished: () => setState(() {}));
+              setState(() {});
+            },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isRecording = recorder.isRecording;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -206,19 +270,21 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
                     child: Align(
                       alignment: Alignment.center,
                       child: GestureDetector(
-                        onTap: () {
-                          setState(() {
+                        onTap: () async {
                             if (recordingState == RecordingState.Record) {
                               recordingState = RecordingState.Stop;
                               startRecording();
-                            } else if (recordingState == RecordingState.Pause) {
-                              recordingState = RecordingState.Stop;
-                              startRecording();
+                              final isRecording = await recorder.toggleRecording();
+                              isFirstTime = false;
+                            // } else if (recordingState == RecordingState.Pause) {
+                            //   recordingState = RecordingState.Stop;
+                            //   startRecording();
                             } else {
                               recordingState = RecordingState.Pause;
                               stopRecording();
+                              final isRecording = await recorder.toggleRecording();
                             }
-                          });
+                            setState(() {});
                         },
                         child: Icon(
                           getRecordingIcon(),
@@ -235,6 +301,54 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
               formatDuration(stopwatch.elapsed),
               style: const TextStyle(fontSize: 24),
             ),
+            const SizedBox(height: 50),
+            !isFirstTime ? buildPlay() : const SizedBox(height: 5),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: const Text('Edit'),
+                  onPressed: () {
+                    // Xử lý sự kiện khi nhấn nút Edit
+                    setState(() {
+                      recordingState = RecordingState.Record;
+                      stopwatch.stop();
+                      stopwatch.reset();
+                      timer?.cancel();
+                    });
+                  },
+                ),
+                TextButton(
+                  child: Text('Save'),
+                  onPressed: () {
+                    // Xử lý sự kiện khi nhấn nút Save
+                    if (isFirstTime == true) {return;}
+                    setState(() {
+                      recordingState = RecordingState.Record;
+                      stopwatch.stop();
+                      stopwatch.reset();
+                      timer?.cancel();
+                    });
+                    _showSaveDialog(context);
+                  },
+                ),
+                TextButton(
+                  child: Text('Delete'),
+                  onPressed: () async {
+                    // Xử lý sự kiện khi nhấn nút Delete
+                    setState(() {
+                      recordingState = RecordingState.Record;
+                      stopwatch.stop();
+                      stopwatch.reset();
+                      timer?.cancel();
+                    });
+                    recorder._stop();
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -246,6 +360,8 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
     stopwatch.stop();
     stopwatch.reset();
     timer?.cancel();
+    recorder.dispose();
+    player.dispose();
     super.dispose();
   }
 }

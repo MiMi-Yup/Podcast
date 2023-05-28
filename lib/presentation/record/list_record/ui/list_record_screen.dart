@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +86,64 @@ class DottedRectanglePainter extends CustomPainter {
 class _ListRecordScreen extends State<ListRecordScreen> {
   bool isFirstTime = false;
   List<String> recordComponents = ['Component 1', 'Component 2', 'Component 3'];
+
+  Widget _list() { 
+    return ReorderableListView.builder(
+      itemCount: recordComponents.length,
+      onReorder: (oldIndex, newIndex) => setState(() {
+        final index = newIndex > oldIndex ? newIndex - 1 : newIndex;
+
+        final user = recordComponents.removeAt(oldIndex);
+        recordComponents.insert(index, user);
+      }),
+      itemBuilder: (context, index) {
+        final user = recordComponents[index];
+
+        return buildUser(index, user);
+      },
+    );
+  }
+
+  Widget buildUser(int index, String user) => ListTile(
+    key: ValueKey(user),
+    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    leading: CircleAvatar(
+      /*backgroundImage: NetworkImage(user.urlImage),*/
+      radius: 30,
+    ),
+    title: Text(user/*.name*/),
+    trailing: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          icon: Icon(Icons.edit, color: Colors.black),
+          onPressed: () => edit(index),
+        ),
+        IconButton(
+          icon: Icon(Icons.delete, color: Colors.black),
+          onPressed: () => remove(index),
+        ),
+      ],
+    ),
+  );
+
+  void remove(int index) => setState(() => recordComponents.removeAt(index));
+
+  void edit(int index) => showDialog(
+    context: context,
+    builder: (context) {
+      var user = recordComponents[index];
+
+      return AlertDialog(
+        content: TextFormField(
+          initialValue: user/*.name*/,
+          onFieldSubmitted: (_) => Navigator.of(context).pop(),
+          onChanged: (name) => setState(() => user/*.name*/ = name),
+        ),
+      );
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -114,7 +174,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
             width: double.infinity,
             height: 500,
             padding: EdgeInsets.all(10.0),
-            child: CustomPaint(
+            child: isFirstTime ? CustomPaint(
               painter: DottedRectanglePainter(),
               child: const Center(
                 child: Text(
@@ -126,7 +186,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                   ),
                 ),
               ),
-            ),
+            ) : _list()
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -136,7 +196,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                   InkWell(
                     onTap: () {
                       // Xử lý sự kiện khi nhấn vào nút
-                      // XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
+                      //XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
                     },
                     child: Container(
                       width: 70,
@@ -163,9 +223,9 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      // Xử lý sự kiện khi nhấn vào nút
                       XMDRouter.pushNamed(routerIds[RecordPageRoute]!);
                     },
+
                     child: Container(
                       width: 80,
                       height: 80,
