@@ -1,10 +1,22 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
+
+
+Future<List<File>> getAudioFiles() async {
+  final directory = await getApplicationDocumentsDirectory();
+  final folderPath = '${directory.path}/my_folder';
+  final folder = Directory(folderPath);
+  final files = await folder.list().where((entity) => entity is File).map((file) => File(file.path)).toList();
+  return files;
+}
 
 class ListRecordScreen extends StatefulWidget {
   const ListRecordScreen({
@@ -85,64 +97,133 @@ class DottedRectanglePainter extends CustomPainter {
 
 class _ListRecordScreen extends State<ListRecordScreen> {
   bool isFirstTime = false;
-  List<String> recordComponents = ['Component 1', 'Component 2', 'Component 3'];
+  List<File> listRecorded  = [];
 
-  Widget _list() { 
-    return ReorderableListView.builder(
-      itemCount: recordComponents.length,
-      onReorder: (oldIndex, newIndex) => setState(() {
-        final index = newIndex > oldIndex ? newIndex - 1 : newIndex;
+  @override
+  void initState() {
+    super.initState();
+    loadAudioFiles(); // Gọi phương thức để nạp danh sách file âm thanh
+  }
 
-        final user = recordComponents.removeAt(oldIndex);
-        recordComponents.insert(index, user);
-      }),
-      itemBuilder: (context, index) {
-        final user = recordComponents[index];
+  Future<void> loadAudioFiles() async {
+    final files = await getAudioFiles();
+    setState(() {
+      listRecorded = files;
+    });
+  }
 
-        return buildUser(index, user);
+  Widget _list() {
+    return ReorderableListView(
+      onReorder: (oldIndex, newIndex) {
+        setState(() {
+          if (newIndex > oldIndex) {
+            newIndex -= 1;
+          }
+          final recordedFile = listRecorded.removeAt(oldIndex);
+          listRecorded.insert(newIndex, recordedFile);
+        });
       },
+      children: listRecorded.map((recordedFile) {
+        final index = listRecorded.indexOf(recordedFile);
+        return buildRecord(index, recordedFile);
+      }).toList(),
     );
   }
 
-  Widget buildUser(int index, String user) => ListTile(
-    key: ValueKey(user),
-    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    leading: CircleAvatar(
-      /*backgroundImage: NetworkImage(user.urlImage),*/
-      radius: 30,
-    ),
-    title: Text(user/*.name*/),
-    trailing: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        IconButton(
-          icon: Icon(Icons.edit, color: Colors.black),
-          onPressed: () => edit(index),
+  Widget buildRecord(int index, File recordedFile) {
+    final fileName = path.basenameWithoutExtension(recordedFile.path);
+    return Card(
+      key: ValueKey(recordedFile.path),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      color: Colors.grey[200],
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        leading: Icon(Icons.density_large, color: Colors.black),
+        title: Text(fileName),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(Icons.play_arrow, color: Colors.black),
+              onPressed: () => play(recordedFile), // Phát file
+            ),
+            IconButton(
+              icon: Icon(Icons.more_vert, color: Colors.black),
+              onPressed: () => setting(index), // Hiển thị tùy chọn
+            ),
+          ],
         ),
-        IconButton(
-          icon: Icon(Icons.delete, color: Colors.black),
-          onPressed: () => remove(index),
-        ),
-      ],
-    ),
-  );
+      ),
+    );
+  }
 
-  void remove(int index) => setState(() => recordComponents.removeAt(index));
+  Future<void> _refreshList() async {
+    final files = await getAudioFiles();
+    setState(() {
+      listRecorded = files;
+    });
+  }
 
-  void edit(int index) => showDialog(
-    context: context,
-    builder: (context) {
-      var user = recordComponents[index];
+  void remove(int index) {
+    setState(() {
+      final file = listRecorded[index];
+      listRecorded.removeAt(index);
+      file.delete(); // Xóa file audio từ hệ thống tệp tin
+    });
+  }
 
-      return AlertDialog(
-        content: TextFormField(
-          initialValue: user/*.name*/,
-          onFieldSubmitted: (_) => Navigator.of(context).pop(),
-          onChanged: (name) => setState(() => user/*.name*/ = name),
-        ),
-      );
-    },
-  );
+  void play(File recordedFile) {
+    // Xử lý phát file âm thanh
+  }
+
+  void showOptions(int index) {
+    // Hiển thị tùy chọn cho file âm thanh tại vị trí index
+  }
+
+  void setting(int index) => showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 220,
+          child:  Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10.0),
+                  decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color(
+                      0xFF000000),width: 1.0),)),
+                  child: Center(
+                    child: Text(
+                    'Audio options',
+                    style: mST18M,
+                ),
+                  ),
+              ),
+              ListTile(
+                leading: Icon(Icons.edit),
+                title: Text('Edit audio'),
+                // onTap: (),
+              ),
+              ListTile(
+                leading: Icon(Icons.music_note),
+                title: Text('Add background music'),
+              ),
+              ListTile(
+                leading: Icon(Icons.delete),
+                title: Text('Delete'),
+                onTap: () => {
+                  remove(index),
+                  Navigator.pop(context)
+                  },
+              ),
+            ],
+          ),
+        );
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -173,8 +254,10 @@ class _ListRecordScreen extends State<ListRecordScreen> {
           Container(
             width: double.infinity,
             height: 500,
+            decoration: listRecorded.isEmpty ? null : BoxDecoration(
+              border: Border.all()),
             padding: EdgeInsets.all(10.0),
-            child: isFirstTime ? CustomPaint(
+            child: listRecorded.isEmpty ? CustomPaint(
               painter: DottedRectanglePainter(),
               child: const Center(
                 child: Text(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
@@ -7,7 +8,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
 
@@ -162,10 +165,28 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
           ),
           actions: [
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // Xử lý sự kiện khi nhấn nút Save trong Dialog mới
                 print('User input: $userInput');
+                final cacheDirectory = await getTemporaryDirectory();
+                final pathTempCache = '${cacheDirectory.path}/audio_temp.aac';
+                final directory = await getApplicationDocumentsDirectory();
+                final destinationFolder = Directory('${directory.path}/my_folder');
+                if (!await destinationFolder.exists()) {
+                await destinationFolder.create();
+                print('created my_folder');
+                }
+
+                final destinationPath = '${destinationFolder.path}/$userInput.aac';
+
+                // Di chuyển file từ thư mục cache sang thư mục đích
+                final sourceFile = File(pathTempCache);
+               /*final destinationFile = */await sourceFile.copy(destinationPath);
+
+                print('File saved to: $destinationPath');
+
                 Navigator.pop(context); // Đóng Dialog mới
+                Navigator.pop(context); // Đóng screen record
               },
               child: Text('Save', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(

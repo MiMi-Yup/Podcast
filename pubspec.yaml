@@ -63,6 +63,7 @@ dependencies:
   chips_choice: ^3.0.0
   flutter_sound: ^9.2.13
   permission_handler: ^10.2.0
+  path_provider: ^2.0.15
 
 dev_dependencies:
   flutter_test:
