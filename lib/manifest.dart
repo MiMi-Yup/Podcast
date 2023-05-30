@@ -5,6 +5,11 @@ import 'package:join_podcast/presentation/auth/verify/verify_forgot_route.dart';
 import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
 import 'package:join_podcast/presentation/download/download_route.dart';
+import 'package:join_podcast/presentation/edit_info_podcast/add_avatar/add_avatar_route.dart';
+import 'package:join_podcast/presentation/edit_info_podcast/add_text_avatar/add_text_avatar_route.dart';
+import 'package:join_podcast/presentation/edit_info_podcast/discover_podcast/discover_podcast_route.dart';
+import 'package:join_podcast/presentation/edit_info_podcast/podcast_availability/podcast_availability_route.dart';
+import 'package:join_podcast/presentation/edit_info_podcast/set_info_podcast/set_info_podcast_route.dart';
 import 'package:join_podcast/presentation/episode/episode_route.dart';
 import 'package:join_podcast/presentation/introduction/introduction_route.dart';
 import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart';
@@ -40,6 +45,11 @@ const routerIds = {
   VerifyCreateRoute: "VerifyCreateRoute",
   ResetAccountRoute: "ResetAccountRoute",
   InitSubscribeRoute: "InitSubscribeRoute",
+  AddAvatarRoute: "AddAvatarRoute",
+  DiscoverPodcastRoute: "DiscoverPodcastRoute",
+  SetInfoPodcastRoute: "SetInfoPodcastRoute",
+  AddTextAvatarRoute: "AddTextAvatarRoute",
+  PodcastAvailabilityRoute: "PodcastAvailabilityRoute",
 };
 
 void generateRoutes() {
@@ -63,4 +73,9 @@ void generateRoutes() {
   VerifyCreateRoute();
   ResetAccountRoute();
   InitSubscribeRoute();
+  AddAvatarRoute();
+  DiscoverPodcastRoute();
+  SetInfoPodcastRoute();
+  AddTextAvatarRoute();
+  PodcastAvailabilityRoute();
 }
