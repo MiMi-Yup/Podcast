@@ -7,6 +7,7 @@ import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -15,6 +16,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
 
 import '../../../../manifest.dart';
+import '../../list_record/cubit/list_record_cubit.dart';
 import '../../list_record/list_record.dart';
 import '../../list_record/ui/list_record_screen.dart';
 enum RecordingState { Record, Pause, Stop }
@@ -119,10 +121,10 @@ class SoundPlayer {
       await _stop();
     }
   }
-
 }
 
 class RecordingPageScreen extends StatefulWidget {
+
   @override
   _RecordingScreenState createState() => _RecordingScreenState();
 }
@@ -148,7 +150,7 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
   void _showSaveDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         String userInput = '';
 
         return AlertDialog(
@@ -185,8 +187,12 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
 
                 print('File saved to: $destinationPath');
 
-                Navigator.pop(context); // Đóng Dialog mới
-                Navigator.pop(context); // Đóng screen record
+                context.read<ListRecordCubit>().setShouldRefresh(true);
+                print(context.read<ListRecordCubit>().state.shouldRefresh);
+                Navigator.pop(dialogContext); // Đóng Dialog
+                Future.delayed(Duration.zero, () {
+                  Navigator.pop(context); // Đóng màn hình ghi âm
+                });
               },
               child: Text('Save', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
