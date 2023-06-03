@@ -6,6 +6,7 @@ import 'package:configuration/route/route_define.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:join_podcast/data/secure_preferences_repository_impl.dart';
 import 'package:join_podcast/di/di.dart';
 import 'manifest.dart';
 import 'presentation/main/main_application.dart';
@@ -26,6 +27,7 @@ class SetupEnv extends Env {
   @override
   FutureOr<void> onCreate() async {
     initRoute(routerIds);
+    await getIt<SessionAuthenticaiton>().init();
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);

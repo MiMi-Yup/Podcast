@@ -116,8 +116,9 @@ class HomeScreen extends StatelessWidget {
                           author: "Apple Talk",
                           duration: Duration(minutes: 52, seconds: 25),
                           networkImage: null,
-                          onPlay: () =>
-                              XMDRouter.pushNamed(routerIds[PodcastRoute]!),
+                          onPlay: (state) => !state,
+                          isCompleted: true,
+                          onDownload: (state) => !state,
                           onPressed: () =>
                               XMDRouter.pushNamed(routerIds[PodcastRoute]!),
                         ),

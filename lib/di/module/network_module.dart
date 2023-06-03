@@ -1,26 +1,22 @@
 import 'package:configuration/environment/build_config.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:join_podcast/data/data_source/remote/api_service.dart';
 import 'package:join_podcast/data/data_source/remote/auth_service.dart';
+import 'package:join_podcast/data/data_source/remote/user_service.dart';
+import 'package:join_podcast/data/secure_preferences_repository_impl.dart';
 import 'package:join_podcast/di/di.dart';
-import 'package:join_podcast/domain/repositories/secure_preferences_repository.dart';
 
 @module
 abstract class NetworkModule {
   @injectable
-  ApiService get apiService {
+  UserService get userService {
     Dio dio = getIt<Dio>();
-    SecurePreferencesRepository preferencesRepo =
-        getIt<SecurePreferencesRepository>();
-    dio.interceptors
-        .add(InterceptorsWrapper(onRequest: (options, handler) async {
-      String? token = await preferencesRepo.getToken();
-      if (token != null && token.isNotEmpty) {
-        options.headers.addAll({'Authorization': 'Bearer $token'});
-      }
-    }));
-    return ApiService(
+    SessionAuthenticaiton session = getIt<SessionAuthenticaiton>();
+    String? token = session.token;
+    if (token != null && token.isNotEmpty) {
+      dio.options.headers.addAll({'Authorization': 'Bearer $token'});
+    }
+    return UserService(
       dio,
       baseUrl: getIt<BuildConfig>().apiUrl,
     );

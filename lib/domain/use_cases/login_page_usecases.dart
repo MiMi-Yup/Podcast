@@ -1,11 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
-import 'package:join_podcast/models/request/login_user_request.dart';
-import 'package:join_podcast/models/request/new_user_request.dart';
-import 'package:join_podcast/models/request/reset_user_request.dart';
-import 'package:join_podcast/models/request/verify_user_request.dart';
-import 'package:join_podcast/models/response/login_user_response.dart';
-import 'package:join_podcast/models/response/reset_token_response.dart';
+import 'package:join_podcast/models/request/auth/login_user_request.dart';
+import 'package:join_podcast/models/request/auth/new_user_request.dart';
+import 'package:join_podcast/models/request/auth/reset_user_request.dart';
+import 'package:join_podcast/models/request/auth/verify_user_request.dart';
+import 'package:join_podcast/models/response/auth/login_user_response.dart';
 import 'package:join_podcast/models/user_model.dart';
 
 @injectable
@@ -24,7 +23,7 @@ class LoginUseCases {
     LoginUserResponse? user = await unitOfWork.auth
         .loginByPassword(LoginUserRequest(email: email, password: password));
     if (user != null && user.token != null && user.token!.isNotEmpty) {
-      await unitOfWork.preferences.setToken(user.token!);
+      unitOfWork.secure.login(token: user.token!, remember: remember);
     }
     return user?.user;
   }

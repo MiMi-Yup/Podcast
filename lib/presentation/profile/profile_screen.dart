@@ -5,6 +5,8 @@ import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_button_setting.dart';
 import 'package:join_podcast/common/widgets/m_confirm_bottom_modal.dart';
+import 'package:join_podcast/data/secure_preferences_repository_impl.dart';
+import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:get/get.dart';
 import 'package:join_podcast/manifest.dart';
@@ -47,8 +49,11 @@ class ProfileScreen extends StatelessWidget {
                     case 0:
                       showConfirmBottomModal(
                           context, MultiLanguage.of(context).askLogout,
-                          whenConfirm: () => XMDRouter.pushNamedAndRemoveUntil(
-                              routerIds[LoginRoute]!));
+                          whenConfirm: () {
+                        getIt<SessionAuthenticaiton>().logout();
+                        XMDRouter.pushNamedAndRemoveUntil(
+                            routerIds[LoginRoute]!);
+                      });
                       break;
                     default:
                       break;
