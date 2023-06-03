@@ -10,6 +10,7 @@ final Color mCDarkBackground = Colors.black;
 final Color mCLightBackground = Colors.white;
 final Color mCSecondary = HexColor.fromHex('#3B0696');
 final Color mCSmartOne = HexColor.fromHex('#922028');
+final Color mCWarning = HexColor.fromHex('#8B0000');
 
 /// Neutral
 // Normally used for backgrounds, borders, texts and tertiary buttons and actions.

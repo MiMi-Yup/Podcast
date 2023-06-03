@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "emailInvalid":
             MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
         "episode": MessageLookupByLibrary.simpleMessage("Phần"),
+        "favourite": MessageLookupByLibrary.simpleMessage("Yêu thích"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Thông tin cá nhân"),
         "forgotAccount": MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
         "forgotTheAccount":
@@ -76,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "getSetting": MessageLookupByLibrary.simpleMessage("Tới cài đặt"),
         "globalSettings": MessageLookupByLibrary.simpleMessage("Cài đặt chung"),
         "helpCenter": MessageLookupByLibrary.simpleMessage("Trung tâm hỗ trợ"),
+        "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
             "Email hoặc mật khẩu không hợp lệ"),
@@ -84,7 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "initSubscribeTitle": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "languageName": MessageLookupByLibrary.simpleMessage("Tiếng việt"),
-        "library": MessageLookupByLibrary.simpleMessage("Thư viên"),
+        "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "loginSuggest":
             MessageLookupByLibrary.simpleMessage("Bạn đã có tài khoản? "),
@@ -100,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "otherLogin":
             MessageLookupByLibrary.simpleMessage("Hoặc đăng nhập bằng"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+        "playlist": MessageLookupByLibrary.simpleMessage("Danh sách phát"),
         "profile": MessageLookupByLibrary.simpleMessage("Cá nhân"),
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),

@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailInvalid": MessageLookupByLibrary.simpleMessage("Email invalid"),
         "episode": MessageLookupByLibrary.simpleMessage("Episode"),
+        "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
         "forgotAccount":
             MessageLookupByLibrary.simpleMessage("Fotgot password"),
@@ -76,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "globalSettings":
             MessageLookupByLibrary.simpleMessage("Global Settings"),
         "helpCenter": MessageLookupByLibrary.simpleMessage("Help Center"),
+        "history": MessageLookupByLibrary.simpleMessage("History"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
             "Email or password is invalid"),
@@ -100,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "otherLogin": MessageLookupByLibrary.simpleMessage("or continue with"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "playlist": MessageLookupByLibrary.simpleMessage("Playlist"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
