@@ -11,4 +11,7 @@ class HomeCubit extends Cubit<HomeState> {
   final UnitOfWork unitOfWork;
   HomeCubit({required this.unitOfWork})
       : super(HomeStateInitial(currentIndex: 0));
+
+  String? get userName => unitOfWork.session.user?.name;
+  String? get email => unitOfWork.session.user?.email;
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_button_setting.dart';
 import 'package:join_podcast/common/widgets/m_do_after_modal.dart';
-import 'package:join_podcast/common/widgets/m_podcast_component.dart';
+import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/presentation/download/cubit/download_cubit.dart';
 
@@ -129,7 +129,7 @@ class DownloadScreen extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          itemBuilder: (context, index) => MPodcastComponent(
+                          itemBuilder: (context, index) => MEpisodeComponent(
                             title:
                                 "927: Deep Dive | How to Quit Your Job the Right Way",
                             author: "Apple Talk",

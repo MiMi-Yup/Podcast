@@ -1,8 +1,9 @@
+import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 
-class MPodcastComponent extends StatefulWidget {
+class MEpisodeComponent extends StatefulWidget {
   final String title;
   final String author;
   final Duration duration;
@@ -14,7 +15,7 @@ class MPodcastComponent extends StatefulWidget {
   final bool Function(bool)? onDownload;
   final void Function(int)? onMore;
   final void Function()? onPressed;
-  const MPodcastComponent(
+  const MEpisodeComponent(
       {super.key,
       required this.title,
       required this.author,
@@ -29,10 +30,10 @@ class MPodcastComponent extends StatefulWidget {
       this.isCompleted = false});
 
   @override
-  State<MPodcastComponent> createState() => _MPodcastComponentState();
+  State<MEpisodeComponent> createState() => _MEpisodeComponentState();
 }
 
-class _MPodcastComponentState extends State<MPodcastComponent> {
+class _MEpisodeComponentState extends State<MEpisodeComponent> {
   late bool isPlayed;
   late bool isDownloaded;
 
@@ -110,7 +111,7 @@ class _MPodcastComponentState extends State<MPodcastComponent> {
                                   SizedBox(
                                     width: 8.0,
                                   ),
-                                  Text("Completed", style: mST14M)
+                                  Text(MultiLanguage.of(context).completed, style: mST14M)
                                 ],
                               ),
                             )
@@ -141,7 +142,7 @@ class _MPodcastComponentState extends State<MPodcastComponent> {
                                       SizedBox(
                                         width: 8.0,
                                       ),
-                                      Text(isPlayed ? "Pause" : "Play",
+                                      Text(isPlayed ? MultiLanguage.of(context).pause : MultiLanguage.of(context).play,
                                           style: mST14M.copyWith(
                                               color: Colors.white))
                                     ],
@@ -170,11 +171,15 @@ class _MPodcastComponentState extends State<MPodcastComponent> {
                         itemBuilder: (context) => [
                           PopupMenuItem(
                             value: 0,
-                            child: Text('Edit'),
+                            child: Text(MultiLanguage.of(context).channel),
                           ),
                           PopupMenuItem(
                             value: 1,
-                            child: Text('Delete'),
+                            child: Text(MultiLanguage.of(context).edit),
+                          ),
+                          PopupMenuItem(
+                            value: 2,
+                            child: Text(MultiLanguage.of(context).delete),
                           )
                         ],
                         onSelected: widget.onMore,

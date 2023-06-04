@@ -1,6 +1,6 @@
 import 'package:configuration/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:join_podcast/common/widgets/m_podcast_component.dart';
+import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -61,7 +61,7 @@ class NotificationScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                itemBuilder: (context, index) => MPodcastComponent(
+                itemBuilder: (context, index) => MEpisodeComponent(
                   title: "927: Deep Dive | How to Quit Your Job the Right Way",
                   author: "Apple Talk",
                   duration: Duration(minutes: 52, seconds: 25),
@@ -82,7 +82,7 @@ class NotificationScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                itemBuilder: (context, index) => MPodcastComponent(
+                itemBuilder: (context, index) => MEpisodeComponent(
                   title: "927: Deep Dive | How to Quit Your Job the Right Way",
                   author: "Apple Talk",
                   duration: Duration(minutes: 52, seconds: 25),

@@ -99,5 +99,22 @@
     "askLogout": "Bạn muốn đăng xuất?",
     "favourite": "Yêu thích",
     "playlist": "Danh sách phát",
-    "history": "Lịch sử"
+    "history": "Lịch sử",
+    "username": "Người dùng",
+    "goodMorning": "Chào buổi sáng",
+    "goodAfternoon": "Chào buổi chiều",
+    "goodEvening": "Chào tối",
+    "goodNight": "Chào khuya",
+    "search": "Tìm kiếm",
+    "sortByDate": "Sắp xếp theo ngày",
+    "channel": "Kênh",
+    "podcast": "Podcast",
+    "episode": "Tập",
+    "pause": "Tạm dừng",
+    "play": "Chơi",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "completed": "Hoàn thành",
+    "hintSearch": "Search and find out...",
+    "empty": "Trống"
 }

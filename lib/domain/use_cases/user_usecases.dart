@@ -10,8 +10,8 @@ class UserUseCases {
   UserUseCases({required this.unitOfWork});
 
   Future<UserModel?> getPreviousState() async {
-    if (unitOfWork.secure.token != null &&
-        unitOfWork.secure.token?.isNotEmpty == true) {
+    if (unitOfWork.session.token != null &&
+        unitOfWork.session.token?.isNotEmpty == true) {
       ProfileResponse? userResponse = await unitOfWork.user.getCurrentUser();
       if (userResponse != null) return userResponse.user;
     }

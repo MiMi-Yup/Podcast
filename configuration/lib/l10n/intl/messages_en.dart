@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Background Music"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
+        "channel": MessageLookupByLibrary.simpleMessage("Channel"),
         "chooseInterest": MessageLookupByLibrary.simpleMessage(
             "Choose your interests and get the best podcast recommendations. Don\'t worry, you can always change it later."),
         "chooseInterestTitle":
@@ -44,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "codeHaveBeenSend":
             MessageLookupByLibrary.simpleMessage("Code have been send to"),
         "codeInvalid": MessageLookupByLibrary.simpleMessage("Code invalid"),
+        "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Yes"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
@@ -58,13 +60,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "databaseException":
             MessageLookupByLibrary.simpleMessage("Database exception"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "downloadIfWifi": MessageLookupByLibrary.simpleMessage(
             "Download Only if Connected to Wi-Fi"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Downloaded"),
         "downloads": MessageLookupByLibrary.simpleMessage("Downloads"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailInvalid": MessageLookupByLibrary.simpleMessage("Email invalid"),
+        "empty": MessageLookupByLibrary.simpleMessage("Empty"),
         "episode": MessageLookupByLibrary.simpleMessage("Episode"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
@@ -76,7 +81,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "getSetting": MessageLookupByLibrary.simpleMessage("Get setting"),
         "globalSettings":
             MessageLookupByLibrary.simpleMessage("Global Settings"),
+        "goodAfternoon": MessageLookupByLibrary.simpleMessage("Good Afternoon"),
+        "goodEvening": MessageLookupByLibrary.simpleMessage("Good Evening"),
+        "goodMorning": MessageLookupByLibrary.simpleMessage("Good Morning"),
+        "goodNight": MessageLookupByLibrary.simpleMessage("Good Night"),
         "helpCenter": MessageLookupByLibrary.simpleMessage("Help Center"),
+        "hintSearch":
+            MessageLookupByLibrary.simpleMessage("Search and find out..."),
         "history": MessageLookupByLibrary.simpleMessage("History"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
@@ -102,7 +113,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "otherLogin": MessageLookupByLibrary.simpleMessage("or continue with"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "pause": MessageLookupByLibrary.simpleMessage("Pause"),
+        "play": MessageLookupByLibrary.simpleMessage("Play"),
         "playlist": MessageLookupByLibrary.simpleMessage("Playlist"),
+        "podcast": MessageLookupByLibrary.simpleMessage("Podcast"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
@@ -116,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "report": MessageLookupByLibrary.simpleMessage("Report"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
         "serverNotFound":
@@ -131,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUpTitle":
             MessageLookupByLibrary.simpleMessage("Create Your Account"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "sortByDate": MessageLookupByLibrary.simpleMessage("Sort by Date"),
         "sortByName": MessageLookupByLibrary.simpleMessage("Sort by Name"),
         "sortByPodcast":
             MessageLookupByLibrary.simpleMessage("Sort by Podcasts"),
@@ -142,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Something wrong! Please try later."),
         "tryIt": MessageLookupByLibrary.simpleMessage("Try it"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
+        "username": MessageLookupByLibrary.simpleMessage("User name"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "verifyCreate": MessageLookupByLibrary.simpleMessage("Verify new user")
       };

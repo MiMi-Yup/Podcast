@@ -23,7 +23,8 @@ class LoginUseCases {
     LoginUserResponse? user = await unitOfWork.auth
         .loginByPassword(LoginUserRequest(email: email, password: password));
     if (user != null && user.token != null && user.token!.isNotEmpty) {
-      unitOfWork.secure.login(token: user.token!, remember: remember);
+      unitOfWork.session
+          .login(token: user.token!, remember: remember, user: user.user);
     }
     return user?.user;
   }

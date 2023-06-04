@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "background_music": MessageLookupByLibrary.simpleMessage("Nhạc nền"),
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Đã hủy"),
+        "channel": MessageLookupByLibrary.simpleMessage("Kênh"),
         "chooseInterest": MessageLookupByLibrary.simpleMessage(
             "Choose your interests and get the best podcast recommendations. Don\'t worry, you can always change it later."),
         "chooseInterestTitle":
@@ -44,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mã xác thực đã được gửi tới"),
         "codeInvalid":
             MessageLookupByLibrary.simpleMessage("Mã xác thực không hợp lệ"),
+        "completed": MessageLookupByLibrary.simpleMessage("Hoàn thành"),
         "confirm": MessageLookupByLibrary.simpleMessage("Có"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
@@ -58,16 +60,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "databaseException":
             MessageLookupByLibrary.simpleMessage("Lỗi database"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Ngày sinh"),
+        "delete": MessageLookupByLibrary.simpleMessage("Xóa"),
         "downloadIfWifi":
             MessageLookupByLibrary.simpleMessage("Chỉ tải xuống khi có Wi-Fi"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Đã tải xuống"),
         "downloads": MessageLookupByLibrary.simpleMessage("Tải xuống"),
+        "edit": MessageLookupByLibrary.simpleMessage("Chỉnh sửa"),
         "editProfile":
             MessageLookupByLibrary.simpleMessage("Chỉnh sử thông tin"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailInvalid":
             MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
-        "episode": MessageLookupByLibrary.simpleMessage("Phần"),
+        "empty": MessageLookupByLibrary.simpleMessage("Trống"),
+        "episode": MessageLookupByLibrary.simpleMessage("Tập"),
         "favourite": MessageLookupByLibrary.simpleMessage("Yêu thích"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Thông tin cá nhân"),
         "forgotAccount": MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
@@ -76,7 +81,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "fullName": MessageLookupByLibrary.simpleMessage("Tên đầy đủ"),
         "getSetting": MessageLookupByLibrary.simpleMessage("Tới cài đặt"),
         "globalSettings": MessageLookupByLibrary.simpleMessage("Cài đặt chung"),
+        "goodAfternoon":
+            MessageLookupByLibrary.simpleMessage("Chào buổi chiều"),
+        "goodEvening": MessageLookupByLibrary.simpleMessage("Chào tối"),
+        "goodMorning": MessageLookupByLibrary.simpleMessage("Chào buổi sáng"),
+        "goodNight": MessageLookupByLibrary.simpleMessage("Chào khuya"),
         "helpCenter": MessageLookupByLibrary.simpleMessage("Trung tâm hỗ trợ"),
+        "hintSearch":
+            MessageLookupByLibrary.simpleMessage("Search and find out..."),
         "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(
@@ -102,7 +114,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "otherLogin":
             MessageLookupByLibrary.simpleMessage("Hoặc đăng nhập bằng"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+        "pause": MessageLookupByLibrary.simpleMessage("Tạm dừng"),
+        "play": MessageLookupByLibrary.simpleMessage("Chơi"),
         "playlist": MessageLookupByLibrary.simpleMessage("Danh sách phát"),
+        "podcast": MessageLookupByLibrary.simpleMessage("Podcast"),
         "profile": MessageLookupByLibrary.simpleMessage("Cá nhân"),
         "receiveTimeout":
             MessageLookupByLibrary.simpleMessage("Receive timeout"),
@@ -118,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset": MessageLookupByLibrary.simpleMessage("Mặc định"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Khôi phục mật khẩu"),
+        "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "seeAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
         "serverNotFound":
@@ -133,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUpTitle":
             MessageLookupByLibrary.simpleMessage("Tạo mới tài khoản"),
         "skip": MessageLookupByLibrary.simpleMessage("Bỏ qua"),
+        "sortByDate": MessageLookupByLibrary.simpleMessage("Sắp xếp theo ngày"),
         "sortByName": MessageLookupByLibrary.simpleMessage("Sắp xếp theo tên"),
         "sortByPodcast":
             MessageLookupByLibrary.simpleMessage("Sắp xếp theo số lượng"),
@@ -144,6 +161,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Đã xảy ra lỗi, vui lòng thử lại sau!"),
         "tryIt": MessageLookupByLibrary.simpleMessage("Dùng thử"),
         "upload": MessageLookupByLibrary.simpleMessage("Tải lên"),
+        "username": MessageLookupByLibrary.simpleMessage("Người dùng"),
         "verify": MessageLookupByLibrary.simpleMessage("Xác nhận"),
         "verifyCreate":
             MessageLookupByLibrary.simpleMessage("Xác nhận tạo tài khoản")

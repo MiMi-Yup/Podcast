@@ -6,11 +6,13 @@ import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
 import 'package:join_podcast/presentation/download/download_route.dart';
 import 'package:join_podcast/presentation/episode/episode_route.dart';
+import 'package:join_podcast/presentation/home/search/search_route.dart';
 import 'package:join_podcast/presentation/introduction/introduction_route.dart';
 import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart';
 import 'package:join_podcast/presentation/new_user/init_subscribe/init_subscribe_route.dart';
 import 'package:join_podcast/presentation/new_user/interest/interest_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
+import 'package:join_podcast/presentation/playlist/playlist_route.dart';
 import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 import 'package:join_podcast/presentation/record/background_music/background_music_home/background_music_home_route.dart';
 import 'package:join_podcast/presentation/record/list_record/list_record.dart';
@@ -40,6 +42,8 @@ const routerIds = {
   VerifyCreateRoute: "VerifyCreateRoute",
   ResetAccountRoute: "ResetAccountRoute",
   InitSubscribeRoute: "InitSubscribeRoute",
+  SearchRoute: "SearchRoute",
+  PlaylistRoute: "PlaylistRoute"
 };
 
 void generateRoutes() {
@@ -63,4 +67,6 @@ void generateRoutes() {
   VerifyCreateRoute();
   ResetAccountRoute();
   InitSubscribeRoute();
+  SearchRoute();
+  PlaylistRoute();
 }
