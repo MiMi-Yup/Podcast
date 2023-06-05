@@ -14,4 +14,5 @@ class HomeCubit extends Cubit<HomeState> {
 
   String? get userName => unitOfWork.session.user?.name;
   String? get email => unitOfWork.session.user?.email;
+  String? get avatar => unitOfWork.session.user?.avatar;
 }

@@ -23,17 +23,17 @@ import 'package:join_podcast/data/data_source/remote/media_service.dart'
     as _i11;
 import 'package:join_podcast/data/data_source/remote/podcasts_service.dart'
     as _i14;
-import 'package:join_podcast/data/data_source/remote/user_service.dart' as _i19;
+import 'package:join_podcast/data/data_source/remote/user_service.dart' as _i17;
 import 'package:join_podcast/data/episode/episode_repository_impl.dart' as _i7;
 import 'package:join_podcast/data/media/media_repository_impl.dart' as _i10;
 import 'package:join_podcast/data/podcast/podcast_repository_impl.dart' as _i13;
 import 'package:join_podcast/data/secure_preferences_repository_impl.dart'
-    as _i21;
-import 'package:join_podcast/data/session_info.dart' as _i22;
+    as _i19;
+import 'package:join_podcast/data/session_info.dart' as _i20;
 import 'package:join_podcast/data/shared_preferences_repository_impl.dart'
-    as _i24;
+    as _i22;
 import 'package:join_podcast/data/unit_of_work_impl.dart' as _i26;
-import 'package:join_podcast/data/user/user_repository_impl.dart' as _i18;
+import 'package:join_podcast/data/user/user_repository_impl.dart' as _i24;
 import 'package:join_podcast/di/module/network_module.dart' as _i48;
 import 'package:join_podcast/domain/repositories/auth_repository.dart' as _i3;
 import 'package:join_podcast/domain/repositories/episode_repository.dart'
@@ -42,11 +42,11 @@ import 'package:join_podcast/domain/repositories/media_repository.dart' as _i9;
 import 'package:join_podcast/domain/repositories/podcast_repository.dart'
     as _i12;
 import 'package:join_podcast/domain/repositories/secure_preferences_repository.dart'
-    as _i20;
+    as _i18;
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart'
-    as _i23;
+    as _i21;
 import 'package:join_podcast/domain/repositories/unit_of_work.dart' as _i25;
-import 'package:join_podcast/domain/repositories/user_repository.dart' as _i17;
+import 'package:join_podcast/domain/repositories/user_repository.dart' as _i23;
 import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i37;
 import 'package:join_podcast/domain/use_cases/user_usecases.dart' as _i27;
 import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart'
@@ -116,22 +116,23 @@ extension GetItInjectableX on _i1.GetIt {
         _i15.SecurePreferencesService());
     gh.singleton<_i16.SharedPreferencesService>(
         _i16.SharedPreferencesService());
-    gh.factory<_i17.UserRepository>(
-        () => _i18.UserRepositoryImpl(userService: gh<_i19.UserService>()));
-    gh.factory<_i19.UserService>(() => networkModule.userService);
-    gh.factory<_i20.SecurePreferencesRepository>(() =>
-        _i21.SecurePreferencesRepositoryImpl(
+    gh.factory<_i17.UserService>(() => networkModule.userService);
+    gh.factory<_i18.SecurePreferencesRepository>(() =>
+        _i19.SecurePreferencesRepositoryImpl(
             storage: gh<_i15.SecurePreferencesService>()));
-    gh.singleton<_i22.SessionInfo>(
-        _i22.SessionInfo(secureRepo: gh<_i20.SecurePreferencesRepository>()));
-    gh.factory<_i23.SharedPreferencesRepository>(() =>
-        _i24.SharedPreferencesRepositoryImpl(
+    gh.singleton<_i20.SessionInfo>(
+        _i20.SessionInfo(secureRepo: gh<_i18.SecurePreferencesRepository>()));
+    gh.factory<_i21.SharedPreferencesRepository>(() =>
+        _i22.SharedPreferencesRepositoryImpl(
             storage: gh<_i16.SharedPreferencesService>()));
+    gh.factory<_i23.UserRepository>(
+        () => _i24.UserRepositoryImpl(userService: gh<_i17.UserService>()));
     gh.factory<_i25.UnitOfWork>(() => _i26.UnitOfWorkImpl(
           auth: gh<_i3.AuthRepository>(),
-          session: gh<_i22.SessionInfo>(),
-          sharedPreferences: gh<_i23.SharedPreferencesRepository>(),
-          user: gh<_i17.UserRepository>(),
+          session: gh<_i20.SessionInfo>(),
+          sharedPreferences: gh<_i21.SharedPreferencesRepository>(),
+          user: gh<_i23.UserRepository>(),
+          media: gh<_i9.MediaRepository>(),
         ));
     gh.factory<_i27.UserUseCases>(
         () => _i27.UserUseCases(unitOfWork: gh<_i25.UnitOfWork>()));

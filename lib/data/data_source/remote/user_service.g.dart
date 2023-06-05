@@ -79,7 +79,7 @@ class _UserService implements UserService {
     )
             .compose(
               _dio.options,
-              '/user/${id}',
+              '/users/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -107,7 +107,7 @@ class _UserService implements UserService {
     )
             .compose(
               _dio.options,
-              '/user/update',
+              '/users/update',
               queryParameters: queryParameters,
               data: _data,
             )

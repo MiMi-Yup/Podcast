@@ -18,9 +18,9 @@ abstract class UserService {
   @PATCH('/users/self/change-password')
   Future<void> changePassword(@Body() UserChangePasswordRequest signUp);
 
-  @GET('/user/{id}')
+  @GET('/users/{id}')
   Future<ApiResponse<ProfileResponse>> getUserById(@Path('id') String id);
 
-  @PATCH('/user/update')
+  @PATCH('/users/update')
   Future<ApiResponse<ProfileResponse>> updateUser(@Body() UserUpdateRequest request);
 }

@@ -10,13 +10,13 @@ import 'package:join_podcast/utils/exception_util.dart';
 
 @Injectable(as: UserRepository)
 class UserRepositoryImpl implements UserRepository {
-  final UserService? userService;
-  UserRepositoryImpl({this.userService});
+  final UserService userService;
+  UserRepositoryImpl({required this.userService});
 
   @override
-  FutureOr<ProfileResponse?> getCurrentUser() {
+  Future<ProfileResponse?> getCurrentUser() {
     return userService
-        ?.getCurrentProfile()
+        .getCurrentProfile()
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);
@@ -27,7 +27,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   FutureOr<bool?> changePassword(UserChangePasswordRequest request) {
     return userService
-        ?.changePassword(request)
+        .changePassword(request)
         .then((value) => true)
         .catchError((onError) {
       ExceptionUtil.handle(onError);
@@ -38,7 +38,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   FutureOr<ProfileResponse?> getUserById(String id) {
     return userService
-        ?.getUserById(id)
+        .getUserById(id)
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);
@@ -49,7 +49,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   FutureOr<ProfileResponse?> updateInfo(UserUpdateRequest request) {
     return userService
-        ?.updateUser(request)
+        .updateUser(request)
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);

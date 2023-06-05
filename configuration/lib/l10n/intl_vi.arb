@@ -116,5 +116,6 @@
     "delete": "Xóa",
     "completed": "Hoàn thành",
     "hintSearch": "Search and find out...",
-    "empty": "Trống"
+    "empty": "Trống",
+    "shufflePlay": "Phát ngẫu nhiên"
 }

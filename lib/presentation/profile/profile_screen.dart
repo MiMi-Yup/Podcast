@@ -83,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image:
-                                  DecorationImage(image: AssetImage(mAGoogle)),
+                                  DecorationImage(image: NetworkImage(session.user!.avatar!)),
                               color: Colors.grey),
                         ),
                         Container(

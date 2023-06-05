@@ -140,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "showLess": MessageLookupByLibrary.simpleMessage("show less"),
         "showMore": MessageLookupByLibrary.simpleMessage("show more"),
+        "shufflePlay": MessageLookupByLibrary.simpleMessage("Shuffle Play"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "signUpSuggest":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account? "),

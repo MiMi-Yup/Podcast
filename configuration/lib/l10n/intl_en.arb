@@ -116,5 +116,6 @@
     "delete": "Delete",
     "completed": "Completed",
     "hintSearch": "Search and find out...",
-    "empty": "Empty"
+    "empty": "Empty",
+    "shufflePlay": "Shuffle Play"
 }

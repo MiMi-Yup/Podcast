@@ -143,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "share": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
         "showLess": MessageLookupByLibrary.simpleMessage("rút gọn"),
         "showMore": MessageLookupByLibrary.simpleMessage("đầy đủ"),
+        "shufflePlay": MessageLookupByLibrary.simpleMessage("Phát ngẫu nhiên"),
         "signUp": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "signUpSuggest":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản? "),

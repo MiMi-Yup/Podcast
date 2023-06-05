@@ -1119,6 +1119,16 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Shuffle Play`
+  String get shufflePlay {
+    return Intl.message(
+      'Shuffle Play',
+      name: 'shufflePlay',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

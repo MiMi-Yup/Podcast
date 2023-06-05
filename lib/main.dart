@@ -31,12 +31,17 @@ class SetupEnv extends Env {
     initRoute(routerIds);
     final previousSession = getIt<SessionInfo>();
     await previousSession.init();
-    final user = await getIt<UserRepository>().getCurrentUser();
-    if (user?.user != null) {
-      previousSession.login(
-          token: previousSession.token!, remember: true, user: user?.user);
-    } else {
-      previousSession.logout();
+    if (previousSession.token != null && previousSession.token!.isNotEmpty) {
+      await getIt<UserRepository>().getCurrentUser().then((value) {
+        if (value?.user != null) {
+          previousSession.login(
+              token: previousSession.token!, remember: true, user: value?.user);
+        } else {
+          previousSession.logout();
+        }
+      }).onError((error, stackTrace) {
+        previousSession.logout();
+      });
     }
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
