@@ -1,4 +1,3 @@
-import 'package:join_podcast/models/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'episode_response.g.dart';

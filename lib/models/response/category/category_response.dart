@@ -9,8 +9,6 @@ class CategoryResponse {
   String? id;
   @JsonKey(name: "name")
   String? name;
-  @JsonKey(name: "__v")
-  int? v;
 
   CategoryResponse({this.id, this.name});
 

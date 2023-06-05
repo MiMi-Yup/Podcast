@@ -32,7 +32,7 @@ class _UserService implements UserService {
     )
             .compose(
               _dio.options,
-              '/users/profile',
+              '/users/self',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -58,11 +58,65 @@ class _UserService implements UserService {
     )
         .compose(
           _dio.options,
-          '/users/profile/change-password',
+          '/users/self/change-password',
           queryParameters: queryParameters,
           data: _data,
         )
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<ApiResponse<ProfileResponse>> getUserById(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<ProfileResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/user/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<ProfileResponse>.fromJson(
+      _result.data!,
+      (json) => ProfileResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<ProfileResponse>> updateUser(
+      UserUpdateRequest request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<ProfileResponse>>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/user/update',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<ProfileResponse>.fromJson(
+      _result.data!,
+      (json) => ProfileResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

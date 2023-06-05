@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'podcasts_service.dart';
+part of 'episode_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'podcasts_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _PodcastsService implements PodcastsService {
-  _PodcastsService(
+class _EpisodeService implements EpisodeService {
+  _EpisodeService(
     this._dio, {
     this.baseUrl,
   });
@@ -19,55 +19,29 @@ class _PodcastsService implements PodcastsService {
   String? baseUrl;
 
   @override
-  Future<ApiResponse<PodcastResponse>> getPodcastById(String id) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<PodcastResponse>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/podcasts/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<PodcastResponse>.fromJson(
-      _result.data!,
-      (json) => PodcastResponse.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
-  }
-
-  @override
-  Future<ApiResponse<PodcastResponse>> create(
-      PodcastCreateRequest request) async {
+  Future<ApiResponse<EpisodeResponse>> create(
+      EpisodeCreateRequest request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<PodcastResponse>>(Options(
+        _setStreamType<ApiResponse<EpisodeResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/podcasts',
+              '/episodes',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<PodcastResponse>.fromJson(
+    final value = ApiResponse<EpisodeResponse>.fromJson(
       _result.data!,
-      (json) => PodcastResponse.fromJson(json as Map<String, dynamic>),
+      (json) => EpisodeResponse.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

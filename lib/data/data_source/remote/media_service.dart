@@ -13,7 +13,11 @@ part 'media_service.g.dart';
 abstract class MediaService {
   factory MediaService(Dio dio, {String baseUrl}) = _MediaService;
 
-  @POST('/media/image/update')
+  @POST('/media/image/upload')
   @MultiPart()
   Future<ApiResponse<MediaResponse>> uploadImage(@Part() File file);
+
+  @POST('/media/audo/upload')
+  @MultiPart()
+  Future<ApiResponse<MediaResponse>> uploadAudio(@Part() File file);
 }

@@ -8,14 +8,16 @@ part of 'update_request.dart';
 
 UserUpdateRequest _$UserUpdateRequestFromJson(Map<String, dynamic> json) =>
     UserUpdateRequest(
-      name: json['name'] as String,
-      avatar: json['avatar'] as String,
-      birthday: DateTime.parse(json['birthday'] as String),
+      name: json['name'] as String?,
+      avatar: json['avatar'] as String?,
+      birthday: json['birthday'] == null
+          ? null
+          : DateTime.parse(json['birthday'] as String),
     );
 
 Map<String, dynamic> _$UserUpdateRequestToJson(UserUpdateRequest instance) =>
     <String, dynamic>{
       'name': instance.name,
       'avatar': instance.avatar,
-      'birthday': instance.birthday.toIso8601String(),
+      'birthday': instance.birthday?.toIso8601String(),
     };
