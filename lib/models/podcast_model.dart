@@ -1,5 +1,6 @@
 import 'package:join_podcast/models/category_model.dart';
 import 'package:join_podcast/models/episode_model.dart';
+import 'package:join_podcast/models/response/list_response.dart';
 import 'package:join_podcast/models/response/podcasts/podcast_response.dart';
 import 'package:join_podcast/models/user_model.dart';
 
@@ -36,7 +37,7 @@ class PodcastModel {
       createdAt: response.createdAt,
       updatedAt: response.updatedAt,
       image: response.image,
-      episodes: response.episodes?.episodes,
+      episodes: response.episodes?.items,
       count: response.episodes?.count);
 
   PodcastResponse toResponse() => PodcastResponse(
@@ -48,5 +49,5 @@ class PodcastModel {
       createdAt: createdAt,
       updatedAt: updatedAt,
       image: image,
-      episodes: EpisodesResponse(count: count, episodes: episodes));
+      episodes: ListResponse(count: count, items: episodes));
 }

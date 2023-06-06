@@ -6,20 +6,6 @@ part of 'podcast_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EpisodesResponse _$EpisodesResponseFromJson(Map<String, dynamic> json) =>
-    EpisodesResponse(
-      episodes: (json['items'] as List<dynamic>?)
-          ?.map((e) => EpisodeModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      count: json['count'] as int?,
-    );
-
-Map<String, dynamic> _$EpisodesResponseToJson(EpisodesResponse instance) =>
-    <String, dynamic>{
-      'items': instance.episodes,
-      'count': instance.count,
-    };
-
 PodcastResponse _$PodcastResponseFromJson(Map<String, dynamic> json) =>
     PodcastResponse(
       id: json['_id'] as String?,
@@ -40,7 +26,9 @@ PodcastResponse _$PodcastResponseFromJson(Map<String, dynamic> json) =>
       image: json['image'] as String?,
       episodes: json['episodes'] == null
           ? null
-          : EpisodesResponse.fromJson(json['episodes'] as Map<String, dynamic>),
+          : ListResponse<EpisodeModel>.fromJson(
+              json['episodes'] as Map<String, dynamic>,
+              (value) => EpisodeModel.fromJson(value as Map<String, dynamic>)),
     );
 
 Map<String, dynamic> _$PodcastResponseToJson(PodcastResponse instance) =>
@@ -53,5 +41,7 @@ Map<String, dynamic> _$PodcastResponseToJson(PodcastResponse instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
       'image': instance.image,
-      'episodes': instance.episodes,
+      'episodes': instance.episodes?.toJson(
+        (value) => value,
+      ),
     };

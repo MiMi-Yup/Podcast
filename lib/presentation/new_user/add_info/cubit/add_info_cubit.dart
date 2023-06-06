@@ -12,10 +12,10 @@ class AddInfoCubit extends Cubit<AddInfoState> {
   final UserUseCases userUserCases;
 
   AddInfoCubit({required this.userUserCases}) : super(AddInfoState.initial()) {
-    this.userUserCases.getPreviousState().then((value) {
+    userUserCases.getPreviousState().then((value) {
       if (value != null) {
         emit(state.copyWith(
-            fullname: value.name, dateOfBirth: null, initAvatar: value.avatar));
+            fullname: value.name, dateOfBirth: value.birthday, initAvatar: value.avatar));
       }
     }).onError((error, stackTrace) => null);
   }

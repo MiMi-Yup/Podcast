@@ -90,7 +90,7 @@ class PlaylistScreen extends StatelessWidget {
                 SizedBox(
                   height: mSpacing,
                 ),
-                Text("Podcast Ngày buồn", style: mST20M),
+                Text("Podcast Ngày buồn", style: mST20M.copyWith(color: Colors.white)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

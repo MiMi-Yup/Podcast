@@ -11,7 +11,11 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       name: json['name'] as String?,
       email: json['email'] as String?,
       isVerified: json['is_verified'] as bool?,
-    )..avatar = json['avatar'] as String?;
+      birthday: json['birthday'] == null
+          ? null
+          : DateTime.parse(json['birthday'] as String),
+      avatar: json['avatar'] as String?,
+    );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       '_id': instance.id,
@@ -19,4 +23,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'email': instance.email,
       'is_verified': instance.isVerified,
       'avatar': instance.avatar,
+      'birthday': instance.birthday?.toIso8601String(),
     };
