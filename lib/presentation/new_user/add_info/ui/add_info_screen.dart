@@ -137,8 +137,13 @@ class AddInfoScreen extends StatelessWidget {
                   listener: (context, state) {
                     switch (state.state) {
                       case Status.success:
-                        XMDRouter.popNamedAndRemoveUntil(
-                            routerIds[BottomBarRoute]!);
+                        if (state.signUp) {
+                          XMDRouter.pushNamedAndRemoveUntil(
+                              routerIds[BottomBarRoute]!);
+                        } else {
+                          XMDRouter.popNamedAndRemoveUntil(
+                              routerIds[BottomBarRoute]!);
+                        }
                         break;
                       case Status.error:
                         AlertUtil.hideLoading();

@@ -8,6 +8,7 @@ class AddInfoState extends Equatable {
   final String? fullname;
   final DateTime? dateOfBirth;
   final Status state;
+  final bool signUp;
 
   const AddInfoState(
       {required this.fullname,
@@ -15,14 +16,16 @@ class AddInfoState extends Equatable {
       required this.state,
       required this.avatar,
       this.initAvatar =
-          'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'});
+          'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png',
+      this.signUp = false});
 
-  factory AddInfoState.initial() {
-    return const AddInfoState(
+  factory AddInfoState.initial({bool signUp = false}) {
+    return AddInfoState(
         fullname: null,
         dateOfBirth: null,
         avatar: null,
-        state: Status.initial);
+        state: Status.initial,
+        signUp: signUp);
   }
 
   @override
@@ -30,7 +33,7 @@ class AddInfoState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [fullname, dateOfBirth, state, avatar, initAvatar];
+      [fullname, dateOfBirth, state, avatar, initAvatar, signUp];
 
   AddInfoState copyWith(
           {String? fullname,
@@ -43,5 +46,6 @@ class AddInfoState extends Equatable {
           dateOfBirth: dateOfBirth ?? this.dateOfBirth,
           state: state ?? this.state,
           avatar: avatar ?? this.avatar,
-          initAvatar: initAvatar ?? this.initAvatar);
+          initAvatar: initAvatar ?? this.initAvatar,
+          signUp: signUp);
 }

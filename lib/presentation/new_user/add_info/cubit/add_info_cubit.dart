@@ -11,11 +11,14 @@ part 'add_info_state.dart';
 class AddInfoCubit extends Cubit<AddInfoState> {
   final UserUseCases userUserCases;
 
-  AddInfoCubit({required this.userUserCases}) : super(AddInfoState.initial()) {
+  AddInfoCubit({required this.userUserCases, bool signUp = false})
+      : super(AddInfoState.initial(signUp: signUp)) {
     userUserCases.getPreviousState().then((value) {
       if (value != null) {
         emit(state.copyWith(
-            fullname: value.name, dateOfBirth: value.birthday, initAvatar: value.avatar));
+            fullname: value.name,
+            dateOfBirth: value.birthday,
+            initAvatar: value.avatar));
       }
     }).onError((error, stackTrace) => null);
   }

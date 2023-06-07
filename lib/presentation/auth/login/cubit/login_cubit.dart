@@ -41,16 +41,11 @@ class LoginCubit extends Cubit<ALoginState> {
     if (state.isFormValid) {
       emit(state.copyWith(status: LoginStatus.submitting));
       UserModel? user;
-      if (state is SignUpState) {
-        final accept = await loginUserCases.signUp(
-            email: state.email, password: state.password);
-        if (accept == true) {
-          user = await loginUserCases.login(
-              email: state.email,
-              password: state.password,
-              remember: state.rememberAccount);
-        }
-      } else {
+      final accept = state is SignUpState
+          ? await loginUserCases.signUp(
+              email: state.email, password: state.password)
+          : true;
+      if (accept == true) {
         user = await loginUserCases.login(
             email: state.email,
             password: state.password,

@@ -45,16 +45,16 @@ class ProfileScreen extends StatelessWidget {
                   )
                 ],
                 offset: Offset(0, 50),
-                onSelected: (index) {
+                onSelected: (index) async {
                   switch (index) {
                     case 0:
-                      showConfirmBottomModal(
-                          context, MultiLanguage.of(context).askLogout,
-                          whenConfirm: () {
+                      final result = await showConfirmBottomModal(
+                          context, MultiLanguage.of(context).askLogout);
+                      if (result == true) {
                         session.logout();
                         XMDRouter.pushNamedAndRemoveUntil(
                             routerIds[LoginRoute]!);
-                      });
+                      }
                       break;
                     default:
                       break;
@@ -82,8 +82,8 @@ class ProfileScreen extends StatelessWidget {
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              image:
-                                  DecorationImage(image: NetworkImage(session.user!.avatar!)),
+                              image: DecorationImage(
+                                  image: NetworkImage(session.user!.avatar!)),
                               color: Colors.grey),
                         ),
                         Container(

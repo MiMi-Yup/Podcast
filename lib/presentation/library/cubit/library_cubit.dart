@@ -10,5 +10,5 @@ part 'library_state.dart';
 class LibraryCubit extends Cubit<LibraryState> {
   final UnitOfWork unitOfWork;
   LibraryCubit({required this.unitOfWork})
-      : super(LibraryStateInitial(currentIndex: 0));
+      : super(LibraryStateFavourite.initial());
 }

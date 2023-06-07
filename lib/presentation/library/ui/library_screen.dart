@@ -4,6 +4,7 @@ import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_playlist.dart';
+import 'package:join_podcast/common/widgets/m_text_field_bottom_modal.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/playlist/playlist_route.dart';
@@ -18,17 +19,32 @@ class LibraryScreen extends StatefulWidget {
 class _LibraryScreenState extends State<LibraryScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late TextEditingController _controller;
+  bool isFavouritePage = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _controller = TextEditingController();
+    _tabController.addListener(() {
+      if (_tabController.index == 1 && isFavouritePage) {
+        setState(() {
+          isFavouritePage = false;
+        });
+      } else if (_tabController.index == 0 && isFavouritePage == false) {
+        setState(() {
+          isFavouritePage = true;
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
     _tabController.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -39,10 +55,20 @@ class _LibraryScreenState extends State<LibraryScreen>
           elevation: 0.0,
           title: Text(MultiLanguage.of(context).library),
           actions: [
-            IconButton(
-                onPressed: () =>
-                    XMDRouter.pushNamed(routerIds[NotificationRoute]!),
-                icon: Icon(Icons.history))
+            if (isFavouritePage)
+              IconButton(
+                  onPressed: () =>
+                      XMDRouter.pushNamed(routerIds[NotificationRoute]!),
+                  icon: Icon(Icons.history)),
+            if (!isFavouritePage)
+              IconButton(
+                  onPressed: () async {
+                    final result = await showTextFieldBottomModal(
+                        context, "Update something", _controller,
+                        preText: "hello");
+                    debugPrint(result);
+                  },
+                  icon: Icon(Icons.add))
           ],
         ),
         body: Column(

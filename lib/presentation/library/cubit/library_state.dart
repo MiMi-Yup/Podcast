@@ -3,22 +3,22 @@ part of 'library_cubit.dart';
 @immutable
 abstract class LibraryState extends Equatable {}
 
-class LibraryStateInitial extends LibraryState {
-  final int currentIndex;
-  final bool isHidden;
+class LibraryStateFavourite extends LibraryState {
+  final List<dynamic> favourites;
+  final List<dynamic> playlists;
 
-  LibraryStateInitial({required this.currentIndex, this.isHidden = false});
+  LibraryStateFavourite({required this.favourites, required this.playlists});
+
+  factory LibraryStateFavourite.initial() =>
+      LibraryStateFavourite(favourites: [], playlists: []);
 
   @override
-  List<Object?> get props => [currentIndex, isHidden];
+  List<Object?> get props => [favourites, playlists];
 
-  LibraryStateInitial copyWith({
-    int? currentIndex,
-    bool? isHidden,
-  }) {
-    return LibraryStateInitial(
-      currentIndex: currentIndex ?? this.currentIndex,
-      isHidden: isHidden ?? this.isHidden,
-    );
+  LibraryStateFavourite copyWith(
+      {List<dynamic>? favourites, List<dynamic>? playlists}) {
+    return LibraryStateFavourite(
+        favourites: favourites ?? this.favourites,
+        playlists: playlists ?? this.playlists);
   }
 }
