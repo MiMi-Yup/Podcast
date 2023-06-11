@@ -101,7 +101,6 @@ class DottedRectanglePainter extends CustomPainter {
 }
 
 class _ListRecordScreen extends State<ListRecordScreen> {
-  bool isFirstTime = false;
   List<File> listRecorded  = [];
   List<bool> isPlayingList = []; // Danh sách trạng thái phát âm thanh cho từng file
   int currentPlayingIndex = -1;
@@ -163,7 +162,15 @@ class _ListRecordScreen extends State<ListRecordScreen> {
     if (files != null && files.length == reCheckList.length) {
       loadedFiles = files.map((path) => File(path)).toList();
     } else {
-      loadedFiles = reCheckList;
+      // Thêm các thành phần mà reCheckList có mà files không có vào files
+      if (files != null) {
+        loadedFiles = files.map((path) => File(path)).toList();
+        final existingPaths = files.toSet();
+        final missingFiles = reCheckList.where((path) => !existingPaths.contains(path.path));
+        loadedFiles.addAll(missingFiles.map((path) => File(path.path)));
+      } else {
+        loadedFiles = reCheckList;
+      }
     }
 
     setState(() {
@@ -473,6 +480,13 @@ class _ListRecordScreen extends State<ListRecordScreen> {
       },
     );
   }
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    await loadAudioFiles();
+  }
+
   @override
   void dispose() {
     disposeAudio();

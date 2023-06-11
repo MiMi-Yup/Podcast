@@ -382,6 +382,7 @@ class _RecordingScreenState extends State<RecordingPageScreen> {
     );
   }
 
+
   @override
   void dispose() {
     stopwatch.stop();
