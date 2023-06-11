@@ -5,10 +5,12 @@ import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubit/list_record_cubit.dart';
 
@@ -101,19 +103,73 @@ class DottedRectanglePainter extends CustomPainter {
 class _ListRecordScreen extends State<ListRecordScreen> {
   bool isFirstTime = false;
   List<File> listRecorded  = [];
+  List<bool> isPlayingList = []; // Danh sách trạng thái phát âm thanh cho từng file
+  int currentPlayingIndex = -1;
+  //state
+  bool isPlaying = false;
+  FlutterSoundPlayer? _audioPlayer;
+  bool get isPlaying2 => _audioPlayer!.isPlaying;
+
+  Future init() async {
+    _audioPlayer = FlutterSoundPlayer();
+
+    await _audioPlayer!.openPlayer();
+  }
+
+  void disposeAudio() {
+    _audioPlayer!.closePlayer();
+    _audioPlayer = null;
+  }
+
+  Future _play(VoidCallback whenFinished, String path) async {
+    await _audioPlayer!.startPlayer(
+      fromURI: path,
+      whenFinished: whenFinished,
+    );
+  }
+
+  Future _stop() async {
+    await _audioPlayer!.stopPlayer();
+  }
+
+  Future togglePlaying({required VoidCallback whenFinished, required String path}) async {
+    if (_audioPlayer!.isStopped) {
+      await _play(whenFinished, path);
+    } else {
+      await _stop();
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     loadAudioFiles(); // Gọi phương thức để nạp danh sách file âm thanh
+    init();
   }
 
+  // Future<void> loadAudioFiles() async {
+  //   final files = await getAudioFiles();
+  //   setState(() {
+  //     listRecorded = files;
+  //     isPlayingList = List<bool>.filled(files.length, false); // Khởi tạo danh sách trạng thái ban đầu
+  //   });
+  // }
   Future<void> loadAudioFiles() async {
-    final files = await getAudioFiles();
-    setState(() {
-      listRecorded = files;
-    });
+    final prefs = await SharedPreferences.getInstance();
+    final files = prefs.getStringList('audioFiles');
+    final reCheckList = await getAudioFiles();
 
+    List<File> loadedFiles = [];
+    if (files != null && files.length == reCheckList.length) {
+      loadedFiles = files.map((path) => File(path)).toList();
+    } else {
+      loadedFiles = reCheckList;
+    }
+
+    setState(() {
+      listRecorded = loadedFiles;
+      isPlayingList = List<bool>.filled(loadedFiles.length, false);
+    });
   }
 
   Widget _list() {
@@ -150,8 +206,8 @@ class _ListRecordScreen extends State<ListRecordScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
-              icon: Icon(Icons.play_arrow, color: Colors.black),
-              onPressed: () => play(recordedFile), // Phát file
+              icon: isPlayingList[index] ? Icon(Icons.stop, color: Colors.black) : Icon(Icons.play_arrow, color: Colors.black),
+              onPressed: () => play(recordedFile, index),
             ),
             IconButton(
               icon: Icon(Icons.more_vert, color: Colors.black),
@@ -163,16 +219,57 @@ class _ListRecordScreen extends State<ListRecordScreen> {
     );
   }
 
-  void remove(int index) {
+  void remove(int index) async {
+    final file = listRecorded[index];
+    listRecorded.removeAt(index);
+    await file.delete(); // Xóa file audio từ hệ thống tệp tin
+
+    // Lưu danh sách lại sau khi xóa
+    await saveAudioFiles();
+
     setState(() {
-      final file = listRecorded[index];
-      listRecorded.removeAt(index);
-      file.delete(); // Xóa file audio từ hệ thống tệp tin
+      // Nếu file đang phát được xóa, thì dừng phát
+      if (currentPlayingIndex == index) {
+        _stop();
+        currentPlayingIndex = -1;
+      }
     });
   }
 
-  void play(File recordedFile) {
-    // Xử lý phát file âm thanh
+  Future<void> saveAudioFiles() async {
+    final prefs = await SharedPreferences.getInstance();
+    final audioFileList = listRecorded.map((file) => file.path).toList();
+    await prefs.setStringList('audioFiles', audioFileList);
+  }
+
+
+  Future<void> play(File recordedFile, int index) async {
+    print(recordedFile);
+    if (currentPlayingIndex == index && isPlayingList[index]) {
+      // Bật/tắt phát âm thanh cho cùng một file
+      setState(() {
+        isPlayingList[index] = !isPlayingList[index];
+      });
+    } else {
+      // Tắt phát âm thanh cho file đang phát hiện tại (nếu có)
+      if (currentPlayingIndex >= 0 && currentPlayingIndex < isPlayingList.length) {
+        setState(() {
+          isPlayingList[currentPlayingIndex] = false;
+        });
+      }
+
+      // Bật phát âm thanh cho file mới
+      setState(() {
+        currentPlayingIndex = index;
+        isPlayingList[index] = true;
+      });
+
+      await togglePlaying(whenFinished: () {
+        setState(() {
+          isPlayingList[index] = false;
+        });
+      }, path: recordedFile.path);
+    }
   }
 
   void showOptions(int index) {
@@ -236,7 +333,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
         // Hiển thị nội dung màn hình list_record_screen.dart
         return Padding(
           // recordpce (432:182)
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -375,5 +472,11 @@ class _ListRecordScreen extends State<ListRecordScreen> {
         );
       },
     );
+  }
+  @override
+  void dispose() {
+    disposeAudio();
+    saveAudioFiles();
+    super.dispose();
   }
 }
