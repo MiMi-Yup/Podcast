@@ -24,35 +24,35 @@ class LibraryScreen extends StatelessWidget {
           automaticallyImplyLeading: false,
           toolbarHeight: 80,
           elevation: 0.0,
-          title: Row(
-            children: [
-              SizedBox(
-                  height: 60,
-                  width: 60,
-                  child: CircleAvatar(
-                    foregroundImage: AssetImage(mALogo),
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  )),
-              SizedBox(
-                width: 10.0,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "My Library",
-                    style: mST24M,
-                  )
-                ],
-              ),
-            ],
-          ),
-          actions: [
-            IconButton(
-                onPressed: () =>
-                    XMDRouter.pushNamed(routerIds[NotificationRoute]!),
-                icon: Icon(Icons.history))
-          ],
+          // title: Row(
+          //   children: [
+          //     SizedBox(
+          //         height: 60,
+          //         width: 60,
+          //         child: CircleAvatar(
+          //           foregroundImage: AssetImage(mALogo),
+          //           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          //         )),
+          //     SizedBox(
+          //       width: 10.0,
+          //     ),
+          //     Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: const [
+          //         Text(
+          //           "My Library",
+          //           style: mST24M,
+          //         )
+          //       ],
+          //     ),
+          //   ],
+          // ),
+          // actions: [
+          //   IconButton(
+          //       onPressed: () =>
+          //           XMDRouter.pushNamed(routerIds[NotificationRoute]!),
+          //       icon: Icon(Icons.history))
+          // ],
         ),
         body: Column(
           children: [

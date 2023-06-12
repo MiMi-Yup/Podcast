@@ -10,6 +10,8 @@ import 'package:join_podcast/presentation/library/library_page.dart';
 import 'package:join_podcast/presentation/profile/profile_screen.dart';
 import 'package:join_podcast/presentation/record/list_record/list_record.dart';
 
+import '../../Channel/newChannel/createNameAndDescription/createNameAndDescription.dart';
+
 part 'bottom_bar_state.dart';
 
 @injectable
@@ -20,7 +22,7 @@ class BottomBarCubit extends Cubit<BottomBarState> {
 
   final List<Widget> listPage = [
     const HomePage(),
-    const ListRecordPage(),
+    const CreateNameAndDescription(),
     const LibraryPage(),
     ProfileScreen(
       prefsRepo: getIt<SharedPreferencesRepository>(),
