@@ -33,7 +33,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   # play audio
-  audioplayers: ^4.0.1
   rxdart: ^0.27.7
   just_audio: ^0.9.34
 
@@ -99,6 +98,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/img/
+    - assets/audio/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

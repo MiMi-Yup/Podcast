@@ -22,15 +22,16 @@ class _PodcastScreenState extends State<PodcastScreen> {
   @override
   void initState() {
     super.initState();
-    audioPlayer.setAudioSource(
-      ConcatenatingAudioSource(
-        children: [
-          AudioSource.uri(
-            Uri.parse('asset:///${song.url}'),
-          ),
-        ],
-      ),
-    );
+    // audioPlayer.setAudioSource(
+    //   ConcatenatingAudioSource(
+    //     children: [
+    //       AudioSource.uri(
+    //         Uri.parse('asset:///${song.url}'),
+    //       ),
+    //     ],
+    //   ),
+    // );
+    audioPlayer.setAsset(song.url);
     // () async {
     //   await audioPlayer.setUrl(
     //       "https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps");
