@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:configuration/l10n/l10n.dart';
 import 'package:join_podcast/presentation/podcast/ui/widgets/seekbar.dart';
 import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
-// import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 import '../../../models/model_example/podcast_model.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class PodcastScreen extends StatefulWidget {
   const PodcastScreen({Key? key}) : super(key: key);
@@ -17,25 +17,36 @@ class PodcastScreen extends StatefulWidget {
 
 class _PodcastScreenState extends State<PodcastScreen> {
   AudioPlayer audioPlayer = AudioPlayer();
-  Song song = Get.arguments ?? Song.songs[1];
+  FlutterLocalNotificationsPlugin appLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  Song song = Get.arguments ?? Song.songs[0];
+
+  void skipForward() {
+    audioPlayer.seek(audioPlayer.position + const Duration(seconds: 10));
+  }
+
+  void skipBackward() {
+    audioPlayer.seek(audioPlayer.position > const Duration(seconds: 10)
+        ? audioPlayer.position - const Duration(seconds: 10)
+        : Duration.zero);
+  }
 
   @override
   void initState() {
     super.initState();
-    // audioPlayer.setAudioSource(
-    //   ConcatenatingAudioSource(
-    //     children: [
-    //       AudioSource.uri(
-    //         Uri.parse('asset:///${song.url}'),
-    //       ),
-    //     ],
-    //   ),
-    // );
-    audioPlayer.setAsset(song.url);
-    // () async {
-    //   await audioPlayer.setUrl(
-    //       "https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps");
-    // };
+    // audioPlayer.setAsset(song.url);
+    audioPlayer.setUrl(
+        "https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps");
+    audioPlayer.play();
+    () async {
+      const AndroidInitializationSettings initializationSettingsAndroid =
+          AndroidInitializationSettings('@mipmap/ic_launcher');
+      const InitializationSettings initializationSettings =
+          InitializationSettings(
+        android: initializationSettingsAndroid,
+      );
+      await appLocalNotificationsPlugin.initialize(initializationSettings);
+    };
   }
 
   @override
@@ -56,6 +67,80 @@ class _PodcastScreenState extends State<PodcastScreen> {
         );
       });
 
+  void showPlaybackSpeedModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    title: Text('0.25x'),
+                    onTap: () {
+                      audioPlayer.setSpeed(0.25);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('0.5x'),
+                    onTap: () {
+                      audioPlayer.setSpeed(0.5);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('1.0x'),
+                    onTap: () {
+                      audioPlayer.setSpeed(1.0);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('1.5x'),
+                    onTap: () {
+                      audioPlayer.setSpeed(1.5);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('2.0x'),
+                    onTap: () {
+                      audioPlayer.setSpeed(2.0);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Future<void> showNotification() async {
+    // const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    //     AndroidNotificationDetails(
+    //   'reminder_channel_id',
+    //   'Reminder Channel',
+    //   importance: Importance.max,
+    //   priority: Priority.high,
+    // );
+    // const NotificationDetails platformChannelSpecifics =
+    //     NotificationDetails(android: androidPlatformChannelSpecifics);
+    // await appLocalNotificationsPlugin.show(
+    //   0,
+    //   'Reminder Title',
+    //   'Reminder Body',
+    //   platformChannelSpecifics,
+    //   payload: 'reminder_payload',
+    // );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +158,7 @@ class _PodcastScreenState extends State<PodcastScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             itemBuilder: (context) => [
               PopupMenuItem(
-                value: 2,
+                value: 0,
                 child: Row(
                   children: [
                     const Icon(Icons.speed),
@@ -85,7 +170,7 @@ class _PodcastScreenState extends State<PodcastScreen> {
                 ),
               ),
               PopupMenuItem(
-                value: 2,
+                value: 1,
                 child: Row(
                   children: [
                     const Icon(Icons.access_alarm),
@@ -97,7 +182,7 @@ class _PodcastScreenState extends State<PodcastScreen> {
                 ),
               ),
               PopupMenuItem(
-                value: 0,
+                value: 2,
                 child: Row(
                   children: [
                     const Icon(Icons.share),
@@ -109,7 +194,7 @@ class _PodcastScreenState extends State<PodcastScreen> {
                 ),
               ),
               const PopupMenuItem(
-                value: 1,
+                value: 3,
                 child: Row(
                   children: [
                     Icon(Icons.wifi),
@@ -121,7 +206,7 @@ class _PodcastScreenState extends State<PodcastScreen> {
                 ),
               ),
               PopupMenuItem(
-                value: 2,
+                value: 4,
                 child: Row(
                   children: [
                     const Icon(Icons.report),
@@ -134,7 +219,15 @@ class _PodcastScreenState extends State<PodcastScreen> {
               ),
             ],
             offset: const Offset(0, 50),
-            onSelected: null,
+            onSelected: (value) {
+              if (value == 0) {
+                showPlaybackSpeedModal(context);
+              } else {
+                if (value == 1) {
+                  showNotification();
+                }
+              }
+            },
           )
         ],
       ),
@@ -219,7 +312,7 @@ class _PodcastScreenState extends State<PodcastScreen> {
                       Icons.replay_10,
                       size: 40,
                     ),
-                    onPressed: () {},
+                    onPressed: skipBackward,
                   ),
                   PlayStopButton(audioPlayer: audioPlayer),
                   IconButton(
@@ -227,7 +320,7 @@ class _PodcastScreenState extends State<PodcastScreen> {
                       Icons.forward_10,
                       size: 40,
                     ),
-                    onPressed: () {},
+                    onPressed: skipForward,
                   ),
                   StreamBuilder<SequenceState?>(
                     stream: audioPlayer.sequenceStateStream,
