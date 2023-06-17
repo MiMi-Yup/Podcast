@@ -5,4 +5,5 @@ import 'package:join_podcast/models/response/episode/episode_response.dart';
 
 abstract class EpisodeRepository {
   FutureOr<EpisodeResponse?> createEpisode(EpisodeCreateRequest request);
+  FutureOr<EpisodeResponse?> getEpisodeById(String id);
 }

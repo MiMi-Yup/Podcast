@@ -9,11 +9,11 @@ part 'add_info_state.dart';
 
 @injectable
 class AddInfoCubit extends Cubit<AddInfoState> {
-  final UserUseCases userUserCases;
+  final UserUseCases usecase;
 
-  AddInfoCubit({required this.userUserCases, bool signUp = false})
+  AddInfoCubit({required this.usecase, bool signUp = false})
       : super(AddInfoState.initial(signUp: signUp)) {
-    userUserCases.getPreviousState().then((value) {
+    usecase.getPreviousState().then((value) {
       if (value != null) {
         emit(state.copyWith(
             fullname: value.name,
@@ -37,7 +37,7 @@ class AddInfoCubit extends Cubit<AddInfoState> {
 
   void updateProfile() async {
     emit(state.copyWith(state: Status.submitting));
-    UserModel? newUpdate = await userUserCases
+    UserModel? newUpdate = await usecase
         .updateInfo(
             avatar: state.avatar, dob: state.dateOfBirth, name: state.fullname)
         .onError((error, stackTrace) {
@@ -45,7 +45,7 @@ class AddInfoCubit extends Cubit<AddInfoState> {
       return null;
     });
     if (newUpdate != null) {
-      userUserCases.unitOfWork.session.updateUser(user: newUpdate);
+      usecase.unitOfWork.session.updateUser(user: newUpdate);
       emit(state.copyWith(state: Status.success));
     } else {
       emit(state.copyWith(state: Status.error));

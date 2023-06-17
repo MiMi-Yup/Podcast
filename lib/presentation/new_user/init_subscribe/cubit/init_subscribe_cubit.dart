@@ -8,9 +8,9 @@ part 'init_subscribe_state.dart';
 
 @injectable
 class InitSubscribeCubit extends Cubit<InitSubscribeState> {
-  final LoginUseCases loginUserCases;
+  final LoginUseCases usecase;
 
-  InitSubscribeCubit({required this.loginUserCases})
+  InitSubscribeCubit({required this.usecase})
       : super(InitSubscribeState.initial());
 
   void addSubscribe(String value) {

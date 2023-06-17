@@ -17,7 +17,7 @@ class VerifyForgotRoute extends RouteDefine {
             providers: [
               BlocProvider<VerifyCubit>(
                 create: (_) => VerifyForgotCubit(
-                    loginUserCases: getIt<LoginUseCases>(),
+                    usecase: getIt<LoginUseCases>(),
                     email: arguments?['email']),
               ),
             ],

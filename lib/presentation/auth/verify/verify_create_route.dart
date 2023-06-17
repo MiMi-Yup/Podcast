@@ -17,7 +17,7 @@ class VerifyCreateRoute extends RouteDefine {
             providers: [
               BlocProvider<VerifyCubit>(
                 create: (_) => VerifyCreateCubit(
-                    loginUserCases: getIt<LoginUseCases>(),
+                    usecase: getIt<LoginUseCases>(),
                     email: arguments?['email']),
               ),
             ],

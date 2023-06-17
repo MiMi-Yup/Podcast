@@ -4,21 +4,14 @@ part of 'playlist_cubit.dart';
 abstract class PlaylistState extends Equatable {}
 
 class PlaylistStateInitial extends PlaylistState {
-  final int currentIndex;
-  final bool isHidden;
+  final List<EpisodeModel> episodes;
 
-  PlaylistStateInitial({required this.currentIndex, this.isHidden = false});
+  PlaylistStateInitial({required this.episodes});
 
   @override
-  List<Object?> get props => [currentIndex, isHidden];
+  List<Object?> get props => [episodes];
 
-  PlaylistStateInitial copyWith({
-    int? currentIndex,
-    bool? isHidden,
-  }) {
-    return PlaylistStateInitial(
-      currentIndex: currentIndex ?? this.currentIndex,
-      isHidden: isHidden ?? this.isHidden,
-    );
+  PlaylistStateInitial copyWith({List<EpisodeModel>? episodes}) {
+    return PlaylistStateInitial(episodes: episodes ?? this.episodes);
   }
 }

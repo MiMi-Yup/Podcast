@@ -117,5 +117,7 @@
     "completed": "Completed",
     "hintSearch": "Search and find out...",
     "empty": "Empty",
-    "shufflePlay": "Shuffle Play"
+    "shufflePlay": "Shuffle Play",
+    "rename": "Rename",
+    "downloadAll": "Download All"
 }

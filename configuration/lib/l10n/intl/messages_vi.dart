@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lỗi database"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Ngày sinh"),
         "delete": MessageLookupByLibrary.simpleMessage("Xóa"),
+        "downloadAll": MessageLookupByLibrary.simpleMessage("Tải tất cả"),
         "downloadIfWifi":
             MessageLookupByLibrary.simpleMessage("Chỉ tải xuống khi có Wi-Fi"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Đã tải xuống"),
@@ -129,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Xóa các phần đã xem"),
         "removeUnfinishedAfter":
             MessageLookupByLibrary.simpleMessage("Xóa các phần chưa xem xong"),
+        "rename": MessageLookupByLibrary.simpleMessage("Sửa"),
         "report": MessageLookupByLibrary.simpleMessage("Kiếu nại"),
         "reset": MessageLookupByLibrary.simpleMessage("Mặc định"),
         "resetPassword":

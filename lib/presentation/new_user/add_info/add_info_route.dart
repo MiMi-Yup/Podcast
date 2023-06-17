@@ -16,7 +16,7 @@ class AddInfoRoute extends RouteDefine {
             providers: [
               BlocProvider<AddInfoCubit>(
                 create: (_) => AddInfoCubit(
-                    userUserCases: getIt<UserUseCases>(),
+                    usecase: getIt<UserUseCases>(),
                     signUp: arguments?['signUp'] ?? false),
               ),
             ],

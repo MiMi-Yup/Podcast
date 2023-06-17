@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Database exception"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "downloadAll": MessageLookupByLibrary.simpleMessage("Download All"),
         "downloadIfWifi": MessageLookupByLibrary.simpleMessage(
             "Download Only if Connected to Wi-Fi"),
         "downloaded": MessageLookupByLibrary.simpleMessage("Downloaded"),
@@ -127,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Remove Completed Episodes"),
         "removeUnfinishedAfter":
             MessageLookupByLibrary.simpleMessage("Remove Unfinished Episodes"),
+        "rename": MessageLookupByLibrary.simpleMessage("Rename"),
         "report": MessageLookupByLibrary.simpleMessage("Report"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),

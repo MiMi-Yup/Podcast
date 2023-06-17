@@ -76,24 +76,31 @@ class _PlaylistService implements PlaylistService {
   }
 
   @override
-  Future<void> create(PlaylistCreateRequest request) async {
+  Future<ApiResponse<PlaylistResponse>> create(
+      PlaylistCreateRequest request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<PlaylistResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/playlists',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .compose(
+              _dio.options,
+              '/playlists',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<PlaylistResponse>.fromJson(
+      _result.data!,
+      (json) => PlaylistResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
   }
 
   @override

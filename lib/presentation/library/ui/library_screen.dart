@@ -2,10 +2,12 @@ import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_playlist.dart';
 import 'package:join_podcast/common/widgets/m_text_field_bottom_modal.dart';
 import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/library/cubit/library_cubit.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/playlist/playlist_route.dart';
 
@@ -64,9 +66,16 @@ class _LibraryScreenState extends State<LibraryScreen>
               IconButton(
                   onPressed: () async {
                     final result = await showTextFieldBottomModal(
-                        context, "Update something", _controller,
-                        preText: "hello");
-                    debugPrint(result);
+                        context, "New Playlist", _controller);
+                    if (result != null && result.isNotEmpty) {
+                      final newPlaylist = await context
+                          .read<LibraryCubit>()
+                          .createPlaylist(name: result);
+                      if (newPlaylist != null) {
+                        XMDRouter.pushNamed(routerIds[PlaylistRoute]!,
+                            arguments: {'playlist': newPlaylist});
+                      }
+                    }
                   },
                   icon: Icon(Icons.add))
           ],

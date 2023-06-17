@@ -4,9 +4,11 @@ import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/playlist/cubit/playlist_cubit.dart';
 import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -33,7 +35,7 @@ class PlaylistScreen extends StatelessWidget {
                       SizedBox(
                         width: 10.0,
                       ),
-                      Text('Download all')
+                      Text(MultiLanguage.of(context).downloadAll)
                     ],
                   ),
                 ),
@@ -45,7 +47,7 @@ class PlaylistScreen extends StatelessWidget {
                       SizedBox(
                         width: 10.0,
                       ),
-                      Text('Rename')
+                      Text(MultiLanguage.of(context).rename)
                     ],
                   ),
                 ),
@@ -57,7 +59,7 @@ class PlaylistScreen extends StatelessWidget {
                       SizedBox(
                         width: 10.0,
                       ),
-                      Text('Delete')
+                      Text(MultiLanguage.of(context).delete)
                     ],
                   ),
                 )
@@ -90,7 +92,8 @@ class PlaylistScreen extends StatelessWidget {
                 SizedBox(
                   height: mSpacing,
                 ),
-                Text("Podcast Ngày buồn", style: mST20M.copyWith(color: Colors.white)),
+                Text("Podcast Ngày buồn",
+                    style: mST20M.copyWith(color: Colors.white)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -197,11 +200,11 @@ class PlaylistScreen extends StatelessWidget {
                   value: 0,
                   child: Row(
                     children: [
-                      Icon(Icons.download),
+                      Icon(Icons.sort_by_alpha),
                       SizedBox(
                         width: 10.0,
                       ),
-                      Text('Download all')
+                      Text(MultiLanguage.of(context).sortByName)
                     ],
                   ),
                 ),
@@ -209,23 +212,11 @@ class PlaylistScreen extends StatelessWidget {
                   value: 1,
                   child: Row(
                     children: [
-                      Icon(Icons.edit),
+                      Icon(Icons.date_range),
                       SizedBox(
                         width: 10.0,
                       ),
-                      Text('Rename')
-                    ],
-                  ),
-                ),
-                PopupMenuItem(
-                  value: 2,
-                  child: Row(
-                    children: [
-                      Icon(Icons.delete),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Text('Delete')
+                      Text(MultiLanguage.of(context).sortByDate)
                     ],
                   ),
                 )
@@ -234,8 +225,17 @@ class PlaylistScreen extends StatelessWidget {
               onSelected: null,
               icon: Icon(Icons.sort),
             ),
-            content: Container(
-              child: ListView.separated(
+            content: BlocBuilder<PlaylistCubit, PlaylistState>(
+              buildWhen: (previous, current) {
+                if (current is PlaylistStateInitial) {
+                  if (previous is PlaylistStateInitial) {
+                    return previous.episodes != current.episodes;
+                  }
+                  return true;
+                }
+                return false;
+              },
+              builder: (context, state) => ListView.separated(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),

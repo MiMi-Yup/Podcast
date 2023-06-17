@@ -28,10 +28,13 @@ class PlaylistRepositoryImpl implements PlaylistRepository {
   }
 
   @override
-  FutureOr<bool?> createPlaylist(PlaylistCreateRequest request) {
-    return service?.create(request).then((value) => true).catchError((onError) {
+  FutureOr<PlaylistResponse?> createPlaylist(PlaylistCreateRequest request) {
+    return service
+        ?.create(request)
+        .then((value) => value.data)
+        .catchError((onError) {
       ExceptionUtil.handle(onError);
-      return false;
+      return null;
     });
   }
 

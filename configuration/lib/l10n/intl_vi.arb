@@ -117,5 +117,7 @@
     "completed": "Hoàn thành",
     "hintSearch": "Search and find out...",
     "empty": "Trống",
-    "shufflePlay": "Phát ngẫu nhiên"
+    "shufflePlay": "Phát ngẫu nhiên",
+    "rename": "Sửa",
+    "downloadAll": "Tải tất cả"
 }

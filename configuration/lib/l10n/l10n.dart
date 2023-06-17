@@ -1129,6 +1129,26 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Rename`
+  String get rename {
+    return Intl.message(
+      'Rename',
+      name: 'rename',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download All`
+  String get downloadAll {
+    return Intl.message(
+      'Download All',
+      name: 'downloadAll',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

@@ -16,7 +16,7 @@ class ResetAccountRoute extends RouteDefine {
             providers: [
               BlocProvider<ResetAccountCubit>(
                 create: (_) => ResetAccountCubit(
-                    loginUserCases: getIt<LoginUseCases>(),
+                    usecase: getIt<LoginUseCases>(),
                     token: arguments?['token']),
               ),
             ],

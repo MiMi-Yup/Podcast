@@ -25,4 +25,15 @@ class EpisodeRepositoryImpl implements EpisodeRepository {
       return null;
     });
   }
+
+  @override
+  FutureOr<EpisodeResponse?> getEpisodeById(String id) {
+    return service
+        ?.getEpisodeById(id)
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
 }

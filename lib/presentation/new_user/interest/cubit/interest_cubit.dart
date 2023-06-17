@@ -8,9 +8,9 @@ part 'interest_state.dart';
 
 @injectable
 class InterestCubit extends Cubit<InterestState> {
-  final LoginUseCases loginUserCases;
+  final LoginUseCases usecase;
 
-  InterestCubit({required this.loginUserCases})
+  InterestCubit({required this.usecase})
       : super(InterestState.initial());
 
   void changeInterest(List<String> value) {

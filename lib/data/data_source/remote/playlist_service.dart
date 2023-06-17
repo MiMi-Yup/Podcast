@@ -20,7 +20,8 @@ abstract class PlaylistService {
   Future<ApiResponse<List<PlaylistResponse>>> getAll();
 
   @POST('/playlists')
-  Future<void> create(@Body() PlaylistCreateRequest request);
+  Future<ApiResponse<PlaylistResponse>> create(
+      @Body() PlaylistCreateRequest request);
 
   @PATCH('/playlists/{id}/add-episode')
   Future<void> addEpisode(

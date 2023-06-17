@@ -8,7 +8,7 @@ import 'package:join_podcast/models/response/playlists/playlist_response.dart';
 abstract class PlaylistRepository {
   FutureOr<PlaylistResponse?> getPlaylistById(String id);
   FutureOr<List<PlaylistResponse>?> getAllPlaylist();
-  FutureOr<bool?> createPlaylist(PlaylistCreateRequest request);
+  FutureOr<PlaylistResponse?> createPlaylist(PlaylistCreateRequest request);
   FutureOr<bool?> addEpisodeToPlaylist(
       {required String id, required AddEpisodeRequest request});
   FutureOr<bool?> removeEpisodeFromPlaylist(

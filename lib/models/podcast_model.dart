@@ -28,7 +28,7 @@ class PodcastModel {
       this.episodes,
       this.count});
 
-  factory PodcastModel.fromReponse(PodcastResponse response) => PodcastModel(
+  factory PodcastModel.fromResponse(PodcastResponse response) => PodcastModel(
       id: response.id,
       name: response.name,
       description: response.description,
