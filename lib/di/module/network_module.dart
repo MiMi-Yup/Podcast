@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:join_podcast/data/data_source/remote/auth_service.dart';
 import 'package:join_podcast/data/data_source/remote/episode_service.dart';
 import 'package:join_podcast/data/data_source/remote/media_service.dart';
+import 'package:join_podcast/data/data_source/remote/playlist_service.dart';
 import 'package:join_podcast/data/data_source/remote/podcasts_service.dart';
 import 'package:join_podcast/data/data_source/remote/user_service.dart';
 import 'package:join_podcast/data/session_info.dart';
@@ -52,6 +53,14 @@ abstract class NetworkModule {
   @injectable
   EpisodeService get episodeService {
     return EpisodeService(
+      _auth(),
+      baseUrl: getIt<BuildConfig>().apiUrl,
+    );
+  }
+
+  @injectable
+  PlaylistService get playlistService {
+    return PlaylistService(
       _auth(),
       baseUrl: getIt<BuildConfig>().apiUrl,
     );
