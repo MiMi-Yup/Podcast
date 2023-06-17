@@ -63,6 +63,7 @@ dependencies:
   chips_choice: ^3.0.0
   material_floating_search_bar: ^0.3.7
   blur: ^3.1.0
+  mime: ^1.0.4
 
 dev_dependencies:
   flutter_test:

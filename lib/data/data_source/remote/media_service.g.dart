@@ -19,18 +19,11 @@ class _MediaService implements MediaService {
   String? baseUrl;
 
   @override
-  Future<ApiResponse<MediaResponse>> uploadImage(File file) async {
+  Future<ApiResponse<MediaResponse>> uploadImage(FormData file) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-      'file',
-      MultipartFile.fromFileSync(
-        file.path,
-        filename: file.path.split(Platform.pathSeparator).last,
-      ),
-    ));
+    final _data = file;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApiResponse<MediaResponse>>(Options(
       method: 'POST',
@@ -53,18 +46,11 @@ class _MediaService implements MediaService {
   }
 
   @override
-  Future<ApiResponse<MediaResponse>> uploadAudio(File file) async {
+  Future<ApiResponse<MediaResponse>> uploadAudio(FormData file) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-      'file',
-      MultipartFile.fromFileSync(
-        file.path,
-        filename: file.path.split(Platform.pathSeparator).last,
-      ),
-    ));
+    final _data = file;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApiResponse<MediaResponse>>(Options(
       method: 'POST',

@@ -138,8 +138,10 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i27.UserUseCases(unitOfWork: gh<_i25.UnitOfWork>()));
     gh.factory<_i28.WelcomeCubit>(
         () => _i28.WelcomeCubit(welcomeUserCases: gh<_i27.UserUseCases>()));
-    gh.factory<_i29.AddInfoCubit>(
-        () => _i29.AddInfoCubit(userUserCases: gh<_i27.UserUseCases>()));
+    gh.factory<_i29.AddInfoCubit>(() => _i29.AddInfoCubit(
+          userUserCases: gh<_i27.UserUseCases>(),
+          signUp: gh<bool>(),
+        ));
     gh.factory<_i30.AuthorCubit>(
         () => _i30.AuthorCubit(unitOfWork: gh<_i25.UnitOfWork>()));
     gh.factory<_i31.BackgroundMusicHomeCubit>(

@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:http_parser/src/media_type.dart';
+import 'package:mime/mime.dart';
 
 import 'dart:async';
 
@@ -15,9 +18,23 @@ class MediaRepositoryImpl implements MediaRepository {
 
   final MediaService? service;
 
-  final _acceptAudio = ['.aac'];
+  final _acceptAudio = ['.aac', '.x-acc', '.mp3'];
   bool checkAudioContentType(String extension) =>
       _acceptAudio.contains(extension);
+
+  FormData _parseMineType(File file) {
+    final data = FormData();
+    data.files.add(MapEntry(
+      'file',
+      MultipartFile.fromFileSync(
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+        contentType: MediaType.parse(
+            lookupMimeType(file.path) ?? 'application/octet-stream'),
+      ),
+    ));
+    return data;
+  }
 
   @override
   FutureOr<MediaResponse?> uploadAudio(File audio) {
@@ -26,7 +43,7 @@ class MediaRepositoryImpl implements MediaRepository {
       return null;
     }
     return service
-        ?.uploadAudio(audio)
+        ?.uploadAudio(_parseMineType(audio))
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);
@@ -45,7 +62,7 @@ class MediaRepositoryImpl implements MediaRepository {
       return null;
     }
     return service
-        ?.uploadImage(image)
+        ?.uploadImage(_parseMineType(image))
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);
