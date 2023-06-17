@@ -1,8 +1,10 @@
+import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:configuration/l10n/l10n.dart';
 import 'package:join_podcast/presentation/podcast/ui/widgets/seekbar.dart';
 import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
 import 'package:get/get.dart';
+import 'package:join_podcast/presentation/podcast/ui/widgets/speed_bottom_modal_sheet.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 import '../../../models/model_example/podcast_model.dart';
@@ -17,14 +19,15 @@ class PodcastScreen extends StatefulWidget {
 
 class _PodcastScreenState extends State<PodcastScreen> {
   AudioPlayer audioPlayer = AudioPlayer();
-  FlutterLocalNotificationsPlugin appLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  late double selectedSpeed;
+  DateTime? selectedTime;
   Song song = Get.arguments ?? Song.songs[0];
-
+// Tua tiếp 10s
   void skipForward() {
     audioPlayer.seek(audioPlayer.position + const Duration(seconds: 10));
   }
 
+// Tua về trước 10s
   void skipBackward() {
     audioPlayer.seek(audioPlayer.position > const Duration(seconds: 10)
         ? audioPlayer.position - const Duration(seconds: 10)
@@ -34,19 +37,11 @@ class _PodcastScreenState extends State<PodcastScreen> {
   @override
   void initState() {
     super.initState();
+    updateSelectedSpeed(1);
     // audioPlayer.setAsset(song.url);
     audioPlayer.setUrl(
         "https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps");
     audioPlayer.play();
-    () async {
-      const AndroidInitializationSettings initializationSettingsAndroid =
-          AndroidInitializationSettings('@mipmap/ic_launcher');
-      const InitializationSettings initializationSettings =
-          InitializationSettings(
-        android: initializationSettingsAndroid,
-      );
-      await appLocalNotificationsPlugin.initialize(initializationSettings);
-    };
   }
 
   @override
@@ -66,79 +61,119 @@ class _PodcastScreenState extends State<PodcastScreen> {
           duration ?? Duration.zero,
         );
       });
+// Cập nhật tốc độ phát
+  void updateSelectedSpeed(double speed) {
+    setState(() {
+      selectedSpeed = speed;
+      audioPlayer.setSpeed(selectedSpeed);
+    });
+  }
 
+// Hiển thị ModalBottomSheet điều chỉnh tốc độ
   void showPlaybackSpeedModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                    title: Text('0.25x'),
-                    onTap: () {
-                      audioPlayer.setSpeed(0.25);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: Text('0.5x'),
-                    onTap: () {
-                      audioPlayer.setSpeed(0.5);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: Text('1.0x'),
-                    onTap: () {
-                      audioPlayer.setSpeed(1.0);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: Text('1.5x'),
-                    onTap: () {
-                      audioPlayer.setSpeed(1.5);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: Text('2.0x'),
-                    onTap: () {
-                      audioPlayer.setSpeed(2.0);
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            ),
+          return SpeedChange(
+            speed: selectedSpeed,
+            onSpeedChanged: updateSelectedSpeed,
           );
         });
   }
 
-  Future<void> showNotification() async {
-    // const AndroidNotificationDetails androidPlatformChannelSpecifics =
-    //     AndroidNotificationDetails(
-    //   'reminder_channel_id',
-    //   'Reminder Channel',
-    //   importance: Importance.max,
-    //   priority: Priority.high,
-    // );
-    // const NotificationDetails platformChannelSpecifics =
-    //     NotificationDetails(android: androidPlatformChannelSpecifics);
-    // await appLocalNotificationsPlugin.show(
-    //   0,
-    //   'Reminder Title',
-    //   'Reminder Body',
-    //   platformChannelSpecifics,
-    //   payload: 'reminder_payload',
-    // );
+// Hiển thị lời nhắc nhở
+  Future<DateTime?> pickDateTime(DateTime? selectedDateTime) async {
+    DateTime? date = await pickDate(selectedDateTime);
+    if (date == null) return null;
+    TimeOfDay? time = await pickTime(selectedDateTime);
+    if (time == null) return null;
+
+    return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+  }
+
+  Future<DateTime?> pickDate(DateTime? selectedDateTime) => showDatePicker(
+      context: context,
+      initialDate: selectedDateTime!,
+      firstDate: DateTime(DateTime.now().year, DateTime.now().month,
+          DateTime.now().day, DateTime.now().hour, DateTime.now().minute),
+      lastDate: DateTime(DateTime.now().year + 100));
+  Future<TimeOfDay?> pickTime(DateTime? selectedDateTime) => showTimePicker(
+        context: context,
+        initialTime: TimeOfDay(
+            hour: selectedDateTime!.hour, minute: selectedDateTime.minute),
+      );
+  void openReminder(BuildContext context) {
+    DateTime? selectedDateTime = selectedTime ?? DateTime.now();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(16.0),
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Đặt lời nhắc',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  const Text(
+                    'Nhắc tôi nghe Podcast này vào lúc:',
+                  ),
+                  const SizedBox(height: 16.0),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith<Color?>(
+                      (states) => mCGreen500,
+                    )),
+                    onPressed: () async {
+                      DateTime? pickedDate =
+                          await pickDateTime(selectedDateTime);
+                      if (pickedDate != null) {
+                        setState(() {
+                          selectedDateTime = pickedDate;
+                        });
+                      }
+                    },
+                    child: Text(
+                        '${selectedDateTime!.hour.toString().padLeft(2, '0')}:${selectedDateTime!.minute.toString().padLeft(2, '0')} - ${selectedDateTime!.day.toString().padLeft(2, '0')}/${selectedDateTime!.month.toString().padLeft(2, '0')}/${selectedDateTime!.year.toString().padLeft(4, '0')}'),
+                  ),
+                  const SizedBox(height: 16.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                      const SizedBox(width: 10),
+                      GestureDetector(
+                        onTap: () {
+                          // Thực hiện logic để hiển thị thông báo tại thời gian đã chọn
+                          // và xử lý xóa ngày giờ hẹn nếu cần
+                          selectedTime = selectedDateTime;
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Ok'),
+                      ),
+                    ],
+                  )
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -224,7 +259,7 @@ class _PodcastScreenState extends State<PodcastScreen> {
                 showPlaybackSpeedModal(context);
               } else {
                 if (value == 1) {
-                  showNotification();
+                  openReminder(context);
                 }
               }
             },
@@ -247,6 +282,7 @@ class _PodcastScreenState extends State<PodcastScreen> {
                 image: const DecorationImage(
                   image: NetworkImage(
                       "https://go.yolo.vn/wp-content/uploads/2019/08/hinh-anh-cho-pomsky-dep-45.jpg"),
+                  // image: NetworkImage("https://i.imgur.com/jO9KBQC.jpg"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -289,55 +325,58 @@ class _PodcastScreenState extends State<PodcastScreen> {
                 );
               },
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  StreamBuilder<SequenceState?>(
-                    stream: audioPlayer.sequenceStateStream,
-                    builder: (context, index) {
-                      return IconButton(
-                        onPressed: audioPlayer.hasPrevious
-                            ? audioPlayer.seekToPrevious
-                            : null,
-                        iconSize: 40,
-                        icon: const Icon(Icons.skip_previous),
-                      );
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.replay_10,
-                      size: 40,
-                    ),
-                    onPressed: skipBackward,
-                  ),
-                  PlayStopButton(audioPlayer: audioPlayer),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.forward_10,
-                      size: 40,
-                    ),
-                    onPressed: skipForward,
-                  ),
-                  StreamBuilder<SequenceState?>(
-                    stream: audioPlayer.sequenceStateStream,
-                    builder: (context, index) {
-                      return IconButton(
-                        onPressed:
-                            audioPlayer.hasNext ? audioPlayer.seekToNext : null,
-                        iconSize: 40,
-                        icon: const Icon(Icons.skip_next),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+            ActionBar(),
           ],
         ),
+      ),
+    );
+  }
+
+  Container ActionBar() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          StreamBuilder<SequenceState?>(
+            stream: audioPlayer.sequenceStateStream,
+            builder: (context, index) {
+              return IconButton(
+                onPressed:
+                    audioPlayer.hasPrevious ? audioPlayer.seekToPrevious : null,
+                iconSize: 40,
+                icon: const Icon(Icons.skip_previous),
+              );
+            },
+          ),
+          GestureDetector(
+            onTap: skipBackward,
+            child: const Icon(
+              Icons.replay_10,
+              size: 40,
+            ),
+          ),
+          PlayStopButton(audioPlayer: audioPlayer),
+          GestureDetector(
+            onTap: skipForward,
+            child: const Icon(
+              Icons.forward_10,
+              size: 40,
+            ),
+          ),
+          StreamBuilder<SequenceState?>(
+            stream: audioPlayer.sequenceStateStream,
+            builder: (context, index) {
+              return IconButton(
+                onPressed: audioPlayer.hasNext ? audioPlayer.seekToNext : null,
+                iconSize: 40,
+                icon: const Icon(Icons.skip_next),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

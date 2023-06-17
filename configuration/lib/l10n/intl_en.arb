@@ -96,5 +96,6 @@
     "chooseInterestTitle": "Choose Your Interest",
     "chooseInterest": "Choose your interests and get the best podcast recommendations. Don't worry, you can always change it later.",
     "verify": "Verify",
-    "askLogout": "Are you sure you want to log out?"
+    "askLogout": "Are you sure you want to log out?",
+    "timer": "Timer"
 }

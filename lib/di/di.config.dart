@@ -33,6 +33,7 @@ import 'package:join_podcast/domain/repositories/shared_preferences_repository.d
 import 'package:join_podcast/domain/repositories/unit_of_work.dart' as _i15;
 import 'package:join_podcast/domain/repositories/user_repository.dart' as _i9;
 import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i25;
+import 'package:join_podcast/domain/use_cases/podcast_page_usecase.dart' as _i15;
 import 'package:join_podcast/domain/use_cases/welcome_page_usecases.dart'
     as _i17;
 import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart'
@@ -122,7 +123,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i26.NotificationCubit>(
         () => _i26.NotificationCubit(unitOfWork: gh<_i15.UnitOfWork>()));
     gh.factory<_i27.PodcastCubit>(
-        () => _i27.PodcastCubit(unitOfWork: gh<_i15.UnitOfWork>()));
+        () => _i27.PodcastCubit(podcastUseCases: gh<_i15.PodcastUseCases>()));
     gh.factory<_i28.RecordPageCubit>(
         () => _i28.RecordPageCubit(unitOfWork: gh<_i15.UnitOfWork>()));
     gh.factory<_i29.ResetAccountCubit>(() => _i29.ResetAccountCubit(

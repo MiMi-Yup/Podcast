@@ -20,14 +20,13 @@ class PlayStopButton extends StatelessWidget {
 
           if (processingState == ProcessingState.loading ||
               processingState == ProcessingState.buffering) {
-            return Container(
+            return const SizedBox(
               width: 60,
               height: 60,
-              margin: const EdgeInsets.all(10.0),
-              child: const CircularProgressIndicator(),
+              child: CircularProgressIndicator(),
             );
           } else if (!audioPlayer.playing) {
-            return InkWell(
+            return GestureDetector(
               onTap: audioPlayer.play,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
@@ -45,7 +44,7 @@ class PlayStopButton extends StatelessWidget {
               ),
             );
           } else if (processingState != ProcessingState.completed) {
-            return InkWell(
+            return GestureDetector(
               onTap: audioPlayer.pause,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
@@ -63,7 +62,7 @@ class PlayStopButton extends StatelessWidget {
               ),
             );
           } else {
-            return InkWell(
+            return GestureDetector(
               onTap: () => audioPlayer.seek(
                 Duration.zero,
                 index: audioPlayer.effectiveIndices!.first,
