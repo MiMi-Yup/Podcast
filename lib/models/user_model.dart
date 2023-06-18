@@ -16,6 +16,10 @@ class UserModel {
   String? avatar;
   @JsonKey(name: 'birthday')
   DateTime? birthday;
+  @JsonKey(name: 'search_history')
+  List<dynamic>? searchHistory;
+  @JsonKey(name: 'channel_name')
+  String? channelName;
 
   UserModel(
       {this.id,

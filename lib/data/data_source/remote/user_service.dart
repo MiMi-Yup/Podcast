@@ -1,4 +1,6 @@
 import 'package:join_podcast/models/request/users/change_password_request.dart';
+import 'package:join_podcast/models/request/users/create_channel_request.dart';
+import 'package:join_podcast/models/request/users/update_channel_request.dart';
 import 'package:join_podcast/models/request/users/update_request.dart';
 import 'package:join_podcast/models/response/users/profile_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -23,4 +25,10 @@ abstract class UserService {
 
   @PATCH('/users/update')
   Future<ApiResponse<ProfileResponse>> updateUser(@Body() UserUpdateRequest request);
+
+  @PATCH('/users/self/channel/create')
+  Future<void> createChannel(@Body() CreateChannelRequest request);
+
+  @PATCH('/users/self/channel/update')
+  Future<void> updateChannel(@Body() UpdateChannelRequest request);
 }

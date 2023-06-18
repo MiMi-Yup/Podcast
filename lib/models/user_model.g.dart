@@ -15,7 +15,9 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
           ? null
           : DateTime.parse(json['birthday'] as String),
       avatar: json['avatar'] as String?,
-    );
+    )
+      ..searchHistory = json['search_history'] as List<dynamic>?
+      ..channelName = json['channel_name'] as String?;
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       '_id': instance.id,
@@ -24,4 +26,6 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'is_verified': instance.isVerified,
       'avatar': instance.avatar,
       'birthday': instance.birthday?.toIso8601String(),
+      'search_history': instance.searchHistory,
+      'channel_name': instance.channelName,
     };
