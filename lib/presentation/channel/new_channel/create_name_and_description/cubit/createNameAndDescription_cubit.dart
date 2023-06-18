@@ -4,15 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 
-part 'list_record_state.dart';
+part 'createNameAndDescription_state.dart';
 
 @injectable
-class ListRecordCubit extends Cubit<ListRecordState> {
+class CreateNameAndDescriptionCubit extends Cubit<CreateNameAndDescriptionState> {
   final UnitOfWork unitOfWork;
-  ListRecordCubit({required this.unitOfWork})
-      : super(ListRecordStateInitial(currentIndex: 0));
-
-  void setShouldRefresh(bool value) {
-    emit(state.copyWith(shouldRefresh: value));
-  }
+  CreateNameAndDescriptionCubit({required this.unitOfWork})
+      : super(CreateNameAndDescriptionStateInitial(currentIndex: 0));
 }

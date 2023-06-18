@@ -5,6 +5,7 @@ import 'package:join_podcast/presentation/record/record_page/ui/record_page_scre
 
 import '../../../di/di.dart';
 import '../../../manifest.dart';
+import '../list_record/cubit/list_record_cubit.dart';
 import 'cubit/record_page_cubit.dart';
 
 class RecordPageRoute extends RouteDefine {
@@ -16,6 +17,9 @@ class RecordPageRoute extends RouteDefine {
         providers: [
           BlocProvider<RecordPageCubit>(
             create: (_) => getIt<RecordPageCubit>(),
+          ),
+          BlocProvider<ListRecordCubit>(
+            create: (_) => getIt<ListRecordCubit>(),
           ),
         ],
         child: RecordingPageScreen(),
