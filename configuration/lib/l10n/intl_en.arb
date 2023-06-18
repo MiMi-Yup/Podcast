@@ -119,5 +119,6 @@
     "empty": "Empty",
     "shufflePlay": "Shuffle Play",
     "rename": "Rename",
-    "downloadAll": "Download All"
+    "downloadAll": "Download All",
+    "timer": "Timer"
 }

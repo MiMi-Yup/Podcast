@@ -2,34 +2,20 @@ import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:media_info/media_info.dart';
+import 'dart:io';
+import 'package:path/path.dart' as path;
 
-final dataDemo = [
-  {
-    'title': 'Avatar: Braving the Elements',
-    'author': 'John Smith',
-    'linkUrl': 'https://i1.feedspot.com/200/5393324.jpg?t=1650621442'
-  },
-  {
-    'title': 'Bending Not Breaking: An Avatar The Last Airbender Podcast',
-    'author': 'Demo Team',
-    'linkUrl': 'https://i1.feedspot.com/200/5393315.jpg?t=1650621667'
-  },
-  {
-    'title': 'Avatar: The Last Airbender: Distorted Reality',
-    'author': 'Smooth Text',
-    'linkUrl': 'https://i1.feedspot.com/200/5393325.jpg?t=1650621278'
-  },
-  {
-    'title': 'I Need Some Air(Bending): An Avatar Fancast',
-    'author': 'Thousands Of Fancast',
-    'linkUrl': 'https://i1.feedspot.com/200/5393321.jpg?t=1650619315'
-  },
-  {
-    'title': 'Avatar: The First Viewing',
-    'author': 'Lore Thou',
-    'linkUrl': 'https://i1.feedspot.com/200/5393319.jpg?t=1650620623'
-  },
-];
+String _formatDuration(Duration? duration) {
+  if (duration == null) {
+    return ("--:--");
+  } else {
+    String minutes = duration.inMinutes.toString().padLeft(2, '0');
+    String seconds =
+        duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return ('$minutes:$seconds');
+  }
+}
 
 class BackgroundMusicDetailScreen extends StatefulWidget {
   final String title;
@@ -45,12 +31,64 @@ class BackgroundMusicDetailScreen extends StatefulWidget {
 
 class _BackgroundMusicDetailScreenState
     extends State<BackgroundMusicDetailScreen> {
+  List<Map<String, String>> dataDemo = [
+    {
+      'title': 'Avatar: Braving the Elements',
+      'duration': _formatDuration(const Duration(minutes: 4, seconds: 24)),
+      'linkUrl': 'https://i1.feedspot.com/200/5393324.jpg?t=1650621442'
+    },
+    {
+      'title': 'Bending Not Breaking: An Avatar The Last Airbender Podcast',
+      'duration': _formatDuration(const Duration(minutes: 2, seconds: 28)),
+      'linkUrl': 'https://i1.feedspot.com/200/5393315.jpg?t=1650621667'
+    },
+    {
+      'title': 'Avatar: The Last Airbender: Distorted Reality',
+      'duration': _formatDuration(const Duration(minutes: 6, seconds: 54)),
+      'linkUrl': 'https://i1.feedspot.com/200/5393325.jpg?t=1650621278'
+    },
+    {
+      'title': 'I Need Some Air(Bending): An Avatar Fancast',
+      'duration': _formatDuration(const Duration(minutes: 4, seconds: 3)),
+      'linkUrl': 'https://i1.feedspot.com/200/5393321.jpg?t=1650619315'
+    },
+    {
+      'title': 'Avatar: The First Viewing',
+      'duration': _formatDuration(const Duration(minutes: 6, seconds: 12)),
+      'linkUrl': 'https://i1.feedspot.com/200/5393319.jpg?t=1650620623'
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
+    File? file;
+    PlatformFile? platformFile;
+
     void uploadFiles() async {
-      FilePickerResult? result =
-          await FilePicker.platform.pickFiles(type: FileType.audio);
-      if (result == null) return;
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.audio,
+        allowMultiple: true,
+      );
+      if (result != null) {
+        file = File(result.files.first.path!);
+        platformFile = result.files.first;
+        // final MediaInfo mediaInfo = MediaInfo();
+        // final Map<String, dynamic> info =
+        //     await mediaInfo.getMediaInfo(result.files.first.path!);
+        setState(() {
+          Map<String, String> newItem = {
+            'title': "abc",
+            'duration': "03:23",
+            'linkUrl': 'https://i1.feedspot.com/200/5393319.jpg?t=1650620623'
+          };
+          dataDemo.add(newItem);
+          // dataDemo.add({
+          //   'title': path.basenameWithoutExtension(file!.path),
+          //   'duration': info["durationMs"],
+          //   'linkUrl': 'https://i1.feedspot.com/200/5393319.jpg?t=1650620623'
+          // });
+        });
+      }
     }
 
     return Scaffold(
@@ -142,14 +180,14 @@ class _BackgroundMusicDetailScreenState
                           ),
                         ),
                         const SizedBox(
-                          width: 5,
+                          width: 10,
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Wrap(
+                          direction: Axis.vertical,
+                          alignment: WrapAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: 200,
+                              width: 220,
                               child: Text(
                                 dataDemo[index]['title']!,
                                 style: mST16R,
@@ -157,11 +195,14 @@ class _BackgroundMusicDetailScreenState
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
+                            const SizedBox(
+                              height: 5,
+                            ),
                             SizedBox(
-                              width: 200,
+                              width: 220,
                               child: Text(
-                                dataDemo[index]['author']!,
-                                style: mST16R.copyWith(color: Colors.grey),
+                                dataDemo[index]['duration']!,
+                                style: mST14R,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),

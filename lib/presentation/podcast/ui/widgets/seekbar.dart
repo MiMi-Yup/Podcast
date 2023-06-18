@@ -55,7 +55,7 @@ class _SeekBarState extends State<SeekBar> {
               Wrap(children: [
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
-                    trackHeight: 8,
+                    trackHeight: 5,
                     thumbShape: const RoundSliderThumbShape(
                       disabledThumbRadius: 8,
                       enabledThumbRadius: 8,

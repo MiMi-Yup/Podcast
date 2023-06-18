@@ -2,6 +2,9 @@ import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/edit_info_podcast/add_text_avatar/add_text_avatar_route.dart';
+import 'package:join_podcast/presentation/edit_info_podcast/podcast_availability/podcast_availability_route.dart';
+import 'package:join_podcast/presentation/record/background_music/background_music_home/background_music_home_route.dart';
 import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';
 
 class ListRecordScreen extends StatefulWidget {
@@ -136,7 +139,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                   InkWell(
                     onTap: () {
                       // Xử lý sự kiện khi nhấn vào nút
-                      // XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
+                      XMDRouter.pushNamed(routerIds[BackgroundMusicHomeRoute]!);
                     },
                     child: Container(
                       width: 70,
@@ -191,8 +194,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                 children: [
                   InkWell(
                     onTap: () {
-                      // Xử lý sự kiện khi nhấn vào nút
-                      // XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
+                      XMDRouter.pushNamed(routerIds[PodcastAvailabilityRoute]!);
                     },
                     child: Container(
                       width: 70,
