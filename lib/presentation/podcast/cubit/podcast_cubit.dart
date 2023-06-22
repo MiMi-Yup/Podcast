@@ -8,18 +8,27 @@ import 'package:join_podcast/domain/use_cases/podcast_page_usecase.dart';
 import 'package:join_podcast/presentation/podcast/ui/widgets/speed_bottom_modal_sheet.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
-
 import '../ui/widgets/seekbar.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:fluttertoast/fluttertoast.dart';
 
 part 'podcast_state.dart';
+
+final FlutterLocalNotificationsPlugin appLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 @injectable
 class PodcastCubit extends Cubit<PodcastState> {
   final PodcastUseCases? podcastUseCases;
-  PodcastCubit({required this.podcastUseCases}) : super(PodcastState.initial()) {
-    state.audioPlayer.setUrl(state.url);
+  int? notificationId;
+  PodcastCubit({required this.podcastUseCases})
+      : super(PodcastState.initial()) {
+    state.audioPlayer.setUrl(state.urlPodcast);
     updateSelectedSpeed(1);
     state.audioPlayer.play();
+    initializeNotifications();
   }
 
   void updateSelectedSpeed(double speed) {
@@ -52,32 +61,45 @@ class PodcastCubit extends Cubit<PodcastState> {
         });
   }
 
-// Hiển thị lời nhắc nhở
+  // Hiển thị thời gian nhắc nhở nghe Podcast
   Future<DateTime?> pickDateTime(
       BuildContext context, DateTime? selectedDateTime) async {
-    DateTime? date = await pickDate(context, state.selectedTime);
-    // ignore: use_build_context_synchronously
-    TimeOfDay? time = await pickTime(context, state.selectedTime);
-    if (date != null || time != null) return null;
+    final List<dynamic> results = await Future.wait([
+      pickDate(context, selectedDateTime),
+      pickTime(context, selectedDateTime),
+    ]);
 
-    return DateTime(date!.year, date.month, date.day, time!.hour, time.minute);
+    DateTime? date = results[0];
+    TimeOfDay? time = results[1];
+
+    if (date != null && time != null) {
+      return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    }
+    return null;
   }
 
   Future<DateTime?> pickDate(
-          BuildContext context, DateTime? selectedDateTime) =>
-      showDatePicker(
-          context: context,
-          initialDate: selectedDateTime!,
-          firstDate: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, DateTime.now().hour, DateTime.now().minute),
-          lastDate: DateTime(DateTime.now().year + 100));
+      BuildContext context, DateTime? selectedDateTime) async {
+    selectedDateTime ??= DateTime.now();
+
+    return showDatePicker(
+      context: context,
+      initialDate: selectedDateTime,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 36500)),
+    );
+  }
+
   Future<TimeOfDay?> pickTime(
-          BuildContext context, DateTime? selectedDateTime) =>
-      showTimePicker(
-        context: context,
-        initialTime: TimeOfDay(
-            hour: selectedDateTime!.hour, minute: selectedDateTime.minute),
-      );
+      BuildContext context, DateTime? selectedDateTime) async {
+    selectedDateTime ??= DateTime.now();
+
+    return showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(selectedDateTime),
+    );
+  }
+
   void openReminder(BuildContext context) {
     DateTime? selectedDateTime = state.selectedTime;
     showDialog(
@@ -117,24 +139,30 @@ class PodcastCubit extends Cubit<PodcastState> {
                         });
                       }
                     },
-                    child: Text(
-                        '${selectedDateTime!.hour.toString().padLeft(2, '0')}:${selectedDateTime!.minute.toString().padLeft(2, '0')} - ${selectedDateTime!.day.toString().padLeft(2, '0')}/${selectedDateTime!.month.toString().padLeft(2, '0')}/${selectedDateTime!.year.toString().padLeft(4, '0')}'),
+                    child: Text(selectedDateTime != null
+                        ? '${selectedDateTime!.hour.toString().padLeft(2, '0')}:${selectedDateTime!.minute.toString().padLeft(2, '0')} - ${selectedDateTime!.day.toString().padLeft(2, '0')}/${selectedDateTime!.month.toString().padLeft(2, '0')}/${selectedDateTime!.year.toString().padLeft(4, '0')}'
+                        : 'Chọn thời gian'),
                   ),
                   const SizedBox(height: 16.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Cancel'),
+                      if (state.selectedTime != null)
+                        GestureDetector(
+                          onTap: () async {
+                            await appLocalNotificationsPlugin
+                                .cancel(notificationId ?? 0);
+                            emit(state.copyWith(selectedTime: null));
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Delete'),
+                        ),
+                      const SizedBox(
+                        width: 10,
                       ),
-                      const SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {
-                          // Thực hiện logic để hiển thị thông báo tại thời gian đã chọn
-                          // và xử lý xóa ngày giờ hẹn nếu cần
+                          _scheduleReminder(selectedDateTime, notificationId);
                           emit(state.copyWith(selectedTime: selectedDateTime));
                           Navigator.pop(context);
                         },
@@ -149,6 +177,58 @@ class PodcastCubit extends Cubit<PodcastState> {
         );
       },
     );
+  }
+
+  void initializeNotifications() async {
+    // Cấu hình plugin
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    const InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    await appLocalNotificationsPlugin.initialize(initializationSettings);
+
+    // Cấu hình múi giờ
+    tz.initializeTimeZones();
+  }
+
+  Future<void> _scheduleReminder(
+      DateTime? selectedDateTime, int? notificationId) async {
+    if (selectedDateTime != null) {
+      // Xóa thông báo cũ nếu tồn tại
+      await appLocalNotificationsPlugin.cancel(notificationId ?? 0);
+
+      // Lập lịch thông báo mới
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          const AndroidNotificationDetails(
+        'channel_id',
+        'channel_name',
+        importance: Importance.high,
+        priority: Priority.high,
+      );
+      NotificationDetails platformChannelSpecifics =
+          NotificationDetails(android: androidPlatformChannelSpecifics);
+
+      final scheduledTime = tz.TZDateTime.from(selectedDateTime, tz.local);
+
+      await appLocalNotificationsPlugin.zonedSchedule(
+        notificationId ?? 0,
+        'Giờ điểm đã đến',
+        'Hãy cùng nghe Podcast như đã hẹn nào!',
+        scheduledTime,
+        platformChannelSpecifics,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+      Fluttertoast.showToast(
+        msg: 'Đã thêm thông báo thành công',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+      );
+      notificationId = notificationId ?? 0 + 1;
+    }
   }
 
   void skipForward() {

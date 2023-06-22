@@ -2,21 +2,21 @@ part of 'podcast_cubit.dart';
 
 abstract class ExamplePodcastState extends Equatable {
   final AudioPlayer audioPlayer;
-  double selectedSpeed;
+  final double selectedSpeed;
   final String title;
   final String author;
   final String imageLink;
-  final String url;
+  final String urlPodcast;
   final DateTime? selectedTime;
   final SeekBarData seekBarData;
 
-  ExamplePodcastState({
+  const ExamplePodcastState({
     required this.audioPlayer,
     required this.selectedSpeed,
     required this.title,
     required this.author,
     required this.imageLink,
-    required this.url,
+    required this.urlPodcast,
     required this.selectedTime,
     required this.seekBarData,
   });
@@ -34,10 +34,9 @@ abstract class ExamplePodcastState extends Equatable {
     String? title,
     String? author,
     String? imageLink,
-    String? url,
+    String? urlPodcast,
   });
 }
-
 class PodcastState extends ExamplePodcastState {
   PodcastState({
     required super.audioPlayer,
@@ -45,7 +44,7 @@ class PodcastState extends ExamplePodcastState {
     required super.title,
     required super.author,
     required super.imageLink,
-    required super.url,
+    required super.urlPodcast,
     required super.selectedTime,
     required super.seekBarData,
   });
@@ -57,7 +56,7 @@ class PodcastState extends ExamplePodcastState {
       author: 'Sài Gòn Company',
       imageLink:
           'https://go.yolo.vn/wp-content/uploads/2019/08/hinh-anh-cho-pomsky-dep-45.jpg',
-      url:
+      urlPodcast:
           'https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps',
       selectedTime: null,
       seekBarData: SeekBarData(Duration.zero, Duration.zero));
@@ -69,7 +68,7 @@ class PodcastState extends ExamplePodcastState {
     String? title,
     String? author,
     String? imageLink,
-    String? url,
+    String? urlPodcast,
     DateTime? selectedTime,
     SeekBarData? seekBarData,
   }) {
@@ -79,7 +78,7 @@ class PodcastState extends ExamplePodcastState {
       title: title ?? this.title,
       author: author ?? this.author,
       imageLink: imageLink ?? this.imageLink,
-      url: url ?? this.url,
+      urlPodcast: urlPodcast ?? this.urlPodcast,
       selectedTime: selectedTime ?? this.selectedTime,
       seekBarData: seekBarData ?? this.seekBarData,
     );
