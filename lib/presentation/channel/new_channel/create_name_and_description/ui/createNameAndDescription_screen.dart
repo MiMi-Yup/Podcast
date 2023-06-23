@@ -1,0 +1,103 @@
+import 'package:configuration/utility/constants/asset_constants.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../../common/widgets/m_podcast_component.dart';
+
+class Podcast {
+  final String title;
+  final String description;
+  final String imageUrl;
+
+  Podcast(this.title, this.description, this.imageUrl);
+}
+List<Podcast> podcastList = [
+  Podcast('Podcast 1', 'Description 1', 'Image URL 1'),
+  Podcast('Podcast 2', 'Description 2', 'Image URL 2'),
+  Podcast('Podcast 3', 'Description 3', 'Image URL 3'),
+];
+class CreateNameAndDescriptionScreen extends StatelessWidget {
+  const CreateNameAndDescriptionScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0.0,
+        title: Text('Quản lý kênh'),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: AssetImage(mAIntroduction1),
+                        radius: 40,
+                      ),
+                      SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'username',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text('null Podcasts • null Listens'),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'My Podcasts',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: podcastList.length,
+              itemBuilder: (context, index) {
+                Podcast podcast = podcastList[index];
+                return PodcastComponent(
+                  title: podcast.title,
+                  author: podcast.description,
+                  networkImage: podcast.imageUrl,
+                  // Truyền các giá trị cần thiết vào component podcast
+                );
+              },
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Handle create podcast button pressed
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
