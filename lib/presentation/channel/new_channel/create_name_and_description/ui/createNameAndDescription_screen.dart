@@ -1,5 +1,8 @@
+import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/channel/new_podcast/editPodcast/editPodcast_route.dart';
 
 import '../../../../../common/widgets/m_podcast_component.dart';
 
@@ -76,18 +79,27 @@ class CreateNameAndDescriptionScreen extends StatelessWidget {
                 ],
               ),
             ),
-            ListView.builder(
+            ListView.separated(
               shrinkWrap: true,
-              itemCount: podcastList.length,
+              physics: const BouncingScrollPhysics(),
+              padding:
+              EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
               itemBuilder: (context, index) {
                 Podcast podcast = podcastList[index];
                 return PodcastComponent(
                   title: podcast.title,
                   author: podcast.description,
-                  networkImage: podcast.imageUrl,
+                  networkImage: null/*podcast.imageUrl*/,
+                  episodes: 0,
+                  listens: 0,
+                  onPressed: () => XMDRouter.pushNamed(
+                      routerIds[EditPodcastRoute]!,
+                      arguments: {index: index}),
                   // Truyền các giá trị cần thiết vào component podcast
                 );
-              },
+              }, separatorBuilder: (BuildContext context, int index) => SizedBox(
+              height: 16.0,
+            ), itemCount: podcastList.length,
             )
           ],
         ),
