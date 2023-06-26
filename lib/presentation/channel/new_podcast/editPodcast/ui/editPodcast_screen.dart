@@ -1,7 +1,11 @@
+import 'package:blur/blur.dart';
+import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:join_podcast/presentation/channel/new_channel/create_name_and_description/ui/createNameAndDescription_screen.dart';
 
 import '../../../../../common/widgets/m_episode_component.dart';
 
@@ -9,125 +13,201 @@ class PodcastEditingScreen extends StatelessWidget {
   final String podcastName;
   final String? podcastImage;
   final int totalListens;
-  final List<Episode> episodeList;
+  final List<Episode>? episodeList;
 
-  PodcastEditingScreen({super.key,
+  PodcastEditingScreen({
+    Key? key, // Thêm key vào đây
     required this.podcastName,
     required this.podcastImage,
     required this.totalListens,
     required this.episodeList,
-  });
+  }) : super(key: key); // Truyền key vào super constructor
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Chỉnh sửa Podcast'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {
-              // TODO: Xử lý sự kiện nhấn nút chia sẻ
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.more_vert),
-            onPressed: () {
-              _showModalBottomSheet(context);
-            },
-          ),
-        ],
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+      body: CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
+        SliverAppBar(
+          elevation: 0.0,
+          floating: true,
+          title: Text(MultiLanguage.of(context).playlist),
+          actions: [
+            PopupMenuButton<int>(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 0,
+                  child: Row(
+                    children: [
+                      Icon(Icons.download),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(MultiLanguage.of(context).downloadAll)
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  value: 1,
+                  child: Row(
+                    children: [
+                      Icon(Icons.edit),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(MultiLanguage.of(context).rename)
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  value: 2,
+                  child: Row(
+                    children: [
+                      Icon(Icons.delete),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(MultiLanguage.of(context).delete)
+                    ],
+                  ),
+                )
+              ],
+              offset: Offset(0, 50),
+              onSelected: null,
+              icon: Icon(Icons.more_horiz),
+            )
+          ],
+        ),
+        SliverToBoxAdapter(
+            child: Stack(alignment: Alignment.topCenter, children: [
+          Image.asset(mAIntroduction1).blurred(
+              colorOpacity: 0.2,
+              borderRadius: BorderRadius.circular(8.0),
+              blur: 16),
           Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding:
+                EdgeInsets.only(left: mSpacing, right: mSpacing, top: mSpacing),
+            child: Column(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 125,
-                      height: 125,
-                      decoration: BoxDecoration(
-                          color: Colors.amber,
-                          borderRadius: BorderRadius.circular(20.0),
-                          image: podcastImage == null
-                              ? DecorationImage(
-                                  image: AssetImage(mAIntroduction1),
-                                  filterQuality: FilterQuality.high,
-                                  fit: BoxFit.cover)
-                              : DecorationImage(
-                                  image:
-                                      NetworkImage(podcastImage!, scale: 1.0),
-                                  filterQuality: FilterQuality.high,
-                                  fit: BoxFit.cover)),
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      podcastName,
-                      style: mST20M,
-                    ),
-                    // SizedBox(height: 8.0),
-                  ],
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.asset(
+                    mAIntroduction1,
+                    height: 175,
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
                 SizedBox(
-                  width: 26,
+                  height: mSpacing,
                 ),
-                Column(
+                Text("Podcast Ngày buồn",
+                    style: mST20M.copyWith(color: Colors.white)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      totalListens.toString(),
-                      style: mST16R,
+                    SizedBox(
+                      width: 180,
+                      child: GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        childAspectRatio: 3,
+                        padding: EdgeInsets.all(mSpacing),
+                        children: [
+                          Text(
+                            "360 ${MultiLanguage.of(context).episode}",
+                            style: mST14M.copyWith(color: Colors.white),
+                          ),
+                          Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.timelapse,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: mSpacing,
+                                ),
+                                Text("3h 20p",
+                                    style: mST14M.copyWith(color: Colors.white))
+                              ]),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.download,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: mSpacing,
+                              ),
+                              Text("13",
+                                  style: mST14M.copyWith(color: Colors.white))
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.done_all,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: mSpacing,
+                              ),
+                              Text("64",
+                                  style: mST14M.copyWith(color: Colors.white))
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                    Text(
-                      'Tổng số lượt nghe',
-                      style: mST16R,
+                    Container(
+                      height: 38.0,
+                      padding: EdgeInsets.only(left: 4.0, right: 4.0),
+                      decoration: BoxDecoration(
+                          color: mCPrimary,
+                          borderRadius: BorderRadius.circular(50.0)),
+                      child: TextButton(
+                          onPressed: null,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.play_arrow,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              Text(MultiLanguage.of(context).shufflePlay,
+                                  style: mST14M.copyWith(color: Colors.white))
+                            ],
+                          )),
                     ),
                   ],
-                ),
+                )
               ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'My episodes',
-                  style: mST16R,
-                ),
-                Text(
-                  'New',
-                  style: mST16R,
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: episodeList.isNotEmpty
-                ? ListView.separated(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    padding:
-                        EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-                    itemBuilder: (context, index) => MEpisodeComponent(
-                      title:
-                          "927: Deep Dive | How to Quit Your Job the Right Way",
-                      author: "Apple Talk",
-                      duration: Duration(minutes: 52, seconds: 25),
-                      networkImage: null,
-                    ),
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 16.0,
-                    ),
-                    itemCount: 10,
-                  )
+          )
+        ])),
+        SliverFillRemaining(
+            hasScrollBody: true,
+            child: podcastList.isNotEmpty
+                ? Column(
+              children: List.generate(
+                podcastList.length,
+                    (index) {
+                  final podcast = podcastList[index];
+                  return ListTile(
+                    title: Text(podcast.title),
+                  );
+                },
+              ),
+            )
                 : Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -147,40 +227,8 @@ class PodcastEditingScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showModalBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          child: Wrap(
-            children: [
-              ListTile(
-                leading: Icon(Icons.edit),
-                title: Text('Chỉnh sửa thông tin'),
-                onTap: () {
-                  // TODO: Xử lý sự kiện nhấn vào nút chỉnh sửa thông tin
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.delete),
-                title: Text('Xóa podcast'),
-                onTap: () {
-                  // TODO: Xử lý sự kiện nhấn vào nút xóa podcast
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        );
-      },
+                  )),
+      ]),
     );
   }
 }
