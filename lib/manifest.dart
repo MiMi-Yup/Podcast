@@ -43,7 +43,7 @@ const routerIds = {
   RecordPageRoute: "RecordPageRoute",
   EpisodeRoute: "EpisodeRoute",
   DownloadRoute: "DownloadRoute",
-  ListRecordPage: "ListRecordPage",
+  ListRecordRoute: "ListRecordRoute",
   VerifyForgotRoute: "VerifyForgotRoute",
   VerifyCreateRoute: "VerifyCreateRoute",
   ResetAccountRoute: "ResetAccountRoute",
@@ -74,7 +74,7 @@ void generateRoutes() {
   BackgroundMusicHomeRoute();
   BackgroundMusicDetailRoute();
   RecordPageRoute();
-  ListRecordPage();
+  ListRecordRoute();
   VerifyForgotRoute();
   VerifyCreateRoute();
   ResetAccountRoute();

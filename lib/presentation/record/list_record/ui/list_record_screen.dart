@@ -387,8 +387,8 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                 children: [
                   Column(
                     children: [
-                      InkWell(
-                        onTap: () {
+                      ElevatedButton(
+                        onPressed: () {
                           // Xử lý sự kiện khi nhấn vào nút
                           //XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
                           // print(isFirstTime);
@@ -417,8 +417,8 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                   ),
                   Column(
                     children: [
-                      InkWell(
-                        onTap: () {
+                      ElevatedButton(
+                        onPressed: () {
                           //XMDRouter.pushNamed(routerIds[RecordPageRoute]!);
                           XMDRouter.pushNamedForResult(routerIds[RecordPageRoute]!);
                         },
@@ -446,8 +446,8 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                   ),
                   Column(
                     children: [
-                      InkWell(
-                        onTap: () {
+                      ElevatedButton(
+                        onPressed: () {
                           // Xử lý sự kiện khi nhấn vào nút
                           // XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
                         },

@@ -5,15 +5,18 @@ import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:join_podcast/common/widgets/m_episode_component_in_edit_view.dart';
+import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/channel/new_channel/create_name_and_description/ui/createNameAndDescription_screen.dart';
 
 import '../../../../../common/widgets/m_episode_component.dart';
+import '../../../../record/list_record/list_record.dart';
 
 class PodcastEditingScreen extends StatelessWidget {
   final String podcastName;
   final String? podcastImage;
   final int totalListens;
-  final List<Episode>? episodeList;
+  final List<Episode> episodeList;
 
   PodcastEditingScreen({
     Key? key, // Thêm key vào đây
@@ -30,8 +33,11 @@ class PodcastEditingScreen extends StatelessWidget {
         SliverAppBar(
           elevation: 0.0,
           floating: true,
-          title: Text(MultiLanguage.of(context).playlist),
+          title: Text(MultiLanguage.of(context).podcast),
           actions: [
+            IconButton(
+                onPressed: null,
+                icon: const Icon(Icons.share)),
             PopupMenuButton<int>(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -81,133 +87,118 @@ class PodcastEditingScreen extends StatelessWidget {
         ),
         SliverToBoxAdapter(
             child: Stack(alignment: Alignment.topCenter, children: [
-          Image.asset(mAIntroduction1).blurred(
-              colorOpacity: 0.2,
-              borderRadius: BorderRadius.circular(8.0),
-              blur: 16),
+          Container(
+            color: Colors.green.shade900,
+            height: 150,
+          ),
           Padding(
             padding:
                 EdgeInsets.only(left: mSpacing, right: mSpacing, top: mSpacing),
-            child: Column(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    mAIntroduction1,
-                    height: 175,
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-                SizedBox(
-                  height: mSpacing,
-                ),
-                Text("Podcast Ngày buồn",
-                    style: mST20M.copyWith(color: Colors.white)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 180,
-                      child: GridView.count(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        crossAxisCount: 2,
-                        childAspectRatio: 3,
-                        padding: EdgeInsets.all(mSpacing),
-                        children: [
-                          Text(
-                            "360 ${MultiLanguage.of(context).episode}",
-                            style: mST14M.copyWith(color: Colors.white),
-                          ),
-                          Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.timelapse,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  width: mSpacing,
-                                ),
-                                Text("3h 20p",
-                                    style: mST14M.copyWith(color: Colors.white))
-                              ]),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.download,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: mSpacing,
-                              ),
-                              Text("13",
-                                  style: mST14M.copyWith(color: Colors.white))
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.done_all,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: mSpacing,
-                              ),
-                              Text("64",
-                                  style: mST14M.copyWith(color: Colors.white))
-                            ],
-                          )
-                        ],
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        mAIntroduction1,
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    Container(
-                      height: 38.0,
-                      padding: EdgeInsets.only(left: 4.0, right: 4.0),
-                      decoration: BoxDecoration(
-                          color: mCPrimary,
-                          borderRadius: BorderRadius.circular(50.0)),
-                      child: TextButton(
-                          onPressed: null,
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.play_arrow,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 8.0,
-                              ),
-                              Text(MultiLanguage.of(context).shufflePlay,
-                                  style: mST14M.copyWith(color: Colors.white))
-                            ],
-                          )),
+                    SizedBox(
+                      height: mSpacing,
                     ),
+                    Text("1", style: mST20M.copyWith(color: Colors.white)),
                   ],
-                )
+                ),
+                    SizedBox(width: mSpacing*6,),
+                    Column(
+                      children: [
+                        Text("1", style: mST20M.copyWith(color: Colors.white)),
+                        SizedBox(
+                          height: mSpacing,
+                        ),
+                        Text("Lượt nghe",
+                            style: mST16R.copyWith(color: Colors.white)),
+                      ],
+                    ),
+                SizedBox(width: mSpacing*5,),
+                    Column(
+                      children: [
+                        Text(episodeList.length.toString(), style: mST20M.copyWith(color: Colors.white)),
+                        SizedBox(
+                          height: mSpacing,
+                        ),
+                        Text("Số tập",
+                            style: mST16R.copyWith(color: Colors.white)),
+                      ],
+                    ),
               ],
             ),
           )
         ])),
         SliverFillRemaining(
             hasScrollBody: true,
-            child: podcastList.isNotEmpty
+            child: episodeList.isNotEmpty
                 ? Column(
-              children: List.generate(
-                podcastList.length,
-                    (index) {
-                  final podcast = podcastList[index];
-                  return ListTile(
-                    title: Text(podcast.title),
-                  );
-                },
-              ),
-            )
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        color: Colors.grey,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Your episodes",
+                                style: mST16R.copyWith(color: Colors.black)),
+                            ElevatedButton(
+                              onPressed: () {
+                                // Xử lý sự kiện khi nút được nhấn
+                                XMDRouter.pushNamed(routerIds[ListRecordRoute]!);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.transparent,
+                                elevation: 0,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "New",
+                                    style: mST16R.copyWith(color: Colors.black),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(Icons.add_circle, color: Colors.black,),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: List.generate(
+                          episodeList.length,
+                          (index) {
+                            final episode = episodeList[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: MEpisodeComponentForEdit(
+                                title: episode.title,
+                                duration: Duration(minutes: 52, seconds: 25),
+                                networkImage: null, dateCreated: DateTime(2023,5,17),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
                 : Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
