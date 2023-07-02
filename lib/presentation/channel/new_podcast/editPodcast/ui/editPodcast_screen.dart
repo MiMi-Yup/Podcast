@@ -149,7 +149,7 @@ class PodcastEditingScreen extends StatelessWidget {
                 ? Column(
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                         color: Colors.grey,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,7 +159,7 @@ class PodcastEditingScreen extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () {
                                 // Xử lý sự kiện khi nút được nhấn
-                                XMDRouter.pushNamed(routerIds[ListRecordRoute]!);
+                                XMDRouter.pushNamedForResult(routerIds[ListRecordRoute]!);
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.transparent,

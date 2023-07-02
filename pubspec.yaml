@@ -65,7 +65,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   pin_code_fields: ^7.4.0
   smooth_page_indicator: ^1.0.1
-  image_picker: ^0.8.7+2
+  image_picker: ^1.0.0
   sliver_tools: ^0.2.10
   expandable_text: ^2.3.0
   shared_preferences: ^2.1.1

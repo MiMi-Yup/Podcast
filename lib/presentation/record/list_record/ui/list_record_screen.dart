@@ -327,7 +327,8 @@ class _ListRecordScreen extends State<ListRecordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ListRecordCubit, ListRecordState>(
+    return Scaffold(
+    body: BlocBuilder<ListRecordCubit, ListRecordState>(
       builder: (context, state) {
         context.read<ListRecordCubit>().setShouldRefresh(true);
           if (state.shouldRefresh) {
@@ -387,8 +388,8 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                 children: [
                   Column(
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           // Xử lý sự kiện khi nhấn vào nút
                           //XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
                           // print(isFirstTime);
@@ -417,8 +418,8 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                   ),
                   Column(
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           //XMDRouter.pushNamed(routerIds[RecordPageRoute]!);
                           XMDRouter.pushNamedForResult(routerIds[RecordPageRoute]!);
                         },
@@ -446,8 +447,8 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                   ),
                   Column(
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           // Xử lý sự kiện khi nhấn vào nút
                           // XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
                         },
@@ -478,6 +479,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
           ),
         );
       },
+    )
     );
   }
 

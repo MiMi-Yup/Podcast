@@ -5,6 +5,7 @@ import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/channel/new_podcast/editPodcast/editPodcast_route.dart';
 
 import '../../../../../common/widgets/m_podcast_component.dart';
+import '../../../new_podcast/createNewPodcast/createNewPodcast_route.dart';
 
 class Podcast {
   final String title;
@@ -107,6 +108,7 @@ class CreateNameAndDescriptionScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Handle create podcast button pressed
+          XMDRouter.pushNamed(routerIds[CreateNewPodcastRoute]!);
         },
         child: Icon(Icons.add),
       ),
