@@ -8,7 +8,6 @@ import 'package:join_podcast/presentation/podcast/ui/widgets/speed_bottom_modal_
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 import '../../../models/model_example/podcast_model.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class PodcastScreen extends StatefulWidget {
   const PodcastScreen({Key? key}) : super(key: key);

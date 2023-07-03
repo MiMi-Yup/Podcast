@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_author_full.dart';
 import 'package:join_podcast/common/widgets/m_episode_component.dart';
-import 'package:join_podcast/common/widgets/m_search_bar.dart';
+import 'package:join_podcast/common/widgets/m_search_bar.dart' as mSearch;
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/home/search/cubit/search_cubit.dart';
@@ -38,7 +38,7 @@ class _SearchScreenState extends State<SearchScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SearchBar(
+    return mSearch.SearchBar(
         history: context.read<SearchCubit>().getHistorySearch,
         body: Padding(
           padding: const EdgeInsets.only(top: 85),
