@@ -23,7 +23,7 @@ class _EpisodeScreenState extends State<EpisodeScreen> {
           appBar: AppBar(
             elevation: 0.0,
             title: Text(
-              state.title,
+              state.episode?.name ?? '',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.w600),
@@ -120,9 +120,8 @@ class _EpisodeScreenState extends State<EpisodeScreen> {
                     borderRadius: BorderRadius.circular(40),
                     border: Border.all(color: Colors.grey.shade400),
                     color: Colors.grey,
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          "https://go.yolo.vn/wp-content/uploads/2019/08/hinh-anh-cho-pomsky-dep-45.jpg"),
+                    image: DecorationImage(
+                      image: NetworkImage(state.episode?.image ?? ''),
                       // image: NetworkImage("https://i.imgur.com/jO9KBQC.jpg"),
                       fit: BoxFit.cover,
                     ),
@@ -132,7 +131,7 @@ class _EpisodeScreenState extends State<EpisodeScreen> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    state.title,
+                    state.episode?.name ?? '',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
@@ -144,7 +143,7 @@ class _EpisodeScreenState extends State<EpisodeScreen> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    state.author,
+                    state.episode?.name ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,

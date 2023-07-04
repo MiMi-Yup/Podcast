@@ -21,4 +21,5 @@ class PlaylistModel {
       id: id,
       name: name,
       episodes: ListResponse(count: count, items: episodes));
+      
 }

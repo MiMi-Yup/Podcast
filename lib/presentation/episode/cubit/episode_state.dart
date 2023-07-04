@@ -3,22 +3,16 @@ part of 'episode_cubit.dart';
 abstract class ExampleEpisodeState extends Equatable {
   final AudioPlayer audioPlayer;
   final double selectedSpeed;
-  final String title;
-  final String author;
-  final String imageLink;
-  final String urlEpisode;
   final DateTime? selectedTime;
   final SeekBarData seekBarData;
+  final EpisodeModel? episode;
 
   const ExampleEpisodeState({
     required this.audioPlayer,
     required this.selectedSpeed,
-    required this.title,
-    required this.author,
-    required this.imageLink,
-    required this.urlEpisode,
     required this.selectedTime,
     required this.seekBarData,
+    required this.episode,
   });
   @override
   bool? get stringify => true;
@@ -31,56 +25,41 @@ abstract class ExampleEpisodeState extends Equatable {
     double? selectedSpeed,
     DateTime? selectedTime,
     SeekBarData? seekBarData,
-    String? title,
-    String? author,
-    String? imageLink,
-    String? urlEpisode,
+    EpisodeModel? episode,
   });
 }
+
 class EpisodeState extends ExampleEpisodeState {
   const EpisodeState({
     required super.audioPlayer,
     required super.selectedSpeed,
-    required super.title,
-    required super.author,
-    required super.imageLink,
-    required super.urlEpisode,
     required super.selectedTime,
     required super.seekBarData,
+    required super.episode,
   });
 
   factory EpisodeState.initial() => EpisodeState(
-      audioPlayer: AudioPlayer(),
-      selectedSpeed: 1,
-      title: 'ABC',
-      author: 'Sài Gòn Company',
-      imageLink:
-          'https://go.yolo.vn/wp-content/uploads/2019/08/hinh-anh-cho-pomsky-dep-45.jpg',
-      urlEpisode:
-          'https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps',
-      selectedTime: null,
-      seekBarData: SeekBarData(Duration.zero, Duration.zero));
+        audioPlayer: AudioPlayer(),
+        selectedSpeed: 1,
+        selectedTime: null,
+        seekBarData: SeekBarData(Duration.zero, Duration.zero),
+        episode: null,
+      );
 
   @override
   EpisodeState copyWith({
     AudioPlayer? audioPlayer,
     double? selectedSpeed,
-    String? title,
-    String? author,
-    String? imageLink,
-    String? urlEpisode,
     DateTime? selectedTime,
     SeekBarData? seekBarData,
+    EpisodeModel? episode,
   }) {
     return EpisodeState(
       audioPlayer: audioPlayer ?? this.audioPlayer,
       selectedSpeed: selectedSpeed ?? this.selectedSpeed,
-      title: title ?? this.title,
-      author: author ?? this.author,
-      imageLink: imageLink ?? this.imageLink,
-      urlEpisode: urlEpisode ?? this.urlEpisode,
       selectedTime: selectedTime ?? this.selectedTime,
       seekBarData: seekBarData ?? this.seekBarData,
+      episode: episode ?? this.episode,
     );
   }
 }
