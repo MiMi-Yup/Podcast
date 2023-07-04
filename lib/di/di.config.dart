@@ -99,7 +99,7 @@ import 'package:join_podcast/presentation/notification/cubit/notification_cubit.
     as _i45;
 import 'package:join_podcast/presentation/playlist/cubit/playlist_cubit.dart'
     as _i58;
-import 'package:join_podcast/presentation/podcast/cubit/podcast_cubit.dart'
+import 'package:join_podcast/presentation/episode/cubit/episode_cubit.dart'
     as _i60;
 import 'package:join_podcast/presentation/record/background_music/background_music_home/cubit/background_music_home_cubit.dart'
     as _i37;
@@ -228,7 +228,7 @@ extension GetItInjectableX on _i1.GetIt {
           usecase: gh<_i46.PlaylistUseCases>(),
           playlist: gh<_i59.PlaylistModel>(),
         ));
-    gh.factory<_i60.PodcastCubit>(() => _i60.PodcastCubit(
+    gh.factory<_i60.EpisodeCubit>(() => _i60.EpisodeCubit(
           id: gh<String>(),
           episodeUseCases: gh<_i48.EpisodeUseCases>(),
         ));

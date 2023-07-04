@@ -286,8 +286,8 @@ class AuthorScreen extends StatelessWidget {
                   author: "Apple Talk",
                   duration: Duration(minutes: 52, seconds: 25),
                   networkImage: null,
-                  onPressed: () =>
-                      XMDRouter.pushNamed(routerIds[EpisodeRoute]!),
+                  onPressed: () => XMDRouter.pushNamed(routerIds[EpisodeRoute]!,
+                      arguments: {'id': '123456'}),
                 ),
                 separatorBuilder: (context, index) => SizedBox(
                   height: 16.0,

@@ -11,6 +11,7 @@ import 'package:join_podcast/presentation/edit_info_podcast/discover_podcast/dis
 import 'package:join_podcast/presentation/edit_info_podcast/podcast_availability/podcast_availability_route.dart';
 import 'package:join_podcast/presentation/edit_info_podcast/set_info_podcast/set_info_podcast_route.dart';
 import 'package:join_podcast/presentation/episode/episode_route.dart';
+import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 import 'package:join_podcast/presentation/home/search/search_route.dart';
 import 'package:join_podcast/presentation/introduction/introduction_route.dart';
 import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart';
@@ -18,7 +19,6 @@ import 'package:join_podcast/presentation/new_user/init_subscribe/init_subscribe
 import 'package:join_podcast/presentation/new_user/interest/interest_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/playlist/playlist_route.dart';
-import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 import 'package:join_podcast/presentation/record/background_music/background_music_home/background_music_home_route.dart';
 import 'package:join_podcast/presentation/record/list_record/list_record.dart';
 import 'package:join_podcast/presentation/record/record_page/record_page_route.dart';

@@ -1,134 +1,226 @@
-import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
-import 'package:join_podcast/common/widgets/m_author.dart';
-import 'package:join_podcast/common/widgets/m_section.dart';
-import 'package:sliver_tools/sliver_tools.dart';
+import 'package:configuration/l10n/l10n.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:join_podcast/presentation/episode/cubit/episode_cubit.dart';
+import 'package:join_podcast/presentation/episode/ui/widgets/seekbar.dart';
+import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
+import 'package:just_audio/just_audio.dart';
 
-class EpisodeScreen extends StatelessWidget {
-  const EpisodeScreen({super.key});
+class EpisodeScreen extends StatefulWidget {
+  const EpisodeScreen({Key? key}) : super(key: key);
 
   @override
+  State<EpisodeScreen> createState() => _EpisodeScreenState();
+}
+
+class _EpisodeScreenState extends State<EpisodeScreen> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        title: Text("Episode 685"),
-      ),
-      body: CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
-        MultiSliver(children: [
-          Container(
-            margin: const EdgeInsets.all(10.0),
-            height: 125.0,
-            child: Row(
-              children: [
-                MAuthor(networkImage: null),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "The Breakfast Club",
-                      style: mST18M,
-                    ),
-                    Text(
-                      "999 podcasts",
-                      style: mST16R,
-                    ),
-                    Row(
+    final episodeCubit = BlocProvider.of<EpisodeCubit>(context);
+    return BlocBuilder<EpisodeCubit, EpisodeState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 0.0,
+            title: Text(
+              state.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            actions: [
+              PopupMenuButton<int>(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    value: 0,
+                    child: Row(
                       children: [
-                        IconButton(
-                            onPressed: () => null, icon: Icon(Icons.circle)),
-                        IconButton(
-                            onPressed: () => null, icon: Icon(Icons.share))
+                        const Icon(Icons.speed),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(MultiLanguage.of(context).speed)
                       ],
-                    )
-                  ],
-                )
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: 1,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.access_alarm),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(MultiLanguage.of(context).reminder)
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: 2,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.share),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(MultiLanguage.of(context).share)
+                      ],
+                    ),
+                  ),
+                  const PopupMenuItem(
+                    value: 3,
+                    child: Row(
+                      children: [
+                        Icon(Icons.wifi),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Text("View RSS feed")
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: 4,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.report),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(MultiLanguage.of(context).report)
+                      ],
+                    ),
+                  ),
+                ],
+                offset: const Offset(0, 50),
+                onSelected: (value) {
+                  if (value == 0) {
+                    episodeCubit.showPlaybackSpeedModal(context);
+                  } else {
+                    if (value == 1) {
+                      episodeCubit.openReminder(context);
+                    }
+                  }
+                },
+              )
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Ảnh
+                Container(
+                  height: 350,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border.all(color: Colors.grey.shade400),
+                    color: Colors.grey,
+                    image: const DecorationImage(
+                      image: NetworkImage(
+                          "https://go.yolo.vn/wp-content/uploads/2019/08/hinh-anh-cho-pomsky-dep-45.jpg"),
+                      // image: NetworkImage("https://i.imgur.com/jO9KBQC.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                // Tên bài hát
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    state.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                // Tác giả
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    state.author,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ),
+                const Divider(
+                  thickness: 1,
+                  height: 5,
+                ),
+                StreamBuilder<SeekBarData>(
+                  stream: episodeCubit.seekBarDataStream,
+                  builder: (context, snapshot) {
+                    final positionData = snapshot.data;
+                    return SeekBar(
+                      position: positionData?.position ?? Duration.zero,
+                      duration: positionData?.duration ?? Duration.zero,
+                      onChangeEnd: state.audioPlayer.seek,
+                    );
+                  },
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      StreamBuilder<SequenceState?>(
+                        stream: state.audioPlayer.sequenceStateStream,
+                        builder: (context, index) {
+                          return IconButton(
+                            onPressed: state.audioPlayer.hasPrevious
+                                ? state.audioPlayer.seekToPrevious
+                                : null,
+                            iconSize: 40,
+                            icon: const Icon(Icons.skip_previous),
+                          );
+                        },
+                      ),
+                      GestureDetector(
+                        onTap: () => episodeCubit.skipBackward(),
+                        child: const Icon(
+                          Icons.replay_10,
+                          size: 40,
+                        ),
+                      ),
+                      PlayStopButton(audioPlayer: state.audioPlayer),
+                      GestureDetector(
+                        onTap: () => episodeCubit.skipForward(),
+                        child: const Icon(
+                          Icons.forward_10,
+                          size: 40,
+                        ),
+                      ),
+                      StreamBuilder<SequenceState?>(
+                        stream: state.audioPlayer.sequenceStateStream,
+                        builder: (context, index) {
+                          return IconButton(
+                            onPressed: state.audioPlayer.hasNext
+                                ? state.audioPlayer.seekToNext
+                                : null,
+                            iconSize: 40,
+                            icon: const Icon(Icons.skip_next),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Text(
-              "2 hours ago | 55:37 mins",
-              style: mST16R.copyWith(color: Colors.grey),
-            ),
-          )
-        ]),
-        MSection(
-            title:
-                "685: Steve Rambam | The Real Life of a Private Investigator",
-            headerColor: Theme.of(context).scaffoldBackgroundColor,
-            titleColor: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,
-            content: Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 38.0,
-                            padding: EdgeInsets.only(left: 4.0, right: 4.0),
-                            decoration: BoxDecoration(
-                                color: mCPrimary,
-                                borderRadius: BorderRadius.circular(50.0)),
-                            child: TextButton(
-                                onPressed: () => null,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.play_arrow,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 8.0,
-                                    ),
-                                    Text("Play",
-                                        style: mST14M.copyWith(
-                                            color: Colors.white))
-                                  ],
-                                )),
-                          ),
-                          IconButton(
-                              onPressed: () => null,
-                              icon: Icon(Icons.playlist_add)),
-                          IconButton(
-                              onPressed: () => null,
-                              icon: Icon(Icons.download_for_offline_outlined))
-                        ],
-                      ),
-                      IconButton(
-                          onPressed: () => null, icon: Icon(Icons.more_vert))
-                    ],
-                  ),
-                  Text(
-                    """Steve Rambam (@stevenrambam) is the founder and CEO of Pallorium, Inc., a lincensed Investigative Agency with offices and affiliates worldwide
-What We Discuss with Steve Rambam:
-
-Prime bank guarantee fraud: What is it and how does it work?
-Why is the US a "Garden of Den" for bad guys in general?
-How Steve's TV show Nowhere to Hide came to be.
-Why Steve's business doubled within two years following a bogus arrest.
-Are there scam lists, and are you on one?
-And much more..
-
-Full show notes and resources can be found here: exampledomain.com/685
-Like this show? Please leave us a review here --""",
-                    style: mST24R,
-                  )
-                ],
-              ),
-            )).builder()
-      ]),
+        );
+      },
     );
   }
 }

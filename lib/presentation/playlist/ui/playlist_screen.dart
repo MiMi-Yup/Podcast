@@ -9,7 +9,7 @@ import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/playlist/cubit/playlist_cubit.dart';
-import 'package:join_podcast/presentation/podcast/podcast_route.dart';
+import 'package:join_podcast/presentation/episode/episode_route.dart';
 
 class PlaylistScreen extends StatelessWidget {
   const PlaylistScreen({super.key});
@@ -247,7 +247,7 @@ class PlaylistScreen extends StatelessWidget {
                   onPlay: (state) => !state,
                   onDownload: (state) => !state,
                   onPressed: () =>
-                      XMDRouter.pushNamed(routerIds[PodcastRoute]!),
+                      XMDRouter.pushNamed(routerIds[EpisodeRoute]!),
                 ),
                 separatorBuilder: (context, index) => SizedBox(
                   height: 16.0,

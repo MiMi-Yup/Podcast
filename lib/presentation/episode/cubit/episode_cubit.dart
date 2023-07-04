@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart';
-import 'package:join_podcast/presentation/podcast/ui/widgets/speed_bottom_modal_sheet.dart';
+import 'package:join_podcast/presentation/episode/ui/widgets/speed_bottom_modal_sheet.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 import '../ui/widgets/seekbar.dart';
@@ -13,19 +13,19 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:fluttertoast/fluttertoast.dart';
 
-part 'podcast_state.dart';
+part 'episode_state.dart';
 
 final FlutterLocalNotificationsPlugin appLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 @injectable
-class PodcastCubit extends Cubit<PodcastState> {
+class EpisodeCubit extends Cubit<EpisodeState> {
   final EpisodeUseCases episodeUseCases;
   final String id;
   int? notificationId;
-  PodcastCubit({required this.id, required this.episodeUseCases})
-      : super(PodcastState.initial()) {
-    state.audioPlayer.setUrl(state.urlPodcast);
+  EpisodeCubit({required this.id, required this.episodeUseCases})
+      : super(EpisodeState.initial()) {
+    state.audioPlayer.setUrl(state.urlEpisode);
     updateSelectedSpeed(1);
     state.audioPlayer.play();
     initializeNotifications();
@@ -61,7 +61,7 @@ class PodcastCubit extends Cubit<PodcastState> {
         });
   }
 
-  // Hiển thị thời gian nhắc nhở nghe Podcast
+  // Hiển thị thời gian nhắc nhở nghe Episode
   Future<DateTime?> pickDateTime(
       BuildContext context, DateTime? selectedDateTime) async {
     final List<dynamic> results = await Future.wait([
@@ -121,7 +121,7 @@ class PodcastCubit extends Cubit<PodcastState> {
                   ),
                   const SizedBox(height: 16.0),
                   const Text(
-                    'Nhắc tôi nghe Podcast này vào lúc:',
+                    'Nhắc tôi nghe Episode này vào lúc:',
                   ),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
@@ -213,7 +213,7 @@ class PodcastCubit extends Cubit<PodcastState> {
       await appLocalNotificationsPlugin.zonedSchedule(
         notificationId ?? 0,
         'Giờ điểm đã đến',
-        'Hãy cùng nghe Podcast như đã hẹn nào!',
+        'Hãy cùng nghe Episode như đã hẹn nào!',
         scheduledTime,
         platformChannelSpecifics,
         androidAllowWhileIdle: true,
