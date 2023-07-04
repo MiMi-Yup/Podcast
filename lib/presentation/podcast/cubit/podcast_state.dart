@@ -38,7 +38,7 @@ abstract class ExamplePodcastState extends Equatable {
   });
 }
 class PodcastState extends ExamplePodcastState {
-  PodcastState({
+  const PodcastState({
     required super.audioPlayer,
     required super.selectedSpeed,
     required super.title,

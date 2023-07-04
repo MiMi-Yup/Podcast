@@ -3,8 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:join_podcast/domain/repositories/unit_of_work.dart';
-import 'package:join_podcast/domain/use_cases/podcast_page_usecase.dart';
+import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart';
 import 'package:join_podcast/presentation/podcast/ui/widgets/speed_bottom_modal_sheet.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
@@ -21,9 +20,10 @@ final FlutterLocalNotificationsPlugin appLocalNotificationsPlugin =
 
 @injectable
 class PodcastCubit extends Cubit<PodcastState> {
-  final PodcastUseCases? podcastUseCases;
+  final EpisodeUseCases episodeUseCases;
+  final String id;
   int? notificationId;
-  PodcastCubit({required this.podcastUseCases})
+  PodcastCubit({required this.id, required this.episodeUseCases})
       : super(PodcastState.initial()) {
     state.audioPlayer.setUrl(state.urlPodcast);
     updateSelectedSpeed(1);
@@ -231,6 +231,7 @@ class PodcastCubit extends Cubit<PodcastState> {
     }
   }
 
+// Tua sau 10s
   void skipForward() {
     state.audioPlayer
         .seek(state.audioPlayer.position + const Duration(seconds: 10));

@@ -21,6 +21,7 @@ abstract class UserService {
   @GET('/users/{id}')
   Future<ApiResponse<ProfileResponse>> getUserById(@Path('id') String id);
 
-  @PATCH('/users/update')
-  Future<ApiResponse<ProfileResponse>> updateUser(@Body() UserUpdateRequest request);
+  @PATCH('/users/self')
+  Future<ApiResponse<ProfileResponse>> updateUser(
+      @Body() UserUpdateRequest request);
 }

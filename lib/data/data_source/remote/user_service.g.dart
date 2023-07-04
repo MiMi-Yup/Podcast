@@ -107,7 +107,7 @@ class _UserService implements UserService {
     )
             .compose(
               _dio.options,
-              '/users/update',
+              '/users/self',
               queryParameters: queryParameters,
               data: _data,
             )

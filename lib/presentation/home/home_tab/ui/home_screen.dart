@@ -39,7 +39,8 @@ class HomeScreen extends StatelessWidget {
                   height: 60,
                   width: 60,
                   child: CircleAvatar(
-                    foregroundImage: NetworkImage(context.read<HomeCubit>().avatar!),
+                    foregroundImage:
+                        NetworkImage(context.read<HomeCubit>().avatar!),
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   )),
               SizedBox(
@@ -131,8 +132,9 @@ class HomeScreen extends StatelessWidget {
                           networkImage: null,
                           onPlay: (state) => !state,
                           onDownload: (state) => !state,
-                          onPressed: () =>
-                              XMDRouter.pushNamed(routerIds[PodcastRoute]!),
+                          onPressed: () => XMDRouter.pushNamed(
+                              routerIds[PodcastRoute]!,
+                              arguments: {'id': '123456'}),
                         ),
                         separatorBuilder: (context, index) => SizedBox(
                           height: 16.0,

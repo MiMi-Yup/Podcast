@@ -57,7 +57,7 @@ import 'package:join_podcast/domain/repositories/unit_of_work.dart' as _i29;
 import 'package:join_podcast/domain/repositories/user_repository.dart' as _i27;
 import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i44;
 import 'package:join_podcast/domain/use_cases/playlist_usecases.dart' as _i46;
-import 'package:join_podcast/domain/use_cases/podcast_page_usecase.dart'
+import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart'
     as _i48;
 import 'package:join_podcast/domain/use_cases/user_usecases.dart' as _i31;
 import 'package:join_podcast/models/playlist_model.dart' as _i59;
@@ -202,8 +202,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i46.PlaylistUseCases(unitOfWork: gh<_i29.UnitOfWork>()));
     gh.factory<_i47.PodcastAvailabilityCubit>(
         () => _i47.PodcastAvailabilityCubit(unitOfWork: gh<_i29.UnitOfWork>()));
-    gh.factory<_i48.PodcastUseCases>(
-        () => _i48.PodcastUseCases(unitOfWork: gh<_i29.UnitOfWork>()));
+    gh.factory<_i48.EpisodeUseCases>(
+        () => _i48.EpisodeUseCases(unitOfWork: gh<_i29.UnitOfWork>()));
     gh.factory<_i49.RecordPageCubit>(
         () => _i49.RecordPageCubit(unitOfWork: gh<_i29.UnitOfWork>()));
     gh.factory<_i50.ResetAccountCubit>(() => _i50.ResetAccountCubit(
@@ -228,8 +228,10 @@ extension GetItInjectableX on _i1.GetIt {
           usecase: gh<_i46.PlaylistUseCases>(),
           playlist: gh<_i59.PlaylistModel>(),
         ));
-    gh.factory<_i60.PodcastCubit>(
-        () => _i60.PodcastCubit(podcastUseCases: gh<_i48.PodcastUseCases>()));
+    gh.factory<_i60.PodcastCubit>(() => _i60.PodcastCubit(
+          id: gh<String>(),
+          episodeUseCases: gh<_i48.EpisodeUseCases>(),
+        ));
     return this;
   }
 }
