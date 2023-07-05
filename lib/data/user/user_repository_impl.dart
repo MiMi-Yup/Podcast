@@ -4,7 +4,11 @@ import 'package:injectable/injectable.dart';
 import 'package:join_podcast/data/data_source/remote/user_service.dart';
 import 'package:join_podcast/domain/repositories/user_repository.dart';
 import 'package:join_podcast/models/request/users/change_password_request.dart';
+import 'package:join_podcast/models/request/users/update_channel_request.dart';
+import 'package:join_podcast/models/request/users/create_channel_request.dart';
 import 'package:join_podcast/models/request/users/update_request.dart';
+import 'package:join_podcast/models/response/list_response.dart';
+import 'package:join_podcast/models/response/episode/episode_response.dart';
 import 'package:join_podcast/models/response/users/user_response.dart';
 import 'package:join_podcast/utils/exception_util.dart';
 
@@ -54,6 +58,116 @@ class UserRepositoryImpl implements UserRepository {
         .catchError((onError) {
       ExceptionUtil.handle(onError);
       return null;
+    });
+  }
+
+  @override
+  Future<bool?> addHistory(String idEpisode) {
+    return userService
+        .addHistory(idEpisode)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
+
+  @override
+  Future<bool?> addIntoFavourite(String idEpisode) {
+    return userService
+        .addIntoFavourite(idEpisode)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
+
+  @override
+  Future<bool?> clearFavourite() {
+    return userService
+        .clearFavourite()
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
+
+  @override
+  Future<bool?> clearHistory() {
+    return userService
+        .clearHistory()
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
+
+  @override
+  Future<bool?> createChannel(CreateChannelRequest request) {
+    return userService
+        .createChannel(request)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
+
+  @override
+  Future<ListResponse<EpisodeResponse>?> getFavouriteEpisodes() {
+    return userService
+        .getFavouriteEpisodes()
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
+
+  @override
+  Future<ListResponse<EpisodeResponse>?> getHistoryEpisodes() {
+    return userService
+        .getHistoryEpisodes()
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
+
+  @override
+  Future<bool?> removeEpisodeInFavourite(String idEpisode) {
+    return userService
+        .removeFavouriteById(idEpisode)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
+
+  @override
+  Future<bool?> removeEpisodeInHistory(String idEpisode) {
+    return userService
+        .removeHistoryById(idEpisode)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
+
+  @override
+  Future<bool?> updateChannel(UpdateChannelRequest request) {
+    return userService
+        .updateChannel(request)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
     });
   }
 }

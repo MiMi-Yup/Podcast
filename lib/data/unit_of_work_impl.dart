@@ -4,6 +4,7 @@ import 'package:join_podcast/domain/repositories/auth_repository.dart';
 import 'package:join_podcast/domain/repositories/episode_repository.dart';
 import 'package:join_podcast/domain/repositories/media_repository.dart';
 import 'package:join_podcast/domain/repositories/playlist_repository.dart';
+import 'package:join_podcast/domain/repositories/podcast_repository.dart';
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 import 'package:join_podcast/domain/repositories/user_repository.dart';
@@ -17,7 +18,8 @@ class UnitOfWorkImpl implements UnitOfWork {
       required this.user,
       required this.media,
       required this.playlist,
-      required this.episode});
+      required this.episode,
+      required this.podcast});
 
   @override
   final AuthRepository auth;
@@ -39,4 +41,7 @@ class UnitOfWorkImpl implements UnitOfWork {
 
   @override
   final EpisodeRepository episode;
+
+  @override
+  final PodcastRepository podcast;
 }

@@ -38,7 +38,8 @@ class HomeScreen extends StatelessWidget {
                   height: 60,
                   width: 60,
                   child: CircleAvatar(
-                    foregroundImage: NetworkImage(context.read<HomeCubit>().avatar!),
+                    foregroundImage:
+                        NetworkImage(context.read<HomeCubit>().avatar!),
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   )),
               SizedBox(

@@ -153,6 +153,7 @@ extension GetItInjectableX on _i1.GetIt {
           media: gh<_i11.MediaRepository>(),
           playlist: gh<_i14.PlaylistRepository>(),
           episode: gh<_i7.EpisodeRepository>(),
+          podcast: gh<_i17.PodcastRepository>(),
         ));
     gh.factory<_i32.UserUseCases>(
         () => _i32.UserUseCases(unitOfWork: gh<_i30.UnitOfWork>()));
