@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit_config.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
@@ -11,7 +14,10 @@ import 'package:join_podcast/presentation/record/record_page/record_page_route.d
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
+import '../../../channel/new_episode/createNewEpisode_route.dart';
+import '../../background_music/background_music_details/background_music_detail_route.dart';
 import '../cubit/list_record_cubit.dart';
 
 
@@ -21,6 +27,13 @@ Future<List<File>> getAudioFiles() async {
   final folder = Directory(folderPath);
   final files = await folder.list().where((entity) => entity is File).map((file) => File(file.path)).toList();
   return files;
+}
+
+Future<String> getMergedPath() async {
+  final directory = await getApplicationDocumentsDirectory();
+  final folderPath = '${directory.path}/my_folder/merged';
+  //final folder = Directory(folderPath);
+  return folderPath;
 }
 
 class ListRecordScreen extends StatefulWidget {
@@ -104,6 +117,10 @@ class _ListRecordScreen extends State<ListRecordScreen> {
   List<File> listRecorded  = [];
   List<bool> isPlayingList = []; // Danh sách trạng thái phát âm thanh cho từng file
   int currentPlayingIndex = -1;
+  String mergePath = "";
+  //Loading
+
+  double progressValue = 0.0;
   //state
   bool isPlaying = false;
   FlutterSoundPlayer? _audioPlayer;
@@ -143,6 +160,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
   void initState() {
     super.initState();
     loadAudioFiles(); // Gọi phương thức để nạp danh sách file âm thanh
+    loadMergedFolder();
     init();
   }
 
@@ -176,6 +194,14 @@ class _ListRecordScreen extends State<ListRecordScreen> {
     setState(() {
       listRecorded = loadedFiles;
       isPlayingList = List<bool>.filled(loadedFiles.length, false);
+    });
+  }
+
+  Future<void> loadMergedFolder() async {
+    final tempFolder = await getMergedPath();
+
+    setState(() {
+      mergePath = tempFolder;
     });
   }
 
@@ -383,6 +409,38 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                     ),
                   ) : _list()
               ),
+              listRecorded.isNotEmpty ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // Xử lý sự kiện khi nhấn nút Play Preview
+                      },
+                      child: Text('Play Preview'),
+                    ),
+                    SizedBox(width: mSpacing,),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Xử lý sự kiện khi nhấn nút Save
+                        loadMergedFolder();
+                        if(mergePath != '')
+                        {
+                          print(mergePath);
+                              mergeAudioFiles2(
+                                  listRecorded
+                                      .map((file) => file.path)
+                                      .toList(),
+                                  mergePath);
+                        }else{
+                          print("failed");
+                        }
+                      },
+                      child: Text('Merge'),
+                    ),
+                  ],
+                )
+               :
+                Container(), // Hiển thị một container trống nếu danh sách rỗng
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -391,9 +449,9 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                       InkWell(
                         onTap: () {
                           // Xử lý sự kiện khi nhấn vào nút
-                          //XMDRouter.pushNamed(routerIds[BackgroundMusicRoute]!);
+                          XMDRouter.pushNamed(routerIds[BackgroundMusicDetailRoute]!);
                           // print(isFirstTime);
-                          print(context.read<ListRecordCubit>().state.shouldRefresh);
+                          //print(context.read<ListRecordCubit>().state.shouldRefresh);
                         },
                         child: Container(
                           width: 70,
@@ -494,5 +552,37 @@ class _ListRecordScreen extends State<ListRecordScreen> {
     disposeAudio();
     saveAudioFiles();
     super.dispose();
+  }
+
+  Future<void> mergeAudioFiles2(List<String> audioFiles, String outputPath) async {
+    // Thiết lập cấu hình cho FFmpegKit
+    FFmpegKitConfig.enableStatisticsCallback();
+    FFmpegKitConfig.enableLogCallback();
+
+    ProgressDialog pd;
+    pd = ProgressDialog(context: context);
+    pd.show(max: 100, msg: 'Merging audio files...');
+    // Xây dựng danh sách các tệp đầu vào
+    String inputFiles = "";
+    for (String audioFile in audioFiles) {
+      inputFiles += "-i '$audioFile' ";
+    }
+
+    // Tạo lệnh để merge các tệp âm thanh
+    String command = "$inputFiles -filter_complex concat=n=${audioFiles.length}:v=0:a=1[outa] -map [outa] '$outputPath'/${DateTime.now().toIso8601String()}.aac";
+
+
+    // Thực thi lệnh merge bằng FFmpegKit
+    FFmpegKit.execute(command).then((session) async {
+      final returnCode = await session.getReturnCode();
+      if (ReturnCode.isSuccess(returnCode)) {
+        pd.close();
+        print('Merge audio files successful.');
+        XMDRouter.pushNamed(routerIds[CreateNewEpisodeRoute]!);
+      } else if (ReturnCode.isCancel(returnCode)) {
+        pd.close();
+        print('Merge audio files failed. Return code: $returnCode');
+      }
+    });
   }
 }

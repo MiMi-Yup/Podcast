@@ -9,7 +9,7 @@ class BackgroundMusicDetailRoute extends RouteDefine {
         Path(
           route: BackgroundMusicDetailRoute,
           builder: (_) =>
-              BackgroundMusicDetailScreen(title: arguments!['title']),
+              const BackgroundMusicDetailScreen(title: 'test'/*arguments!['title']*/),
         ),
       ];
 
