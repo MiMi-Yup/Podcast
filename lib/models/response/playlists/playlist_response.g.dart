@@ -15,6 +15,7 @@ PlaylistResponse _$PlaylistResponseFromJson(Map<String, dynamic> json) =>
           : ListResponse<EpisodeModel>.fromJson(
               json['episodes'] as Map<String, dynamic>,
               (value) => EpisodeModel.fromJson(value as Map<String, dynamic>)),
+      numEpisodes: json['num_episodes'] as int?,
     );
 
 Map<String, dynamic> _$PlaylistResponseToJson(PlaylistResponse instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$PlaylistResponseToJson(PlaylistResponse instance) =>
       'episodes': instance.episodes?.toJson(
         (value) => value,
       ),
+      'num_episodes': instance.numEpisodes,
     };

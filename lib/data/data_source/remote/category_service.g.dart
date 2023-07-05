@@ -19,13 +19,13 @@ class _CategoryService implements CategoryService {
   String? baseUrl;
 
   @override
-  Future<ApiResponse<List<CategoryResponse>>> getAll() async {
+  Future<ApiResponse<ListResponse<CategoryResponse>>> getAll() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<List<CategoryResponse>>>(Options(
+        _setStreamType<ApiResponse<ListResponse<CategoryResponse>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -37,14 +37,12 @@ class _CategoryService implements CategoryService {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<List<CategoryResponse>>.fromJson(
+    final value = ApiResponse<ListResponse<CategoryResponse>>.fromJson(
       _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<CategoryResponse>(
-                  (i) => CategoryResponse.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
+      (json) => ListResponse<CategoryResponse>.fromJson(
+        json as Map<String, dynamic>,
+        (json) => CategoryResponse.fromJson(json as Map<String, dynamic>),
+      ),
     );
     return value;
   }

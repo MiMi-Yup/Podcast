@@ -5,7 +5,7 @@ import 'package:join_podcast/data/data_source/remote/user_service.dart';
 import 'package:join_podcast/domain/repositories/user_repository.dart';
 import 'package:join_podcast/models/request/users/change_password_request.dart';
 import 'package:join_podcast/models/request/users/update_request.dart';
-import 'package:join_podcast/models/response/users/profile_response.dart';
+import 'package:join_podcast/models/response/users/user_response.dart';
 import 'package:join_podcast/utils/exception_util.dart';
 
 @Injectable(as: UserRepository)
@@ -14,7 +14,7 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({required this.userService});
 
   @override
-  Future<ProfileResponse?> getCurrentUser() {
+  Future<UserResponse?> getCurrentUser() {
     return userService
         .getCurrentProfile()
         .then((value) => value.data)
@@ -36,7 +36,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  FutureOr<ProfileResponse?> getUserById(String id) {
+  FutureOr<UserResponse?> getUserById(String id) {
     return userService
         .getUserById(id)
         .then((value) => value.data)
@@ -47,7 +47,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  FutureOr<ProfileResponse?> updateInfo(UserUpdateRequest request) {
+  FutureOr<UserResponse?> updateInfo(UserUpdateRequest request) {
     return userService
         .updateUser(request)
         .then((value) => value.data)
