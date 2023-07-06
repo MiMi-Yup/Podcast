@@ -18,6 +18,7 @@ class MEpisodeComponent extends StatefulWidget {
   final void Function(int)? onMore;
   final void Function()? onPressed;
   final void Function()? onAvatarPressed;
+  final List<Widget> listOption;
   const MEpisodeComponent(
       {super.key,
       required this.title,
@@ -32,7 +33,8 @@ class MEpisodeComponent extends StatefulWidget {
       this.isPlayed = false,
       this.isDownloaded = false,
       this.isCompleted = false,
-      this.isAdmin = false});
+      this.isAdmin = false,
+      this.listOption = const []});
 
   @override
   State<MEpisodeComponent> createState() => _MEpisodeComponentState();
@@ -55,6 +57,7 @@ class _MEpisodeComponentState extends State<MEpisodeComponent> {
       height: 125.0,
       child: GestureDetector(
         onTap: widget.onPressed,
+        behavior: HitTestBehavior.translucent,
         child: Row(
           children: [
             GestureDetector(
@@ -155,16 +158,12 @@ class _MEpisodeComponentState extends State<MEpisodeComponent> {
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          itemBuilder: (context) => [
-                            PopupMenuItem(
-                              value: 0,
-                              child: Text(MultiLanguage.of(context).edit),
-                            ),
-                            PopupMenuItem(
-                              value: 1,
-                              child: Text(MultiLanguage.of(context).delete),
-                            )
-                          ],
+                          itemBuilder: (context) => widget.listOption
+                              .asMap()
+                              .entries
+                              .map((e) =>
+                                  PopupMenuItem(value: e.key, child: e.value))
+                              .toList(),
                           onSelected: widget.onMore,
                         )
                     ],

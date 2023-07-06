@@ -10,9 +10,9 @@ class EpisodeUseCases {
   EpisodeUseCases({required this.unitOfWork});
 
   Future<EpisodeModel?> getEpisodeById(String id) async {
-    EpisodeResponse? episodeResponse =
-        await unitOfWork.episode.getEpisodeById(id);
-    if (episodeResponse != null) return episodeResponse.episode;
-    return null;
+    final episodeResponse = await unitOfWork.episode.getEpisodeById(id);
+    return episodeResponse != null
+        ? EpisodeModel.fromJson(episodeResponse.toJson())
+        : null;
   }
 }

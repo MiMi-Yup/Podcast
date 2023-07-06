@@ -10,8 +10,16 @@ import 'package:join_podcast/presentation/player/player_route.dart';
 
 class MEpisodeComponentWithEvent extends StatelessWidget {
   final EpisodeModel data;
+  final bool isAdmin;
+  final List<Widget> listOption;
+  final void Function(int)? onMore;
 
-  const MEpisodeComponentWithEvent({super.key, required this.data});
+  const MEpisodeComponentWithEvent(
+      {super.key,
+      required this.data,
+      this.isAdmin = false,
+      this.listOption = const [],
+      this.onMore});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +42,9 @@ class MEpisodeComponentWithEvent extends StatelessWidget {
           arguments: {"id": "6477572b97c18a4e7c630759"}),
       onPlay: (state) => !state,
       onDownload: (state) => !state,
-      onMore: (index) => index,
+      onMore: onMore,
+      isAdmin: isAdmin,
+      listOption: listOption,
     );
   }
 }

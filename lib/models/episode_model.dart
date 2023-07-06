@@ -1,3 +1,7 @@
+import 'package:join_podcast/di/di.dart';
+import 'package:join_podcast/domain/repositories/podcast_repository.dart';
+import 'package:join_podcast/models/podcast_model.dart';
+import 'package:join_podcast/models/response/podcasts/podcast_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'episode_model.g.dart';
@@ -44,4 +48,19 @@ class EpisodeModel {
       _$EpisodeModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$EpisodeModelToJson(this);
+}
+
+extension EpisodeModelExtension on EpisodeModel {
+  Future<PodcastModel?> get podcastEx async {
+    if (podcast != null) {
+      if (podcast is String) {
+        final result =
+            await getIt<PodcastRepository>().getPodcastById(podcast as String);
+        return result != null ? PodcastModel.fromResponse(result) : null;
+      } else if (podcast is Map) {
+        return PodcastModel.fromResponse(PodcastResponse.fromJson(podcast));
+      }
+    }
+    return null;
+  }
 }

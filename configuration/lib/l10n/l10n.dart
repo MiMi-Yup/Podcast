@@ -1175,6 +1175,16 @@ class MultiLanguage {
     return Intl.message(
       'Download',
       name: 'download',
+       desc: '',
+            args: [],
+          );
+        }
+
+  /// `Remove from this playlist`
+  String get removeFromPlaylist {
+    return Intl.message(
+      'Remove from this playlist',
+      name: 'removeFromPlaylist',
       desc: '',
       args: [],
     );

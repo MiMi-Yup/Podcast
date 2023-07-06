@@ -5,17 +5,18 @@ import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:join_podcast/common/widgets/m_episode_component.dart';
+import 'package:join_podcast/common/widgets/m_episode_component_with_event.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
-import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/player/player_route.dart';
+import 'package:join_podcast/common/widgets/m_text_field_bottom_modal.dart';
 import 'package:join_podcast/presentation/playlist/cubit/playlist_cubit.dart';
 
 class PlaylistScreen extends StatelessWidget {
-  const PlaylistScreen({super.key});
+  PlaylistScreen({super.key});
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    context.read<PlaylistCubit>().init();
     return Scaffold(
       body: CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
         SliverAppBar(
@@ -65,7 +66,30 @@ class PlaylistScreen extends StatelessWidget {
                 )
               ],
               offset: Offset(0, 50),
-              onSelected: null,
+              onSelected: (index) async {
+                switch (index) {
+                  case 0:
+                    //download all
+                    break;
+                  case 1:
+                    final result = await showTextFieldBottomModal(
+                        context, "New Playlist", _controller,
+                        preText:
+                            context.read<PlaylistCubit>().state.namePlaylist);
+                    if (result != null && result.isNotEmpty) {
+                      context
+                          .read<PlaylistCubit>()
+                          .updatePlaylist(name: result);
+                    }
+                    break;
+                  case 2:
+                  await context.read<PlaylistCubit>().deletePlaylist();
+                  XMDRouter.pop();
+                    break;
+                  default:
+                    break;
+                }
+              },
               icon: Icon(Icons.more_horiz),
             )
           ],
@@ -92,13 +116,16 @@ class PlaylistScreen extends StatelessWidget {
                 SizedBox(
                   height: mSpacing,
                 ),
-                Text("Podcast Ngày buồn",
-                    style: mST20M.copyWith(color: Colors.white)),
+                BlocBuilder<PlaylistCubit, PlaylistState>(
+                  buildWhen: (previous, current) =>
+                      previous.namePlaylist != current.namePlaylist,
+                  builder: (context, state) => Text(state.namePlaylist,
+                      style: mST20M.copyWith(color: Colors.white)),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      width: 180,
+                    Expanded(
                       child: GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -106,9 +133,13 @@ class PlaylistScreen extends StatelessWidget {
                         childAspectRatio: 3,
                         padding: EdgeInsets.all(mSpacing),
                         children: [
-                          Text(
-                            "360 ${MultiLanguage.of(context).episode}",
-                            style: mST14M.copyWith(color: Colors.white),
+                          BlocBuilder<PlaylistCubit, PlaylistState>(
+                            buildWhen: (previous, current) =>
+                                previous.count != current.count,
+                            builder: (context, state) => Text(
+                              "${state.count} ${MultiLanguage.of(context).episode}",
+                              style: mST14M.copyWith(color: Colors.white),
+                            ),
                           ),
                           Row(
                               mainAxisSize: MainAxisSize.min,
@@ -121,8 +152,14 @@ class PlaylistScreen extends StatelessWidget {
                                 SizedBox(
                                   width: mSpacing,
                                 ),
-                                Text("3h 20p",
-                                    style: mST14M.copyWith(color: Colors.white))
+                                BlocBuilder<PlaylistCubit, PlaylistState>(
+                                  buildWhen: (previous, current) =>
+                                      previous.totalTime != current.totalTime,
+                                  builder: (context, state) => Text(
+                                      "${state.totalTime.inHours}h ${state.totalTime.inHours * 60 - state.totalTime.inMinutes}m",
+                                      style:
+                                          mST14M.copyWith(color: Colors.white)),
+                                )
                               ]),
                           Row(
                             mainAxisSize: MainAxisSize.min,
@@ -135,8 +172,15 @@ class PlaylistScreen extends StatelessWidget {
                               SizedBox(
                                 width: mSpacing,
                               ),
-                              Text("13",
-                                  style: mST14M.copyWith(color: Colors.white))
+                              BlocBuilder<PlaylistCubit, PlaylistState>(
+                                buildWhen: (previous, current) =>
+                                    previous.countDownload !=
+                                    current.countDownload,
+                                builder: (context, state) => Text(
+                                    state.countDownload.toString(),
+                                    style:
+                                        mST14M.copyWith(color: Colors.white)),
+                              )
                             ],
                           ),
                           Row(
@@ -150,8 +194,15 @@ class PlaylistScreen extends StatelessWidget {
                               SizedBox(
                                 width: mSpacing,
                               ),
-                              Text("64",
-                                  style: mST14M.copyWith(color: Colors.white))
+                              BlocBuilder<PlaylistCubit, PlaylistState>(
+                                buildWhen: (previous, current) =>
+                                    previous.countWatched !=
+                                    current.countWatched,
+                                builder: (context, state) => Text(
+                                    state.countWatched.toString(),
+                                    style:
+                                        mST14M.copyWith(color: Colors.white)),
+                              )
                             ],
                           )
                         ],
@@ -168,14 +219,17 @@ class PlaylistScreen extends StatelessWidget {
                           child: Row(
                             children: [
                               Icon(
-                                Icons.play_arrow,
+                                Icons.shuffle,
                                 color: Colors.white,
                               ),
                               SizedBox(
                                 width: 8.0,
                               ),
-                              Text(MultiLanguage.of(context).shufflePlay,
-                                  style: mST14M.copyWith(color: Colors.white))
+                              Text(
+                                MultiLanguage.of(context).shufflePlay,
+                                style: mST14M.copyWith(color: Colors.white),
+                                overflow: TextOverflow.clip,
+                              )
                             ],
                           )),
                     ),
@@ -222,36 +276,49 @@ class PlaylistScreen extends StatelessWidget {
                 )
               ],
               offset: Offset(0, 50),
-              onSelected: null,
+              onSelected: (index) {
+                switch (index) {
+                  case 0:
+                    context.read<PlaylistCubit>().sortByName();
+                    break;
+                  case 1:
+                    context.read<PlaylistCubit>().sortByDate();
+                    break;
+                  default:
+                    break;
+                }
+              },
               icon: Icon(Icons.sort),
             ),
             content: BlocBuilder<PlaylistCubit, PlaylistState>(
-              buildWhen: (previous, current) {
-                if (current is PlaylistStateInitial) {
-                  if (previous is PlaylistStateInitial) {
-                    return previous.episodes != current.episodes;
-                  }
-                  return true;
-                }
-                return false;
-              },
+              buildWhen: (previous, current) =>
+                  previous.episodes != current.episodes,
               builder: (context, state) => ListView.separated(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                itemBuilder: (context, index) => MEpisodeComponent(
-                  title: "927: Deep Dive | How to Quit Your Job the Right Way",
-                  author: "Apple Talk",
-                  duration: Duration(minutes: 52, seconds: 25),
-                  networkImage: null,
-                  onPlay: (state) => !state,
-                  onDownload: (state) => !state,
-                  onPressed: () => XMDRouter.pushNamed(routerIds[PlayerRoute]!),
+                itemBuilder: (context, index) => MEpisodeComponentWithEvent(
+                  data: state.episodes[index],
+                  isAdmin: true,
+                  listOption: [
+                    Text(MultiLanguage.of(context).removeFromPlaylist)
+                  ],
+                  onMore: (p0) {
+                    switch (p0) {
+                      case 0:
+                        context
+                            .read<PlaylistCubit>()
+                            .removeFromPlaylist(state.episodes[index]);
+                        break;
+                      default:
+                        break;
+                    }
+                  },
                 ),
                 separatorBuilder: (context, index) => SizedBox(
                   height: 16.0,
                 ),
-                itemCount: 10,
+                itemCount: state.count,
               ),
             )).builder()
       ]),

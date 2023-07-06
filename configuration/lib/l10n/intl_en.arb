@@ -123,4 +123,5 @@
     "timer": "Timer",
     "add_to_playlist": "Add to Playlist",
     "download": "Download"
+    "removeFromPlaylist": "Remove from this playlist"
 }

@@ -1,12 +1,9 @@
 import 'package:configuration/l10n/l10n.dart';
-import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_Author.dart';
-import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_episode_component_with_event.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
-import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/models/episode_model.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:expandable_text/expandable_text.dart';

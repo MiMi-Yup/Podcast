@@ -42,7 +42,7 @@ import 'package:join_podcast/data/shared_preferences_repository_impl.dart'
     as _i27;
 import 'package:join_podcast/data/unit_of_work_impl.dart' as _i31;
 import 'package:join_podcast/data/user/user_repository_impl.dart' as _i29;
-import 'package:join_podcast/di/module/network_module.dart' as _i66;
+import 'package:join_podcast/di/module/network_module.dart' as _i64;
 import 'package:join_podcast/domain/repositories/auth_repository.dart' as _i3;
 import 'package:join_podcast/domain/repositories/episode_repository.dart'
     as _i7;
@@ -60,13 +60,12 @@ import 'package:join_podcast/domain/repositories/user_repository.dart' as _i28;
 import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart'
     as _i45;
 import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i48;
-import 'package:join_podcast/domain/use_cases/playlist_usecases.dart' as _i52;
+import 'package:join_podcast/domain/use_cases/playlist_usecases.dart' as _i51;
 import 'package:join_podcast/domain/use_cases/user_usecases.dart' as _i32;
-import 'package:join_podcast/models/playlist_model.dart' as _i65;
 import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart'
-    as _i63;
+    as _i62;
 import 'package:join_podcast/presentation/auth/reset/cubit/reset_cubit.dart'
-    as _i56;
+    as _i55;
 import 'package:join_podcast/presentation/bottom_bar/cubit/bottom_bar_cubit.dart'
     as _i38;
 import 'package:join_podcast/presentation/channel/new_channel/create_name_and_description/cubit/createNameAndDescription_cubit.dart'
@@ -86,37 +85,37 @@ import 'package:join_podcast/presentation/edit_info_podcast/add_text_avatar/cubi
 import 'package:join_podcast/presentation/edit_info_podcast/discover_podcast/cubit/discover_podcast_cubit.dart'
     as _i42;
 import 'package:join_podcast/presentation/edit_info_podcast/podcast_availability/cubit/podcast_availability_cubit.dart'
-    as _i53;
+    as _i52;
 import 'package:join_podcast/presentation/edit_info_podcast/set_info_podcast/cubit/set_info_podcast_cubit.dart'
-    as _i58;
+    as _i57;
 import 'package:join_podcast/presentation/home/home_tab/cubit/home_cubit.dart'
     as _i46;
 import 'package:join_podcast/presentation/home/search/cubit/search_cubit.dart'
-    as _i57;
+    as _i56;
 import 'package:join_podcast/presentation/library/cubit/library_cubit.dart'
-    as _i62;
+    as _i61;
 import 'package:join_podcast/presentation/new_user/add_info/cubit/add_info_cubit.dart'
     as _i35;
 import 'package:join_podcast/presentation/new_user/init_subscribe/cubit/init_subscribe_cubit.dart'
-    as _i60;
+    as _i59;
 import 'package:join_podcast/presentation/new_user/interest/cubit/interest_cubit.dart'
-    as _i61;
+    as _i60;
 import 'package:join_podcast/presentation/notification/cubit/notification_cubit.dart'
     as _i49;
 import 'package:join_podcast/presentation/player/cubit/player_cubit.dart'
     as _i50;
 import 'package:join_podcast/presentation/playlist/cubit/playlist_cubit.dart'
-    as _i64;
+    as _i63;
 import 'package:join_podcast/presentation/podcast/cubit/podcast_cubit.dart'
-    as _i54;
+    as _i53;
 import 'package:join_podcast/presentation/record/background_music/background_music_home/cubit/background_music_home_cubit.dart'
     as _i37;
 import 'package:join_podcast/presentation/record/list_record/cubit/list_record_cubit.dart'
     as _i47;
 import 'package:join_podcast/presentation/record/record_page/cubit/record_page_cubit.dart'
-    as _i55;
+    as _i54;
 import 'package:join_podcast/presentation/subscription/cubit/subscription_cubit.dart'
-    as _i59;
+    as _i58;
 import 'package:join_podcast/presentation/welcome_page/cubit/welcome_cubit.dart'
     as _i33;
 
@@ -219,38 +218,38 @@ extension GetItInjectableX on _i1.GetIt {
           id: gh<String>(),
           episodeUseCases: gh<_i45.EpisodeUseCases>(),
         ));
-    gh.factory<_i52.PlaylistUseCases>(
-        () => _i52.PlaylistUseCases(unitOfWork: gh<_i30.UnitOfWork>()));
-    gh.factory<_i53.PodcastAvailabilityCubit>(
-        () => _i53.PodcastAvailabilityCubit(unitOfWork: gh<_i30.UnitOfWork>()));
-    gh.factory<_i54.PodcastCubit>(
-        () => _i54.PodcastCubit(unitOfWork: gh<_i30.UnitOfWork>()));
-    gh.factory<_i55.RecordPageCubit>(
-        () => _i55.RecordPageCubit(unitOfWork: gh<_i30.UnitOfWork>()));
-    gh.factory<_i56.ResetAccountCubit>(() => _i56.ResetAccountCubit(
+    gh.factory<_i51.PlaylistUseCases>(
+        () => _i51.PlaylistUseCases(unitOfWork: gh<_i30.UnitOfWork>()));
+    gh.factory<_i52.PodcastAvailabilityCubit>(
+        () => _i52.PodcastAvailabilityCubit(unitOfWork: gh<_i30.UnitOfWork>()));
+    gh.factory<_i53.PodcastCubit>(
+        () => _i53.PodcastCubit(unitOfWork: gh<_i30.UnitOfWork>()));
+    gh.factory<_i54.RecordPageCubit>(
+        () => _i54.RecordPageCubit(unitOfWork: gh<_i30.UnitOfWork>()));
+    gh.factory<_i55.ResetAccountCubit>(() => _i55.ResetAccountCubit(
           usecase: gh<_i48.LoginUseCases>(),
           token: gh<String>(),
         ));
-    gh.factory<_i57.SearchCubit>(
-        () => _i57.SearchCubit(unitOfWork: gh<_i30.UnitOfWork>()));
-    gh.factory<_i58.SetInfoPodcastCubit>(
-        () => _i58.SetInfoPodcastCubit(unitOfWork: gh<_i30.UnitOfWork>()));
-    gh.factory<_i59.SubscriptionCubit>(
-        () => _i59.SubscriptionCubit(unitOfWork: gh<_i30.UnitOfWork>()));
-    gh.factory<_i60.InitSubscribeCubit>(
-        () => _i60.InitSubscribeCubit(usecase: gh<_i48.LoginUseCases>()));
-    gh.factory<_i61.InterestCubit>(
-        () => _i61.InterestCubit(usecase: gh<_i48.LoginUseCases>()));
-    gh.factory<_i62.LibraryCubit>(
-        () => _i62.LibraryCubit(usecase: gh<_i52.PlaylistUseCases>()));
-    gh.factory<_i63.LoginCubit>(
-        () => _i63.LoginCubit(usecase: gh<_i48.LoginUseCases>()));
-    gh.factory<_i64.PlaylistCubit>(() => _i64.PlaylistCubit(
-          usecase: gh<_i52.PlaylistUseCases>(),
-          playlist: gh<_i65.PlaylistModel>(),
+    gh.factory<_i56.SearchCubit>(
+        () => _i56.SearchCubit(unitOfWork: gh<_i30.UnitOfWork>()));
+    gh.factory<_i57.SetInfoPodcastCubit>(
+        () => _i57.SetInfoPodcastCubit(unitOfWork: gh<_i30.UnitOfWork>()));
+    gh.factory<_i58.SubscriptionCubit>(
+        () => _i58.SubscriptionCubit(unitOfWork: gh<_i30.UnitOfWork>()));
+    gh.factory<_i59.InitSubscribeCubit>(
+        () => _i59.InitSubscribeCubit(usecase: gh<_i48.LoginUseCases>()));
+    gh.factory<_i60.InterestCubit>(
+        () => _i60.InterestCubit(usecase: gh<_i48.LoginUseCases>()));
+    gh.factory<_i61.LibraryCubit>(
+        () => _i61.LibraryCubit(usecase: gh<_i51.PlaylistUseCases>()));
+    gh.factory<_i62.LoginCubit>(
+        () => _i62.LoginCubit(usecase: gh<_i48.LoginUseCases>()));
+    gh.factory<_i63.PlaylistCubit>(() => _i63.PlaylistCubit(
+          usecase: gh<_i51.PlaylistUseCases>(),
+          playlist: gh<String>(),
         ));
     return this;
   }
 }
 
-class _$NetworkModule extends _i66.NetworkModule {}
+class _$NetworkModule extends _i64.NetworkModule {}

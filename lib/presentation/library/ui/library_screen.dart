@@ -3,7 +3,7 @@ import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:join_podcast/common/widgets/m_episode_component.dart';
+import 'package:join_podcast/common/widgets/m_episode_component_with_event.dart';
 import 'package:join_podcast/common/widgets/m_playlist.dart';
 import 'package:join_podcast/common/widgets/m_text_field_bottom_modal.dart';
 import 'package:join_podcast/manifest.dart';
@@ -27,6 +27,7 @@ class _LibraryScreenState extends State<LibraryScreen>
   @override
   void initState() {
     super.initState();
+    context.read<LibraryCubit>().init();
     _tabController = TabController(length: 2, vsync: this);
     _controller = TextEditingController();
     _tabController.addListener(() {
@@ -72,8 +73,10 @@ class _LibraryScreenState extends State<LibraryScreen>
                           .read<LibraryCubit>()
                           .createPlaylist(name: result);
                       if (newPlaylist != null) {
-                        XMDRouter.pushNamed(routerIds[PlaylistRoute]!,
-                            arguments: {'playlist': newPlaylist});
+                        await XMDRouter.pushNamedForResult(
+                            routerIds[PlaylistRoute]!,
+                            arguments: {'playlist': newPlaylist.id});
+                        context.read<LibraryCubit>().init();
                       }
                     }
                   },
@@ -105,41 +108,62 @@ class _LibraryScreenState extends State<LibraryScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    padding:
-                        EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-                    itemBuilder: (context, index) => MEpisodeComponent(
-                      title:
-                          "927: Deep Dive | How to Quit Your Job the Right Way",
-                      author: "Apple Talk",
-                      duration: Duration(minutes: 52, seconds: 25),
-                      networkImage: null,
-                    ),
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 16.0,
-                    ),
-                    itemCount: 10,
-                  ),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    padding:
-                        EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-                    itemBuilder: (context, index) => MPlaylist(
-                      name: "Apple Talk",
-                      quantity: 888,
-                      networkImage: null,
-                      onPressed: () => XMDRouter.pushNamed(
-                          routerIds[PlaylistRoute]!,
-                          arguments: {index: index}),
-                    ),
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 16.0,
-                    ),
-                    itemCount: 10,
-                  ),
+                  BlocBuilder<LibraryCubit, LibraryState>(
+                      buildWhen: (previous, current) =>
+                          previous.favourites != current.favourites,
+                      builder: (context, state) => ListView.separated(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            padding: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 15.0),
+                            itemBuilder: (context, index) =>
+                                MEpisodeComponentWithEvent(
+                                    data: state.favourites[index]),
+                            separatorBuilder: (context, index) => SizedBox(
+                              height: 16.0,
+                            ),
+                            itemCount: state.favourites.length,
+                          )),
+                  BlocBuilder<LibraryCubit, LibraryState>(
+                      buildWhen: (previous, current) =>
+                          previous.playlists != current.playlists,
+                      builder: (context, state) => ListView.separated(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            padding: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 15.0),
+                            itemBuilder: (context, index) => MPlaylist(
+                              name: state.playlists[index].name ?? '',
+                              quantity: state.playlists[index].count ?? 0,
+                              networkImage: state.playlists[index].episodes
+                                          ?.isNotEmpty ==
+                                      true
+                                  ? state.playlists[index].episodes?.first.image
+                                  : null,
+                              onPressed: () async {
+                                await XMDRouter.pushNamedForResult(
+                                    routerIds[PlaylistRoute]!,
+                                    arguments: {
+                                      'playlist': state.playlists[index].id
+                                    });
+                                context.read<LibraryCubit>().init();
+                              },
+                              onMore: (p0) {
+                                switch (p0) {
+                                  case 0:
+                                    context
+                                        .read<LibraryCubit>()
+                                        .deletePlaylist(state.playlists[index]);
+                                    break;
+                                  default:
+                                }
+                              },
+                            ),
+                            separatorBuilder: (context, index) => SizedBox(
+                              height: 16.0,
+                            ),
+                            itemCount: state.playlists.length,
+                          )),
                 ],
               ),
             )
