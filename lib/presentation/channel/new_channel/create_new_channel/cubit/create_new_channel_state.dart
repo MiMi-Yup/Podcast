@@ -1,24 +1,40 @@
 part of 'create_new_channel_cubit.dart';
 
-@immutable
-abstract class CreateNewChannelState extends Equatable {}
+// enum Status { initial, submitting, success, error }
+class CreateNewChannelState extends Equatable {
+  final String channelName;
+  final String? avatar;
+  final String initAvatar;
+  // final Status state;
+  // final bool signUp;
+  // final bool isCreator;
 
-class CreateNewChannelStateInitial extends CreateNewChannelState {
-  final int currentIndex;
-  final bool isHidden;
+  const CreateNewChannelState({
+    required this.channelName,
+    // required this.state,
+    // this.signUp = false,
+    this.initAvatar = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png',
+    required this.avatar,
+    });
 
-  CreateNewChannelStateInitial({required this.currentIndex, this.isHidden = false});
+  factory CreateNewChannelState.initial() {
+    return CreateNewChannelState(
+        channelName: '', avatar: null,);
+  }
 
   @override
-  List<Object?> get props => [currentIndex, isHidden];
+  bool? get stringify => true;
 
-  CreateNewChannelStateInitial copyWith({
-    int? currentIndex,
-    bool? isHidden,
-  }) {
-    return CreateNewChannelStateInitial(
-      currentIndex: currentIndex ?? this.currentIndex,
-      isHidden: isHidden ?? this.isHidden,
+  @override
+  List<Object?> get props =>
+      [channelName, avatar];
+
+  CreateNewChannelState copyWith({
+    String? channelName,
+  }) => CreateNewChannelState(
+    channelName: channelName ?? this.channelName, avatar: avatar ?? this.avatar,
     );
-  }
 }
+
+
+

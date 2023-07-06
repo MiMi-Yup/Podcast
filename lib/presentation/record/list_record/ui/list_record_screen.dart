@@ -18,6 +18,7 @@ import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 import '../../../channel/new_episode/createNewEpisode_route.dart';
 import '../../background_music/background_music_details/background_music_detail_route.dart';
+import '../../background_music/background_music_home/background_music_home_route.dart';
 import '../cubit/list_record_cubit.dart';
 
 Future<List<File>> getAudioFiles() async {
@@ -583,7 +584,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                       InkWell(
                         onTap: () {
                           // Xử lý sự kiện khi nhấn vào nút
-                          XMDRouter.pushNamed(routerIds[BackgroundMusicDetailRoute]!);
+                          XMDRouter.pushNamed(routerIds[BackgroundMusicHomeRoute]!);
                           // print(isFirstTime);
                           //print(context.read<ListRecordCubit>().state.shouldRefresh);
                         },
