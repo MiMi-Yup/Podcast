@@ -120,5 +120,7 @@
     "shufflePlay": "Shuffle Play",
     "rename": "Rename",
     "downloadAll": "Download All",
-    "timer": "Timer"
+    "timer": "Timer",
+    "add_to_playlist": "Add to Playlist",
+    "download": "Download"
 }

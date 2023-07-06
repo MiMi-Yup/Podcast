@@ -4,6 +4,7 @@ import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:join_podcast/data/data_source/local/player_storage_service.dart';
 import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:join_podcast/manifest.dart';
@@ -27,6 +28,7 @@ class MainApplication extends StatefulWidget {
 class _MainApplicationState extends State<MainApplication>
     with WidgetsBindingObserver {
   bool canPopDialog = false;
+  final PlayerStorageService playerStorageService = PlayerStorageService();
 
   final route = routerIds[WelcomeRoute];
 

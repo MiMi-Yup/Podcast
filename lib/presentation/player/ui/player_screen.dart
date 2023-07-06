@@ -49,11 +49,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     value: 1,
                     child: Row(
                       children: [
-                        const Icon(Icons.access_alarm),
+                        const Icon(Icons.download),
                         const SizedBox(
                           width: 10.0,
                         ),
-                        Text(MultiLanguage.of(context).reminder)
+                        Text(MultiLanguage.of(context).download)
                       ],
                     ),
                   ),
@@ -61,35 +61,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     value: 2,
                     child: Row(
                       children: [
-                        const Icon(Icons.share),
+                        const Icon(Icons.playlist_add),
                         const SizedBox(
                           width: 10.0,
                         ),
-                        Text(MultiLanguage.of(context).share)
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 3,
-                    child: Row(
-                      children: const [
-                        Icon(Icons.wifi),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text("View RSS feed")
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 4,
-                    child: Row(
-                      children: [
-                        const Icon(Icons.report),
-                        const SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(MultiLanguage.of(context).report)
+                        Text(MultiLanguage.of(context).add_to_playlist)
                       ],
                     ),
                   ),
@@ -99,9 +75,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   if (value == 0) {
                     episodeCubit.showPlaybackSpeedModal(context);
                   } else {
-                    if (value == 1) {
-                      episodeCubit.openReminder(context);
-                    }
+                    if (value == 1) {}
                   }
                 },
               )

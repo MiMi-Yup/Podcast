@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_product": MessageLookupByLibrary.simpleMessage("About It:"),
+        "add_to_playlist":
+            MessageLookupByLibrary.simpleMessage("Add to Playlist"),
         "after": m0,
         "apply": MessageLookupByLibrary.simpleMessage("Apply"),
         "askLogout": MessageLookupByLibrary.simpleMessage(
@@ -61,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Database exception"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "download": MessageLookupByLibrary.simpleMessage("Download"),
         "downloadAll": MessageLookupByLibrary.simpleMessage("Download All"),
         "downloadIfWifi": MessageLookupByLibrary.simpleMessage(
             "Download Only if Connected to Wi-Fi"),

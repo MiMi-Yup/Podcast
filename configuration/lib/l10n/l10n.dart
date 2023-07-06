@@ -1159,6 +1159,26 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Add to Playlist`
+  String get add_to_playlist {
+    return Intl.message(
+      'Add to Playlist',
+      name: 'add_to_playlist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download`
+  String get download {
+    return Intl.message(
+      'Download',
+      name: 'download',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

@@ -30,7 +30,8 @@ class MEpisodeComponentWithEvent extends StatelessWidget {
       isDownloaded: false,
       onAvatarPressed: () =>
           XMDRouter.pushNamed(routerIds[DetailEpisodeRoute]!),
-      onPressed: () => XMDRouter.pushNamed(routerIds[PlayerRoute]!),
+      onPressed: () => XMDRouter.pushNamed(routerIds[PlayerRoute]!,
+          arguments: {"id": "6477572b97c18a4e7c630759"}),
       onPlay: (state) => !state,
       onDownload: (state) => !state,
       onMore: (index) => index,

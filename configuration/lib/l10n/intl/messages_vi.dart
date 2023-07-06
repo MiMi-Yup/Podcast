@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_product": MessageLookupByLibrary.simpleMessage("Về sản phẩm"),
+        "add_to_playlist":
+            MessageLookupByLibrary.simpleMessage("Thêm vào danh sách phát"),
         "after": m0,
         "apply": MessageLookupByLibrary.simpleMessage("Áp dụng"),
         "askLogout":
@@ -61,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lỗi database"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Ngày sinh"),
         "delete": MessageLookupByLibrary.simpleMessage("Xóa"),
+        "download": MessageLookupByLibrary.simpleMessage("Tải xuống"),
         "downloadAll": MessageLookupByLibrary.simpleMessage("Tải tất cả"),
         "downloadIfWifi":
             MessageLookupByLibrary.simpleMessage("Chỉ tải xuống khi có Wi-Fi"),

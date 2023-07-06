@@ -9,22 +9,16 @@ import 'package:join_podcast/presentation/player/ui/widgets/speed_bottom_modal_s
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 import '../ui/widgets/seekbar.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:fluttertoast/fluttertoast.dart';
 
 part 'player_state.dart';
-
-final FlutterLocalNotificationsPlugin appLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
 
 @injectable
 class PlayerCubit extends Cubit<PlayerState> {
   final EpisodeUseCases episodeUseCases;
   final String id;
 
-  int? notificationId;
   PlayerCubit({required this.id, required this.episodeUseCases})
       : super(PlayerState.initial()) {
     initializeCubit();
@@ -33,10 +27,19 @@ class PlayerCubit extends Cubit<PlayerState> {
   Future<void> initializeCubit() async {
     final episode = await episodeUseCases.getEpisodeById(id);
     emit(state.copyWith(episode: episode));
-    state.audioPlayer.setUrl(state.episode?.href ?? '');
+    // state.audioPlayer.setUrl(state.episode?.href ??
+    //     'https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps');
+    state.audioPlayer.setUrl(
+        'https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps');
     updateSelectedSpeed(1);
     state.audioPlayer.play();
-    // initializeNotifications();
+    // for (var element in listEpisodeModel) {
+    //   if (element?.id != id) {
+    //     episodeList.add(AudioSource.uri(Uri.parse(element?.href ?? '')));
+    //   }
+    // }
+    // state.audioPlayer
+    //     .setAudioSource(ConcatenatingAudioSource(children: episodeList));
   }
 
   void updateSelectedSpeed(double speed) {
@@ -67,176 +70,6 @@ class PlayerCubit extends Cubit<PlayerState> {
             onSpeedChanged: updateSelectedSpeed,
           );
         });
-  }
-
-  // Hiển thị thời gian nhắc nhở nghe Episode
-  Future<DateTime?> pickDateTime(
-      BuildContext context, DateTime? selectedDateTime) async {
-    final List<dynamic> results = await Future.wait([
-      pickDate(context, selectedDateTime),
-      pickTime(context, selectedDateTime),
-    ]);
-
-    DateTime? date = results[0];
-    TimeOfDay? time = results[1];
-
-    if (date != null && time != null) {
-      return DateTime(date.year, date.month, date.day, time.hour, time.minute);
-    }
-    return null;
-  }
-
-  Future<DateTime?> pickDate(
-      BuildContext context, DateTime? selectedDateTime) async {
-    selectedDateTime ??= DateTime.now();
-
-    return showDatePicker(
-      context: context,
-      initialDate: selectedDateTime,
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 36500)),
-    );
-  }
-
-  Future<TimeOfDay?> pickTime(
-      BuildContext context, DateTime? selectedDateTime) async {
-    selectedDateTime ??= DateTime.now();
-
-    return showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(selectedDateTime),
-    );
-  }
-
-  void openReminder(BuildContext context) {
-    DateTime? selectedDateTime = state.selectedTime;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: const EdgeInsets.all(16.0),
-          content: StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'Đặt lời nhắc',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'Nhắc tôi nghe Episode này vào lúc:',
-                  ),
-                  const SizedBox(height: 16.0),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith<Color?>(
-                      (states) => mCGreen500,
-                    )),
-                    onPressed: () async {
-                      DateTime? pickedDate =
-                          await pickDateTime(context, state.selectedTime);
-                      if (pickedDate != null) {
-                        setState(() {
-                          selectedDateTime = pickedDate;
-                        });
-                      }
-                    },
-                    child: Text(selectedDateTime != null
-                        ? '${selectedDateTime!.hour.toString().padLeft(2, '0')}:${selectedDateTime!.minute.toString().padLeft(2, '0')} - ${selectedDateTime!.day.toString().padLeft(2, '0')}/${selectedDateTime!.month.toString().padLeft(2, '0')}/${selectedDateTime!.year.toString().padLeft(4, '0')}'
-                        : 'Chọn thời gian'),
-                  ),
-                  const SizedBox(height: 16.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      if (state.selectedTime != null)
-                        GestureDetector(
-                          onTap: () async {
-                            await appLocalNotificationsPlugin
-                                .cancel(notificationId ?? 0);
-                            emit(state.copyWith(selectedTime: null));
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Delete'),
-                        ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _scheduleReminder(selectedDateTime, notificationId);
-                          emit(state.copyWith(selectedTime: selectedDateTime));
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Ok'),
-                      ),
-                    ],
-                  )
-                ],
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  void initializeNotifications() async {
-    // Cấu hình plugin
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
-    const InitializationSettings initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid);
-    await appLocalNotificationsPlugin.initialize(initializationSettings);
-
-    // Cấu hình múi giờ
-    tz.initializeTimeZones();
-  }
-
-  Future<void> _scheduleReminder(
-      DateTime? selectedDateTime, int? notificationId) async {
-    if (selectedDateTime != null) {
-      // Xóa thông báo cũ nếu tồn tại
-      await appLocalNotificationsPlugin.cancel(notificationId ?? 0);
-
-      // Lập lịch thông báo mới
-      AndroidNotificationDetails androidPlatformChannelSpecifics =
-          const AndroidNotificationDetails(
-        'channel_id',
-        'channel_name',
-        importance: Importance.high,
-        priority: Priority.high,
-      );
-      NotificationDetails platformChannelSpecifics =
-          NotificationDetails(android: androidPlatformChannelSpecifics);
-
-      final scheduledTime = tz.TZDateTime.from(selectedDateTime, tz.local);
-
-      await appLocalNotificationsPlugin.zonedSchedule(
-        notificationId ?? 0,
-        'Giờ điểm đã đến',
-        'Hãy cùng nghe Episode như đã hẹn nào!',
-        scheduledTime,
-        platformChannelSpecifics,
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time,
-      );
-      Fluttertoast.showToast(
-        msg: 'Đã thêm thông báo thành công',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-      );
-      notificationId = notificationId ?? 0 + 1;
-    }
   }
 
 // Tua sau 10s
