@@ -9,7 +9,7 @@ class PodcastCreateRequest {
   @JsonKey(name: "description")
   final String description;
   @JsonKey(name: "image")
-  final DateTime image;
+  final String image;
   @JsonKey(name: "category_id")
   final String categoryId;
 

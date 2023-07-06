@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:join_podcast/presentation/channel/new_podcast/createNewPodcast/cubit/createNewPodcast_cubit.dart';
 
 class CreateNewPodcastScreen extends StatefulWidget {
   const CreateNewPodcastScreen({super.key});
@@ -12,6 +14,9 @@ class CreateNewPodcastScreen extends StatefulWidget {
   class _PodcastEditingScreenState extends State<CreateNewPodcastScreen> {
 
     File? _image;
+    TextEditingController _podcastName = TextEditingController();
+    TextEditingController _podcastDescription = TextEditingController();
+
 
     Future<void> _getImageFromGallery() async {
       final pickedImage = await ImagePicker().pickImage(
@@ -68,6 +73,7 @@ class CreateNewPodcastScreen extends StatefulWidget {
                       ),
                       SizedBox(height: 8),
                       TextField(
+                        controller: _podcastName,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                         ),
@@ -80,6 +86,7 @@ class CreateNewPodcastScreen extends StatefulWidget {
                       ),
                       SizedBox(height: 8),
                       TextField(
+                        controller: _podcastDescription,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                         ),
@@ -108,7 +115,7 @@ class CreateNewPodcastScreen extends StatefulWidget {
                         },
                       ),
                       SizedBox(height: 32),
-                      Text(
+                      /*Text(
                           'Ngôn ngữ',
                           style: mST14M
                       ),
@@ -129,7 +136,7 @@ class CreateNewPodcastScreen extends StatefulWidget {
                           // TODO: Xử lý khi chọn ngôn ngữ
                         },
                       ),
-                      SizedBox(height: 32),
+                      SizedBox(height: 32),*/
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -206,6 +213,10 @@ class CreateNewPodcastScreen extends StatefulWidget {
                   ElevatedButton(
                     onPressed: () {
                       // TODO: Xử lý khi nhấn nút Save Podcast
+                      context.read<CreateNewPodcastCubit>().changePodcastName(_podcastName.text);
+                      context.read<CreateNewPodcastCubit>().changePodcastDes(_podcastDescription.text);
+                      context.read<CreateNewPodcastCubit>().changeImage(_image!);
+                      context.read<CreateNewPodcastCubit>().createPodcast();
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.green, // Màu nền xanh lá
