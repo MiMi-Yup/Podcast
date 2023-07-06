@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:configuration/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:join_podcast/models/episode_model.dart';
 import 'package:join_podcast/presentation/player/cubit/player_cubit.dart';
 import 'package:join_podcast/presentation/player/ui/widgets/seekbar.dart';
 import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
@@ -17,7 +16,7 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   @override
   Widget build(BuildContext context) {
-    final episodeCubit = BlocProvider.of<PlayerCubit>(context);
+    final playerCubit = BlocProvider.of<PlayerCubit>(context);
     return BlocBuilder<PlayerCubit, ExamplePlayerState>(
       builder: (context, state) {
         return Scaffold(
@@ -74,9 +73,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 offset: const Offset(0, 50),
                 onSelected: (value) {
                   if (value == 0) {
-                    episodeCubit.showPlaybackSpeedModal(context);
+                    playerCubit.showPlaybackSpeedModal(context);
                   } else {
-                    if (value == 1) {}
+                    if (value == 1) {
+                      //  Hàm download, check và tắt sự kiện download nếu đã download
+                    } else {
+                      //  Show ModalBottom
+                      playerCubit.showModalPlaylist(context);
+                    }
                   }
                 },
               )
@@ -118,7 +122,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'abc',
+                    state.author ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
@@ -130,7 +134,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   height: 5,
                 ),
                 StreamBuilder<SeekBarData>(
-                  stream: episodeCubit.seekBarDataStream,
+                  stream: playerCubit.seekBarDataStream,
                   builder: (context, snapshot) {
                     final positionData = snapshot.data;
                     return SeekBar(
@@ -161,7 +165,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         },
                       ),
                       GestureDetector(
-                        onTap: () => episodeCubit.skipBackward(),
+                        onTap: () => playerCubit.skipBackward(),
                         child: const Icon(
                           Icons.replay_10,
                           size: 40,
@@ -169,7 +173,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       ),
                       PlayStopButton(audioPlayer: state.audioPlayer),
                       GestureDetector(
-                        onTap: () => episodeCubit.skipForward(),
+                        onTap: () => playerCubit.skipForward(),
                         child: const Icon(
                           Icons.forward_10,
                           size: 40,

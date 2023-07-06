@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart';
 import 'package:join_podcast/models/episode_model.dart';
+import 'package:join_podcast/presentation/player/ui/widgets/custom_modal_bottom_sheet.dart';
 import 'package:join_podcast/presentation/player/ui/widgets/speed_bottom_modal_sheet.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
@@ -27,7 +28,7 @@ class PlayerCubit extends Cubit<PlayerState> {
   Future<void> initializeCubit() async {
     final episode = await episodeUseCases.getEpisodeById(id);
     final author = await episode?.podcastEx;
-    emit(state.copyWith(episode: episode));
+    emit(state.copyWith(episode: episode, author: author?.author?.name));
     // state.audioPlayer.setUrl(state.episode?.href ??
     //     'https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps');
     state.audioPlayer.setUrl(
@@ -43,9 +44,31 @@ class PlayerCubit extends Cubit<PlayerState> {
     //     .setAudioSource(ConcatenatingAudioSource(children: episodeList));
   }
 
+// Change speed
   void updateSelectedSpeed(double speed) {
     state.audioPlayer.setSpeed(speed);
     emit(state.copyWith(selectedSpeed: speed));
+  }
+
+// Add to playlist
+  void showModalPlaylist(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+        top: Radius.circular(20),
+      )),
+      builder: (BuildContext context) {
+        return CustomModalBottomSheet(
+          onCreatePlaylist: () {
+            // Xử lý sự kiện tạo danh sách phát mới
+          },
+          onFinish: () {
+            // Xử lý sự kiện khi hoàn thành
+          },
+        );
+      },
+    );
   }
 
   Stream<SeekBarData> get seekBarDataStream =>

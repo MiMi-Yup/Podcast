@@ -77,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "episode": MessageLookupByLibrary.simpleMessage("Episode"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
+        "finished": MessageLookupByLibrary.simpleMessage("Finished"),
         "forgotAccount":
             MessageLookupByLibrary.simpleMessage("Fotgot password"),
         "forgotTheAccount":
@@ -113,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "markDone": MessageLookupByLibrary.simpleMessage("Mark done"),
         "mins": MessageLookupByLibrary.simpleMessage("mins"),
         "newUpdates": MessageLookupByLibrary.simpleMessage("New Updates"),
+        "new_playlist": MessageLookupByLibrary.simpleMessage("New Playlist"),
         "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "otherLogin": MessageLookupByLibrary.simpleMessage("or continue with"),
@@ -137,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "report": MessageLookupByLibrary.simpleMessage("Report"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "save_to_lists": MessageLookupByLibrary.simpleMessage("Save to Lists"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),

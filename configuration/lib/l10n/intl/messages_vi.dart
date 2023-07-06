@@ -79,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "episode": MessageLookupByLibrary.simpleMessage("Tập"),
         "favourite": MessageLookupByLibrary.simpleMessage("Yêu thích"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Thông tin cá nhân"),
+        "finished": MessageLookupByLibrary.simpleMessage("Xong"),
         "forgotAccount": MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
         "forgotTheAccount":
             MessageLookupByLibrary.simpleMessage("Quên mật khẩu?"),
@@ -113,6 +114,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "markDone": MessageLookupByLibrary.simpleMessage("Đánh hoàn thành"),
         "mins": MessageLookupByLibrary.simpleMessage("phút"),
         "newUpdates": MessageLookupByLibrary.simpleMessage("Cập nhật mới"),
+        "new_playlist":
+            MessageLookupByLibrary.simpleMessage("Danh sách phát mới"),
         "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),
         "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
         "otherLogin":
@@ -140,6 +143,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset": MessageLookupByLibrary.simpleMessage("Mặc định"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Khôi phục mật khẩu"),
+        "save_to_lists":
+            MessageLookupByLibrary.simpleMessage("Lưu vào danh sách"),
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "seeAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
