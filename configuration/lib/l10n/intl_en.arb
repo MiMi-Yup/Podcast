@@ -120,5 +120,6 @@
     "shufflePlay": "Shuffle Play",
     "rename": "Rename",
     "downloadAll": "Download All",
-    "timer": "Timer"
+    "timer": "Timer",
+    "removeFromPlaylist": "Remove from this playlist"
 }

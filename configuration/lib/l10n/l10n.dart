@@ -1159,6 +1159,16 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Remove from this playlist`
+  String get removeFromPlaylist {
+    return Intl.message(
+      'Remove from this playlist',
+      name: 'removeFromPlaylist',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

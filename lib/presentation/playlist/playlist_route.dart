@@ -20,7 +20,7 @@ class PlaylistRoute extends RouteDefine {
                     playlist: arguments?['playlist']),
               ),
             ],
-            child: const PlaylistScreen(),
+            child: PlaylistScreen(),
           ),
         ),
       ];

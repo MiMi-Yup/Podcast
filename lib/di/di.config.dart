@@ -42,7 +42,7 @@ import 'package:join_podcast/data/shared_preferences_repository_impl.dart'
     as _i27;
 import 'package:join_podcast/data/unit_of_work_impl.dart' as _i31;
 import 'package:join_podcast/data/user/user_repository_impl.dart' as _i29;
-import 'package:join_podcast/di/module/network_module.dart' as _i65;
+import 'package:join_podcast/di/module/network_module.dart' as _i64;
 import 'package:join_podcast/domain/repositories/auth_repository.dart' as _i3;
 import 'package:join_podcast/domain/repositories/episode_repository.dart'
     as _i7;
@@ -62,7 +62,6 @@ import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart'
 import 'package:join_podcast/domain/use_cases/login_page_usecases.dart' as _i48;
 import 'package:join_podcast/domain/use_cases/playlist_usecases.dart' as _i51;
 import 'package:join_podcast/domain/use_cases/user_usecases.dart' as _i32;
-import 'package:join_podcast/models/playlist_model.dart' as _i64;
 import 'package:join_podcast/presentation/auth/login/cubit/login_cubit.dart'
     as _i62;
 import 'package:join_podcast/presentation/auth/reset/cubit/reset_cubit.dart'
@@ -247,10 +246,10 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i62.LoginCubit(usecase: gh<_i48.LoginUseCases>()));
     gh.factory<_i63.PlaylistCubit>(() => _i63.PlaylistCubit(
           usecase: gh<_i51.PlaylistUseCases>(),
-          playlist: gh<_i64.PlaylistModel>(),
+          playlist: gh<String>(),
         ));
     return this;
   }
 }
 
-class _$NetworkModule extends _i65.NetworkModule {}
+class _$NetworkModule extends _i64.NetworkModule {}

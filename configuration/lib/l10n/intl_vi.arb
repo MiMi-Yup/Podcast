@@ -120,5 +120,6 @@
     "shufflePlay": "Phát ngẫu nhiên",
     "rename": "Sửa",
     "downloadAll": "Tải tất cả",
-    "timer": "Hẹn giờ"
+    "timer": "Hẹn giờ",
+    "removeFromPlaylist": "Xóa khỏi danh sách phát này"
 }

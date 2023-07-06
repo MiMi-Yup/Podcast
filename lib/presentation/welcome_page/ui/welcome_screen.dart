@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
 import 'package:join_podcast/presentation/introduction/introduction_route.dart';
 import 'package:join_podcast/presentation/welcome_page/cubit/welcome_cubit.dart';
-import 'package:join_podcast/utils/alert_util.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

@@ -15,11 +15,11 @@ class PlaylistModel {
           id: response.id,
           name: response.name,
           episodes: response.episodes?.items,
-          count: response.episodes?.count);
+          count: response.episodes?.count ?? response.numEpisodes);
 
   PlaylistResponse toResponse() => PlaylistResponse(
       id: id,
       name: name,
-      episodes: ListResponse(count: count, items: episodes));
-      
+      episodes: ListResponse(count: count, items: episodes),
+      numEpisodes: count);
 }

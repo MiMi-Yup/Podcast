@@ -28,6 +28,7 @@ class _MToggleState extends State<MToggle> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () {
           if (widget.onToogle != null) {
             final newState = widget.onToogle!(state);

@@ -22,6 +22,7 @@ class MPlaylist extends StatelessWidget {
     return SizedBox(
       height: 125.0,
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: onPressed,
         child: Row(
           children: [
@@ -72,7 +73,7 @@ class MPlaylist extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  value: 1,
+                  value: 0,
                   child: Text(MultiLanguage.of(context).delete),
                 )
               ],
