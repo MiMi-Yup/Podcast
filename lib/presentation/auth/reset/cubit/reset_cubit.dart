@@ -8,10 +8,10 @@ part 'reset_state.dart';
 
 @injectable
 class ResetAccountCubit extends Cubit<ResetAccountState> {
-  final LoginUseCases loginUserCases;
+  final LoginUseCases usecase;
   final String token;
 
-  ResetAccountCubit({required this.loginUserCases, required this.token})
+  ResetAccountCubit({required this.usecase, required this.token})
       : super(ResetAccountState.initial());
 
   void rememberAccount(bool remember) {
@@ -29,8 +29,7 @@ class ResetAccountCubit extends Cubit<ResetAccountState> {
   Future<void> submit() async {
     emit(state.copyWith(status: ResetAccountStatus.submitting));
     if (state.inValidForm &&
-        await loginUserCases.resetPassword(
-                token: token, password: state.password) ==
+        await usecase.resetPassword(token: token, password: state.password) ==
             true) {
       emit(state.copyWith(status: ResetAccountStatus.done));
     } else {

@@ -3,29 +3,29 @@ part of 'add_info_cubit.dart';
 enum Status { initial, submitting, success, error }
 
 class AddInfoState extends Equatable {
-  final XFile? avatar;
+  final String? avatar;
+  final String initAvatar;
   final String? fullname;
-  final String? nickname;
   final DateTime? dateOfBirth;
-  final String? country;
   final Status state;
+  final bool signUp;
 
   const AddInfoState(
       {required this.fullname,
-      required this.nickname,
       required this.dateOfBirth,
-      required this.country,
       required this.state,
-      required this.avatar});
+      required this.avatar,
+      this.initAvatar =
+          'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png',
+      this.signUp = false});
 
-  factory AddInfoState.initial() {
-    return const AddInfoState(
+  factory AddInfoState.initial({bool signUp = false}) {
+    return AddInfoState(
         fullname: null,
-        nickname: null,
         dateOfBirth: null,
-        country: null,
         avatar: null,
-        state: Status.initial);
+        state: Status.initial,
+        signUp: signUp);
   }
 
   @override
@@ -33,20 +33,19 @@ class AddInfoState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [fullname, nickname, dateOfBirth, country, state, avatar];
+      [fullname, dateOfBirth, state, avatar, initAvatar, signUp];
 
   AddInfoState copyWith(
           {String? fullname,
-          String? nickname,
           DateTime? dateOfBirth,
-          String? country,
           Status? state,
-          XFile? avatar}) =>
+          String? avatar,
+          String? initAvatar}) =>
       AddInfoState(
           fullname: fullname ?? this.fullname,
-          nickname: nickname ?? this.nickname,
           dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-          country: country ?? this.country,
           state: state ?? this.state,
-          avatar: avatar ?? this.avatar);
+          avatar: avatar ?? this.avatar,
+          initAvatar: initAvatar ?? this.initAvatar,
+          signUp: signUp);
 }

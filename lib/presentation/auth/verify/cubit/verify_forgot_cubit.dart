@@ -3,13 +3,13 @@ import 'package:join_podcast/presentation/auth/verify/cubit/verify_state.dart';
 
 class VerifyForgotCubit extends VerifyCubit {
   String? token;
-  VerifyForgotCubit({required super.loginUserCases, required super.email});
+  VerifyForgotCubit({required super.usecase, required super.email});
 
   @override
   Future<void> verify() async {
     emit(state.copyWith(status: VerifyStatus.checking));
     if (state.code.length == 5) {
-      token = await loginUserCases.verifyForgot(email: email, code: state.code);
+      token = await usecase.verifyForgot(email: email, code: state.code);
     } else {
       token = null;
     }
@@ -22,7 +22,7 @@ class VerifyForgotCubit extends VerifyCubit {
 
   @override
   Future<bool> request() async {
-    await loginUserCases.requestForgotPassword(email: email);
+    await usecase.requestForgotPassword(email: email);
     return true;
   }
 }

@@ -115,7 +115,8 @@ class VerifyScreen extends StatelessWidget {
                   case VerifyStatus.confirmed:
                     final cubit = context.read<VerifyCubit>();
                     if (cubit is VerifyCreateCubit) {
-                      XMDRouter.popAndPushNamed(routerIds[AddInfoRoute]!);
+                      XMDRouter.popAndPushNamed(routerIds[AddInfoRoute]!,
+                          arguments: {'signUp': true});
                     } else if (cubit is VerifyForgotCubit) {
                       XMDRouter.popAndPushNamed(routerIds[ResetAccountRoute]!,
                           arguments: {'token': cubit.token});

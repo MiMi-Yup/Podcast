@@ -929,6 +929,236 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Favourite`
+  String get favourite {
+    return Intl.message(
+      'Favourite',
+      name: 'favourite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Playlist`
+  String get playlist {
+    return Intl.message(
+      'Playlist',
+      name: 'playlist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `History`
+  String get history {
+    return Intl.message(
+      'History',
+      name: 'history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User name`
+  String get username {
+    return Intl.message(
+      'User name',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good Morning`
+  String get goodMorning {
+    return Intl.message(
+      'Good Morning',
+      name: 'goodMorning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good Afternoon`
+  String get goodAfternoon {
+    return Intl.message(
+      'Good Afternoon',
+      name: 'goodAfternoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good Evening`
+  String get goodEvening {
+    return Intl.message(
+      'Good Evening',
+      name: 'goodEvening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good Night`
+  String get goodNight {
+    return Intl.message(
+      'Good Night',
+      name: 'goodNight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort by Date`
+  String get sortByDate {
+    return Intl.message(
+      'Sort by Date',
+      name: 'sortByDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Channel`
+  String get channel {
+    return Intl.message(
+      'Channel',
+      name: 'channel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Podcast`
+  String get podcast {
+    return Intl.message(
+      'Podcast',
+      name: 'podcast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pause`
+  String get pause {
+    return Intl.message(
+      'Pause',
+      name: 'pause',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Play`
+  String get play {
+    return Intl.message(
+      'Play',
+      name: 'play',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Completed`
+  String get completed {
+    return Intl.message(
+      'Completed',
+      name: 'completed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search and find out...`
+  String get hintSearch {
+    return Intl.message(
+      'Search and find out...',
+      name: 'hintSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Empty`
+  String get empty {
+    return Intl.message(
+      'Empty',
+      name: 'empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shuffle Play`
+  String get shufflePlay {
+    return Intl.message(
+      'Shuffle Play',
+      name: 'shufflePlay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rename`
+  String get rename {
+    return Intl.message(
+      'Rename',
+      name: 'rename',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download All`
+  String get downloadAll {
+    return Intl.message(
+      'Download All',
+      name: 'downloadAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Timer`
+  String get timer {
+    return Intl.message(
+      'Timer',
+      name: 'timer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

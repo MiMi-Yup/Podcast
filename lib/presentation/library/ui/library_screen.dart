@@ -1,139 +1,146 @@
 import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
-import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:join_podcast/common/widgets/m_Author.dart';
-import 'package:join_podcast/common/widgets/m_author_full.dart';
-import 'package:join_podcast/common/widgets/m_podcast_component.dart';
-import 'package:join_podcast/common/widgets/m_section.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:join_podcast/common/widgets/m_episode_component.dart';
+import 'package:join_podcast/common/widgets/m_playlist.dart';
+import 'package:join_podcast/common/widgets/m_text_field_bottom_modal.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/author/author_route.dart';
+import 'package:join_podcast/presentation/library/cubit/library_cubit.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
-import 'package:join_podcast/presentation/subscription/subscription_route.dart';
+import 'package:join_podcast/presentation/playlist/playlist_route.dart';
 
-import '../../podcast/podcast_route.dart';
-
-class LibraryScreen extends StatelessWidget {
+class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
+
+  @override
+  State<LibraryScreen> createState() => _LibraryScreenState();
+}
+
+class _LibraryScreenState extends State<LibraryScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  late TextEditingController _controller;
+  bool isFavouritePage = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _controller = TextEditingController();
+    _tabController.addListener(() {
+      if (_tabController.index == 1 && isFavouritePage) {
+        setState(() {
+          isFavouritePage = false;
+        });
+      } else if (_tabController.index == 0 && isFavouritePage == false) {
+        setState(() {
+          isFavouritePage = true;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          toolbarHeight: 80,
           elevation: 0.0,
-          title: Row(
-            children: [
-              SizedBox(
-                  height: 60,
-                  width: 60,
-                  child: CircleAvatar(
-                    foregroundImage: AssetImage(mALogo),
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  )),
-              SizedBox(
-                width: 10.0,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "My Library",
-                    style: mST24M,
-                  )
-                ],
-              ),
-            ],
-          ),
+          title: Text(MultiLanguage.of(context).library),
           actions: [
-            IconButton(
-                onPressed: () =>
-                    XMDRouter.pushNamed(routerIds[NotificationRoute]!),
-                icon: Icon(Icons.history))
+            if (isFavouritePage)
+              IconButton(
+                  onPressed: () =>
+                      XMDRouter.pushNamed(routerIds[NotificationRoute]!),
+                  icon: Icon(Icons.history)),
+            if (!isFavouritePage)
+              IconButton(
+                  onPressed: () async {
+                    final result = await showTextFieldBottomModal(
+                        context, "New Playlist", _controller);
+                    if (result != null && result.isNotEmpty) {
+                      final newPlaylist = await context
+                          .read<LibraryCubit>()
+                          .createPlaylist(name: result);
+                      if (newPlaylist != null) {
+                        XMDRouter.pushNamed(routerIds[PlaylistRoute]!,
+                            arguments: {'playlist': newPlaylist});
+                      }
+                    }
+                  },
+                  icon: Icon(Icons.add))
           ],
         ),
         body: Column(
           children: [
-            Expanded(
-              child: DefaultTabController(
-                length: 2,
-                initialIndex: 0,
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment(0, 0),
-                      child: TabBar(
-                        labelColor: Theme.of(context).primaryColor,
-                        labelStyle: Theme.of(context).textTheme.bodyMedium,
-                        indicatorColor: Theme.of(context).primaryColor,
-                        tabs: [
-                          Tab(
-                            text: 'Favorite',
-                          ),
-                          Tab(
-                            text: 'Subscriptions',
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        children: [
-                          ListView(
-                            padding: EdgeInsets.zero,
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              ListView.separated(
-                                shrinkWrap: true,
-                                physics: const BouncingScrollPhysics(),
-                                padding: EdgeInsets.only(
-                                    left: 10.0, right: 10.0, top: 15.0),
-                                itemBuilder: (context, index) =>
-                                    MPodcastComponent(
-                                  title:
-                                      "927: Deep Dive | How to Quit Your Job the Right Way",
-                                  author: "Apple Talk",
-                                  duration: Duration(minutes: 52, seconds: 25),
-                                  networkImage: null,
-                                ),
-                                separatorBuilder: (context, index) => SizedBox(
-                                  height: 16.0,
-                                ),
-                                itemCount: 10,
-                              ),
-                            ],
-                          ),
-                          ListView(
-                            padding: EdgeInsets.zero,
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              ListView.separated(
-                                shrinkWrap: true,
-                                physics: const BouncingScrollPhysics(),
-                                padding: EdgeInsets.only(
-                                    left: 10.0, right: 10.0, top: 15.0),
-                                itemBuilder: (context, index) => MAuthorFull(
-                                  author: "Apple Talk",
-                                  quantity: 888,
-                                  networkImage: null,
-                                  onPressed: () => XMDRouter.pushNamed(
-                                      routerIds[AuthorRoute]!,
-                                      arguments: {index: index}),
-                                ),
-                                separatorBuilder: (context, index) => SizedBox(
-                                  height: 16.0,
-                                ),
-                                itemCount: 10,
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+            TabBar(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              controller: _tabController,
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    25.0,
+                  ),
+                  color: mCPrimary),
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.grey,
+              tabs: [
+                Tab(
+                  text: MultiLanguage.of(context).favourite,
                 ),
+                Tab(
+                  text: MultiLanguage.of(context).playlist,
+                ),
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    padding:
+                        EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
+                    itemBuilder: (context, index) => MEpisodeComponent(
+                      title:
+                          "927: Deep Dive | How to Quit Your Job the Right Way",
+                      author: "Apple Talk",
+                      duration: Duration(minutes: 52, seconds: 25),
+                      networkImage: null,
+                    ),
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 16.0,
+                    ),
+                    itemCount: 10,
+                  ),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    padding:
+                        EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
+                    itemBuilder: (context, index) => MPlaylist(
+                      name: "Apple Talk",
+                      quantity: 888,
+                      networkImage: null,
+                      onPressed: () => XMDRouter.pushNamed(
+                          routerIds[PlaylistRoute]!,
+                          arguments: {index: index}),
+                    ),
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 16.0,
+                    ),
+                    itemCount: 10,
+                  ),
+                ],
               ),
             )
           ],

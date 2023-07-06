@@ -9,9 +9,9 @@ part 'login_state.dart';
 
 @injectable
 class LoginCubit extends Cubit<ALoginState> {
-  final LoginUseCases loginUserCases;
+  final LoginUseCases usecase;
 
-  LoginCubit({required this.loginUserCases}) : super(LoginState.initial());
+  LoginCubit({required this.usecase}) : super(LoginState.initial());
 
   void emailChanged(String value) {
     emit(state.copyWith(email: value, status: LoginStatus.initial));
@@ -41,17 +41,11 @@ class LoginCubit extends Cubit<ALoginState> {
     if (state.isFormValid) {
       emit(state.copyWith(status: LoginStatus.submitting));
       UserModel? user;
-      if (state is SignUpState) {
-        final accept = await loginUserCases.signUp(
-            email: state.email, password: state.password);
-        if (accept == true) {
-          user = await loginUserCases.login(
-              email: state.email,
-              password: state.password,
-              remember: state.rememberAccount);
-        }
-      } else {
-        user = await loginUserCases.login(
+      final accept = state is SignUpState
+          ? await usecase.signUp(email: state.email, password: state.password)
+          : true;
+      if (accept == true) {
+        user = await usecase.login(
             email: state.email,
             password: state.password,
             remember: state.rememberAccount);

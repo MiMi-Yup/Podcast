@@ -1,7 +1,7 @@
 import 'dart:async';
 
-abstract class SecurePreferencesRepository{
-  FutureOr<String?> getToken();
-  FutureOr<void> setToken(String token);
-  FutureOr<void> clear();
+abstract class SecurePreferencesRepository {
+  Future<String?> getToken({bool newSession = false});
+  Future<void> setToken({required String token, bool remember = false});
+  Future<void> clear();
 }

@@ -5,6 +5,7 @@ import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_button_setting.dart';
 import 'package:join_podcast/common/widgets/m_confirm_bottom_modal.dart';
+import 'package:join_podcast/data/session_info.dart';
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:get/get.dart';
 import 'package:join_podcast/manifest.dart';
@@ -14,7 +15,9 @@ import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart'
 
 class ProfileScreen extends StatelessWidget {
   final SharedPreferencesRepository prefsRepo;
-  const ProfileScreen({super.key, required this.prefsRepo});
+  final SessionInfo session;
+  const ProfileScreen(
+      {super.key, required this.prefsRepo, required this.session});
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +45,16 @@ class ProfileScreen extends StatelessWidget {
                   )
                 ],
                 offset: Offset(0, 50),
-                onSelected: (index) {
+                onSelected: (index) async {
                   switch (index) {
                     case 0:
-                      showConfirmBottomModal(
-                          context, MultiLanguage.of(context).askLogout,
-                          whenConfirm: () => XMDRouter.pushNamedAndRemoveUntil(
-                              routerIds[LoginRoute]!));
+                      final result = await showConfirmBottomModal(
+                          context, MultiLanguage.of(context).askLogout);
+                      if (result == true) {
+                        session.logout();
+                        XMDRouter.pushNamedAndRemoveUntil(
+                            routerIds[LoginRoute]!);
+                      }
                       break;
                     default:
                       break;
@@ -76,8 +82,8 @@ class ProfileScreen extends StatelessWidget {
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              image:
-                                  DecorationImage(image: AssetImage(mAGoogle)),
+                              image: DecorationImage(
+                                  image: NetworkImage(session.user!.avatar!)),
                               color: Colors.grey),
                         ),
                         Container(
@@ -102,11 +108,13 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "Andrew Ainsley",
+                            session.user?.name ??
+                                MultiLanguage.of(context).username,
                             style: mST20M,
                           ),
                           Text(
-                            "doanxemnaobro@gmail.comkfjsdhfkjh",
+                            session.user?.email ??
+                                MultiLanguage.of(context).email,
                             style: mST16M,
                             overflow: TextOverflow.ellipsis,
                           )
