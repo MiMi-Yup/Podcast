@@ -15,7 +15,7 @@ abstract class EpisodeService {
   @POST('/episodes')
   Future<ApiResponse<EpisodeResponse>> create(
       @Body() EpisodeCreateRequest request);
-
+  
   @GET('/episodes/{id}')
   Future<ApiResponse<EpisodeResponse>> getEpisodeById(@Path('id') String id);
 

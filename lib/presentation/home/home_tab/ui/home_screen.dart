@@ -131,8 +131,9 @@ class HomeScreen extends StatelessWidget {
                           networkImage: null,
                           onPlay: (state) => !state,
                           onDownload: (state) => !state,
-                          onPressed: () =>
-                              XMDRouter.pushNamed(routerIds[PodcastRoute]!),
+                          onPressed: () => XMDRouter.pushNamed(
+                              routerIds[PodcastRoute]!,
+                              arguments: {'id': '123456'}),
                         ),
                         separatorBuilder: (context, index) => SizedBox(
                           height: 16.0,
