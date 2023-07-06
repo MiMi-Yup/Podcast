@@ -11,4 +11,8 @@ class ListRecordCubit extends Cubit<ListRecordState> {
   final UnitOfWork unitOfWork;
   ListRecordCubit({required this.unitOfWork})
       : super(ListRecordStateInitial(currentIndex: 0));
+
+  void setShouldRefresh(bool value) {
+    emit(state.copyWith(shouldRefresh: value));
+  }
 }

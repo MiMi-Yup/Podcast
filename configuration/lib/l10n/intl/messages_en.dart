@@ -159,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscription": MessageLookupByLibrary.simpleMessage("Subscriptions"),
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Something wrong! Please try later."),
+        "timer": MessageLookupByLibrary.simpleMessage("Timer"),
         "tryIt": MessageLookupByLibrary.simpleMessage("Try it"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "username": MessageLookupByLibrary.simpleMessage("User name"),

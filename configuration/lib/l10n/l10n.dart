@@ -1149,6 +1149,16 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Timer`
+  String get timer {
+    return Intl.message(
+      'Timer',
+      name: 'timer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

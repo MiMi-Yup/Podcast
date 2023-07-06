@@ -17,14 +17,7 @@ class PodcastRoute extends RouteDefine {
                 create: (_) => getIt<PodcastCubit>(),
               ),
             ],
-            child: PodcastScreen(
-              ordinalNumber: 283,
-              networkImage: null,
-              onChanged: (value) {},
-              onChangeEnd: (value) {},
-              title: 'Cuộc đời | Những chuyến đi và bài học đắt giá',
-              author: 'Nguyen Hoang Bao Chau',
-            ),
+            child: const PodcastScreen(),
           ),
         )
       ];

@@ -162,6 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscription": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "systemError": MessageLookupByLibrary.simpleMessage(
             "Đã xảy ra lỗi, vui lòng thử lại sau!"),
+        "timer": MessageLookupByLibrary.simpleMessage("Hẹn giờ"),
         "tryIt": MessageLookupByLibrary.simpleMessage("Dùng thử"),
         "upload": MessageLookupByLibrary.simpleMessage("Tải lên"),
         "username": MessageLookupByLibrary.simpleMessage("Người dùng"),
