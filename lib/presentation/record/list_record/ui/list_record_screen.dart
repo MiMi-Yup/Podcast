@@ -20,7 +20,6 @@ import '../../../channel/new_episode/createNewEpisode_route.dart';
 import '../../background_music/background_music_details/background_music_detail_route.dart';
 import '../cubit/list_record_cubit.dart';
 
-
 Future<List<File>> getAudioFiles() async {
   final directory = await getApplicationDocumentsDirectory();
   final folderPath = '${directory.path}/my_folder';
@@ -32,6 +31,13 @@ Future<List<File>> getAudioFiles() async {
 Future<String> getMergedPath() async {
   final directory = await getApplicationDocumentsDirectory();
   final folderPath = '${directory.path}/my_folder/merged';
+  //final folder = Directory(folderPath);
+  return folderPath;
+}
+
+Future<String> getAudioPath() async {
+  final directory = await getApplicationDocumentsDirectory();
+  final folderPath = '${directory.path}/my_folder';
   //final folder = Directory(folderPath);
   return folderPath;
 }
@@ -118,6 +124,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
   List<bool> isPlayingList = []; // Danh sách trạng thái phát âm thanh cho từng file
   int currentPlayingIndex = -1;
   String mergePath = "";
+  String audioPath = "";
   //Loading
 
   double progressValue = 0.0;
@@ -161,6 +168,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
     super.initState();
     loadAudioFiles(); // Gọi phương thức để nạp danh sách file âm thanh
     loadMergedFolder();
+    loadAudioFolder();
     init();
   }
 
@@ -202,6 +210,14 @@ class _ListRecordScreen extends State<ListRecordScreen> {
 
     setState(() {
       mergePath = tempFolder;
+    });
+  }
+
+  Future<void> loadAudioFolder() async {
+    final tempFolder = await getAudioPath();
+
+    setState(() {
+      audioPath = tempFolder;
     });
   }
 
@@ -267,6 +283,81 @@ class _ListRecordScreen extends State<ListRecordScreen> {
         currentPlayingIndex = -1;
       }
     });
+  }
+
+  Future<void> deleteAllAudioFiles(String directoryPath) async {
+    // Tạo một đối tượng Directory từ đường dẫn thư mục
+    final directory = Directory(directoryPath);
+
+    // Kiểm tra xem thư mục có tồn tại không
+    if (await directory.exists()) {
+      // Lấy danh sách các file trong thư mục
+      final fileList = await directory.list().toList();
+
+      // Lặp qua từng file và xoá
+      for (final file in fileList) {
+        if (file is File && file.path.endsWith('.aac')) {
+          await file.delete();
+        }
+      }
+    }
+    setState(() {
+      listRecorded.clear();
+    });
+  }
+
+  Future<void> copyFile(String sourcePath, String destinationPath) async {
+    try {
+      // Lấy đường dẫn thư mục nguồn
+      print(sourcePath);
+      Directory sourceDirectory = Directory(sourcePath);
+      String sourceFileName = path.basename(sourcePath);
+
+      // Lấy đường dẫn thư mục đích
+      Directory destinationDirectory = await getApplicationDocumentsDirectory();
+      String destinationFilePath = path.join(destinationDirectory.path, destinationPath, sourceFileName);
+
+      print(sourceDirectory);
+      // Kiểm tra xem tệp nguồn có tồn tại hay không
+      if (await sourceDirectory.exists()) {
+        // Tạo thư mục đích nếu nó chưa tồn tại
+        await Directory(path.dirname(destinationFilePath)).create(recursive: true);
+
+        // Sao chép tệp từ thư mục nguồn sang thư mục đích
+        await File(sourcePath).copy(destinationFilePath);
+
+        print('File copied successfully.');
+      } else {
+        print('Source file does not exist.');
+      }
+    } catch (e) {
+      print('Error while copying file: $e');
+    }
+  }
+
+  Future<void> moveAACFile(String sourcePath, String destinationPath) async {
+    try {
+      // Kiểm tra xem tệp nguồn có tồn tại không
+      final sourceFile = File(sourcePath);
+      if (!await sourceFile.exists()) {
+        print('Source file does not exist.');
+        return;
+      }
+
+      // Kiểm tra xem tệp đích đã tồn tại không
+      final destinationFile = File(destinationPath);
+      if (await destinationFile.exists()) {
+        print('Destination file already exists. Remove the file or choose a different destination.');
+        return;
+      }
+
+      // Di chuyển tệp
+      await sourceFile.rename(destinationPath);
+
+      print('File moved successfully.');
+    } catch (e) {
+      print('Failed to move file: $e');
+    }
   }
 
   Future<void> saveAudioFiles() async {
@@ -360,7 +451,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
           if (state.shouldRefresh) {
             // Nếu giá trị bool được cập nhật, làm mới danh sách tại đây
             loadAudioFiles().then((_) {
-              //context.read<ListRecordCubit>().setShouldRefresh(false);
+              context.read<ListRecordCubit>().setShouldRefresh(true);
               //print(context.read<ListRecordCubit>().state.shouldRefresh);
             });
           }
@@ -372,16 +463,32 @@ class _ListRecordScreen extends State<ListRecordScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Stack(
+                alignment: Alignment.centerRight,
                 children: [
-                  Text(
-                    "Studio",
-                    style: mST32R.copyWith(fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Studio",
+                      style: mST32R.copyWith(fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                  listRecorded.isNotEmpty ?
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.teal),
+                    ),
+                    onPressed: () {
+                      // Xử lý sự kiện khi nhấn nút Save
+                      XMDRouter.pushNamed(routerIds[CreateNewEpisodeRoute]!);
+                    },
+                    child: Text('Save'),
+                  ) : Container(),
+                ]
               ),
               // Text(
               //   '00:00:00',
@@ -409,33 +516,36 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                     ),
                   ) : _list()
               ),
-              listRecorded.isNotEmpty ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              listRecorded.length>1 ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         // Xử lý sự kiện khi nhấn nút Play Preview
+                        loadAudioFolder();
+                        await deleteAllAudioFiles(audioPath);
                       },
-                      child: Text('Play Preview'),
+                      child: Row( children: [Text('Play Preview'), Icon(Icons.play_arrow_outlined)])
                     ),
-                    SizedBox(width: mSpacing,),
+
                     ElevatedButton(
-                      onPressed: () {
-                        // Xử lý sự kiện khi nhấn nút Save
+                      onPressed: () async {
+                        // Xử lý sự kiện khi nhấn nút Merge
                         loadMergedFolder();
-                        if(mergePath != '')
-                        {
+                        loadAudioFolder();
+                        bool mergeSuccess = false;
+                        if (mergePath != '') {
                           print(mergePath);
-                              mergeAudioFiles2(
-                                  listRecorded
-                                      .map((file) => file.path)
-                                      .toList(),
-                                  mergePath);
-                        }else{
+                            await mergeAudioFiles2(
+                                listRecorded
+                                    .map((file) => file.path)
+                                    .toList(),
+                                mergePath);
+                        }else {
                           print("failed");
                         }
-                      },
-                      child: Text('Merge'),
+                            },
+                      child: Row( children: [Text('Merge'), Icon(Icons.merge)])
                     ),
                   ],
                 )
@@ -558,7 +668,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
     // Thiết lập cấu hình cho FFmpegKit
     FFmpegKitConfig.enableStatisticsCallback();
     FFmpegKitConfig.enableLogCallback();
-
+    String outputFileName = "${DateTime.now().year}.${DateTime.now().month}.${DateTime.now().day}.${DateTime.now().hour}.${DateTime.now().minute}.${DateTime.now().second}";
     ProgressDialog pd;
     pd = ProgressDialog(context: context);
     pd.show(max: 100, msg: 'Merging audio files...');
@@ -569,20 +679,24 @@ class _ListRecordScreen extends State<ListRecordScreen> {
     }
 
     // Tạo lệnh để merge các tệp âm thanh
-    String command = "$inputFiles -filter_complex concat=n=${audioFiles.length}:v=0:a=1[outa] -map [outa] '$outputPath'/${DateTime.now().toIso8601String()}.aac";
+    String command = "$inputFiles -filter_complex concat=n=${audioFiles.length}:v=0:a=1[outa] -map [outa] '$outputPath'/$outputFileName.aac";
 
 
     // Thực thi lệnh merge bằng FFmpegKit
-    FFmpegKit.execute(command).then((session) async {
+    await FFmpegKit.execute(command).then((session) async {
       final returnCode = await session.getReturnCode();
       if (ReturnCode.isSuccess(returnCode)) {
+
         pd.close();
-        print('Merge audio files successful.');
-        XMDRouter.pushNamed(routerIds[CreateNewEpisodeRoute]!);
+        print('Merge audio files successful.' '$outputPath/$outputFileName.aac');
       } else if (ReturnCode.isCancel(returnCode)) {
         pd.close();
         print('Merge audio files failed. Return code: $returnCode');
       }
     });
+    await deleteAllAudioFiles(audioPath);
+    //await Future.delayed(Duration(seconds: 1));
+    await moveAACFile('$outputPath/$outputFileName.aac', '$audioPath/$outputFileName.aac');
+    await loadAudioFiles();
   }
 }

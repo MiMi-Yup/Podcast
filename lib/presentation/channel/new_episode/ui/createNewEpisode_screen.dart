@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreateNewEpisodeScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class CreateNewEpisodeScreen extends StatefulWidget {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Create Podcast'),
+          title: Text('Create Episode'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
@@ -53,7 +54,7 @@ class CreateNewEpisodeScreen extends StatefulWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Podcast Details',
+                'Episode Details',
                 style: mST24M,
               ),
               Expanded(
@@ -72,7 +73,6 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                           border: OutlineInputBorder(),
                         ),
                       ),
-
                       SizedBox(height: 32),
                       Text(
                           'Mô tả episode',
@@ -92,7 +92,7 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                       ),
                       SizedBox(height: 32),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           _image != null
                               ? GestureDetector(
@@ -105,8 +105,8 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                                   borderRadius: BorderRadius.circular(8.0),
                                   child: Image.file(
                                     _image!,
-                                    height: 64.0,
-                                    width: 64.0,
+                                    height: 100.0,
+                                    width: 100.0,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -124,7 +124,7 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                                       },
                                       icon: Icon(
                                         Icons.edit,
-                                        size: 16.0,
+                                        size: 30.0,
                                         color: Colors.black,
                                       ),
                                     ),
@@ -141,7 +141,7 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                               children: [
                                 Icon(
                                   Icons.camera_alt,
-                                  size: 32.0,
+                                  size: 50.0,
                                   color: Colors.grey,
                                 ),
                                 SizedBox(height: 8.0),
@@ -155,6 +155,28 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                               ],
                             ),
                           ),
+                          Row(
+                            children: [
+                              Text(
+                                  'Episode #',
+                                  style: mST20M
+                              ),
+                              SizedBox(width: mSpacing,),
+                              Container(
+                                width: 100,
+                                child: TextField(
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ],
