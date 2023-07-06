@@ -39,9 +39,9 @@ class BottomBarScreen extends StatelessWidget {
                         label: MultiLanguage.of(context).home,
                       ),
                       BottomNavigationBarItem(
-                        icon: const Icon(Icons.cloud_upload_outlined),
-                        activeIcon: const Icon(Icons.cloud_upload),
-                        label: MultiLanguage.of(context).upload,
+                        icon: const Icon(Icons.person_outline),
+                        activeIcon: const Icon(Icons.person),
+                        label: MultiLanguage.of(context).channel,
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.library_books_outlined),
@@ -49,8 +49,8 @@ class BottomBarScreen extends StatelessWidget {
                         label: MultiLanguage.of(context).library,
                       ),
                       BottomNavigationBarItem(
-                        icon: const Icon(Icons.person_outline),
-                        activeIcon: const Icon(Icons.person),
+                        icon: const Icon(Icons.settings_outlined),
+                        activeIcon: const Icon(Icons.settings),
                         label: MultiLanguage.of(context).profile,
                       ),
                     ],
