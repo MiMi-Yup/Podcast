@@ -14,14 +14,15 @@ class CreateNewPodcastScreen extends StatefulWidget {
   class _PodcastEditingScreenState extends State<CreateNewPodcastScreen> {
 
     File? _image;
-    TextEditingController _podcastName = TextEditingController();
-    TextEditingController _podcastDescription = TextEditingController();
-
+    XFile? _xFile;
+    final TextEditingController _podcastName = TextEditingController();
+    final TextEditingController _podcastDescription = TextEditingController();
+    final ImagePicker _picker = ImagePicker();
 
     Future<void> _getImageFromGallery() async {
-      final pickedImage = await ImagePicker().pickImage(
-          source: ImageSource.gallery);
+      final pickedImage = await _picker.pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
+        //context.read<CreateNewPodcastCubit>().changeImage(pickedImage);
         setState(() {
           _image = File(pickedImage.path);
         });
@@ -215,7 +216,9 @@ class CreateNewPodcastScreen extends StatefulWidget {
                       // TODO: Xử lý khi nhấn nút Save Podcast
                       context.read<CreateNewPodcastCubit>().changePodcastName(_podcastName.text);
                       context.read<CreateNewPodcastCubit>().changePodcastDes(_podcastDescription.text);
-                      context.read<CreateNewPodcastCubit>().changeImage(_image!);
+                      //context.read<CreateNewPodcastCubit>().changeImage(_xFile!);
+                      context.read<CreateNewPodcastCubit>().changeCategory('6476f739a362eabb03003e33');
+                      //print("${_podcastName.text}/${_podcastDescription.text}");
                       context.read<CreateNewPodcastCubit>().createPodcast();
                     },
                     style: ElevatedButton.styleFrom(
@@ -263,10 +266,15 @@ class CreateNewPodcastScreen extends StatefulWidget {
               ListTile(
                 leading: Icon(Icons.image),
                 title: Text('Get Picture from Gallery'),
-                onTap: () {
-                  Navigator.pop(context);
-                  _getImageFromGallery();
-                },
+              onTap: () async {
+                Navigator.pop(context);
+                //_getImageFromGallery();
+                final file =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                if (file != null) {
+                  context.read<CreateNewPodcastCubit>().changeImage(file);
+                }
+              },
               ),
             ],
           );

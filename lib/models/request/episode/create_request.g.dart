@@ -13,7 +13,7 @@ EpisodeCreateRequest _$EpisodeCreateRequestFromJson(
       description: json['description'] as String,
       duration: (json['duration'] as num).toDouble(),
       href: json['href'] as String,
-      image: (json['image'] as num).toDouble(),
+      image: json['image'] as String,
       podcastId: json['podcast_id'] as String,
     );
 

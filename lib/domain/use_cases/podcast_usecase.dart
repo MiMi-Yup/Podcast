@@ -17,16 +17,16 @@ class PodcastUseCases {
   PodcastUseCases({required this.unitOfWork});
 
 
-  Future<PodcastModel?> createPodcast({required String name, required String description, required String? image, required String categoryID}) async {
-    if (image != null) {
+  Future<PodcastModel?> createPodcast({required String name, required String description, required String image, required String categoryID}) async {
+
       final file = File(image);
       if (file.existsSync()) {
         MediaResponse? link = await unitOfWork.media.uploadImage(file);
-        image = link?.url;
+        image = link!.url!;
       }
-    }
+
     PodcastResponse? newPodcast = await unitOfWork.podcast
-        .createPodcast(PodcastCreateRequest(name: name, description: description, image: image!, categoryId: categoryID,));
+        .createPodcast(PodcastCreateRequest(name: name, description: description, image: image, categoryId: categoryID,));
     if (newPodcast == null) return null;
     return PodcastModel.fromResponse(newPodcast);
   }

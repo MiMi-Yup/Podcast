@@ -17,7 +17,7 @@ class CreateNewPodcastRoute extends RouteDefine {
             create: (_) => getIt<CreateNewPodcastCubit>(),
           ),
         ],
-        child: const CreateNewPodcastScreen(),
+        child: CreateNewPodcastScreen(),
       ),
     )
   ];

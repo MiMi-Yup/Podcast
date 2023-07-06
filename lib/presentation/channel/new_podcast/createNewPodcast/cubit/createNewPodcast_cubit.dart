@@ -25,16 +25,20 @@ class CreateNewPodcastCubit extends Cubit<CreateNewPodcastState> {
     emit(state.copyWith(name: podcastName));
   }
 
-  void changeImage(File file) {
+  void changeImage(XFile file) {
     emit(state.copyWith(image: file.path));
   }
 
   void changePodcastDes(String podcastDes) {
-    emit(state.copyWith(name: podcastDes));
+    emit(state.copyWith(description: podcastDes));
+  }
+
+  void changeCategory(String category) {
+    emit(state.copyWith(categoryId: category));
   }
 
   void createPodcast()
   {
-    podcastUseCases.unitOfWork.podcast.createPodcast(PodcastCreateRequest(name: state.name, description: state.description, image: state.image, categoryId: state.categoryId));
+    podcastUseCases.unitOfWork.podcast.createPodcast(PodcastCreateRequest(name: state.name, description: state.description, image: state.image!, categoryId: state.categoryId));
   }
 }

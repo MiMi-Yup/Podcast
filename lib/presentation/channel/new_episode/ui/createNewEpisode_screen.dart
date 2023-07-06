@@ -1,18 +1,55 @@
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:configuration/style/style.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit_config.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:join_podcast/presentation/channel/new_episode/cubit/createNewEpisode_cubit.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class CreateNewEpisodeScreen extends StatefulWidget {
   const CreateNewEpisodeScreen({super.key});
   @override
   _PodcastEditingScreenState createState() => _PodcastEditingScreenState();
 }
+
+Future<List<File>> getAudioFiles() async {
+  final directory = await getApplicationDocumentsDirectory();
+  final folderPath = '${directory.path}/my_folder';
+  final folder = Directory(folderPath);
+  // Kiểm tra xem thư mục "my_folder" đã tồn tại hay chưa
+  if (!await folder.exists()) {
+    // Nếu thư mục chưa tồn tại, tạo thư mục
+    await folder.create(recursive: true);
+    print('Created folder: ${folder.path}');
+  } else {
+    print('Folder already exists: ${folder.path}');
+  }
+  final files = await folder.list().where((entity) => entity is File).map((file) => File(file.path)).toList();
+  return files;
+}
+
   class _PodcastEditingScreenState extends State<CreateNewEpisodeScreen> {
 
+    List<File> listRecorded  = [];
     File? _image;
+    final ImagePicker _picker = ImagePicker();
+    String mergePath = "";
+    String audioPath = "";
+
+    final TextEditingController _podcastName = TextEditingController();
+    final TextEditingController _podcastNameTag = TextEditingController();
+    final TextEditingController _podcastDescription = TextEditingController();
+
+
 
     Future<void> _getImageFromGallery() async {
       final pickedImage = await ImagePicker().pickImage(
@@ -33,6 +70,171 @@ class CreateNewEpisodeScreen extends StatefulWidget {
         });
       }
     }
+
+    Future<void> loadAudioFiles() async {
+      final prefs = await SharedPreferences.getInstance();
+      final files = prefs.getStringList('audioFiles');
+      final reCheckList = await getAudioFiles();
+
+      List<File> loadedFiles = [];
+      if (files != null && files.length == reCheckList.length) {
+        loadedFiles = files.map((path) => File(path)).toList();
+      } else {
+        // Thêm các thành phần mà reCheckList có mà files không có vào files
+        if (files != null) {
+          loadedFiles = files.map((path) => File(path)).toList();
+          final existingPaths = files.toSet();
+          final missingFiles = reCheckList.where((path) =>
+          !existingPaths.contains(path.path));
+          loadedFiles.addAll(missingFiles.map((path) => File(path.path)));
+        } else {
+          loadedFiles = reCheckList;
+        }
+      }
+
+      setState(() {
+        listRecorded = loadedFiles;
+      });
+    }
+
+    Future<void> deleteAllAudioFiles(String directoryPath) async {
+      // Tạo một đối tượng Directory từ đường dẫn thư mục
+      final directory = Directory(directoryPath);
+
+      // Kiểm tra xem thư mục có tồn tại không
+      if (await directory.exists()) {
+        // Lấy danh sách các file trong thư mục
+        final fileList = await directory.list().toList();
+
+        // Lặp qua từng file và xoá
+        for (final file in fileList) {
+          if (file is File && file.path.endsWith('.aac')) {
+            await file.delete();
+          }
+        }
+      }
+      setState(() {
+        listRecorded.clear();
+      });
+    }
+
+    Future<void> moveAACFile(String sourcePath, String destinationPath) async {
+      try {
+        // Kiểm tra xem tệp nguồn có tồn tại không
+        final sourceFile = File(sourcePath);
+        if (!await sourceFile.exists()) {
+          print('Source file does not exist.');
+          return;
+        }
+
+        // Kiểm tra xem tệp đích đã tồn tại không
+        final destinationFile = File(destinationPath);
+        if (await destinationFile.exists()) {
+          print('Destination file already exists. Remove the file or choose a different destination.');
+          return;
+        }
+
+        // Di chuyển tệp
+        await sourceFile.rename(destinationPath);
+
+        print('File moved successfully.');
+      } catch (e) {
+        print('Failed to move file: $e');
+      }
+    }
+
+    Future<void> mergeAudioFiles2(List<String> audioFiles, String outputPath) async {
+      // Thiết lập cấu hình cho FFmpegKit
+      FFmpegKitConfig.enableStatisticsCallback();
+      FFmpegKitConfig.enableLogCallback();
+      String outputFileName = "${DateTime.now().year}.${DateTime.now().month}.${DateTime.now().day}.${DateTime.now().hour}.${DateTime.now().minute}.${DateTime.now().second}";
+      ProgressDialog pd;
+      pd = ProgressDialog(context: context);
+      pd.show(max: 100, msg: 'Merging audio files...');
+      // Xây dựng danh sách các tệp đầu vào
+      String inputFiles = "";
+      for (String audioFile in audioFiles) {
+        inputFiles += "-i '$audioFile' ";
+      }
+
+      // Tạo lệnh để merge các tệp âm thanh
+      String command = "$inputFiles -filter_complex concat=n=${audioFiles.length}:v=0:a=1[outa] -map [outa] '$outputPath'/$outputFileName.aac";
+
+
+      // Thực thi lệnh merge bằng FFmpegKit
+      await FFmpegKit.execute(command).then((session) async {
+        final returnCode = await session.getReturnCode();
+        if (ReturnCode.isSuccess(returnCode)) {
+
+          pd.close();
+          print('Merge audio files successful.' '$outputPath/$outputFileName.aac');
+        } else if (ReturnCode.isCancel(returnCode)) {
+          pd.close();
+          print('Merge audio files failed. Return code: $returnCode');
+        }
+      });
+      await deleteAllAudioFiles(audioPath);
+      //await Future.delayed(Duration(seconds: 1));
+      await moveAACFile('$outputPath/$outputFileName.aac', '$audioPath/$outputFileName.aac');
+      await loadAudioFiles();
+    }
+
+    Future<String> getMergedPath() async {
+      final directory = await getApplicationDocumentsDirectory();
+      final folderPath = '${directory.path}/my_folder/merged';
+      final folder = Directory(folderPath);
+      // Kiểm tra xem thư mục "merged" đã tồn tại hay chưa
+      if (!await folder.exists()) {
+        // Nếu thư mục chưa tồn tại, tạo thư mục
+        await folder.create(recursive: true);
+        print('Created folder: ${folder.path}');
+      } else {
+        print('Folder already exists: ${folder.path}');
+      }
+      return folder.path;
+    }
+
+    Future<void> loadMergedFolder() async {
+      final tempFolder = await getMergedPath();
+
+      setState(() {
+        mergePath = tempFolder;
+      });
+    }
+
+    Future<String> getAudioPath() async {
+      final directory = await getApplicationDocumentsDirectory();
+      final folderPath = '${directory.path}/my_folder';
+      final folder = Directory(folderPath);
+      // Kiểm tra xem thư mục "merged" đã tồn tại hay chưa
+      if (!await folder.exists()) {
+        // Nếu thư mục chưa tồn tại, tạo thư mục
+        await folder.create(recursive: true);
+        print('Created folder: ${folder.path}');
+      } else {
+        print('Folder already exists: ${folder.path}');
+      }
+      return folder.path;
+    }
+
+    Future<void> loadAudioFolder() async {
+      final tempFolder = await getAudioPath();
+
+      setState(() {
+        audioPath = tempFolder;
+      });
+    }
+
+    @override
+    void initState() {
+    // TODO: implement initState
+      loadAudioFiles();
+      loadMergedFolder();
+      loadAudioFolder();
+    super.initState();
+  }
+
+
 
     @override
     Widget build(BuildContext context) {
@@ -69,6 +271,7 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                       ),
                       SizedBox(height: 8),
                       TextField(
+                        controller: _podcastName,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                         ),
@@ -80,6 +283,7 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                       ),
                       SizedBox(height: 8),
                       TextField(
+                        controller: _podcastDescription,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                         ),
@@ -95,11 +299,19 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           _image != null
-                              ? GestureDetector(
-                            onTap: () {
-                              _showImageOptions();
-                            },
-                            child: Stack(
+                            ? GestureDetector(
+                                onTap: () async {
+                                  //_showImageOptions();
+                                  final file = await _picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  if (file != null) {
+                                    context
+                                        .read<CreateNewEpisodeCubit>()
+                                        .changeImage(file);
+                                    _image = file as File?;
+                                  }
+                                },
+                                child: Stack(
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
@@ -165,6 +377,7 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                               Container(
                                 width: 100,
                                 child: TextField(
+                                  controller: _podcastNameTag,
                                   textAlign: TextAlign.center,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
@@ -187,8 +400,26 @@ class CreateNewEpisodeScreen extends StatefulWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       // TODO: Xử lý khi nhấn nút Save Podcast
+                      await loadAudioFiles();
+                      loadMergedFolder();
+                      loadAudioFolder();
+                      if (listRecorded.length > 1) {
+                        await mergeAudioFiles2(
+                            listRecorded
+                                .map((file) => file.path)
+                                .toList(),
+                            mergePath);
+                      }
+                      context.read<CreateNewEpisodeCubit>().changeDes(_podcastDescription.text);
+                      context.read<CreateNewEpisodeCubit>().changeName('#${_podcastNameTag.text} ${_podcastName.text}');
+                      context.read<CreateNewEpisodeCubit>().changeDuration(12000);
+                      context.read<CreateNewEpisodeCubit>().changePodcastID('podcastID');
+                      context.read<CreateNewEpisodeCubit>().changeHref('test');
+
+                      context.read<CreateNewEpisodeCubit>().createEpisode(audioUpload: listRecorded.first);
+
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.green, // Màu nền xanh lá

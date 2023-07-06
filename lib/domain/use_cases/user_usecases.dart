@@ -31,6 +31,7 @@ class UserUseCases {
       if (file.existsSync()) {
         MediaResponse? link = await unitOfWork.media.uploadImage(file);
         avatar = link?.url;
+        print(avatar);
       }
     }
     UserResponse? newProfile = await unitOfWork.user.updateInfo(
