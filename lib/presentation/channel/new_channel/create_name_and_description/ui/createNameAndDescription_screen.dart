@@ -30,80 +30,71 @@ class CreateNameAndDescriptionScreen extends StatelessWidget {
         elevation: 0.0,
         title: Text('Quản lý kênh'),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20),
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage(mAIntroduction1),
-                        radius: 40,
-                      ),
-                      SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'username',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text('null Podcasts • null Listens'),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'My Podcasts',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage(mAIntroduction1),
+                      radius: 40,
                     ),
+                    SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'username',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text('null Podcasts • null Listens'),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'My Podcasts',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              padding:
-              EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-              itemBuilder: (context, index) {
-                Podcast podcast = podcastList[index];
-                return PodcastComponent(
-                  title: podcast.title,
-                  author: podcast.description,
-                  networkImage: null/*podcast.imageUrl*/,
-                  episodes: 0,
-                  listens: 0,
-                  onPressed: () => XMDRouter.pushNamed(
-                      routerIds[EditPodcastRoute]!,
-                      arguments: {index: index}),
-                  // Truyền các giá trị cần thiết vào component podcast
-                );
-              }, separatorBuilder: (BuildContext context, int index) => SizedBox(
-              height: 16.0,
-            ), itemCount: podcastList.length,
-            )
-          ],
-        ),
+          ),
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            padding:
+            EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
+            itemBuilder: (context, index) {
+              Podcast podcast = podcastList[index];
+              return PodcastComponent(
+                title: podcast.title,
+                author: podcast.description,
+                networkImage: null/*podcast.imageUrl*/,
+                episodes: 0,
+                listens: 0,
+                onPressed: () => XMDRouter.pushNamed(
+                    routerIds[EditPodcastRoute]!,
+                    arguments: {index: index}),
+                // Truyền các giá trị cần thiết vào component podcast
+              );
+            }, separatorBuilder: (BuildContext context, int index) => SizedBox(
+            height: 16.0,
+          ), itemCount: podcastList.length,
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

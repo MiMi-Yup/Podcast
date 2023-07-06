@@ -69,10 +69,10 @@ class _EpisodeScreenState extends State<EpisodeScreen> {
                       ],
                     ),
                   ),
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 3,
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(Icons.wifi),
                         SizedBox(
                           width: 10.0,

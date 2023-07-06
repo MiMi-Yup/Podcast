@@ -36,7 +36,7 @@ class EpisodeCubit extends Cubit<EpisodeState> {
     state.audioPlayer.setUrl(state.episode?.href ?? '');
     updateSelectedSpeed(1);
     state.audioPlayer.play();
-    initializeNotifications();
+    // initializeNotifications();
   }
 
   void updateSelectedSpeed(double speed) {

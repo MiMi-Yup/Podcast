@@ -33,7 +33,7 @@ class EpisodeRepositoryImpl implements EpisodeRepository {
     required EpisodeUpdateRequest request,
   }) {
     return service
-        ?.update(id, request)
+        ?.updateEpisode(id, request)
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);

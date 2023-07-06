@@ -1,6 +1,6 @@
 import 'package:configuration/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 class SearchBar extends StatefulWidget {
   final Future<List<String>> Function()? history;
