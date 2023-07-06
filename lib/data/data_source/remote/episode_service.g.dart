@@ -60,7 +60,37 @@ class _EpisodeService implements EpisodeService {
     )
             .compose(
               _dio.options,
-              '/episodes/{ID}',
+              '/episodes/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<EpisodeResponse>.fromJson(
+      _result.data!,
+      (json) => EpisodeResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<EpisodeResponse>> updateEpisode(
+    String id,
+    EpisodeUpdateRequest request,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<EpisodeResponse>>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/episodes/${id}',
               queryParameters: queryParameters,
               data: _data,
             )

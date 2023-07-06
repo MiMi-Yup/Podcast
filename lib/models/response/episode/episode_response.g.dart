@@ -14,13 +14,15 @@ EpisodeResponse _$EpisodeResponseFromJson(Map<String, dynamic> json) =>
       duration: (json['duration'] as num?)?.toDouble(),
       image: json['image'] as String?,
       href: json['href'] as String?,
+      podcast: json['podcast'],
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
-      isWatched: json['is_watched'] as bool?,
+      numListening: json['num_listening'] as int?,
+      isListened: json['is_listened'] as bool?,
     );
 
 Map<String, dynamic> _$EpisodeResponseToJson(EpisodeResponse instance) =>
@@ -31,7 +33,9 @@ Map<String, dynamic> _$EpisodeResponseToJson(EpisodeResponse instance) =>
       'duration': instance.duration,
       'image': instance.image,
       'href': instance.href,
+      'podcast': instance.podcast,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
-      'is_watched': instance.isWatched,
+      'num_listening': instance.numListening,
+      'is_listened': instance.isListened,
     };

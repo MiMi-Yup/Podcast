@@ -12,8 +12,10 @@ class PlaylistResponse {
   String? name;
   @JsonKey(name: "episodes")
   ListResponse<EpisodeModel>? episodes;
+  @JsonKey(name: "num_episodes")
+  int? numEpisodes;
 
-  PlaylistResponse({this.id, this.name, this.episodes});
+  PlaylistResponse({this.id, this.name, this.episodes, this.numEpisodes});
 
   factory PlaylistResponse.fromJson(Map<String, dynamic> json) =>
       _$PlaylistResponseFromJson(json);

@@ -1,6 +1,10 @@
 import 'package:join_podcast/models/request/users/change_password_request.dart';
+import 'package:join_podcast/models/request/users/create_channel_request.dart';
+import 'package:join_podcast/models/request/users/update_channel_request.dart';
 import 'package:join_podcast/models/request/users/update_request.dart';
-import 'package:join_podcast/models/response/users/profile_response.dart';
+import 'package:join_podcast/models/response/episode/episode_response.dart';
+import 'package:join_podcast/models/response/list_response.dart';
+import 'package:join_podcast/models/response/users/user_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:join_podcast/models/response/api_response.dart';
 import 'package:retrofit/http.dart';
@@ -12,15 +16,45 @@ part 'user_service.g.dart';
 abstract class UserService {
   factory UserService(Dio dio, {String baseUrl}) = _UserService;
 
+  @GET('/users/{id}')
+  Future<ApiResponse<UserResponse>> getUserById(@Path('id') String id);
+
   @GET('/users/self')
-  Future<ApiResponse<ProfileResponse>> getCurrentProfile();
+  Future<ApiResponse<UserResponse>> getCurrentProfile();
 
   @PATCH('/users/self/change-password')
   Future<void> changePassword(@Body() UserChangePasswordRequest signUp);
 
-  @GET('/users/{id}')
-  Future<ApiResponse<ProfileResponse>> getUserById(@Path('id') String id);
+  @PATCH('/users/self')
+  Future<ApiResponse<UserResponse>> updateUser(@Body() UserUpdateRequest request);
 
-  @PATCH('/users/update')
-  Future<ApiResponse<ProfileResponse>> updateUser(@Body() UserUpdateRequest request);
+  @POST('/users/self/channel')
+  Future<void> createChannel(@Body() CreateChannelRequest request);
+
+  @PATCH('/users/self/channel')
+  Future<void> updateChannel(@Body() UpdateChannelRequest request);
+
+  @GET('/users/self/listened-episodes')
+  Future<ApiResponse<ListResponse<EpisodeResponse>>> getHistoryEpisodes();
+
+  @DELETE('/users/self/listened-episodes')
+  Future<void> clearHistory();
+
+  @POST('/users/self/listened-episodes/{id}')
+  Future<void> addHistory(@Path('id') String id);
+
+  @DELETE('/users/self/listened-episodes/{id}')
+  Future<void> removeHistoryById(@Path('id') String id);
+
+  @GET('/users/self/favorite-episodes')
+  Future<ApiResponse<ListResponse<EpisodeResponse>>> getFavouriteEpisodes();
+
+  @DELETE('/users/self/favorite-episodes')
+  Future<void> clearFavourite();
+
+  @POST('/users/self/favorite-episodes/{id}')
+  Future<void> addIntoFavourite(@Path('id') String id);
+
+  @DELETE('/users/self/favorite-episodes/{id}')
+  Future<void> removeFavouriteById(@Path('id') String id);
 }

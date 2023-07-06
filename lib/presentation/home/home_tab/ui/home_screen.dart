@@ -1,7 +1,6 @@
 import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
-import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_Author.dart';
@@ -39,7 +38,8 @@ class HomeScreen extends StatelessWidget {
                   height: 60,
                   width: 60,
                   child: CircleAvatar(
-                    foregroundImage: NetworkImage(context.read<HomeCubit>().avatar!),
+                    foregroundImage:
+                        NetworkImage(context.read<HomeCubit>().avatar!),
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   )),
               SizedBox(

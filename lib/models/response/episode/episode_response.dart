@@ -16,12 +16,16 @@ class EpisodeResponse {
   String? image;
   @JsonKey(name: "href")
   String? href;
+  @JsonKey(name: "podcast")
+  dynamic podcast;
   @JsonKey(name: "created_at")
   DateTime? createdAt;
   @JsonKey(name: "updated_at")
   DateTime? updatedAt;
-  @JsonKey(name: "is_watched")
-  bool? isWatched;
+  @JsonKey(name: "num_listening")
+  int? numListening;
+  @JsonKey(name: "is_listened")
+  bool? isListened;
 
   EpisodeResponse(
       {this.id,
@@ -30,9 +34,11 @@ class EpisodeResponse {
       this.duration,
       this.image,
       this.href,
+      this.podcast,
       this.createdAt,
       this.updatedAt,
-      this.isWatched});
+      this.numListening,
+      this.isListened});
 
   factory EpisodeResponse.fromJson(Map<String, dynamic> json) =>
       _$EpisodeResponseFromJson(json);

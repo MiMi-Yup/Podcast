@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/data/data_source/remote/playlist_service.dart';
 import 'package:join_podcast/domain/repositories/playlist_repository.dart';
+import 'package:join_podcast/models/response/list_response.dart';
 import 'package:join_podcast/models/response/playlists/playlist_response.dart';
-import 'package:join_podcast/models/request/playlists/remove_episode_request.dart';
 import 'package:join_podcast/models/request/playlists/create_request.dart';
-import 'package:join_podcast/models/request/playlists/add_episode_request.dart';
 import 'package:join_podcast/utils/exception_util.dart';
 
 @Injectable(as: PlaylistRepository)
@@ -17,9 +16,9 @@ class PlaylistRepositoryImpl implements PlaylistRepository {
 
   @override
   FutureOr<bool?> addEpisodeToPlaylist(
-      {required String id, required AddEpisodeRequest request}) {
+      {required String idPlaylist, required String idEpisode}) {
     return service
-        ?.addEpisode(id, request)
+        ?.addEpisode(idPlaylist, idEpisode)
         .then((value) => true)
         .catchError((onError) {
       ExceptionUtil.handle(onError);
@@ -50,7 +49,7 @@ class PlaylistRepositoryImpl implements PlaylistRepository {
   }
 
   @override
-  FutureOr<List<PlaylistResponse>?> getAllPlaylist() {
+  FutureOr<ListResponse<PlaylistResponse>?> getAllPlaylist() {
     return service?.getAll().then((value) => value.data).catchError((onError) {
       ExceptionUtil.handle(onError);
       return null;
@@ -70,9 +69,9 @@ class PlaylistRepositoryImpl implements PlaylistRepository {
 
   @override
   FutureOr<bool?> removeEpisodeFromPlaylist(
-      {required String id, required RemoveEpisodeRequest request}) {
+      {required String idPlaylist, required String idEpisode}) {
     return service
-        ?.removeEpisode(id, request)
+        ?.removeEpisode(idPlaylist, idEpisode)
         .then((value) => true)
         .catchError((onError) {
       ExceptionUtil.handle(onError);

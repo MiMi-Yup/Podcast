@@ -6,7 +6,6 @@ import 'package:configuration/route/route_define.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:join_podcast/data/secure_preferences_repository_impl.dart';
 import 'package:join_podcast/data/session_info.dart';
 import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/domain/repositories/user_repository.dart';
@@ -33,9 +32,11 @@ class SetupEnv extends Env {
     await previousSession.init();
     if (previousSession.token != null && previousSession.token!.isNotEmpty) {
       await getIt<UserRepository>().getCurrentUser().then((value) {
-        if (value?.user != null) {
+        if (value?.toModel() != null) {
           previousSession.login(
-              token: previousSession.token!, remember: true, user: value?.user);
+              token: previousSession.token!,
+              remember: true,
+              user: value?.toModel());
         } else {
           previousSession.logout();
         }
