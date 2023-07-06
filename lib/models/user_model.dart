@@ -16,6 +16,10 @@ class UserModel {
   String? avatar;
   @JsonKey(name: 'birthday')
   DateTime? birthday;
+  @JsonKey(name: 'search_history')
+  List<dynamic>? searchHistory;
+  @JsonKey(name: 'channel_name')
+  String? channelName;
 
   UserModel(
       {this.id,
@@ -23,7 +27,9 @@ class UserModel {
       this.email,
       this.isVerified,
       this.birthday,
-      this.avatar});
+      this.avatar,
+      this.channelName,
+      this.searchHistory});
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

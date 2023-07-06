@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 import 'package:join_podcast/models/request/users/update_request.dart';
 import 'package:join_podcast/models/response/media/media_response.dart';
-import 'package:join_podcast/models/response/users/profile_response.dart';
+import 'package:join_podcast/models/response/users/user_response.dart';
 import 'package:join_podcast/models/user_model.dart';
 
 @injectable
@@ -16,8 +16,8 @@ class UserUseCases {
   Future<UserModel?> getPreviousState() async {
     if (unitOfWork.session.token != null &&
         unitOfWork.session.token?.isNotEmpty == true) {
-      ProfileResponse? userResponse = await unitOfWork.user.getCurrentUser();
-      if (userResponse != null) return userResponse.user;
+      UserResponse? userResponse = await unitOfWork.user.getCurrentUser();
+      if (userResponse != null) return userResponse.toModel();
     }
     return null;
   }
@@ -31,8 +31,8 @@ class UserUseCases {
         avatar = link?.url;
       }
     }
-    ProfileResponse? newProfile = await unitOfWork.user.updateInfo(
+    UserResponse? newProfile = await unitOfWork.user.updateInfo(
         UserUpdateRequest(name: name, avatar: avatar, birthday: dob));
-    return newProfile?.user;
+    return newProfile?.toModel();
   }
 }

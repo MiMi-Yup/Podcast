@@ -3,8 +3,11 @@ import 'package:join_podcast/domain/repositories/auth_repository.dart';
 import 'package:join_podcast/domain/repositories/episode_repository.dart';
 import 'package:join_podcast/domain/repositories/media_repository.dart';
 import 'package:join_podcast/domain/repositories/playlist_repository.dart';
+import 'package:join_podcast/domain/repositories/podcast_repository.dart';
 import 'package:join_podcast/domain/repositories/shared_preferences_repository.dart';
 import 'package:join_podcast/domain/repositories/user_repository.dart';
+
+import 'channel_repository.dart';
 
 abstract class UnitOfWork {
   UserRepository get user;
@@ -13,5 +16,7 @@ abstract class UnitOfWork {
   MediaRepository get media;
   PlaylistRepository get playlist;
   EpisodeRepository get episode;
+  PodcastRepository get podcast;
   SharedPreferencesRepository get sharedPreferences;
+  ChannelRepository get channel;
 }

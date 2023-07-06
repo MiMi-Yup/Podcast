@@ -2,6 +2,7 @@ import 'package:configuration/environment/build_config.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/data/data_source/remote/auth_service.dart';
+import 'package:join_podcast/data/data_source/remote/category_service.dart';
 import 'package:join_podcast/data/data_source/remote/episode_service.dart';
 import 'package:join_podcast/data/data_source/remote/media_service.dart';
 import 'package:join_podcast/data/data_source/remote/playlist_service.dart';
@@ -61,6 +62,14 @@ abstract class NetworkModule {
   @injectable
   PlaylistService get playlistService {
     return PlaylistService(
+      _auth(),
+      baseUrl: getIt<BuildConfig>().apiUrl,
+    );
+  }
+
+  @injectable
+  CategoryService get categoryService {
+    return CategoryService(
       _auth(),
       baseUrl: getIt<BuildConfig>().apiUrl,
     );

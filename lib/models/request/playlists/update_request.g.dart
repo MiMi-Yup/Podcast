@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'remove_episode_request.dart';
+part of 'update_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RemoveEpisodeRequest _$RemoveEpisodeRequestFromJson(
+UpdatePlaylistRequest _$UpdatePlaylistRequestFromJson(
         Map<String, dynamic> json) =>
-    RemoveEpisodeRequest(
-      episodeId: json['episode_id'] as String,
+    UpdatePlaylistRequest(
+      name: json['name'] as String,
     );
 
-Map<String, dynamic> _$RemoveEpisodeRequestToJson(
-        RemoveEpisodeRequest instance) =>
+Map<String, dynamic> _$UpdatePlaylistRequestToJson(
+        UpdatePlaylistRequest instance) =>
     <String, dynamic>{
-      'episode_id': instance.episodeId,
+      'name': instance.name,
     };

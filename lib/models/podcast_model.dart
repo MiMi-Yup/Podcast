@@ -15,6 +15,8 @@ class PodcastModel {
   String? image;
   List<EpisodeModel>? episodes;
   int? count;
+  int? numListening;
+  bool? isSubscribed;
 
   PodcastModel(
       {this.id,
@@ -26,7 +28,9 @@ class PodcastModel {
       this.updatedAt,
       this.image,
       this.episodes,
-      this.count});
+      this.count,
+      this.numListening,
+      this.isSubscribed});
 
   factory PodcastModel.fromResponse(PodcastResponse response) => PodcastModel(
       id: response.id,
@@ -38,7 +42,9 @@ class PodcastModel {
       updatedAt: response.updatedAt,
       image: response.image,
       episodes: response.episodes?.items,
-      count: response.episodes?.count);
+      count: response.episodes?.count,
+      numListening: response.numListening,
+      isSubscribed: response.isSubscribed);
 
   PodcastResponse toResponse() => PodcastResponse(
       id: id,
@@ -49,5 +55,7 @@ class PodcastModel {
       createdAt: createdAt,
       updatedAt: updatedAt,
       image: image,
-      episodes: ListResponse(count: count, items: episodes));
+      episodes: ListResponse(count: count, items: episodes),
+      numListening: numListening,
+      isSubscribed: isSubscribed);
 }

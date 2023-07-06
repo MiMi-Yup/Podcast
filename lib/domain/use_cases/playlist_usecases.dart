@@ -11,7 +11,9 @@ class PlaylistUseCases {
 
   Future<List<PlaylistModel>?> getAll() async {
     final result = await unitOfWork.playlist.getAllPlaylist();
-    return result?.map((e) => PlaylistModel.fromResponse(e)).toList();
+    return result == null || result.items != null || result.count == 0
+        ? null
+        : result.items?.map((e) => PlaylistModel.fromResponse(e)).toList();
   }
 
   Future<PlaylistModel?> getFavourite() async {

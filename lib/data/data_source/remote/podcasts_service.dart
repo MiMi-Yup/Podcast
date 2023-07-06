@@ -1,4 +1,5 @@
 import 'package:join_podcast/models/request/podcasts/create_request.dart';
+import 'package:join_podcast/models/request/podcasts/update_request.dart';
 import 'package:join_podcast/models/response/podcasts/podcast_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:join_podcast/models/response/api_response.dart';
@@ -17,4 +18,8 @@ abstract class PodcastsService {
   @POST('/podcasts')
   Future<ApiResponse<PodcastResponse>> create(
       @Body() PodcastCreateRequest request);
+
+  @PATCH('/podcasts/{id}')
+  Future<ApiResponse<PodcastResponse>> updatePodcast(
+      @Path('id') String id, @Body() UpdatePodcastRequest request);
 }

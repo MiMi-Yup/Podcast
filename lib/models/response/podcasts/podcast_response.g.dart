@@ -24,6 +24,8 @@ PodcastResponse _$PodcastResponseFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['updated_at'] as String),
       image: json['image'] as String?,
+      numListening: json['num_listening'] as int?,
+      isSubscribed: json['is_subscribed'] as bool?,
       episodes: json['episodes'] == null
           ? null
           : ListResponse<EpisodeModel>.fromJson(
@@ -41,6 +43,8 @@ Map<String, dynamic> _$PodcastResponseToJson(PodcastResponse instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
       'image': instance.image,
+      'num_listening': instance.numListening,
+      'is_subscribed': instance.isSubscribed,
       'episodes': instance.episodes?.toJson(
         (value) => value,
       ),

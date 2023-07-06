@@ -4,6 +4,9 @@ import 'package:join_podcast/presentation/auth/verify/verify_create_route.dart';
 import 'package:join_podcast/presentation/auth/verify/verify_forgot_route.dart';
 import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
+import 'package:join_podcast/presentation/channel/new_episode/createNewEpisode_route.dart';
+import 'package:join_podcast/presentation/channel/new_podcast/createNewPodcast/createNewPodcast_route.dart';
+import 'package:join_podcast/presentation/channel/new_podcast/editPodcast/editPodcast_route.dart';
 import 'package:join_podcast/presentation/download/download_route.dart';
 import 'package:join_podcast/presentation/edit_info_podcast/add_avatar/add_avatar_route.dart';
 import 'package:join_podcast/presentation/edit_info_podcast/add_text_avatar/add_text_avatar_route.dart';
@@ -42,7 +45,7 @@ const routerIds = {
   RecordPageRoute: "RecordPageRoute",
   EpisodeRoute: "EpisodeRoute",
   DownloadRoute: "DownloadRoute",
-  ListRecordPage: "ListRecordPage",
+  ListRecordRoute: "ListRecordRoute",
   VerifyForgotRoute: "VerifyForgotRoute",
   VerifyCreateRoute: "VerifyCreateRoute",
   ResetAccountRoute: "ResetAccountRoute",
@@ -53,7 +56,10 @@ const routerIds = {
   DiscoverPodcastRoute: "DiscoverPodcastRoute",
   SetInfoPodcastRoute: "SetInfoPodcastRoute",
   AddTextAvatarRoute: "AddTextAvatarRoute",
-  PodcastAvailabilityRoute: "PodcastAvailabilityRoute"
+  PodcastAvailabilityRoute: "PodcastAvailabilityRoute",
+  EditPodcastRoute: "EditPodcastRoute",
+  CreateNewPodcastRoute: "CreateNewPodcast",
+  CreateNewEpisodeRoute: "CreateNewEpisode",
 };
 
 void generateRoutes() {
@@ -72,7 +78,7 @@ void generateRoutes() {
   BackgroundMusicHomeRoute();
   BackgroundMusicDetailRoute();
   RecordPageRoute();
-  ListRecordPage();
+  ListRecordRoute();
   VerifyForgotRoute();
   VerifyCreateRoute();
   ResetAccountRoute();
@@ -84,4 +90,7 @@ void generateRoutes() {
   SetInfoPodcastRoute();
   AddTextAvatarRoute();
   PodcastAvailabilityRoute();
+  EditPodcastRoute();
+  CreateNewPodcastRoute();
+  CreateNewEpisodeRoute();
 }

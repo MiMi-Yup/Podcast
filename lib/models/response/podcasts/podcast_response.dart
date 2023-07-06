@@ -24,6 +24,10 @@ class PodcastResponse {
   DateTime? updatedAt;
   @JsonKey(name: "image")
   String? image;
+  @JsonKey(name: "num_listening")
+  int? numListening;
+  @JsonKey(name: "is_subscribed")
+  bool? isSubscribed;
   @JsonKey(name: "episodes")
   ListResponse<EpisodeModel>? episodes;
 
@@ -36,6 +40,8 @@ class PodcastResponse {
       this.createdAt,
       this.updatedAt,
       this.image,
+      this.numListening,
+      this.isSubscribed,
       this.episodes});
 
   factory PodcastResponse.fromJson(Map<String, dynamic> json) =>

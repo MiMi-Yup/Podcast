@@ -15,11 +15,11 @@ abstract class EpisodeService {
   @POST('/episodes')
   Future<ApiResponse<EpisodeResponse>> create(
       @Body() EpisodeCreateRequest request);
-
-  @PATCH('/episodes/{id}')
-  Future<ApiResponse<EpisodeResponse>> update(
-      @Path('id') String id, @Body() EpisodeUpdateRequest request);
-
+  
   @GET('/episodes/{id}')
   Future<ApiResponse<EpisodeResponse>> getEpisodeById(@Path('id') String id);
+
+  @PATCH('/episodes/{id}')
+  Future<ApiResponse<EpisodeResponse>> updateEpisode(
+      @Path('id') String id, @Body() EpisodeUpdateRequest request);
 }

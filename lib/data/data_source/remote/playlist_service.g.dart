@@ -19,39 +19,13 @@ class _PlaylistService implements PlaylistService {
   String? baseUrl;
 
   @override
-  Future<ApiResponse<PlaylistResponse>> getPlaylistById(String id) async {
+  Future<ApiResponse<ListResponse<PlaylistResponse>>> getAll() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<PlaylistResponse>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/playlists/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<PlaylistResponse>.fromJson(
-      _result.data!,
-      (json) => PlaylistResponse.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
-  }
-
-  @override
-  Future<ApiResponse<List<PlaylistResponse>>> getAll() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<List<PlaylistResponse>>>(Options(
+        _setStreamType<ApiResponse<ListResponse<PlaylistResponse>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -63,14 +37,12 @@ class _PlaylistService implements PlaylistService {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<List<PlaylistResponse>>.fromJson(
+    final value = ApiResponse<ListResponse<PlaylistResponse>>.fromJson(
       _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<PlaylistResponse>(
-                  (i) => PlaylistResponse.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
+      (json) => ListResponse<PlaylistResponse>.fromJson(
+        json as Map<String, dynamic>,
+        (json) => PlaylistResponse.fromJson(json as Map<String, dynamic>),
+      ),
     );
     return value;
   }
@@ -104,51 +76,59 @@ class _PlaylistService implements PlaylistService {
   }
 
   @override
-  Future<void> addEpisode(
-    String id,
-    AddEpisodeRequest request,
-  ) async {
+  Future<ApiResponse<PlaylistResponse>> getPlaylistById(String id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'PATCH',
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<PlaylistResponse>>(Options(
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/playlists/${id}/add-episode',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .compose(
+              _dio.options,
+              '/playlists/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<PlaylistResponse>.fromJson(
+      _result.data!,
+      (json) => PlaylistResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
   }
 
   @override
-  Future<void> removeEpisode(
+  Future<ApiResponse<PlaylistResponse>> updatePlaylist(
     String id,
-    RemoveEpisodeRequest request,
+    UpdatePlaylistRequest request,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<PlaylistResponse>>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/playlists/${id}/remove-episode',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .compose(
+              _dio.options,
+              '/playlists/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<PlaylistResponse>.fromJson(
+      _result.data!,
+      (json) => PlaylistResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
   }
 
   @override
@@ -165,6 +145,72 @@ class _PlaylistService implements PlaylistService {
         .compose(
           _dio.options,
           '/playlists/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<void> addEpisode(
+    String idPlaylist,
+    String idEpisode,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/playlists/${idPlaylist}/episodes/${idEpisode}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<void> removeEpisode(
+    String idPlaylist,
+    String idEpisode,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/playlists/${idPlaylist}/episodes/${idEpisode}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<void> removeAllEpisode(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/playlists/${id}/episodes',
           queryParameters: queryParameters,
           data: _data,
         )
