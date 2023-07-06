@@ -26,6 +26,7 @@ class PlayerCubit extends Cubit<PlayerState> {
 
   Future<void> initializeCubit() async {
     final episode = await episodeUseCases.getEpisodeById(id);
+    final author = await episode?.podcastEx;
     emit(state.copyWith(episode: episode));
     // state.audioPlayer.setUrl(state.episode?.href ??
     //     'https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps');

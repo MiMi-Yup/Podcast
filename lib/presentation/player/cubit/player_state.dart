@@ -5,6 +5,7 @@ abstract class ExamplePlayerState extends Equatable {
   final double selectedSpeed;
   final DateTime? selectedTime;
   final SeekBarData seekBarData;
+  final String? author;
   final EpisodeModel? episode;
 
   const ExamplePlayerState({
@@ -12,6 +13,7 @@ abstract class ExamplePlayerState extends Equatable {
     required this.selectedSpeed,
     required this.selectedTime,
     required this.seekBarData,
+    required this.author,
     required this.episode,
   });
   @override
@@ -25,6 +27,7 @@ abstract class ExamplePlayerState extends Equatable {
     double? selectedSpeed,
     DateTime? selectedTime,
     SeekBarData? seekBarData,
+    String? author,
     EpisodeModel? episode,
   });
 }
@@ -35,6 +38,7 @@ class PlayerState extends ExamplePlayerState {
     required super.selectedSpeed,
     required super.selectedTime,
     required super.seekBarData,
+    required super.author,
     required super.episode,
   });
 
@@ -43,6 +47,7 @@ class PlayerState extends ExamplePlayerState {
         selectedSpeed: 1,
         selectedTime: null,
         seekBarData: SeekBarData(Duration.zero, Duration.zero),
+        author: null,
         episode: null,
       );
 
@@ -52,6 +57,7 @@ class PlayerState extends ExamplePlayerState {
     double? selectedSpeed,
     DateTime? selectedTime,
     SeekBarData? seekBarData,
+    String? author,
     EpisodeModel? episode,
   }) {
     return PlayerState(
@@ -59,6 +65,7 @@ class PlayerState extends ExamplePlayerState {
       selectedSpeed: selectedSpeed ?? this.selectedSpeed,
       selectedTime: selectedTime ?? this.selectedTime,
       seekBarData: seekBarData ?? this.seekBarData,
+      author: author ?? this.author,
       episode: episode ?? this.episode,
     );
   }

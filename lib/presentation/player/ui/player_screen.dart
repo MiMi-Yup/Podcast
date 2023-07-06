@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:configuration/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:join_podcast/models/episode_model.dart';
 import 'package:join_podcast/presentation/player/cubit/player_cubit.dart';
 import 'package:join_podcast/presentation/player/ui/widgets/seekbar.dart';
 import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
@@ -117,7 +118,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    state.episode?.name ?? '',
+                    'abc',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
