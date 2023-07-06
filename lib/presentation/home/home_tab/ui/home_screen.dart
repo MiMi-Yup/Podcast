@@ -7,7 +7,6 @@ import 'package:join_podcast/common/widgets/m_Author.dart';
 import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/home/home_tab/cubit/home_cubit.dart';
 import 'package:join_podcast/presentation/home/search/search_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
@@ -98,7 +97,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) => MAuthor(
                           networkImage: null,
                           onPressed: () => XMDRouter.pushNamed(
-                              routerIds[AuthorRoute]!,
+                              routerIds[PodcastRoute]!,
                               arguments: {index: index}),
                         ),
                         separatorBuilder: (context, index) => SizedBox(

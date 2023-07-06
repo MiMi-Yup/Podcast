@@ -7,8 +7,8 @@ import 'package:join_podcast/common/widgets/m_author_full.dart';
 import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_search_bar.dart' as mSearch;
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/home/search/cubit/search_cubit.dart';
+import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -102,7 +102,7 @@ class _SearchScreenState extends State<SearchScreen>
                           quantity: 888,
                           networkImage: null,
                           onPressed: () => XMDRouter.pushNamed(
-                              routerIds[AuthorRoute]!,
+                              routerIds[PodcastRoute]!,
                               arguments: {index: index}),
                         ),
                         separatorBuilder: (context, index) => SizedBox(

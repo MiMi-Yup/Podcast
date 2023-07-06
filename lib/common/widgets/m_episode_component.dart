@@ -2,6 +2,7 @@ import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/style/style.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:join_podcast/common/widgets/m_toggle.dart';
 
 class MEpisodeComponent extends StatefulWidget {
   final String title;
@@ -11,10 +12,12 @@ class MEpisodeComponent extends StatefulWidget {
   final bool isCompleted;
   final bool isPlayed;
   final bool isDownloaded;
+  final bool isAdmin;
   final bool Function(bool)? onPlay;
   final bool Function(bool)? onDownload;
   final void Function(int)? onMore;
   final void Function()? onPressed;
+  final void Function()? onAvatarPressed;
   const MEpisodeComponent(
       {super.key,
       required this.title,
@@ -25,9 +28,11 @@ class MEpisodeComponent extends StatefulWidget {
       this.onDownload,
       this.onMore,
       this.onPressed,
+      this.onAvatarPressed,
       this.isPlayed = false,
       this.isDownloaded = false,
-      this.isCompleted = false});
+      this.isCompleted = false,
+      this.isAdmin = false});
 
   @override
   State<MEpisodeComponent> createState() => _MEpisodeComponentState();
@@ -52,20 +57,24 @@ class _MEpisodeComponentState extends State<MEpisodeComponent> {
         onTap: widget.onPressed,
         child: Row(
           children: [
-            Container(
-              width: 125,
-              decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(20.0),
-                  image: widget.networkImage == null
-                      ? DecorationImage(
-                          image: AssetImage(mAIntroduction1),
-                          filterQuality: FilterQuality.high,
-                          fit: BoxFit.cover)
-                      : DecorationImage(
-                          image: NetworkImage(widget.networkImage!, scale: 1.0),
-                          filterQuality: FilterQuality.high,
-                          fit: BoxFit.cover)),
+            GestureDetector(
+              onTap: widget.onAvatarPressed,
+              child: Container(
+                width: 125,
+                decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(20.0),
+                    image: widget.networkImage == null
+                        ? DecorationImage(
+                            image: AssetImage(mAIntroduction1),
+                            filterQuality: FilterQuality.high,
+                            fit: BoxFit.cover)
+                        : DecorationImage(
+                            image:
+                                NetworkImage(widget.networkImage!, scale: 1.0),
+                            filterQuality: FilterQuality.high,
+                            fit: BoxFit.cover)),
+              ),
             ),
             SizedBox(
               width: 10.0,
@@ -92,98 +101,72 @@ class _MEpisodeComponentState extends State<MEpisodeComponent> {
                       Expanded(
                           child: Row(
                         children: [
-                          if (widget.isCompleted)
-                            Container(
+                          Container(
                               height: 38.0,
                               padding: EdgeInsets.symmetric(horizontal: 10.0),
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: mCPrimary,
-                                      strokeAlign: BorderSide.strokeAlignCenter,
-                                      width: 2.0),
-                                  borderRadius: BorderRadius.circular(50.0)),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.play_arrow,
-                                    color: mCPrimary,
-                                  ),
-                                  SizedBox(
-                                    width: 8.0,
-                                  ),
-                                  Text(MultiLanguage.of(context).completed, style: mST14M)
-                                ],
-                              ),
-                            )
-                          else
-                            Container(
-                              height: 38.0,
-                              padding: EdgeInsets.only(left: 4.0, right: 4.0),
-                              decoration: BoxDecoration(
                                   color: isPlayed ? mCWarning : mCPrimary,
                                   borderRadius: BorderRadius.circular(50.0)),
-                              child: TextButton(
-                                  onPressed: () {
-                                    if (widget.onPlay != null) {
-                                      final state = widget.onPlay!(isPlayed);
-                                      if (state != isPlayed) {
-                                        setState(() => isPlayed = state);
-                                      }
-                                    }
-                                  },
+                              child: MToggle(
+                                  initState: isPlayed,
                                   child: Row(
                                     children: [
                                       Icon(
-                                        isPlayed
-                                            ? Icons.pause
-                                            : Icons.play_arrow,
+                                        Icons.play_arrow,
                                         color: Colors.white,
                                       ),
                                       SizedBox(
                                         width: 8.0,
                                       ),
-                                      Text(isPlayed ? MultiLanguage.of(context).pause : MultiLanguage.of(context).play,
+                                      Text(MultiLanguage.of(context).play,
                                           style: mST14M.copyWith(
                                               color: Colors.white))
                                     ],
-                                  )),
-                            ),
-                          IconButton(
-                              onPressed: () {
-                                if (widget.onDownload != null) {
-                                  final state =
-                                      widget.onDownload!(isDownloaded);
-                                  if (state != isDownloaded) {
-                                    setState(() => isDownloaded = state);
-                                  }
-                                }
-                              },
-                              icon: Icon(isDownloaded
-                                  ? Icons.download_done
-                                  : Icons.download_for_offline_outlined))
-                        ],
-                      )),
-                      PopupMenuButton<int>(
-                        icon: Icon(Icons.more_vert),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        itemBuilder: (context) => [
-                          PopupMenuItem(
-                            value: 0,
-                            child: Text(MultiLanguage.of(context).channel),
+                                  ),
+                                  whenTrue: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.pause,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 8.0,
+                                      ),
+                                      Text(MultiLanguage.of(context).pause,
+                                          style: mST14M.copyWith(
+                                              color: Colors.white))
+                                    ],
+                                  ),
+                                  onToogle: widget.onPlay)),
+                          SizedBox(
+                            width: 8.0,
                           ),
-                          PopupMenuItem(
-                            value: 1,
-                            child: Text(MultiLanguage.of(context).edit),
-                          ),
-                          PopupMenuItem(
-                            value: 2,
-                            child: Text(MultiLanguage.of(context).delete),
+                          MToggle(
+                            child: Icon(Icons.download_for_offline_outlined),
+                            whenTrue: Icon(Icons.download_done),
+                            initState: isDownloaded,
+                            onToogle: widget.onDownload,
                           )
                         ],
-                        onSelected: widget.onMore,
-                      )
+                      )),
+                      if (widget.isAdmin)
+                        PopupMenuButton<int>(
+                          icon: Icon(Icons.more_vert),
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              value: 0,
+                              child: Text(MultiLanguage.of(context).edit),
+                            ),
+                            PopupMenuItem(
+                              value: 1,
+                              child: Text(MultiLanguage.of(context).delete),
+                            )
+                          ],
+                          onSelected: widget.onMore,
+                        )
                     ],
                   )
                 ],
