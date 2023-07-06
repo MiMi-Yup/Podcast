@@ -10,12 +10,19 @@ part 'search_state.dart';
 @injectable
 class SearchCubit extends Cubit<SearchState> {
   final UnitOfWork unitOfWork;
-  SearchCubit({required this.unitOfWork})
-      : super(SearchStateInitial(
-            channels: const [], episodes: const [], podcasts: const []));
+  SearchCubit({required this.unitOfWork}) : super(SearchState.initial());
 
   Future<List<String>> getHistorySearch() async {
-    await Future.delayed(const Duration(seconds: 2));
-    return ["1", "2"];
+    return await unitOfWork.user.getSearchHistory() ?? [];
   }
+
+  void removeSearchHistory(String search) {
+    unitOfWork.user.removeSearcgHistory(search);
+  }
+
+  void searchChannel(String query) {}
+
+  void searchPodcast(String query) {}
+
+  void searchEpisode(String query) {}
 }

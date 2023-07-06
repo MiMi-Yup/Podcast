@@ -16,7 +16,7 @@ class PlaylistCubit extends Cubit<PlaylistState> {
 
   void init() async {
     final result = await usecase.getPlaylistById(playlist);
-    if (result != null) {
+    if (result != null && !isClosed) {
       emit(state.copyWith(
           namePlaylist: result.name,
           count: result.count,

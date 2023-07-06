@@ -410,11 +410,21 @@ class MultiLanguage {
     );
   }
 
-  /// `New Updates`
-  String get newUpdates {
+  /// `Most Listened`
+  String get mostListened {
     return Intl.message(
-      'New Updates',
-      name: 'newUpdates',
+      'Most Listened',
+      name: 'mostListened',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Newest Episode`
+  String get newestEpisode {
+    return Intl.message(
+      'Newest Episode',
+      name: 'newestEpisode',
       desc: '',
       args: [],
     );

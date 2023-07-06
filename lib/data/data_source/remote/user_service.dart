@@ -57,4 +57,10 @@ abstract class UserService {
 
   @DELETE('/users/self/favorite-episodes/{id}')
   Future<void> removeFavouriteById(@Path('id') String id);
+
+  @GET('/users/self/search-history')
+  Future<ApiResponse<List<String>>> getSearchHistory();
+
+  @DELETE('/users/self/search-history/{searchStr}')
+  Future<void> removeSearchHistory(@Path('searchStr') String id);
 }

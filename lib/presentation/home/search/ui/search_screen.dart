@@ -19,27 +19,48 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen>
     with SingleTickerProviderStateMixin {
-  late TextEditingController _controller;
   late TabController _tabController;
+  String query = '';
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(_listenerTabChange);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _tabController.removeListener(_listenerTabChange);
     _tabController.dispose();
+  }
+
+  void _listenerTabChange() {
+    if (!_tabController.indexIsChanging) {
+      switch (_tabController.index) {
+        case 0:
+          context.read<SearchCubit>().searchChannel(query);
+          break;
+        case 1:
+          context.read<SearchCubit>().searchPodcast(query);
+          break;
+        case 2:
+          context.read<SearchCubit>().searchEpisode(query);
+          break;
+        default:
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return mSearch.SearchBar(
         history: context.read<SearchCubit>().getHistorySearch,
+        onSubmitted: (submit) {
+          query = submit;
+          _listenerTabChange();
+        },
         body: Padding(
           padding: const EdgeInsets.only(top: 85),
           child: Column(
@@ -72,6 +93,8 @@ class _SearchScreenState extends State<SearchScreen>
                   children: [
                     //channel tab
                     BlocBuilder<SearchCubit, SearchState>(
+                      buildWhen: (previous, current) =>
+                          previous.channels != current.channels,
                       builder: (context, state) => ListView.separated(
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
@@ -92,6 +115,8 @@ class _SearchScreenState extends State<SearchScreen>
                     ),
                     //podcast tab
                     BlocBuilder<SearchCubit, SearchState>(
+                      buildWhen: (previous, current) =>
+                          previous.podcasts != current.podcasts,
                       builder: (context, state) => ListView.separated(
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
@@ -113,8 +138,9 @@ class _SearchScreenState extends State<SearchScreen>
                     ),
                     //episode tab
                     BlocBuilder<SearchCubit, SearchState>(
-                      builder: (context, state) => state is SearchStateInitial
-                          ? ListView.separated(
+                        buildWhen: (previous, current) =>
+                            previous.episodes != current.episodes,
+                        builder: (context, state) => ListView.separated(
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
                               padding: EdgeInsets.only(
@@ -131,9 +157,7 @@ class _SearchScreenState extends State<SearchScreen>
                                 height: 16.0,
                               ),
                               itemCount: 10,
-                            )
-                          : const SizedBox.shrink(),
-                    ),
+                            )),
                   ],
                 ),
               )

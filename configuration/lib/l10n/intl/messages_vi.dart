@@ -109,7 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "m_continue": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
         "markDone": MessageLookupByLibrary.simpleMessage("Đánh hoàn thành"),
         "mins": MessageLookupByLibrary.simpleMessage("phút"),
-        "newUpdates": MessageLookupByLibrary.simpleMessage("Cập nhật mới"),
+        "mostListened": MessageLookupByLibrary.simpleMessage("Nghe nhiều nhất"),
+        "newestEpisode": MessageLookupByLibrary.simpleMessage("Tập mới nhất"),
         "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),
         "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
         "otherLogin":

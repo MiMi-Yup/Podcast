@@ -107,7 +107,41 @@ class HomeScreen extends StatelessWidget {
                       ),
                     )).builder(),
                 MSection(
-                    title: MultiLanguage.of(context).newUpdates,
+                    title: MultiLanguage.of(context).mostListened,
+                    headerColor: Theme.of(context).scaffoldBackgroundColor,
+                    titleColor: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    onPressed: () => null,
+                    action: TextButton(
+                      onPressed: () => null,
+                      child: Text(MultiLanguage.of(context).seeAll),
+                    ),
+                    content: Container(
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                        itemBuilder: (context, index) => MEpisodeComponent(
+                          title:
+                              "927: Deep Dive | How to Quit Your Job the Right Way",
+                          author: "Apple Talk",
+                          duration: Duration(minutes: 52, seconds: 25),
+                          networkImage: null,
+                          onPlay: (state) => !state,
+                          onDownload: (state) => !state,
+                          onPressed: () => XMDRouter.pushNamed(
+                              routerIds[PodcastRoute]!,
+                              arguments: {'id': '123456'}),
+                        ),
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: 16.0,
+                        ),
+                        itemCount: 10,
+                      ),
+                    )).builder(),
+                MSection(
+                    title: MultiLanguage.of(context).newestEpisode,
                     headerColor: Theme.of(context).scaffoldBackgroundColor,
                     titleColor: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
