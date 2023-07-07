@@ -103,6 +103,26 @@ class _EpisodeService implements EpisodeService {
   }
 
   @override
+  Future<void> deleteEpisode(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/episodes/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
   Future<ApiResponse<ListSeperateResponse<EpisodeResponse>>> search(
     String query,
     int? offset,
@@ -134,6 +154,64 @@ class _EpisodeService implements EpisodeService {
     final value = ApiResponse<ListSeperateResponse<EpisodeResponse>>.fromJson(
       _result.data!,
       (json) => ListSeperateResponse<EpisodeResponse>.fromJson(
+        json as Map<String, dynamic>,
+        (json) => EpisodeResponse.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<ListResponse<EpisodeResponse>>> getNewest() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<ListResponse<EpisodeResponse>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/episodes/newest',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<ListResponse<EpisodeResponse>>.fromJson(
+      _result.data!,
+      (json) => ListResponse<EpisodeResponse>.fromJson(
+        json as Map<String, dynamic>,
+        (json) => EpisodeResponse.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<ListResponse<EpisodeResponse>>> getMostListened() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<ListResponse<EpisodeResponse>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/episodes/most-listened',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<ListResponse<EpisodeResponse>>.fromJson(
+      _result.data!,
+      (json) => ListResponse<EpisodeResponse>.fromJson(
         json as Map<String, dynamic>,
         (json) => EpisodeResponse.fromJson(json as Map<String, dynamic>),
       ),

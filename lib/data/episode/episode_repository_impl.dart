@@ -8,6 +8,7 @@ import 'package:join_podcast/domain/repositories/episode_repository.dart';
 import 'package:join_podcast/models/request/episode/update_request.dart';
 import 'package:join_podcast/models/response/episode/episode_response.dart';
 import 'package:join_podcast/models/request/episode/create_request.dart';
+import 'package:join_podcast/models/response/list_response.dart';
 import 'package:join_podcast/models/response/list_seperate_response.dart';
 import 'package:join_podcast/utils/exception_util.dart';
 
@@ -58,6 +59,39 @@ class EpisodeRepositoryImpl implements EpisodeRepository {
       {int? offset, int? limit}) {
     return service
         ?.search(query, offset, limit)
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
+
+  @override
+  FutureOr<bool?> deleteEpisode(String id) {
+    return service
+        ?.deleteEpisode(id)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
+
+  @override
+  FutureOr<ListResponse<EpisodeResponse>?> getMostListened() {
+    return service
+        ?.getMostListened()
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
+
+  @override
+  FutureOr<ListResponse<EpisodeResponse>?> getNewest() {
+    return service
+        ?.getNewest()
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);
