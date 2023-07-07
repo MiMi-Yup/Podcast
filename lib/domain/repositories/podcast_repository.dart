@@ -12,5 +12,6 @@ abstract class PodcastRepository {
   FutureOr<bool?> subscribe({required String podcastId});
   FutureOr<bool?> unSubscribe({required String podcastId});
   FutureOr<bool?> deletePodcast(String id);
+  //FutureOr<bool?> updatePodcast({required String idPlaylist, required String name});
   FutureOr<bool?> deleteAllEpisodesOfPodcast(String id);
 }

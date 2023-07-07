@@ -36,4 +36,9 @@ class PodcastUseCases {
     if (result == null) return null;
     return PodcastModel.fromResponse(result);
   }
+
+  Future<bool> deletePodcast({required String id}) async {
+    final result = await unitOfWork.podcast.deletePodcast(id);
+    return result ?? false;
+  }
 }

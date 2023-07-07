@@ -53,4 +53,9 @@ class EpisodeUseCases {
             podcastId: podcastID));
     return newEpi?.toModel();
   }
+
+  Future<bool> deleteEpisode({required String id}) async {
+    final result = await unitOfWork.episode.deleteEpisode(id);
+    return result ?? false;
+  }
 }

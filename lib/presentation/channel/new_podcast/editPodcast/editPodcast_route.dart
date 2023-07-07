@@ -2,6 +2,7 @@ import 'package:configuration/route/route_define.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/presentation/channel/new_podcast/editPodcast/ui/editPodcast_screen.dart';
+import 'package:path/path.dart';
 import '../../../../di/di.dart';
 import '../../../../manifest.dart';
 import 'cubit/editPodcast_cubit.dart';
@@ -14,7 +15,7 @@ class EditPodcastRoute extends RouteDefine {
       builder: (_) => MultiBlocProvider(
         providers: [
           BlocProvider<EditPodcastCubit>(
-            create: (_) => getIt<EditPodcastCubit>(),
+            create: (_) => (getIt<EditPodcastCubit>()),
           ),
         ],
         child: PodcastEditingScreen(
