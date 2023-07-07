@@ -41,6 +41,8 @@ class PlayerCubit extends Cubit<PlayerState> {
           episode: episodePlayerManager.currentEpisode,
           author: author?.author?.name));
       episodePlayerManager.playEpisode(id);
+      emit(state.copyWith(
+          selectedSpeed: episodePlayerManager.audioPlayer.speed));
     }
     // for (var element in listEpisodeModel) {
     //   if (element?.id != id) {
@@ -73,6 +75,7 @@ class PlayerCubit extends Cubit<PlayerState> {
           onFinish: () {
             // Xử lý sự kiện khi hoàn thành
           },
+          listTitle: const ["nd1", "nd2", "nd3", "nd4", "nd5", "nd6", "nd7"],
         );
       },
     );

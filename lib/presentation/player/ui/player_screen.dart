@@ -176,8 +176,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         ),
                       ),
                       PlayStopButton(
-                          audioPlayer:
-                              playerCubit.episodePlayerManager.audioPlayer),
+                        episodePlayerManager: playerCubit.episodePlayerManager,
+                      ),
                       GestureDetector(
                         onTap: () => playerCubit.skipForward(),
                         child: const Icon(

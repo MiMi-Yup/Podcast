@@ -14,7 +14,7 @@ class EpisodePlayerManager {
     _audioPlayer = AudioPlayer();
     _audioPlayer.playerStateStream.listen((playerState) {
       if (playerState.processingState == ProcessingState.completed) {
-        // Xử lý sự kiện khi bài hát hoàn thành
+        _isPlaying = false;
       }
     });
   }
@@ -38,13 +38,21 @@ class EpisodePlayerManager {
     }
   }
 
-  void pauseEpisode() {
+  void play() {
+    _audioPlayer.play();
+    _isPlaying = true;
+  }
+
+  void pause() {
     _audioPlayer.pause();
     _isPlaying = false;
   }
 
-  void resumeEpisode() {
-    _audioPlayer.play();
+  void replay() {
+    _audioPlayer.seek(
+      Duration.zero,
+      index: _audioPlayer.effectiveIndices!.first,
+    );
     _isPlaying = true;
   }
 

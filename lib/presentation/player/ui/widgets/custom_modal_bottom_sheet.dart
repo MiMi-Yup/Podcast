@@ -2,19 +2,36 @@ import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 
-class CustomModalBottomSheet extends StatelessWidget {
-  final Function onCreatePlaylist;
-  final Function onFinish;
-  List<String> myList = [
-    "Nội dung 1",
-    "Nội dung 2",
-    "Nội dung 3",
-    "Nội dung 4",
-    "Nội dung 5"
-  ];
+class CustomModalBottomSheet extends StatefulWidget {
+  final List<String>? listTitle;
+  final Function? onCreatePlaylist;
+  final Function? onFinish;
 
-  CustomModalBottomSheet(
-      {super.key, required this.onCreatePlaylist, required this.onFinish});
+  const CustomModalBottomSheet({
+    Key? key,
+    required this.onCreatePlaylist,
+    required this.onFinish,
+    required this.listTitle,
+  }) : super(key: key);
+
+  @override
+  State<CustomModalBottomSheet> createState() => _CustomModalBottomSheetState();
+}
+
+class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
+  List<bool> listChecking = [];
+
+  List<String> listIdListRemove = [];
+  List<String> listIdListAdd = [];
+
+  @override
+  void initState() {
+    super.initState();
+    //  Khởi tại giá trị checking đầ vào
+    for (int i = 0; i < widget.listTitle!.length; i++) {
+      i % 2 == 0 ? listChecking.add(true) : listChecking.add(false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +53,7 @@ class CustomModalBottomSheet extends StatelessWidget {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: () => onCreatePlaylist,
+                onTap: widget.onCreatePlaylist!(),
                 child: Row(
                   children: [
                     const Icon(Icons.add),
@@ -54,25 +71,36 @@ class CustomModalBottomSheet extends StatelessWidget {
             ],
           ),
           const Divider(),
-          ListView(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            children: List.generate(
-              myList.length,
-              (index) {
-                return ListTile(
-                  leading: Checkbox(
-                    value: false,
-                    onChanged: (value) {},
-                  ),
-                  title: Text(myList[index]),
-                );
-              },
+          SizedBox(
+            height: 220,
+            child: ListView(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              children: List.generate(
+                widget.listTitle!.length,
+                (index) {
+                  return ListTile(
+                    leading: Checkbox(
+                      value: listChecking[index],
+                      onChanged: (value) {
+                        setState(() {
+                          listChecking[index] = value!;
+                        });
+                      },
+                      activeColor: mCGreen500,
+                    ),
+                    title: Text(
+                      widget.listTitle![index],
+                      style: mST14R,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           const Divider(),
           GestureDetector(
-            onTap: () => onFinish,
+            onTap: widget.onFinish!(),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(
