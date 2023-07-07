@@ -1,22 +1,22 @@
-part of 'author_cubit.dart';
+part of 'podcast_cubit.dart';
 
 @immutable
-abstract class AuthorState extends Equatable {}
+abstract class PodcastState extends Equatable {}
 
-class AuthorStateInitial extends AuthorState {
+class PodcastStateInitial extends PodcastState {
   final int currentIndex;
   final bool isHidden;
 
-  AuthorStateInitial({required this.currentIndex, this.isHidden = false});
+  PodcastStateInitial({required this.currentIndex, this.isHidden = false});
 
   @override
   List<Object?> get props => [currentIndex, isHidden];
 
-  AuthorStateInitial copyWith({
+  PodcastStateInitial copyWith({
     int? currentIndex,
     bool? isHidden,
   }) {
-    return AuthorStateInitial(
+    return PodcastStateInitial(
       currentIndex: currentIndex ?? this.currentIndex,
       isHidden: isHidden ?? this.isHidden,
     );

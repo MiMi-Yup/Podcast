@@ -4,33 +4,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/episode/cubit/episode_cubit.dart';
-import 'package:join_podcast/presentation/episode/ui/episode_screen.dart';
+import 'package:join_podcast/presentation/player/cubit/player_cubit.dart';
+import 'package:join_podcast/presentation/player/ui/player_screen.dart';
 
-class EpisodeRoute extends RouteDefine {
+class PlayerRoute extends RouteDefine {
   @override
   List<Path> initRoute(Map? arguments) => [
         Path(
-          route: EpisodeRoute,
+          route: PlayerRoute,
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider<EpisodeCubit>(
-                create: (_) => EpisodeCubit(
+              BlocProvider<PlayerCubit>(
+                create: (_) => PlayerCubit(
                   episodeUseCases: getIt<EpisodeUseCases>(),
                   id: arguments?['id'],
                 ),
               ),
             ],
-            child: const EpisodeScreen(),
+            child: const PlayerScreen(),
           ),
         )
       ];
 
   static pushAndRemoveAll() {
-    XMDRouter.pushNamedAndRemoveUntil(routerIds[EpisodeRoute]!);
+    XMDRouter.pushNamedAndRemoveUntil(routerIds[PlayerRoute]!);
   }
 
   static popAndRemoveAll() {
-    XMDRouter.popNamedAndRemoveUntil(routerIds[EpisodeRoute]!);
+    XMDRouter.popNamedAndRemoveUntil(routerIds[PlayerRoute]!);
   }
 }

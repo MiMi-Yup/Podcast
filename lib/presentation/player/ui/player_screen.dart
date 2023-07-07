@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:configuration/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:join_podcast/presentation/episode/cubit/episode_cubit.dart';
-import 'package:join_podcast/presentation/episode/ui/widgets/seekbar.dart';
+import 'package:join_podcast/presentation/player/cubit/player_cubit.dart';
+import 'package:join_podcast/presentation/player/ui/widgets/seekbar.dart';
 import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
 import 'package:just_audio/just_audio.dart';
 
-class EpisodeScreen extends StatefulWidget {
-  const EpisodeScreen({Key? key}) : super(key: key);
+class PlayerScreen extends StatefulWidget {
+  const PlayerScreen({Key? key}) : super(key: key);
 
   @override
-  State<EpisodeScreen> createState() => _EpisodeScreenState();
+  State<PlayerScreen> createState() => _PlayerScreenState();
 }
 
-class _EpisodeScreenState extends State<EpisodeScreen> {
+class _PlayerScreenState extends State<PlayerScreen> {
   @override
   Widget build(BuildContext context) {
-    final episodeCubit = BlocProvider.of<EpisodeCubit>(context);
-    return BlocBuilder<EpisodeCubit, EpisodeState>(
+    final episodeCubit = BlocProvider.of<PlayerCubit>(context);
+    return BlocBuilder<PlayerCubit, ExamplePlayerState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(

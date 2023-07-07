@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart';
 import 'package:join_podcast/models/episode_model.dart';
-import 'package:join_podcast/presentation/episode/ui/widgets/speed_bottom_modal_sheet.dart';
+import 'package:join_podcast/presentation/player/ui/widgets/speed_bottom_modal_sheet.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 import '../ui/widgets/seekbar.dart';
@@ -14,19 +14,19 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:fluttertoast/fluttertoast.dart';
 
-part 'episode_state.dart';
+part 'player_state.dart';
 
 final FlutterLocalNotificationsPlugin appLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 @injectable
-class EpisodeCubit extends Cubit<EpisodeState> {
+class PlayerCubit extends Cubit<PlayerState> {
   final EpisodeUseCases episodeUseCases;
   final String id;
 
   int? notificationId;
-  EpisodeCubit({required this.id, required this.episodeUseCases})
-      : super(EpisodeState.initial()) {
+  PlayerCubit({required this.id, required this.episodeUseCases})
+      : super(PlayerState.initial()) {
     initializeCubit();
   }
 

@@ -1,13 +1,15 @@
+import 'dart:io';
+
 import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_Author.dart';
 import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/home/home_tab/cubit/home_cubit.dart';
 import 'package:join_podcast/presentation/home/search/search_route.dart';
 import 'package:join_podcast/presentation/notification/notification_route.dart';
@@ -98,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) => MAuthor(
                           networkImage: null,
                           onPressed: () => XMDRouter.pushNamed(
-                              routerIds[AuthorRoute]!,
+                              routerIds[PodcastRoute]!,
                               arguments: {index: index}),
                         ),
                         separatorBuilder: (context, index) => SizedBox(
@@ -108,7 +110,41 @@ class HomeScreen extends StatelessWidget {
                       ),
                     )).builder(),
                 MSection(
-                    title: MultiLanguage.of(context).newUpdates,
+                    title: MultiLanguage.of(context).mostListened,
+                    headerColor: Theme.of(context).scaffoldBackgroundColor,
+                    titleColor: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    onPressed: () => null,
+                    action: TextButton(
+                      onPressed: () => null,
+                      child: Text(MultiLanguage.of(context).seeAll),
+                    ),
+                    content: Container(
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                        itemBuilder: (context, index) => MEpisodeComponent(
+                          title:
+                              "927: Deep Dive | How to Quit Your Job the Right Way",
+                          author: "Apple Talk",
+                          duration: Duration(minutes: 52, seconds: 25),
+                          networkImage: null,
+                          onPlay: (state) => !state,
+                          onDownload: (state) => !state,
+                          onPressed: () => XMDRouter.pushNamed(
+                              routerIds[PodcastRoute]!,
+                              arguments: {'id': '123456'}),
+                        ),
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: 16.0,
+                        ),
+                        itemCount: 10,
+                      ),
+                    )).builder(),
+                MSection(
+                    title: MultiLanguage.of(context).newestEpisode,
                     headerColor: Theme.of(context).scaffoldBackgroundColor,
                     titleColor: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white

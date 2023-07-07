@@ -109,7 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "m_continue": MessageLookupByLibrary.simpleMessage("Continue"),
         "markDone": MessageLookupByLibrary.simpleMessage("Mark done"),
         "mins": MessageLookupByLibrary.simpleMessage("mins"),
-        "newUpdates": MessageLookupByLibrary.simpleMessage("New Updates"),
+        "mostListened": MessageLookupByLibrary.simpleMessage("Most Listened"),
+        "newestEpisode": MessageLookupByLibrary.simpleMessage("Newest Episode"),
         "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "otherLogin": MessageLookupByLibrary.simpleMessage("or continue with"),
@@ -126,6 +127,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminder": MessageLookupByLibrary.simpleMessage("Reminder"),
         "removeCompletedAfter":
             MessageLookupByLibrary.simpleMessage("Remove Completed Episodes"),
+        "removeFromPlaylist":
+            MessageLookupByLibrary.simpleMessage("Remove from this playlist"),
         "removeUnfinishedAfter":
             MessageLookupByLibrary.simpleMessage("Remove Unfinished Episodes"),
         "rename": MessageLookupByLibrary.simpleMessage("Rename"),

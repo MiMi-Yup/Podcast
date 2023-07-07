@@ -1,23 +1,22 @@
 part of 'library_cubit.dart';
 
 @immutable
-abstract class LibraryState extends Equatable {}
+class LibraryState extends Equatable {
+  final List<EpisodeModel> favourites;
+  final List<PlaylistModel> playlists;
 
-class LibraryStateFavourite extends LibraryState {
-  final List<dynamic> favourites;
-  final List<dynamic> playlists;
+  const LibraryState(
+      {required this.favourites, required this.playlists});
 
-  LibraryStateFavourite({required this.favourites, required this.playlists});
-
-  factory LibraryStateFavourite.initial() =>
-      LibraryStateFavourite(favourites: [], playlists: []);
+  factory LibraryState.initial() =>
+      const LibraryState(favourites: [], playlists: []);
 
   @override
   List<Object?> get props => [favourites, playlists];
 
-  LibraryStateFavourite copyWith(
-      {List<dynamic>? favourites, List<dynamic>? playlists}) {
-    return LibraryStateFavourite(
+  LibraryState copyWith(
+      {List<EpisodeModel>? favourites, List<PlaylistModel>? playlists}) {
+    return LibraryState(
         favourites: favourites ?? this.favourites,
         playlists: playlists ?? this.playlists);
   }

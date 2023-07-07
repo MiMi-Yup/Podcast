@@ -1,7 +1,6 @@
 import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
-import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_button_setting.dart';
 import 'package:join_podcast/common/widgets/m_confirm_bottom_modal.dart';

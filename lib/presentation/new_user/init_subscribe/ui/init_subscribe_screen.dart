@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_author_subscribe.dart';
 import 'package:join_podcast/common/widgets/m_primary_button.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/author/author_route.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
 import 'package:join_podcast/presentation/new_user/init_subscribe/cubit/init_subscribe_cubit.dart';
+import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 import 'package:join_podcast/utils/alert_util.dart';
 
 class InitSubscribeScreen extends StatelessWidget {
@@ -38,7 +38,7 @@ class InitSubscribeScreen extends StatelessWidget {
                 author: "Apple Talk",
                 quantity: 888,
                 networkImage: null,
-                onPressed: () => XMDRouter.pushNamed(routerIds[AuthorRoute]!,
+                onPressed: () => XMDRouter.pushNamed(routerIds[PodcastRoute]!,
                     arguments: {index: index}),
                 toggleSubscribe: (value) {
                   if (value) {
