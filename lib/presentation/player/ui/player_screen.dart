@@ -16,7 +16,7 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   @override
   Widget build(BuildContext context) {
-    final episodeCubit = BlocProvider.of<PlayerCubit>(context);
+    final playerCubit = BlocProvider.of<PlayerCubit>(context);
     return BlocBuilder<PlayerCubit, ExamplePlayerState>(
       builder: (context, state) {
         return Scaffold(
@@ -49,11 +49,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     value: 1,
                     child: Row(
                       children: [
-                        const Icon(Icons.access_alarm),
+                        const Icon(Icons.download),
                         const SizedBox(
                           width: 10.0,
                         ),
-                        Text(MultiLanguage.of(context).reminder)
+                        Text(MultiLanguage.of(context).download)
                       ],
                     ),
                   ),
@@ -61,35 +61,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     value: 2,
                     child: Row(
                       children: [
-                        const Icon(Icons.share),
+                        const Icon(Icons.playlist_add),
                         const SizedBox(
                           width: 10.0,
                         ),
-                        Text(MultiLanguage.of(context).share)
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 3,
-                    child: Row(
-                      children: const [
-                        Icon(Icons.wifi),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text("View RSS feed")
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 4,
-                    child: Row(
-                      children: [
-                        const Icon(Icons.report),
-                        const SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(MultiLanguage.of(context).report)
+                        Text(MultiLanguage.of(context).add_to_playlist)
                       ],
                     ),
                   ),
@@ -97,10 +73,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 offset: const Offset(0, 50),
                 onSelected: (value) {
                   if (value == 0) {
-                    episodeCubit.showPlaybackSpeedModal(context);
+                    playerCubit.showPlaybackSpeedModal(context);
                   } else {
                     if (value == 1) {
-                      episodeCubit.openReminder(context);
+                      //  Hàm download, check và tắt sự kiện download nếu đã download
+                    } else {
+                      //  Show ModalBottom
+                      playerCubit.showModalPlaylist(context);
                     }
                   }
                 },
@@ -143,7 +122,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    state.episode?.name ?? '',
+                    state.author ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
@@ -155,13 +134,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   height: 5,
                 ),
                 StreamBuilder<SeekBarData>(
-                  stream: episodeCubit.seekBarDataStream,
+                  stream: playerCubit.seekBarDataStream,
                   builder: (context, snapshot) {
                     final positionData = snapshot.data;
                     return SeekBar(
                       position: positionData?.position ?? Duration.zero,
                       duration: positionData?.duration ?? Duration.zero,
-                      onChangeEnd: state.audioPlayer.seek,
+                      onChangeEnd:
+                          playerCubit.episodePlayerManager.audioPlayer.seek,
                     );
                   },
                 ),
@@ -174,11 +154,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       StreamBuilder<SequenceState?>(
-                        stream: state.audioPlayer.sequenceStateStream,
+                        stream: playerCubit.episodePlayerManager.audioPlayer
+                            .sequenceStateStream,
                         builder: (context, index) {
                           return IconButton(
-                            onPressed: state.audioPlayer.hasPrevious
-                                ? state.audioPlayer.seekToPrevious
+                            onPressed: playerCubit.episodePlayerManager
+                                    .audioPlayer.hasPrevious
+                                ? playerCubit.seekToPreviousEpisode
                                 : null,
                             iconSize: 40,
                             icon: const Icon(Icons.skip_previous),
@@ -186,26 +168,30 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         },
                       ),
                       GestureDetector(
-                        onTap: () => episodeCubit.skipBackward(),
+                        onTap: () => playerCubit.skipBackward(),
                         child: const Icon(
                           Icons.replay_10,
                           size: 40,
                         ),
                       ),
-                      PlayStopButton(audioPlayer: state.audioPlayer),
+                      PlayStopButton(
+                        episodePlayerManager: playerCubit.episodePlayerManager,
+                      ),
                       GestureDetector(
-                        onTap: () => episodeCubit.skipForward(),
+                        onTap: () => playerCubit.skipForward(),
                         child: const Icon(
                           Icons.forward_10,
                           size: 40,
                         ),
                       ),
                       StreamBuilder<SequenceState?>(
-                        stream: state.audioPlayer.sequenceStateStream,
+                        stream: playerCubit.episodePlayerManager.audioPlayer
+                            .sequenceStateStream,
                         builder: (context, index) {
                           return IconButton(
-                            onPressed: state.audioPlayer.hasNext
-                                ? state.audioPlayer.seekToNext
+                            onPressed: playerCubit
+                                    .episodePlayerManager.audioPlayer.hasNext
+                                ? playerCubit.seekToNextEpisode
                                 : null,
                             iconSize: 40,
                             icon: const Icon(Icons.skip_next),

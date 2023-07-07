@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_product": MessageLookupByLibrary.simpleMessage("About It:"),
+        "add_to_playlist":
+            MessageLookupByLibrary.simpleMessage("Add to Playlist"),
         "after": m0,
         "apply": MessageLookupByLibrary.simpleMessage("Apply"),
         "askLogout": MessageLookupByLibrary.simpleMessage(
@@ -61,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Database exception"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of birth"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "download": MessageLookupByLibrary.simpleMessage("Download"),
         "downloadAll": MessageLookupByLibrary.simpleMessage("Download All"),
         "downloadIfWifi": MessageLookupByLibrary.simpleMessage(
             "Download Only if Connected to Wi-Fi"),
@@ -74,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "episode": MessageLookupByLibrary.simpleMessage("Episode"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Fill Your Profile"),
+        "finished": MessageLookupByLibrary.simpleMessage("Finished"),
         "forgotAccount":
             MessageLookupByLibrary.simpleMessage("Fotgot password"),
         "forgotTheAccount":
@@ -109,8 +113,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "m_continue": MessageLookupByLibrary.simpleMessage("Continue"),
         "markDone": MessageLookupByLibrary.simpleMessage("Mark done"),
         "mins": MessageLookupByLibrary.simpleMessage("mins"),
-        "mostListened": MessageLookupByLibrary.simpleMessage("Most Listened"),
-        "newestEpisode": MessageLookupByLibrary.simpleMessage("Newest Episode"),
+        "newUpdates": MessageLookupByLibrary.simpleMessage("New Updates"),
+        "new_playlist": MessageLookupByLibrary.simpleMessage("New Playlist"),
         "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "otherLogin": MessageLookupByLibrary.simpleMessage("or continue with"),
@@ -135,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "report": MessageLookupByLibrary.simpleMessage("Report"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "save_to_lists": MessageLookupByLibrary.simpleMessage("Save to Lists"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),
