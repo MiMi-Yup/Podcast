@@ -1170,11 +1170,61 @@ class MultiLanguage {
     );
   }
 
+  /// `Add to Playlist`
+  String get add_to_playlist {
+    return Intl.message(
+      'Add to Playlist',
+      name: 'add_to_playlist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download`
+  String get download {
+    return Intl.message(
+      'Download',
+      name: 'download',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Remove from this playlist`
   String get removeFromPlaylist {
     return Intl.message(
       'Remove from this playlist',
       name: 'removeFromPlaylist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save to Lists`
+  String get save_to_lists {
+    return Intl.message(
+      'Save to Lists',
+      name: 'save_to_lists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Playlist`
+  String get new_playlist {
+    return Intl.message(
+      'New Playlist',
+      name: 'new_playlist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finished`
+  String get finished {
+    return Intl.message(
+      'Finished',
+      name: 'finished',
       desc: '',
       args: [],
     );

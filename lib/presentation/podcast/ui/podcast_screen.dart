@@ -159,7 +159,7 @@ class PodcastScreen extends StatelessWidget {
                           isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(30),
+                            top: Radius.circular(20),
                           )),
                           builder: (context) => Container(
                                 padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
@@ -279,9 +279,8 @@ class PodcastScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                itemBuilder: (context, index) => MEpisodeComponentWithEvent(
-                  data: EpisodeModel()
-                ),
+                itemBuilder: (context, index) =>
+                    MEpisodeComponentWithEvent(data: EpisodeModel()),
                 separatorBuilder: (context, index) => SizedBox(
                   height: 16.0,
                 ),
