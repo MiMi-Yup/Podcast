@@ -18,7 +18,8 @@ abstract class UserRepository {
   FutureOr<UserResponse?> getUserById(String id);
   Future<bool?> createChannel(CreateChannelRequest request);
   Future<bool?> updateChannel(UpdateChannelRequest request);
-  Future<ListResponse<EpisodeResponse>?> getHistoryEpisodes();
+  Future<ListSeperateResponse<EpisodeResponse>?> getHistoryEpisodes(
+      {int? offset, int? limit});
   Future<bool?> clearHistory();
   Future<bool?> addHistory(String idEpisode);
   Future<bool?> removeEpisodeInHistory(String idEpisode);

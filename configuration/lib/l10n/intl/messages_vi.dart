@@ -25,6 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_product": MessageLookupByLibrary.simpleMessage("Về sản phẩm"),
+        "addFavouriteSuccess":
+            MessageLookupByLibrary.simpleMessage("Thêm yêu thích thành công"),
+        "addToFavourite":
+            MessageLookupByLibrary.simpleMessage("Thêm vào yêu thích"),
+        "add_to_playlist":
+            MessageLookupByLibrary.simpleMessage("Thêm vào danh sách phát"),
         "after": m0,
         "apply": MessageLookupByLibrary.simpleMessage("Áp dụng"),
         "askLogout":
@@ -61,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lỗi database"),
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Ngày sinh"),
         "delete": MessageLookupByLibrary.simpleMessage("Xóa"),
+        "download": MessageLookupByLibrary.simpleMessage("Tải xuống"),
         "downloadAll": MessageLookupByLibrary.simpleMessage("Tải tất cả"),
         "downloadIfWifi":
             MessageLookupByLibrary.simpleMessage("Chỉ tải xuống khi có Wi-Fi"),
@@ -76,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "episode": MessageLookupByLibrary.simpleMessage("Tập"),
         "favourite": MessageLookupByLibrary.simpleMessage("Yêu thích"),
         "fillInfo": MessageLookupByLibrary.simpleMessage("Thông tin cá nhân"),
+        "finished": MessageLookupByLibrary.simpleMessage("Xong"),
         "forgotAccount": MessageLookupByLibrary.simpleMessage("Quên mật khẩu"),
         "forgotTheAccount":
             MessageLookupByLibrary.simpleMessage("Quên mật khẩu?"),
@@ -109,8 +117,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "m_continue": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
         "markDone": MessageLookupByLibrary.simpleMessage("Đánh hoàn thành"),
         "mins": MessageLookupByLibrary.simpleMessage("phút"),
-        "mostListened": MessageLookupByLibrary.simpleMessage("Nghe nhiều nhất"),
-        "newestEpisode": MessageLookupByLibrary.simpleMessage("Tập mới nhất"),
+        "new_playlist":
+            MessageLookupByLibrary.simpleMessage("Danh sách phát mới"),
         "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),
         "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
         "otherLogin":
@@ -138,6 +146,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset": MessageLookupByLibrary.simpleMessage("Mặc định"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Khôi phục mật khẩu"),
+        "save_to_lists":
+            MessageLookupByLibrary.simpleMessage("Lưu vào danh sách"),
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "seeAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "sendTimeout": MessageLookupByLibrary.simpleMessage("Send timeout"),

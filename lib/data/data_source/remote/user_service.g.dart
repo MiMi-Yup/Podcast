@@ -259,28 +259,35 @@ class _UserService implements UserService {
   }
 
   @override
-  Future<ApiResponse<ListResponse<EpisodeResponse>>>
-      getHistoryEpisodes() async {
+  Future<ApiResponse<ListSeperateResponse<EpisodeResponse>>> getHistoryEpisodes(
+    int? offset,
+    int? limit,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'offset': offset,
+      r'limit': limit,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<ListResponse<EpisodeResponse>>>(Options(
+        _setStreamType<ApiResponse<ListSeperateResponse<EpisodeResponse>>>(
+            Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/users/self/listened-episodes',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<ListResponse<EpisodeResponse>>.fromJson(
+                .compose(
+                  _dio.options,
+                  '/users/self/listened-episodes',
+                  queryParameters: queryParameters,
+                  data: _data,
+                )
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<ListSeperateResponse<EpisodeResponse>>.fromJson(
       _result.data!,
-      (json) => ListResponse<EpisodeResponse>.fromJson(
+      (json) => ListSeperateResponse<EpisodeResponse>.fromJson(
         json as Map<String, dynamic>,
         (json) => EpisodeResponse.fromJson(json as Map<String, dynamic>),
       ),

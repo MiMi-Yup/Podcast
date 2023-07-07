@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:join_podcast/data/data_source/runtime/player_storage_service.dart';
 import 'package:just_audio/just_audio.dart';
 
 class PlayStopButton extends StatelessWidget {
+  final EpisodePlayerManager episodePlayerManager;
   const PlayStopButton({
     Key? key,
-    required this.audioPlayer,
+    required this.episodePlayerManager,
   }) : super(key: key);
-
-  final AudioPlayer audioPlayer;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<PlayerState>(
-      stream: audioPlayer.playerStateStream,
+      stream: episodePlayerManager.audioPlayer.playerStateStream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final playerState = snapshot.data;
@@ -25,9 +25,9 @@ class PlayStopButton extends StatelessWidget {
               height: 60,
               child: CircularProgressIndicator(),
             );
-          } else if (!audioPlayer.playing) {
+          } else if (!episodePlayerManager.audioPlayer.playing) {
             return GestureDetector(
-              onTap: audioPlayer.play,
+              onTap: episodePlayerManager.play,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 width: 60,
@@ -45,7 +45,7 @@ class PlayStopButton extends StatelessWidget {
             );
           } else if (processingState != ProcessingState.completed) {
             return GestureDetector(
-              onTap: audioPlayer.pause,
+              onTap: episodePlayerManager.pause,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 width: 60,
@@ -63,10 +63,7 @@ class PlayStopButton extends StatelessWidget {
             );
           } else {
             return GestureDetector(
-              onTap: () => audioPlayer.seek(
-                Duration.zero,
-                index: audioPlayer.effectiveIndices!.first,
-              ),
+              onTap: episodePlayerManager.replay,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 width: 60,

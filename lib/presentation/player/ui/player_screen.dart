@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/presentation/player/cubit/player_cubit.dart';
 import 'package:join_podcast/presentation/player/ui/widgets/seekbar.dart';
 import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
+import 'package:join_podcast/utils/alert_util.dart';
 import 'package:just_audio/just_audio.dart';
 
 class PlayerScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   @override
   Widget build(BuildContext context) {
-    final episodeCubit = BlocProvider.of<PlayerCubit>(context);
+    final playerCubit = BlocProvider.of<PlayerCubit>(context);
     return BlocBuilder<PlayerCubit, ExamplePlayerState>(
       builder: (context, state) {
         return Scaffold(
@@ -49,11 +50,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     value: 1,
                     child: Row(
                       children: [
-                        const Icon(Icons.access_alarm),
+                        const Icon(Icons.download),
                         const SizedBox(
                           width: 10.0,
                         ),
-                        Text(MultiLanguage.of(context).reminder)
+                        Text(MultiLanguage.of(context).download)
                       ],
                     ),
                   ),
@@ -61,47 +62,46 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     value: 2,
                     child: Row(
                       children: [
-                        const Icon(Icons.share),
+                        const Icon(Icons.playlist_add),
                         const SizedBox(
                           width: 10.0,
                         ),
-                        Text(MultiLanguage.of(context).share)
+                        Text(MultiLanguage.of(context).add_to_playlist)
                       ],
                     ),
                   ),
                   PopupMenuItem(
                     value: 3,
                     child: Row(
-                      children: const [
-                        Icon(Icons.wifi),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text("View RSS feed")
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 4,
-                    child: Row(
                       children: [
-                        const Icon(Icons.report),
+                        const Icon(Icons.playlist_add),
                         const SizedBox(
                           width: 10.0,
                         ),
-                        Text(MultiLanguage.of(context).report)
+                        Text(MultiLanguage.of(context).addToFavourite)
                       ],
                     ),
                   ),
                 ],
                 offset: const Offset(0, 50),
                 onSelected: (value) {
-                  if (value == 0) {
-                    episodeCubit.showPlaybackSpeedModal(context);
-                  } else {
-                    if (value == 1) {
-                      episodeCubit.openReminder(context);
-                    }
+                  switch (value) {
+                    case 0:
+                      playerCubit.showPlaybackSpeedModal(context);
+                      break;
+                    case 1:
+                      break;
+                    case 2:
+                      playerCubit.showModalPlaylist(context);
+                      break;
+                    case 3:
+                      playerCubit.addToFavourite().then((value) {
+                        if (value)
+                          AlertUtil.showToast(
+                              MultiLanguage.of(context).addFavouriteSuccess);
+                      });
+                      break;
+                    default:
                   }
                 },
               )
@@ -143,7 +143,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    state.episode?.name ?? '',
+                    state.author ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
@@ -155,13 +155,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   height: 5,
                 ),
                 StreamBuilder<SeekBarData>(
-                  stream: episodeCubit.seekBarDataStream,
+                  stream: playerCubit.seekBarDataStream,
                   builder: (context, snapshot) {
                     final positionData = snapshot.data;
                     return SeekBar(
                       position: positionData?.position ?? Duration.zero,
                       duration: positionData?.duration ?? Duration.zero,
-                      onChangeEnd: state.audioPlayer.seek,
+                      onChangeEnd:
+                          playerCubit.episodePlayerManager.audioPlayer.seek,
                     );
                   },
                 ),
@@ -174,11 +175,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       StreamBuilder<SequenceState?>(
-                        stream: state.audioPlayer.sequenceStateStream,
+                        stream: playerCubit.episodePlayerManager.audioPlayer
+                            .sequenceStateStream,
                         builder: (context, index) {
                           return IconButton(
-                            onPressed: state.audioPlayer.hasPrevious
-                                ? state.audioPlayer.seekToPrevious
+                            onPressed: playerCubit.episodePlayerManager
+                                    .audioPlayer.hasPrevious
+                                ? playerCubit.seekToPreviousEpisode
                                 : null,
                             iconSize: 40,
                             icon: const Icon(Icons.skip_previous),
@@ -186,26 +189,30 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         },
                       ),
                       GestureDetector(
-                        onTap: () => episodeCubit.skipBackward(),
+                        onTap: () => playerCubit.skipBackward(),
                         child: const Icon(
                           Icons.replay_10,
                           size: 40,
                         ),
                       ),
-                      PlayStopButton(audioPlayer: state.audioPlayer),
+                      PlayStopButton(
+                        episodePlayerManager: playerCubit.episodePlayerManager,
+                      ),
                       GestureDetector(
-                        onTap: () => episodeCubit.skipForward(),
+                        onTap: () => playerCubit.skipForward(),
                         child: const Icon(
                           Icons.forward_10,
                           size: 40,
                         ),
                       ),
                       StreamBuilder<SequenceState?>(
-                        stream: state.audioPlayer.sequenceStateStream,
+                        stream: playerCubit.episodePlayerManager.audioPlayer
+                            .sequenceStateStream,
                         builder: (context, index) {
                           return IconButton(
-                            onPressed: state.audioPlayer.hasNext
-                                ? state.audioPlayer.seekToNext
+                            onPressed: playerCubit
+                                    .episodePlayerManager.audioPlayer.hasNext
+                                ? playerCubit.seekToNextEpisode
                                 : null,
                             iconSize: 40,
                             icon: const Icon(Icons.skip_next),

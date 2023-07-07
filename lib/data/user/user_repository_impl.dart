@@ -131,9 +131,10 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<ListResponse<EpisodeResponse>?> getHistoryEpisodes() {
+  Future<ListSeperateResponse<EpisodeResponse>?> getHistoryEpisodes(
+      {int? offset, int? limit}) {
     return userService
-        .getHistoryEpisodes()
+        .getHistoryEpisodes(offset, limit)
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);

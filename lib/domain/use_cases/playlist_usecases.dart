@@ -58,4 +58,15 @@ class PlaylistUseCases {
     }
     return false;
   }
+
+  Future<bool?> addEpisodeToPlaylist(
+      {required String idPlaylist, required String idEpisode}) async {
+    return unitOfWork.playlist.addEpisodeToPlaylist(
+            idPlaylist: idPlaylist, idEpisode: idEpisode) ??
+        false;
+  }
+
+  Future<bool?> addEpisodeToFavourite({required String idEpisode}) {
+    return unitOfWork.user.addIntoFavourite(idEpisode);
+  }
 }
