@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/data/data_source/remote/podcasts_service.dart';
 import 'package:join_podcast/domain/repositories/podcast_repository.dart';
+import 'package:join_podcast/models/response/list_seperate_response.dart';
 import 'package:join_podcast/models/response/podcasts/podcast_response.dart';
 import 'package:join_podcast/models/request/podcasts/create_request.dart';
 import 'package:join_podcast/utils/exception_util.dart';
@@ -28,6 +29,18 @@ class PodcastRepositoryImpl implements PodcastRepository {
   FutureOr<PodcastResponse?> getPodcastById(String id) {
     return service
         ?.getPodcastById(id)
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
+
+  @override
+  FutureOr<ListSeperateResponse<PodcastResponse>?> search(String query,
+      {int? offset, int? limit}) {
+    return service
+        ?.search(query, offset, limit)
         .then((value) => value.data)
         .catchError((onError) {
       ExceptionUtil.handle(onError);

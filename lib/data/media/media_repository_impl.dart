@@ -38,7 +38,7 @@ class MediaRepositoryImpl implements MediaRepository {
 
   @override
   FutureOr<MediaResponse?> uploadAudio(File audio) {
-    if (!checkImageContentType(p.extension(audio.path))) {
+    if (!checkAudioContentType(p.extension(audio.path))) {
       ExceptionUtil.handle(Exception('No support file'));
       return null;
     }

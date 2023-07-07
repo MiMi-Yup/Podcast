@@ -20,12 +20,18 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late List<ScrollController> _scrollControllers;
   String query = '';
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _scrollControllers = [
+      ScrollController()..addListener(_lazyLoadingListView),
+      ScrollController()..addListener(_lazyLoadingListView),
+      ScrollController()..addListener(_lazyLoadingListView)
+    ];
     _tabController.addListener(_listenerTabChange);
   }
 
@@ -33,6 +39,10 @@ class _SearchScreenState extends State<SearchScreen>
   void dispose() {
     super.dispose();
     _tabController.removeListener(_listenerTabChange);
+    for (var element in _scrollControllers) {
+      element.removeListener(_lazyLoadingListView);
+      element.dispose();
+    }
     _tabController.dispose();
   }
 
@@ -51,6 +61,25 @@ class _SearchScreenState extends State<SearchScreen>
         default:
       }
     }
+  }
+
+  void _lazyLoadingListView() {
+    final index = _tabController.index;
+    final controller = _scrollControllers[index];
+    // if(controller.position.extentAfter<500){
+    //   switch (index) {
+    //     case 0:
+    //       context.read<SearchCubit>().getMoreSearchChannel(query);
+    //       break;
+    //     case 1:
+    //       context.read<SearchCubit>().getMoreSearchPodcast(query);
+    //       break;
+    //     case 2:
+    //       context.read<SearchCubit>().getMoreSearchEpisode(query);
+    //       break;
+    //     default:
+    //   }
+    // }
   }
 
   @override
