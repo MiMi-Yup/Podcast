@@ -18,12 +18,21 @@ import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 import '../../../channel/new_episode/createNewEpisode_route.dart';
 import '../../background_music/background_music_details/background_music_detail_route.dart';
+import '../../background_music/background_music_home/background_music_home_route.dart';
 import '../cubit/list_record_cubit.dart';
 
 Future<List<File>> getAudioFiles() async {
   final directory = await getApplicationDocumentsDirectory();
   final folderPath = '${directory.path}/my_folder';
   final folder = Directory(folderPath);
+  // Kiểm tra xem thư mục "my_folder" đã tồn tại hay chưa
+  if (!await folder.exists()) {
+    // Nếu thư mục chưa tồn tại, tạo thư mục
+    await folder.create(recursive: true);
+    print('Created folder: ${folder.path}');
+  } else {
+    print('Folder already exists: ${folder.path}');
+  }
   final files = await folder.list().where((entity) => entity is File).map((file) => File(file.path)).toList();
   return files;
 }
@@ -31,15 +40,31 @@ Future<List<File>> getAudioFiles() async {
 Future<String> getMergedPath() async {
   final directory = await getApplicationDocumentsDirectory();
   final folderPath = '${directory.path}/my_folder/merged';
-  //final folder = Directory(folderPath);
-  return folderPath;
+  final folder = Directory(folderPath);
+  // Kiểm tra xem thư mục "merged" đã tồn tại hay chưa
+  if (!await folder.exists()) {
+    // Nếu thư mục chưa tồn tại, tạo thư mục
+    await folder.create(recursive: true);
+    print('Created folder: ${folder.path}');
+  } else {
+    print('Folder already exists: ${folder.path}');
+  }
+  return folder.path;
 }
 
 Future<String> getAudioPath() async {
   final directory = await getApplicationDocumentsDirectory();
   final folderPath = '${directory.path}/my_folder';
-  //final folder = Directory(folderPath);
-  return folderPath;
+  final folder = Directory(folderPath);
+  // Kiểm tra xem thư mục "merged" đã tồn tại hay chưa
+  if (!await folder.exists()) {
+    // Nếu thư mục chưa tồn tại, tạo thư mục
+    await folder.create(recursive: true);
+    print('Created folder: ${folder.path}');
+  } else {
+    print('Folder already exists: ${folder.path}');
+  }
+  return folder.path;
 }
 
 class ListRecordScreen extends StatefulWidget {
@@ -559,7 +584,7 @@ class _ListRecordScreen extends State<ListRecordScreen> {
                       InkWell(
                         onTap: () {
                           // Xử lý sự kiện khi nhấn vào nút
-                          XMDRouter.pushNamed(routerIds[BackgroundMusicDetailRoute]!);
+                          XMDRouter.pushNamed(routerIds[BackgroundMusicHomeRoute]!);
                           // print(isFirstTime);
                           //print(context.read<ListRecordCubit>().state.shouldRefresh);
                         },

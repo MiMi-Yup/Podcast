@@ -3,6 +3,7 @@ import 'package:join_podcast/presentation/auth/reset/reset_route.dart';
 import 'package:join_podcast/presentation/auth/verify/verify_create_route.dart';
 import 'package:join_podcast/presentation/auth/verify/verify_forgot_route.dart';
 import 'package:join_podcast/presentation/bottom_bar/bottom_bar_route.dart';
+import 'package:join_podcast/presentation/channel/new_channel/create_new_channel/create_new_channel_route.dart';
 import 'package:join_podcast/presentation/channel/new_episode/createNewEpisode_route.dart';
 import 'package:join_podcast/presentation/channel/new_podcast/createNewPodcast/createNewPodcast_route.dart';
 import 'package:join_podcast/presentation/channel/new_podcast/editPodcast/editPodcast_route.dart';
@@ -59,6 +60,7 @@ const routerIds = {
   EditPodcastRoute: "EditPodcastRoute",
   CreateNewPodcastRoute: "CreateNewPodcast",
   CreateNewEpisodeRoute: "CreateNewEpisode",
+  CreateNewChannelRoute: "CreateNewChannel",
   PlayerRoute: "PlayerRouter",
 };
 
@@ -92,5 +94,6 @@ void generateRoutes() {
   EditPodcastRoute();
   CreateNewPodcastRoute();
   CreateNewEpisodeRoute();
+  CreateNewChannelRoute();
   PlayerRoute();
 }

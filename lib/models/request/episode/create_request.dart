@@ -13,7 +13,7 @@ class EpisodeCreateRequest {
   @JsonKey(name: "href")
   final String href;
   @JsonKey(name: "image")
-  final double image;
+  final String image;
   @JsonKey(name: "podcast_id")
   final String podcastId;
 
