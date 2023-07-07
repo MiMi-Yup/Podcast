@@ -102,7 +102,7 @@ class _PlaylistService implements PlaylistService {
   }
 
   @override
-  Future<ApiResponse<PlaylistResponse>> updatePlaylist(
+  Future<void> updatePlaylist(
     String id,
     UpdatePlaylistRequest request,
   ) async {
@@ -111,24 +111,18 @@ class _PlaylistService implements PlaylistService {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<PlaylistResponse>>(Options(
+    await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/playlists/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<PlaylistResponse>.fromJson(
-      _result.data!,
-      (json) => PlaylistResponse.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
+        .compose(
+          _dio.options,
+          '/playlists/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
   }
 
   @override

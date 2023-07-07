@@ -1,4 +1,5 @@
 import 'package:join_podcast/di/di.dart';
+import 'package:join_podcast/domain/repositories/user_repository.dart';
 import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart';
 import 'package:join_podcast/models/episode_model.dart';
 import 'package:just_audio/just_audio.dart';
@@ -37,6 +38,9 @@ class EpisodePlayerManager {
       _audioPlayer.setUrl(episode?.href ?? '');
       _audioPlayer.play();
       _isPlaying = true;
+
+      final log = getIt<UserRepository>();
+      await log.addHistory(idEpisode);
     }
   }
 

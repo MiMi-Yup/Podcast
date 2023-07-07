@@ -24,7 +24,7 @@ abstract class PlaylistService {
   Future<ApiResponse<PlaylistResponse>> getPlaylistById(@Path('id') String id);
 
   @PATCH('/playlists/{id}')
-  Future<ApiResponse<PlaylistResponse>> updatePlaylist(
+  Future<void> updatePlaylist(
       @Path('id') String id, @Body() UpdatePlaylistRequest request);
 
   @DELETE('/playlists/{id}')

@@ -2,10 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:join_podcast/data/data_source/local/local_storage_service.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 import 'package:join_podcast/models/episode_model.dart';
-import 'package:path/path.dart' as p;
 
 part 'download_state.dart';
 
