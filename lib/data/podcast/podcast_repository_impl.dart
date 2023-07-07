@@ -69,4 +69,15 @@ class PodcastRepositoryImpl implements PodcastRepository {
       return false;
     });
   }
+
+  @override
+  FutureOr<bool?> deletePodcast(String id) {
+    return service
+        ?.deletePodcast(id)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
 }

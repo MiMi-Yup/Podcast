@@ -35,4 +35,7 @@ abstract class PodcastsService {
 
   @POST('/podcasts/{id}/unsubscribe')
   Future<void> unSubscribe(@Path('id') String idPodcast);
+
+  @DELETE('/podcasts/{id}')
+  Future<void> deletePodcast(@Path('id') String id);
 }

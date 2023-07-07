@@ -29,4 +29,7 @@ abstract class EpisodeService {
       @Query('q') String query,
       @Query('offset') int? offset,
       @Query('limit') int? limit);
+
+  @DELETE('/episodes/{id}')
+  Future<void> deleteEpisode(@Path('id') String id);
 }
