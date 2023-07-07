@@ -140,7 +140,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     return SeekBar(
                       position: positionData?.position ?? Duration.zero,
                       duration: positionData?.duration ?? Duration.zero,
-                      onChangeEnd: state.audioPlayer.seek,
+                      onChangeEnd:
+                          playerCubit.episodePlayerManager.audioPlayer.seek,
                     );
                   },
                 ),
@@ -153,11 +154,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       StreamBuilder<SequenceState?>(
-                        stream: state.audioPlayer.sequenceStateStream,
+                        stream: playerCubit.episodePlayerManager.audioPlayer
+                            .sequenceStateStream,
                         builder: (context, index) {
                           return IconButton(
-                            onPressed: state.audioPlayer.hasPrevious
-                                ? state.audioPlayer.seekToPrevious
+                            onPressed: playerCubit.episodePlayerManager
+                                    .audioPlayer.hasPrevious
+                                ? playerCubit.episodePlayerManager.audioPlayer
+                                    .seekToPrevious
                                 : null,
                             iconSize: 40,
                             icon: const Icon(Icons.skip_previous),
@@ -171,7 +175,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           size: 40,
                         ),
                       ),
-                      PlayStopButton(audioPlayer: state.audioPlayer),
+                      PlayStopButton(
+                          audioPlayer:
+                              playerCubit.episodePlayerManager.audioPlayer),
                       GestureDetector(
                         onTap: () => playerCubit.skipForward(),
                         child: const Icon(
@@ -180,11 +186,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         ),
                       ),
                       StreamBuilder<SequenceState?>(
-                        stream: state.audioPlayer.sequenceStateStream,
+                        stream: playerCubit.episodePlayerManager.audioPlayer
+                            .sequenceStateStream,
                         builder: (context, index) {
                           return IconButton(
-                            onPressed: state.audioPlayer.hasNext
-                                ? state.audioPlayer.seekToNext
+                            onPressed: playerCubit
+                                    .episodePlayerManager.audioPlayer.hasNext
+                                ? playerCubit
+                                    .episodePlayerManager.audioPlayer.seekToNext
                                 : null,
                             iconSize: 40,
                             icon: const Icon(Icons.skip_next),

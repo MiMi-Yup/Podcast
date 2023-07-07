@@ -1,7 +1,6 @@
 part of 'player_cubit.dart';
 
 abstract class ExamplePlayerState extends Equatable {
-  final AudioPlayer audioPlayer;
   final double selectedSpeed;
   final DateTime? selectedTime;
   final SeekBarData seekBarData;
@@ -9,7 +8,6 @@ abstract class ExamplePlayerState extends Equatable {
   final EpisodeModel? episode;
 
   const ExamplePlayerState({
-    required this.audioPlayer,
     required this.selectedSpeed,
     required this.selectedTime,
     required this.seekBarData,
@@ -20,8 +18,7 @@ abstract class ExamplePlayerState extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props =>
-      [audioPlayer, selectedSpeed, selectedTime, seekBarData];
+  List<Object?> get props => [selectedSpeed, selectedTime, seekBarData];
   ExamplePlayerState copyWith({
     AudioPlayer? audioPlayer,
     double? selectedSpeed,
@@ -34,7 +31,6 @@ abstract class ExamplePlayerState extends Equatable {
 
 class PlayerState extends ExamplePlayerState {
   const PlayerState({
-    required super.audioPlayer,
     required super.selectedSpeed,
     required super.selectedTime,
     required super.seekBarData,
@@ -43,7 +39,6 @@ class PlayerState extends ExamplePlayerState {
   });
 
   factory PlayerState.initial() => PlayerState(
-        audioPlayer: AudioPlayer(),
         selectedSpeed: 1,
         selectedTime: null,
         seekBarData: SeekBarData(Duration.zero, Duration.zero),
@@ -61,7 +56,6 @@ class PlayerState extends ExamplePlayerState {
     EpisodeModel? episode,
   }) {
     return PlayerState(
-      audioPlayer: audioPlayer ?? this.audioPlayer,
       selectedSpeed: selectedSpeed ?? this.selectedSpeed,
       selectedTime: selectedTime ?? this.selectedTime,
       seekBarData: seekBarData ?? this.seekBarData,
