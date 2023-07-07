@@ -25,6 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_product": MessageLookupByLibrary.simpleMessage("Về sản phẩm"),
+        "addFavouriteSuccess":
+            MessageLookupByLibrary.simpleMessage("Thêm yêu thích thành công"),
+        "addToFavourite":
+            MessageLookupByLibrary.simpleMessage("Thêm vào yêu thích"),
         "add_to_playlist":
             MessageLookupByLibrary.simpleMessage("Thêm vào danh sách phát"),
         "after": m0,
@@ -113,7 +117,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "m_continue": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
         "markDone": MessageLookupByLibrary.simpleMessage("Đánh hoàn thành"),
         "mins": MessageLookupByLibrary.simpleMessage("phút"),
-        "newUpdates": MessageLookupByLibrary.simpleMessage("Cập nhật mới"),
         "new_playlist":
             MessageLookupByLibrary.simpleMessage("Danh sách phát mới"),
         "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),

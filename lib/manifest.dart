@@ -14,12 +14,12 @@ import 'package:join_podcast/presentation/edit_info_podcast/add_text_avatar/add_
 import 'package:join_podcast/presentation/edit_info_podcast/discover_podcast/discover_podcast_route.dart';
 import 'package:join_podcast/presentation/edit_info_podcast/podcast_availability/podcast_availability_route.dart';
 import 'package:join_podcast/presentation/edit_info_podcast/set_info_podcast/set_info_podcast_route.dart';
+import 'package:join_podcast/presentation/history/history_route.dart';
 import 'package:join_podcast/presentation/home/search/search_route.dart';
 import 'package:join_podcast/presentation/introduction/introduction_route.dart';
 import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart';
 import 'package:join_podcast/presentation/new_user/init_subscribe/init_subscribe_route.dart';
 import 'package:join_podcast/presentation/new_user/interest/interest_route.dart';
-import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/player/player_route.dart';
 import 'package:join_podcast/presentation/playlist/playlist_route.dart';
 import 'package:join_podcast/presentation/podcast/podcast_route.dart';
@@ -37,7 +37,7 @@ const routerIds = {
   AddInfoRoute: "AddInfoRoute",
   InterestRoute: "InterestRoute",
   BottomBarRoute: "BottomBarRoute",
-  NotificationRoute: "NotificationRoute",
+  HistoryRoute: "HistoryRoute",
   SubscriptionRoute: "SubscriptionRoute",
   PodcastRoute: "PodcastRoute",
   BackgroundMusicHomeRoute: "BackgroundMusicHomeRoute",
@@ -71,7 +71,7 @@ void generateRoutes() {
   AddInfoRoute();
   InterestRoute();
   BottomBarRoute();
-  NotificationRoute();
+  HistoryRoute();
   SubscriptionRoute();
   PodcastRoute();
   DetailEpisodeRoute();

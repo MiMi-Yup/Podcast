@@ -1,16 +1,15 @@
 import 'package:configuration/l10n/l10n.dart';
+import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 
 class CustomModalBottomSheet extends StatefulWidget {
   final List<String>? listTitle;
-  final Function? onCreatePlaylist;
-  final Function? onFinish;
+  final Future<bool> Function()? onCreatePlaylist;
 
   const CustomModalBottomSheet({
     Key? key,
     required this.onCreatePlaylist,
-    required this.onFinish,
     required this.listTitle,
   }) : super(key: key);
 
@@ -19,18 +18,13 @@ class CustomModalBottomSheet extends StatefulWidget {
 }
 
 class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
-  List<bool> listChecking = [];
-
-  List<String> listIdListRemove = [];
-  List<String> listIdListAdd = [];
+  late List<bool> listChecking;
 
   @override
   void initState() {
     super.initState();
-    //  Khởi tại giá trị checking đầ vào
-    for (int i = 0; i < widget.listTitle!.length; i++) {
-      i % 2 == 0 ? listChecking.add(true) : listChecking.add(false);
-    }
+    listChecking =
+        List.generate(widget.listTitle?.length ?? 0, (index) => false);
   }
 
   @override
@@ -53,7 +47,12 @@ class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: widget.onCreatePlaylist!(),
+                onTap: () async {
+                  if (widget.onCreatePlaylist != null &&
+                      await widget.onCreatePlaylist!()) {
+                    XMDRouter.pop();
+                  }
+                },
                 child: Row(
                   children: [
                     const Icon(Icons.add),
@@ -100,7 +99,7 @@ class _CustomModalBottomSheetState extends State<CustomModalBottomSheet> {
           ),
           const Divider(),
           GestureDetector(
-            onTap: widget.onFinish!(),
+            onTap: () => XMDRouter.pop(result: listChecking),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(

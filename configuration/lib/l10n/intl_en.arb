@@ -127,5 +127,7 @@
     "removeFromPlaylist": "Remove from this playlist",
     "save_to_lists": "Save to Lists",
     "new_playlist": "New Playlist",
-    "finished": "Finished"
+    "finished": "Finished",
+    "addToFavourite": "Add to favourite",
+    "addFavouriteSuccess": "Add favourite success"
 }

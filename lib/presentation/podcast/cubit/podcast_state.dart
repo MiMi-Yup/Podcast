@@ -1,24 +1,17 @@
 part of 'podcast_cubit.dart';
 
 @immutable
-abstract class PodcastState extends Equatable {}
+class PodcastState extends Equatable {
+  final PodcastModel? podcast;
 
-class PodcastStateInitial extends PodcastState {
-  final int currentIndex;
-  final bool isHidden;
+  const PodcastState({required this.podcast});
 
-  PodcastStateInitial({required this.currentIndex, this.isHidden = false});
+  factory PodcastState.initial() => const PodcastState(podcast: null);
 
   @override
-  List<Object?> get props => [currentIndex, isHidden];
+  List<Object?> get props => [podcast];
 
-  PodcastStateInitial copyWith({
-    int? currentIndex,
-    bool? isHidden,
-  }) {
-    return PodcastStateInitial(
-      currentIndex: currentIndex ?? this.currentIndex,
-      isHidden: isHidden ?? this.isHidden,
-    );
+  PodcastState copyWith({PodcastModel? podcast}) {
+    return PodcastState(podcast: podcast ?? this.podcast);
   }
 }

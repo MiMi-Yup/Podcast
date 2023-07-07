@@ -25,6 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about_product": MessageLookupByLibrary.simpleMessage("About It:"),
+        "addFavouriteSuccess":
+            MessageLookupByLibrary.simpleMessage("Add favourite success"),
+        "addToFavourite":
+            MessageLookupByLibrary.simpleMessage("Add to favourite"),
         "add_to_playlist":
             MessageLookupByLibrary.simpleMessage("Add to Playlist"),
         "after": m0,
@@ -113,8 +117,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "m_continue": MessageLookupByLibrary.simpleMessage("Continue"),
         "markDone": MessageLookupByLibrary.simpleMessage("Mark done"),
         "mins": MessageLookupByLibrary.simpleMessage("mins"),
-        "newUpdates": MessageLookupByLibrary.simpleMessage("New Updates"),
+        "mostListened": MessageLookupByLibrary.simpleMessage("Most Listened"),
         "new_playlist": MessageLookupByLibrary.simpleMessage("New Playlist"),
+        "newestEpisode": MessageLookupByLibrary.simpleMessage("Newest Episode"),
         "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "otherLogin": MessageLookupByLibrary.simpleMessage("or continue with"),

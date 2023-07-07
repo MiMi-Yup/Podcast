@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/presentation/player/cubit/player_cubit.dart';
 import 'package:join_podcast/presentation/player/ui/widgets/seekbar.dart';
 import 'package:join_podcast/common/widgets/m_play_stop_button.dart';
+import 'package:join_podcast/utils/alert_util.dart';
 import 'package:just_audio/just_audio.dart';
 
 class PlayerScreen extends StatefulWidget {
@@ -69,18 +70,38 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       ],
                     ),
                   ),
+                  PopupMenuItem(
+                    value: 3,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.playlist_add),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(MultiLanguage.of(context).addToFavourite)
+                      ],
+                    ),
+                  ),
                 ],
                 offset: const Offset(0, 50),
                 onSelected: (value) {
-                  if (value == 0) {
-                    playerCubit.showPlaybackSpeedModal(context);
-                  } else {
-                    if (value == 1) {
-                      //  Hàm download, check và tắt sự kiện download nếu đã download
-                    } else {
-                      //  Show ModalBottom
+                  switch (value) {
+                    case 0:
+                      playerCubit.showPlaybackSpeedModal(context);
+                      break;
+                    case 1:
+                      break;
+                    case 2:
                       playerCubit.showModalPlaylist(context);
-                    }
+                      break;
+                    case 3:
+                      playerCubit.addToFavourite().then((value) {
+                        if (value)
+                          AlertUtil.showToast(
+                              MultiLanguage.of(context).addFavouriteSuccess);
+                      });
+                      break;
+                    default:
                   }
                 },
               )

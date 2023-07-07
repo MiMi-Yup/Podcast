@@ -54,7 +54,8 @@ abstract class UserService {
       @Path('id') String idUser);
 
   @GET('/users/self/listened-episodes')
-  Future<ApiResponse<ListResponse<EpisodeResponse>>> getHistoryEpisodes();
+  Future<ApiResponse<ListSeperateResponse<EpisodeResponse>>> getHistoryEpisodes(
+      @Query('offset') int? offset, @Query('limit') int? limit);
 
   @DELETE('/users/self/listened-episodes')
   Future<void> clearHistory();

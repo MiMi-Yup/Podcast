@@ -35,6 +35,8 @@
   "profile": "Cá nhân",
   "author": "Author",
   "subscription": "Đăng ký",
+  "mostListened": "Nhiều lượt nghe nhất",
+  "newestEpisode": "Tập mới nhất",
   "newUpdates": "Cập nhật mới",
   "seeAll": "Xem tất cả",
   "mins": "phút",
@@ -248,5 +250,7 @@
   "removeFromPlaylist": "Xóa khỏi danh sách phát này",
   "save_to_lists": "Lưu vào danh sách",
   "new_playlist": "Danh sách phát mới",
-  "finished": "Xong"
+  "finished": "Xong",
+  "addToFavourite": "Thêm vào yêu thích",
+  "addFavouriteSuccess": "Thêm yêu thích thành công"
 }

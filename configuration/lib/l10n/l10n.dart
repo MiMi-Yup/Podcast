@@ -1229,6 +1229,26 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Add to favourite`
+  String get addToFavourite {
+    return Intl.message(
+      'Add to favourite',
+      name: 'addToFavourite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add favourite success`
+  String get addFavouriteSuccess {
+    return Intl.message(
+      'Add favourite success',
+      name: 'addFavouriteSuccess',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

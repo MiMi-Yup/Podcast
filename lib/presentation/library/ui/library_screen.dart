@@ -7,8 +7,8 @@ import 'package:join_podcast/common/widgets/m_episode_component_with_event.dart'
 import 'package:join_podcast/common/widgets/m_playlist.dart';
 import 'package:join_podcast/common/widgets/m_text_field_bottom_modal.dart';
 import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/history/history_route.dart';
 import 'package:join_podcast/presentation/library/cubit/library_cubit.dart';
-import 'package:join_podcast/presentation/notification/notification_route.dart';
 import 'package:join_podcast/presentation/playlist/playlist_route.dart';
 
 class LibraryScreen extends StatefulWidget {
@@ -61,7 +61,7 @@ class _LibraryScreenState extends State<LibraryScreen>
             if (isFavouritePage)
               IconButton(
                   onPressed: () =>
-                      XMDRouter.pushNamed(routerIds[NotificationRoute]!),
+                      XMDRouter.pushNamed(routerIds[HistoryRoute]!),
                   icon: Icon(Icons.history)),
             if (!isFavouritePage)
               IconButton(

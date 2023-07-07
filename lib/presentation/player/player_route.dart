@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/data/data_source/runtime/player_storage_service.dart';
 import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart';
+import 'package:join_podcast/domain/use_cases/playlist_usecases.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/models/episode_model.dart';
 import 'package:join_podcast/presentation/player/cubit/player_cubit.dart';
@@ -20,6 +21,7 @@ class PlayerRoute extends RouteDefine {
                 create: (_) => PlayerCubit(
                   episodeUseCases: getIt<EpisodeUseCases>(),
                   episodePlayerManager: getIt<EpisodePlayerManager>(),
+                  playlistUseCases: getIt<PlaylistUseCases>(),
                   id: arguments?['id'],
                   listEpisodes:
                       arguments?['listEpisodes'] as List<EpisodeModel>,
