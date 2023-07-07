@@ -169,6 +169,96 @@ class _UserService implements UserService {
   }
 
   @override
+  Future<ApiResponse<ChannelResponse>> getSelfChannel() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<ChannelResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/self/channel',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<ChannelResponse>.fromJson(
+      _result.data!,
+      (json) => ChannelResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<ListSeperateResponse<UserResponse>>> search(
+    String query,
+    int? offset,
+    int? limit,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'q': query,
+      r'offset': offset,
+      r'limit': limit,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<ListSeperateResponse<UserResponse>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/channels/search',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<ListSeperateResponse<UserResponse>>.fromJson(
+      _result.data!,
+      (json) => ListSeperateResponse<UserResponse>.fromJson(
+        json as Map<String, dynamic>,
+        (json) => UserResponse.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<ChannelResponse>> getChannelByIdUser(String idUser) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<ChannelResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/${idUser}/channel',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<ChannelResponse>.fromJson(
+      _result.data!,
+      (json) => ChannelResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ApiResponse<ListResponse<EpisodeResponse>>>
       getHistoryEpisodes() async {
     const _extra = <String, dynamic>{};
@@ -394,6 +484,44 @@ class _UserService implements UserService {
           data: _data,
         )
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<ApiResponse<ListSeperateResponse<PodcastResponse>>>
+      getSubcribedPodcasts(
+    int? offset,
+    int? limit,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'offset': offset,
+      r'limit': limit,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<ListSeperateResponse<PodcastResponse>>>(
+            Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+                .compose(
+                  _dio.options,
+                  '/users/self/subscribed-podcasts',
+                  queryParameters: queryParameters,
+                  data: _data,
+                )
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<ListSeperateResponse<PodcastResponse>>.fromJson(
+      _result.data!,
+      (json) => ListSeperateResponse<PodcastResponse>.fromJson(
+        json as Map<String, dynamic>,
+        (json) => PodcastResponse.fromJson(json as Map<String, dynamic>),
+      ),
+    );
+    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

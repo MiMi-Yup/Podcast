@@ -47,4 +47,26 @@ class PodcastRepositoryImpl implements PodcastRepository {
       return null;
     });
   }
+
+  @override
+  FutureOr<bool?> subscribe({required String podcastId}) {
+    return service
+        ?.subscribe(podcastId)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
+
+  @override
+  FutureOr<bool?> unSubscribe({required String podcastId}) {
+    return service
+        ?.unSubscribe(podcastId)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
 }

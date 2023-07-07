@@ -13,12 +13,12 @@ class UserResponse {
   String? email;
   @JsonKey(name: 'is_verified')
   bool? isVerified;
+  @JsonKey(name: 'is_creator')
+  bool? isCreator;
   @JsonKey(name: 'avatar')
   String? avatar;
   @JsonKey(name: 'birthday')
   DateTime? birthday;
-  @JsonKey(name: 'search_history')
-  List<dynamic>? searchHistory;
   @JsonKey(name: 'channel_name')
   String? channelName;
 
@@ -30,7 +30,7 @@ class UserResponse {
       this.birthday,
       this.avatar,
       this.channelName,
-      this.searchHistory});
+      this.isCreator});
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);

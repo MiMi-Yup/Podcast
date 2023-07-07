@@ -7,8 +7,11 @@ import 'package:join_podcast/models/request/users/change_password_request.dart';
 import 'package:join_podcast/models/request/users/update_channel_request.dart';
 import 'package:join_podcast/models/request/users/create_channel_request.dart';
 import 'package:join_podcast/models/request/users/update_request.dart';
+import 'package:join_podcast/models/response/channel/channel_response.dart';
 import 'package:join_podcast/models/response/list_response.dart';
 import 'package:join_podcast/models/response/episode/episode_response.dart';
+import 'package:join_podcast/models/response/list_seperate_response.dart';
+import 'package:join_podcast/models/response/podcasts/podcast_response.dart';
 import 'package:join_podcast/models/response/users/user_response.dart';
 import 'package:join_podcast/utils/exception_util.dart';
 
@@ -183,13 +186,59 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<bool?> removeSearcgHistory(String searchStr) {
+  Future<bool?> removeSearchHistory(String searchStr) {
     return userService
         .removeSearchHistory(searchStr)
         .then((value) => true)
         .catchError((onError) {
       ExceptionUtil.handle(onError);
       return false;
+    });
+  }
+
+  @override
+  Future<ChannelResponse?> getChannelByIdUser({required String userId}) {
+    return userService
+        .getChannelByIdUser(userId)
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
+
+  @override
+  Future<ChannelResponse?> getSelfChannel() {
+    return userService
+        .getSelfChannel()
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
+
+  @override
+  Future<ListSeperateResponse<PodcastResponse>?> getSubcribed(
+      {int? limit, int? offset}) {
+    return userService
+        .getSubcribedPodcasts(limit, offset)
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
+
+  @override
+  Future<ListSeperateResponse<UserResponse>?> search(String query,
+      {int? limit, int? offset}) {
+    return userService
+        .search(query, limit, offset)
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
     });
   }
 }

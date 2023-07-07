@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_author_full.dart';
 import 'package:join_podcast/common/widgets/m_episode_component.dart';
+import 'package:join_podcast/common/widgets/m_episode_component_with_event.dart';
 import 'package:join_podcast/common/widgets/m_search_bar.dart' as mSearch;
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/home/search/cubit/search_cubit.dart';
@@ -21,7 +22,6 @@ class _SearchScreenState extends State<SearchScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late List<ScrollController> _scrollControllers;
-  String query = '';
 
   @override
   void initState() {
@@ -50,13 +50,13 @@ class _SearchScreenState extends State<SearchScreen>
     if (!_tabController.indexIsChanging) {
       switch (_tabController.index) {
         case 0:
-          context.read<SearchCubit>().searchChannel(query);
+          context.read<SearchCubit>().searchPodcast();
           break;
         case 1:
-          context.read<SearchCubit>().searchPodcast(query);
+          context.read<SearchCubit>().searchChannel();
           break;
         case 2:
-          context.read<SearchCubit>().searchEpisode(query);
+          context.read<SearchCubit>().searchEpisode();
           break;
         default:
       }
@@ -66,30 +66,36 @@ class _SearchScreenState extends State<SearchScreen>
   void _lazyLoadingListView() {
     final index = _tabController.index;
     final controller = _scrollControllers[index];
-    // if(controller.position.extentAfter<500){
-    //   switch (index) {
-    //     case 0:
-    //       context.read<SearchCubit>().getMoreSearchChannel(query);
-    //       break;
-    //     case 1:
-    //       context.read<SearchCubit>().getMoreSearchPodcast(query);
-    //       break;
-    //     case 2:
-    //       context.read<SearchCubit>().getMoreSearchEpisode(query);
-    //       break;
-    //     default:
-    //   }
-    // }
+    if (controller.position.extentAfter < 500) {
+      switch (index) {
+        case 0:
+          context.read<SearchCubit>().searchPodcast();
+          break;
+        case 1:
+          context.read<SearchCubit>().searchChannel();
+          break;
+        case 2:
+          context.read<SearchCubit>().searchEpisode();
+          break;
+        default:
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return mSearch.SearchBar(
         history: context.read<SearchCubit>().getHistorySearch,
-        onSubmitted: (submit) {
-          query = submit;
-          _listenerTabChange();
+        onSubmitted: (query) {
+          final cubit = context.read<SearchCubit>();
+          cubit.submitSearch(query);
+          if (_tabController.index != 0) {
+            _tabController.animateTo(0);
+          } else {
+            cubit.searchPodcast();
+          }
         },
+        removeSearchHistory: context.read<SearchCubit>().removeSearchHistory,
         body: Padding(
           padding: const EdgeInsets.only(top: 85),
           child: Column(
@@ -106,10 +112,10 @@ class _SearchScreenState extends State<SearchScreen>
                 unselectedLabelColor: Colors.grey,
                 tabs: [
                   Tab(
-                    text: MultiLanguage.of(context).channel,
+                    text: MultiLanguage.of(context).podcast,
                   ),
                   Tab(
-                    text: MultiLanguage.of(context).podcast,
+                    text: MultiLanguage.of(context).channel,
                   ),
                   Tab(
                     text: MultiLanguage.of(context).episode,
@@ -120,10 +126,10 @@ class _SearchScreenState extends State<SearchScreen>
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    //channel tab
+                    //podcast tab
                     BlocBuilder<SearchCubit, SearchState>(
                       buildWhen: (previous, current) =>
-                          previous.channels != current.channels,
+                          previous.podcasts != current.podcasts,
                       builder: (context, state) => ListView.separated(
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
@@ -139,13 +145,13 @@ class _SearchScreenState extends State<SearchScreen>
                         separatorBuilder: (context, index) => SizedBox(
                           height: 16.0,
                         ),
-                        itemCount: 10,
+                        itemCount: state.podcasts?.length ?? 0,
                       ),
                     ),
-                    //podcast tab
+                    //channel tab
                     BlocBuilder<SearchCubit, SearchState>(
                       buildWhen: (previous, current) =>
-                          previous.podcasts != current.podcasts,
+                          previous.channels != current.channels,
                       builder: (context, state) => ListView.separated(
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
@@ -162,7 +168,7 @@ class _SearchScreenState extends State<SearchScreen>
                         separatorBuilder: (context, index) => SizedBox(
                           height: 16.0,
                         ),
-                        itemCount: 10,
+                        itemCount: state.channels?.length ?? 0,
                       ),
                     ),
                     //episode tab
@@ -175,17 +181,13 @@ class _SearchScreenState extends State<SearchScreen>
                               padding: EdgeInsets.only(
                                   left: 10.0, right: 10.0, top: 10.0),
                               itemBuilder: (context, index) =>
-                                  MEpisodeComponent(
-                                title:
-                                    "927: Deep Dive | How to Quit Your Job the Right Way",
-                                author: "Apple Talk",
-                                duration: Duration(minutes: 52, seconds: 25),
-                                networkImage: null,
+                                  MEpisodeComponentWithEvent(
+                                data: state.episodes![index],
                               ),
                               separatorBuilder: (context, index) => SizedBox(
                                 height: 16.0,
                               ),
-                              itemCount: 10,
+                              itemCount: state.episodes?.length ?? 0,
                             )),
                   ],
                 ),
