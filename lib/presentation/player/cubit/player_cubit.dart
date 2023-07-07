@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/data/data_source/runtime/player_storage_service.dart';
-import 'package:join_podcast/di/di.dart';
 import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart';
 import 'package:join_podcast/models/episode_model.dart';
 import 'package:join_podcast/presentation/player/ui/widgets/custom_modal_bottom_sheet.dart';
@@ -19,38 +18,70 @@ class PlayerCubit extends Cubit<PlayerState> {
   final EpisodeUseCases episodeUseCases;
   final EpisodePlayerManager episodePlayerManager;
   final String id;
+  final List<EpisodeModel> listEpisodes;
 
   PlayerCubit(
       {required this.id,
       required this.episodeUseCases,
-      required this.episodePlayerManager})
+      required this.episodePlayerManager,
+      required this.listEpisodes})
       : super(PlayerState.initial()) {
     initializeCubit();
   }
 
   Future<void> initializeCubit() async {
     if (id != episodePlayerManager.currentEpisode?.id) {
+      //  Lấy thông tin Episode và author
       final episode = await episodeUseCases.getEpisodeById(id);
       final author = await episode?.podcastEx;
-      emit(state.copyWith(episode: episode, author: author?.author?.name));
-      episodePlayerManager.playEpisode(id);
+
+      // Xác nhận episode được chọn có trong danh sách hiện phát không, nếu không tạo và gán danh sách mới và reset AudioSources
+      if (!episodePlayerManager.currentListEpisodes.contains(episode)) {
+        emit(state.copyWith(
+            episode: episode, author: author?.author?.name, currentIndex: 0));
+        // Đặt lên hàng đợi đầu của danh sách nguồn và danh sách Episode
+        final List<EpisodeModel> newListEpisodes = [];
+        final List<AudioSource> listSources = [];
+        newListEpisodes.add(episode!);
+        listSources.add(AudioSource.uri(Uri.parse(state.episode?.href ?? '')));
+
+        // Tạo danh sách Episode và AudioSource
+        for (var element in listEpisodes) {
+          if (element.id != id) {
+            newListEpisodes.add(element);
+            listSources.add(AudioSource.uri(Uri.parse(element.href ?? '')));
+          }
+        }
+
+        // Gán dữ liệu storage ListEpisode và setup AudioSource
+        episodePlayerManager.setListEpisodes(newListEpisodes);
+        episodePlayerManager.audioPlayer
+            .setAudioSource(ConcatenatingAudioSource(children: listSources));
+
+        // Khởi chạy
+        await episodePlayerManager.audioPlayer.seek(Duration.zero, index: 0);
+        episodePlayerManager.play();
+      } else {
+        final int index =
+            episodePlayerManager.currentListEpisodes.indexOf(episode!);
+        emit(state.copyWith(
+            currentIndex: index,
+            episode: episode,
+            author: author?.author?.name));
+        await episodePlayerManager.audioPlayer
+            .seek(Duration.zero, index: state.currentIndex);
+        episodePlayerManager.play();
+      }
       updateSelectedSpeed(1);
     } else {
       final author = await episodePlayerManager.currentEpisode?.podcastEx;
       emit(state.copyWith(
           episode: episodePlayerManager.currentEpisode,
           author: author?.author?.name));
-      episodePlayerManager.playEpisode(id);
+      episodePlayerManager.play();
       emit(state.copyWith(
           selectedSpeed: episodePlayerManager.audioPlayer.speed));
     }
-    // for (var element in listEpisodeModel) {
-    //   if (element?.id != id) {
-    //     episodeList.add(AudioSource.uri(Uri.parse(element?.href ?? '')));
-    //   }
-    // }
-    // state.audioPlayer
-    //     .setAudioSource(ConcatenatingAudioSource(children: episodeList));
   }
 
 // Change speed
@@ -119,5 +150,23 @@ class PlayerCubit extends Cubit<PlayerState> {
             ? episodePlayerManager.audioPlayer.position -
                 const Duration(seconds: 10)
             : Duration.zero);
+  }
+
+  void seekToNextEpisode() async {
+    final author = await listEpisodes[state.currentIndex! + 1].podcastEx;
+    emit(state.copyWith(
+        currentIndex: state.currentIndex! + 1,
+        episode: listEpisodes[state.currentIndex! + 1],
+        author: author?.author?.name));
+    episodePlayerManager.audioPlayer.seekToNext();
+  }
+
+  void seekToPreviousEpisode() async {
+    final author = await listEpisodes[state.currentIndex! - 1].podcastEx;
+    emit(state.copyWith(
+        currentIndex: state.currentIndex! - 1,
+        episode: listEpisodes[state.currentIndex! - 1],
+        author: author?.author?.name));
+    episodePlayerManager.audioPlayer.seekToPrevious();
   }
 }

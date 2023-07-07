@@ -160,8 +160,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           return IconButton(
                             onPressed: playerCubit.episodePlayerManager
                                     .audioPlayer.hasPrevious
-                                ? playerCubit.episodePlayerManager.audioPlayer
-                                    .seekToPrevious
+                                ? playerCubit.seekToPreviousEpisode
                                 : null,
                             iconSize: 40,
                             icon: const Icon(Icons.skip_previous),
@@ -192,8 +191,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           return IconButton(
                             onPressed: playerCubit
                                     .episodePlayerManager.audioPlayer.hasNext
-                                ? playerCubit
-                                    .episodePlayerManager.audioPlayer.seekToNext
+                                ? playerCubit.seekToNextEpisode
                                 : null,
                             iconSize: 40,
                             icon: const Icon(Icons.skip_next),

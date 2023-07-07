@@ -7,11 +7,13 @@ import 'package:injectable/injectable.dart';
 @singleton
 class EpisodePlayerManager {
   late final AudioPlayer _audioPlayer;
+  late List<EpisodeModel> _currentListEpisodes;
   EpisodeModel? _currentEpisode;
   bool _isPlaying = false;
 
   EpisodePlayerManager() {
     _audioPlayer = AudioPlayer();
+    _currentListEpisodes = [];
     _audioPlayer.playerStateStream.listen((playerState) {
       if (playerState.processingState == ProcessingState.completed) {
         _isPlaying = false;
@@ -25,17 +27,21 @@ class EpisodePlayerManager {
 
   bool get isPlaying => _isPlaying;
 
+  List<EpisodeModel> get currentListEpisodes => _currentListEpisodes;
+
   void playEpisode(String idEpisode) async {
     if (idEpisode != _currentEpisode?.id) {
       final episodeUseCases = getIt<EpisodeUseCases>();
       final episode = await episodeUseCases.getEpisodeById(idEpisode);
       _currentEpisode = episode;
-      // _audioPlayer.setUrl(episode?.href ?? '');
-      _audioPlayer.setUrl(
-          'https://res.cloudinary.com/psncloud/video/upload/v1685551354/sample4_k2de2y.aac?fbclid=IwAR1QYG7Y5Tptvsb-3Z45B5nOkNO47jPSVdxji7QeduW1jYk1KATmBJJRlps');
+      _audioPlayer.setUrl(episode?.href ?? '');
       _audioPlayer.play();
       _isPlaying = true;
     }
+  }
+
+  void setListEpisodes(List<EpisodeModel> list) {
+    _currentListEpisodes = list;
   }
 
   void play() {
