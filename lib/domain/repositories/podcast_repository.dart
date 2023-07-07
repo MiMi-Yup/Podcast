@@ -9,4 +9,6 @@ abstract class PodcastRepository {
   FutureOr<PodcastResponse?> createPodcast(PodcastCreateRequest request);
   FutureOr<ListSeperateResponse<PodcastResponse>?> search(String query,
       {int? offset, int? limit});
+  FutureOr<bool?> subscribe({required String podcastId});
+  FutureOr<bool?> unSubscribe({required String podcastId});
 }

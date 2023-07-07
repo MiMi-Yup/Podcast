@@ -11,7 +11,7 @@ PodcastCreateRequest _$PodcastCreateRequestFromJson(
     PodcastCreateRequest(
       name: json['name'] as String,
       description: json['description'] as String,
-      image: DateTime.parse(json['image'] as String),
+      image: json['image'] as String,
       categoryId: json['category_id'] as String,
     );
 
@@ -20,6 +20,6 @@ Map<String, dynamic> _$PodcastCreateRequestToJson(
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
-      'image': instance.image.toIso8601String(),
+      'image': instance.image,
       'category_id': instance.categoryId,
     };

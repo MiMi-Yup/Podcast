@@ -16,7 +16,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
           : DateTime.parse(json['birthday'] as String),
       avatar: json['avatar'] as String?,
       channelName: json['channel_name'] as String?,
-      searchHistory: json['search_history'] as List<dynamic>?,
+      isCreator: json['is_creator'] as bool?,
     );
 
 Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
@@ -25,8 +25,8 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'name': instance.name,
       'email': instance.email,
       'is_verified': instance.isVerified,
+      'is_creator': instance.isCreator,
       'avatar': instance.avatar,
       'birthday': instance.birthday?.toIso8601String(),
-      'search_history': instance.searchHistory,
       'channel_name': instance.channelName,
     };

@@ -1,7 +1,10 @@
+import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/channel/new_channel/create_name_and_description/cubit/createNameAndDescription_cubit.dart';
 import 'package:join_podcast/presentation/channel/new_podcast/editPodcast/editPodcast_route.dart';
 
 import '../../../../../common/widgets/m_podcast_component.dart';
@@ -41,7 +44,7 @@ class CreateNameAndDescriptionScreen extends StatelessWidget {
                 Row(
                   children: [
                     CircleAvatar(
-                      backgroundImage: AssetImage(mAIntroduction1),
+                      backgroundImage: NetworkImage(context.read<CreateNameAndDescriptionCubit>().avatar!),
                       radius: 40,
                     ),
                     SizedBox(width: 16),
@@ -49,7 +52,7 @@ class CreateNameAndDescriptionScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'username',
+                          context.read<CreateNameAndDescriptionCubit>().channelName ?? MultiLanguage().username,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

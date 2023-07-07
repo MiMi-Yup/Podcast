@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
+import 'package:join_podcast/models/request/users/create_channel_request.dart';
+import 'package:join_podcast/models/request/users/update_channel_request.dart';
 import 'package:join_podcast/models/request/users/update_request.dart';
 import 'package:join_podcast/models/response/media/media_response.dart';
 import 'package:join_podcast/models/response/users/user_response.dart';
@@ -29,10 +31,23 @@ class UserUseCases {
       if (file.existsSync()) {
         MediaResponse? link = await unitOfWork.media.uploadImage(file);
         avatar = link?.url;
+        print(avatar);
       }
     }
     UserResponse? newProfile = await unitOfWork.user.updateInfo(
         UserUpdateRequest(name: name, avatar: avatar, birthday: dob));
     return newProfile?.toModel();
   }
+
+  Future<bool?> createChannel(
+  {required String channelName}) async {
+    return await unitOfWork.user.createChannel(CreateChannelRequest(name: channelName));
+  }
+
+Future<bool?> updateChannel(
+  {required String channelName, required String description}) async {
+  return await unitOfWork.user.updateChannel(
+      UpdateChannelRequest(name: channelName, description: description));
+  }
+
 }

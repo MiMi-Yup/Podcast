@@ -11,4 +11,6 @@ class CreateNameAndDescriptionCubit extends Cubit<CreateNameAndDescriptionState>
   final UnitOfWork unitOfWork;
   CreateNameAndDescriptionCubit({required this.unitOfWork})
       : super(CreateNameAndDescriptionStateInitial(currentIndex: 0));
+  String? get avatar => unitOfWork.session.user?.avatar;
+  String? get channelName => unitOfWork.session.user?.channelName;
 }

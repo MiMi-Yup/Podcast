@@ -1,9 +1,11 @@
+import 'package:join_podcast/models/response/list_response.dart';
+import 'package:join_podcast/models/response/podcasts/podcast_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user_model.g.dart';
+part 'channel_response.g.dart';
 
 @JsonSerializable()
-class UserModel {
+class ChannelResponse {
   @JsonKey(name: '_id')
   String? id;
   @JsonKey(name: 'name')
@@ -20,19 +22,22 @@ class UserModel {
   DateTime? birthday;
   @JsonKey(name: 'channel_name')
   String? channelName;
+  @JsonKey(name: 'podcasts')
+  ListResponse<PodcastResponse>? podcasts;
 
-  UserModel(
+  ChannelResponse(
       {this.id,
       this.name,
       this.email,
       this.isVerified,
-      this.birthday,
+      this.isCreator,
       this.avatar,
+      this.birthday,
       this.channelName,
-      this.isCreator});
+      this.podcasts});
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  factory ChannelResponse.fromJson(Map<String, dynamic> json) =>
+      _$ChannelResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserModelToJson(this);
+  Map<String, dynamic> toJson() => _$ChannelResponseToJson(this);
 }

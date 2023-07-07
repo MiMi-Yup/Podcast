@@ -44,5 +44,7 @@ class EpisodeResponse {
   factory EpisodeResponse.fromJson(Map<String, dynamic> json) =>
       _$EpisodeResponseFromJson(json);
 
+  EpisodeModel toModel() => EpisodeModel.fromJson(toJson());
+
   Map<String, dynamic> toJson() => _$EpisodeResponseToJson(this);
 }

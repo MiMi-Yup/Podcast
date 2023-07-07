@@ -29,4 +29,10 @@ abstract class PodcastsService {
       @Query('q') String query,
       @Query('offset') int? offset,
       @Query('limit') int? limit);
+
+  @POST('/podcasts/{id}/subscribe')
+  Future<void> subscribe(@Path('id') String idPodcast);
+
+  @POST('/podcasts/{id}/unsubscribe')
+  Future<void> unSubscribe(@Path('id') String idPodcast);
 }

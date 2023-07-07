@@ -9,6 +9,7 @@ import 'package:join_podcast/domain/repositories/shared_preferences_repository.d
 import 'package:get/get.dart';
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/auth/login/login_route.dart';
+import 'package:join_podcast/presentation/channel/new_channel/create_new_channel/create_new_channel_route.dart';
 import 'package:join_podcast/presentation/download/download_route.dart';
 import 'package:join_podcast/presentation/new_user/add_info/add_info_route.dart';
 
@@ -127,6 +128,11 @@ class ProfileScreen extends StatelessWidget {
                 title: MultiLanguage.of(context).editProfile,
                 icon: Icon(Icons.person_outline),
                 onPressed: (_) => XMDRouter.pushNamed(routerIds[AddInfoRoute]!),
+              ),
+              MButtonSetting(
+                title: MultiLanguage.of(context).channel,
+                icon: Icon(Icons.person_pin),
+                onPressed: (_) => XMDRouter.pushNamed(routerIds[CreateNewChannelRoute]!),
               ),
               MButtonSetting(
                 title: MultiLanguage.of(context).downloads,
