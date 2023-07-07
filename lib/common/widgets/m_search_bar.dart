@@ -5,8 +5,14 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 class SearchBar extends StatefulWidget {
   final Future<List<String>> Function()? history;
   final void Function(String query)? onSubmitted;
+  final void Function(String query)? removeSearchHistory;
   final Widget? body;
-  const SearchBar({super.key, this.history, this.onSubmitted, this.body});
+  const SearchBar(
+      {super.key,
+      this.history,
+      this.onSubmitted,
+      this.body,
+      this.removeSearchHistory});
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -76,6 +82,7 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   void onSubmitted(String query) {
+    if (query.isEmpty) return;
     if (widget.onSubmitted != null) widget.onSubmitted!(query);
     setState(() {
       addSearchTerm(query);
@@ -140,6 +147,10 @@ class _SearchBarState extends State<SearchBar> {
                                       trailing: IconButton(
                                         icon: const Icon(Icons.clear),
                                         onPressed: () {
+                                          if (widget.removeSearchHistory !=
+                                              null) {
+                                            widget.removeSearchHistory!(term);
+                                          }
                                           setState(() {
                                             deleteSearchTerm(term);
                                           });

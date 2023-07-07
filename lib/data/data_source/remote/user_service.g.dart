@@ -120,24 +120,31 @@ class _UserService implements UserService {
   }
 
   @override
-  Future<void> createChannel(CreateChannelRequest request) async {
+  Future<ApiResponse<LoginUserResponse>> createChannel(
+      CreateChannelRequest request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<LoginUserResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/users/self/channel',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .compose(
+              _dio.options,
+              '/users/self/channel',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<LoginUserResponse>.fromJson(
+      _result.data!,
+      (json) => LoginUserResponse.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
   }
 
   @override
@@ -335,6 +342,54 @@ class _UserService implements UserService {
         .compose(
           _dio.options,
           '/users/self/favorite-episodes/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<ApiResponse<List<String>>> getSearchHistory() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<List<String>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/self/search-history',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse<List<String>>.fromJson(
+      _result.data!,
+      (json) => json is List<dynamic>
+          ? json.map<String>((i) => i as String).toList()
+          : List.empty(),
+    );
+    return value;
+  }
+
+  @override
+  Future<void> removeSearchHistory(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/users/self/search-history/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

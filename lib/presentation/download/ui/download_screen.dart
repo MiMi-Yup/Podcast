@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_button_setting.dart';
 import 'package:join_podcast/common/widgets/m_do_after_modal.dart';
-import 'package:join_podcast/common/widgets/m_episode_component.dart';
+import 'package:join_podcast/common/widgets/m_episode_component_with_event.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/presentation/download/cubit/download_cubit.dart';
 
@@ -125,21 +125,22 @@ class DownloadScreen extends StatelessWidget {
                             Theme.of(context).brightness == Brightness.dark
                                 ? Colors.white
                                 : Colors.black,
-                        content: ListView.separated(
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          itemBuilder: (context, index) => MEpisodeComponent(
-                            title:
-                                "927: Deep Dive | How to Quit Your Job the Right Way",
-                            author: "Apple Talk",
-                            duration: Duration(minutes: 52, seconds: 25),
-                            networkImage: null,
+                        content: BlocBuilder<DownloadCubit, DownloadState>(
+                          buildWhen: (previous, current) =>
+                              previous.downloaded != current.downloaded,
+                          builder: (context, state) => ListView.separated(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                            itemBuilder: (context, index) =>
+                                MEpisodeComponentWithEvent(
+                              data: state.downloaded[index],
+                            ),
+                            separatorBuilder: (context, index) => SizedBox(
+                              height: 16.0,
+                            ),
+                            itemCount: state.downloaded.length,
                           ),
-                          separatorBuilder: (context, index) => SizedBox(
-                            height: 16.0,
-                          ),
-                          itemCount: 5,
                         )).builder()
                   ],
                 )

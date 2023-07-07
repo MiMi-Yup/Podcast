@@ -23,4 +23,6 @@ abstract class UserRepository {
   Future<bool?> clearFavourite();
   Future<bool?> addIntoFavourite(String idEpisode);
   Future<bool?> removeEpisodeInFavourite(String idEpisode);
+  Future<List<String>?> getSearchHistory();
+  Future<bool?> removeSearcgHistory(String searchStr);
 }

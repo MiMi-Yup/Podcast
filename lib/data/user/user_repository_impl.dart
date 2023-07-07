@@ -170,4 +170,26 @@ class UserRepositoryImpl implements UserRepository {
       return false;
     });
   }
+
+  @override
+  Future<List<String>?> getSearchHistory() {
+    return userService
+        .getSearchHistory()
+        .then((value) => value.data)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return null;
+    });
+  }
+
+  @override
+  Future<bool?> removeSearcgHistory(String searchStr) {
+    return userService
+        .removeSearchHistory(searchStr)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
 }

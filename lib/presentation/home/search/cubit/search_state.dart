@@ -1,24 +1,25 @@
 part of 'search_cubit.dart';
 
 @immutable
-abstract class SearchState extends Equatable {}
-
-class SearchStateInitial extends SearchState {
+class SearchState extends Equatable {
   final List<PodcastModel>? channels;
   final List<PodcastModel>? podcasts;
   final List<PodcastModel>? episodes;
 
-  SearchStateInitial(
+  const SearchState(
       {required this.channels, required this.podcasts, required this.episodes});
+
+  factory SearchState.initial() =>
+      const SearchState(channels: [], podcasts: [], episodes: []);
 
   @override
   List<Object?> get props => [channels, podcasts, episodes];
 
-  SearchStateInitial copyWith(
+  SearchState copyWith(
       {List<PodcastModel>? channels,
       List<PodcastModel>? podcasts,
       List<PodcastModel>? episodes}) {
-    return SearchStateInitial(
+    return SearchState(
         channels: channels ?? this.channels,
         podcasts: podcasts ?? this.podcasts,
         episodes: episodes ?? this.episodes);

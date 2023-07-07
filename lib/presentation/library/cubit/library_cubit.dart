@@ -24,7 +24,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   void init() async {
     final fav = await usecase.getFavourite();
     final play = await usecase.getAll();
-    emit(state.copyWith(favourites: fav, playlists: play));
+    if (!isClosed) emit(state.copyWith(favourites: fav, playlists: play));
   }
 
   void deletePlaylist(PlaylistModel playlist) async {
