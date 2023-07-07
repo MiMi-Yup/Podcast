@@ -64,4 +64,15 @@ class EpisodeRepositoryImpl implements EpisodeRepository {
       return null;
     });
   }
+
+  @override
+  FutureOr<bool?> deleteEpisode(String id) {
+    return service
+        ?.deleteEpisode(id)
+        .then((value) => true)
+        .catchError((onError) {
+      ExceptionUtil.handle(onError);
+      return false;
+    });
+  }
 }

@@ -103,6 +103,26 @@ class _PodcastsService implements PodcastsService {
   }
 
   @override
+  Future<void> deletePodcastById(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/podcasts/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
   Future<ApiResponse<ListSeperateResponse<PodcastResponse>>> search(
     String query,
     int? offset,
@@ -175,6 +195,26 @@ class _PodcastsService implements PodcastsService {
         .compose(
           _dio.options,
           '/podcasts/${idPodcast}/unsubscribe',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+  }
+
+  @override
+  Future<void> deleteAllEpisodesOfPodcast(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/podcasts/${id}/episodes',
           queryParameters: queryParameters,
           data: _data,
         )

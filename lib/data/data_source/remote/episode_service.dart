@@ -24,6 +24,9 @@ abstract class EpisodeService {
   Future<ApiResponse<EpisodeResponse>> updateEpisode(
       @Path('id') String id, @Body() EpisodeUpdateRequest request);
 
+  @DELETE('/episodes/{id}')
+  Future<void> deleteEpisode(@Path('id') String id);
+
   @GET('/episodes/search')
   Future<ApiResponse<ListSeperateResponse<EpisodeResponse>>> search(
       @Query('q') String query,

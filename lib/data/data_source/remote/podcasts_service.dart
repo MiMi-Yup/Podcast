@@ -24,6 +24,9 @@ abstract class PodcastsService {
   Future<ApiResponse<PodcastResponse>> updatePodcast(
       @Path('id') String id, @Body() UpdatePodcastRequest request);
 
+  @DELETE('/podcasts/{id}')
+  Future<void> deletePodcastById(@Path('id') String id);
+
   @GET('/podcasts/search')
   Future<ApiResponse<ListSeperateResponse<PodcastResponse>>> search(
       @Query('q') String query,
@@ -35,4 +38,7 @@ abstract class PodcastsService {
 
   @POST('/podcasts/{id}/unsubscribe')
   Future<void> unSubscribe(@Path('id') String idPodcast);
+
+  @DELETE('/podcasts/{id}/episodes')
+  Future<void> deleteAllEpisodesOfPodcast(@Path('id') String id);
 }

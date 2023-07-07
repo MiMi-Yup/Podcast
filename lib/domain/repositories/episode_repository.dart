@@ -12,4 +12,5 @@ abstract class EpisodeRepository {
   FutureOr<EpisodeResponse?> getEpisodeById(String id);
   FutureOr<ListSeperateResponse<EpisodeResponse>?> search(String query,
       {int? offset, int? limit});
+  FutureOr<bool?> deleteEpisode(String id);
 }
