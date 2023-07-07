@@ -3,7 +3,7 @@ import 'package:configuration/route/xmd_router.dart';
 import 'package:flutter/material.dart';
 import 'package:join_podcast/common/widgets/m_author_full.dart';
 import 'package:join_podcast/manifest.dart';
-import 'package:join_podcast/presentation/author/author_route.dart';
+import 'package:join_podcast/presentation/podcast/podcast_route.dart';
 
 class SubscriptionScreen extends StatelessWidget {
   const SubscriptionScreen({super.key});
@@ -64,7 +64,7 @@ class SubscriptionScreen extends StatelessWidget {
             author: "Apple Talk",
             quantity: 888,
             networkImage: null,
-            onPressed: () => XMDRouter.pushNamed(routerIds[AuthorRoute]!,
+            onPressed: () => XMDRouter.pushNamed(routerIds[PodcastRoute]!,
                 arguments: {index: index}),
           ),
           separatorBuilder: (context, index) => SizedBox(

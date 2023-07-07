@@ -13,4 +13,5 @@ abstract class PlaylistRepository {
   FutureOr<bool?> removeEpisodeFromPlaylist(
       {required String idPlaylist, required String idEpisode});
   FutureOr<bool?> deletePlaylist(String id);
+  FutureOr<bool?> updatePlaylist({required String idPlaylist, required String name});
 }

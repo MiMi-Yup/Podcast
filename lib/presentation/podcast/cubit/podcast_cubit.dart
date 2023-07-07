@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 
-part 'author_state.dart';
+part 'podcast_state.dart';
 
 @injectable
-class AuthorCubit extends Cubit<AuthorState> {
+class PodcastCubit extends Cubit<PodcastState> {
   final UnitOfWork unitOfWork;
-  AuthorCubit({required this.unitOfWork})
-      : super(AuthorStateInitial(currentIndex: 0));
+  PodcastCubit({required this.unitOfWork})
+      : super(PodcastStateInitial(currentIndex: 0));
 }

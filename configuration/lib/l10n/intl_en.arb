@@ -35,7 +35,8 @@
     "profile": "Profile",
     "author": "Author",
     "subscription": "Subscriptions",
-    "newUpdates": "New Updates",
+    "mostListened": "Most Listened",
+    "newestEpisode": "Newest Episode",
     "seeAll": "See all",
     "mins" :"mins",
     "subscribe": "Subscribe",
@@ -120,5 +121,6 @@
     "shufflePlay": "Shuffle Play",
     "rename": "Rename",
     "downloadAll": "Download All",
-    "timer": "Timer"
+    "timer": "Timer",
+    "removeFromPlaylist": "Remove from this playlist"
 }

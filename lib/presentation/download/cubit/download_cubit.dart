@@ -12,18 +12,16 @@ part 'download_state.dart';
 @injectable
 class DownloadCubit extends Cubit<DownloadState> {
   final UnitOfWork unitOfWork;
-  final LocalStorageService service;
-  DownloadCubit({required this.unitOfWork, required this.service})
-      : super(const DownloadState());
+  DownloadCubit({required this.unitOfWork}) : super(const DownloadState());
 
   Future<bool> loadPrefs() async {
-    final downloaded = await service.getAllFile();
     List<EpisodeModel> episodes = [];
+    List<String> isEpisodes =
+        await unitOfWork.download.getListEpisodeIdDownloaded();
 
-    if (downloaded != null && downloaded.isNotEmpty) {
-      final _episodes = await Future.wait(downloaded.map((e) async => unitOfWork
-          .episode
-          .getEpisodeById(p.basenameWithoutExtension(e.path))));
+    if (isEpisodes.isNotEmpty) {
+      final _episodes = await Future.wait(
+          isEpisodes.map((e) async => unitOfWork.episode.getEpisodeById(e)));
       episodes = _episodes
           .where((element) => element != null)
           .cast<EpisodeModel>()
