@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:configuration/l10n/l10n.dart';
+import 'package:configuration/route/xmd_router.dart';
 import 'package:configuration/style/style.dart';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit_config.dart';
@@ -14,6 +16,11 @@ import 'package:join_podcast/presentation/channel/new_episode/cubit/createNewEpi
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
+
+import '../../../../manifest.dart';
+import '../../../../utils/alert_util.dart';
+import '../../../bottom_bar/bottom_bar_route.dart';
+import '../../new_podcast/editPodcast/editPodcast_route.dart';
 
 class CreateNewEpisodeScreen extends StatefulWidget {
   const CreateNewEpisodeScreen({super.key});
@@ -225,6 +232,20 @@ Future<List<File>> getAudioFiles() async {
       });
     }
 
+    void convertAACtoMP3(String inputFilePath, String outputFilePath) async {
+      // Lệnh để chuyển đổi từ AAC sang MP3
+      final command = '-i $inputFilePath -acodec libmp3lame $outputFilePath';
+
+      // Chạy lệnh bằng FlutterFFmpeg
+      final executionId = await FFmpegKit.execute(command);
+
+      if (executionId == 0) {
+        print('Chuyển đổi thành công');
+      } else {
+        print('Chuyển đổi thất bại');
+      }
+    }
+
     @override
     void initState() {
     // TODO: implement initState
@@ -295,160 +316,200 @@ Future<List<File>> getAudioFiles() async {
                           style: mST14M
                       ),
                       SizedBox(height: 32),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _image != null
-                            ? GestureDetector(
-                                onTap: () async {
-                                  //_showImageOptions();
-                                  final file = await _picker.pickImage(
-                                      source: ImageSource.gallery);
-                                  if (file != null) {
-                                    context
-                                        .read<CreateNewEpisodeCubit>()
-                                        .changeImage(file);
-                                    _image = file as File?;
-                                  }
-                                },
-                                child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.file(
-                                    _image!,
-                                    height: 100.0,
-                                    width: 100.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white,
+                      BlocBuilder<CreateNewEpisodeCubit, CreateNewEpisodeState>(
+                        builder: (context, state) => Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            state.image != null
+                                ? GestureDetector(
+                                    onTap: () async {
+                                      final file =
+                                      await _picker.pickImage(source: ImageSource.gallery);
+                                      if (file != null) {
+                                        context.read<CreateNewEpisodeCubit>().changeImage(file);
+                                      }
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image(
+                                            height: 100.0,
+                                            width: 100.0,
+                                            fit: BoxFit.cover,
+                                            image: state.image == null
+                                                ? NetworkImage(state.initImage)
+                                                : FileImage(File(state.image!))
+                                            as ImageProvider,
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 0,
+                                          right: 0,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                            ),
+                                            child: IconButton(
+                                              onPressed: () async {
+                                                final file =
+                                                await _picker.pickImage(source: ImageSource.gallery);
+                                                if (file != null) {
+                                                  context.read<CreateNewEpisodeCubit>().changeImage(file);
+                                                }
+                                              },
+                                              icon: Icon(
+                                                Icons.edit,
+                                                size: 30.0,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    child: IconButton(
-                                      onPressed: () {
-                                        _showImageOptions();
-                                      },
-                                      icon: Icon(
-                                        Icons.edit,
-                                        size: 30.0,
-                                        color: Colors.black,
-                                      ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () async {
+                                      final file =
+                                      await _picker.pickImage(source: ImageSource.gallery);
+                                      if (file != null) {
+                                        context.read<CreateNewEpisodeCubit>().changeImage(file);
+                                      }
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.camera_alt,
+                                          size: 50.0,
+                                          color: Colors.grey,
+                                        ),
+                                        SizedBox(height: 8.0),
+                                        Text(
+                                          'Upload an image',
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
-                              : GestureDetector(
-                            onTap: () {
-                              _showImageOptions();
-                            },
-                            child: Column(
+                            Row(
                               children: [
-                                Icon(
-                                  Icons.camera_alt,
-                                  size: 50.0,
-                                  color: Colors.grey,
+                                Text('Episode #', style: mST20M),
+                                SizedBox(
+                                  width: mSpacing,
                                 ),
-                                SizedBox(height: 8.0),
-                                Text(
-                                  'Upload an image',
-                                  style: TextStyle(
-                                    fontSize: 12.0,
-                                    color: Colors.grey,
+                                Container(
+                                  width: 100,
+                                  child: TextField(
+                                    controller: _podcastNameTag,
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                    ),
                                   ),
-                                ),
+                                )
                               ],
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                  'Episode #',
-                                  style: mST20M
-                              ),
-                              SizedBox(width: mSpacing,),
-                              Container(
-                                width: 100,
-                                child: TextField(
-                                  controller: _podcastNameTag,
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                  ],
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
+                    ]),
+              ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      // TODO: Xử lý khi nhấn nút Save Podcast
-                      await loadAudioFiles();
-                      loadMergedFolder();
-                      loadAudioFolder();
-                      if (listRecorded.length > 1) {
-                        await mergeAudioFiles2(
-                            listRecorded
-                                .map((file) => file.path)
-                                .toList(),
-                            mergePath);
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: BlocListener<CreateNewEpisodeCubit,
+                      CreateNewEpisodeState>(
+                    listener: (context, state) {
+                      switch (state.state) {
+                        case Status.success:
+                          XMDRouter.pushNamedAndRemoveUntil(
+                              routerIds[BottomBarRoute]!);
+                          break;
+                        case Status.error:
+                          AlertUtil.hideLoading();
+                          AlertUtil.showToast(
+                              MultiLanguage.of(context).systemError);
+                          break;
+                        case Status.submitting:
+                          AlertUtil.showLoading();
+                          break;
+                        default:
+                          break;
                       }
-                      context.read<CreateNewEpisodeCubit>().changeDes(_podcastDescription.text);
-                      context.read<CreateNewEpisodeCubit>().changeName('#${_podcastNameTag.text} ${_podcastName.text}');
-                      context.read<CreateNewEpisodeCubit>().changeDuration(12000);
-                      context.read<CreateNewEpisodeCubit>().changePodcastID('podcastID');
-                      context.read<CreateNewEpisodeCubit>().changeHref('test');
-
-                      context.read<CreateNewEpisodeCubit>().createEpisode(audioUpload: listRecorded.first);
-
                     },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green, // Màu nền xanh lá
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0), // Góc bo tròn
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        // TODO: Xử lý khi nhấn nút Save Podcast
+                        await loadAudioFiles();
+                        loadMergedFolder();
+                        loadAudioFolder();
+                        if (listRecorded.length > 1) {
+                          await mergeAudioFiles2(
+                              listRecorded.map((file) => file.path).toList(),
+                              mergePath);
+                        }
+                        context
+                            .read<CreateNewEpisodeCubit>()
+                            .changeDes(_podcastDescription.text);
+                        context.read<CreateNewEpisodeCubit>().changeName(
+                            '#${_podcastNameTag.text} ${_podcastName.text}');
+                        context
+                            .read<CreateNewEpisodeCubit>()
+                            .changeDuration(12000);
+                        context
+                            .read<CreateNewEpisodeCubit>()
+                            .changePodcastID('64a7ad368510aa77b042d92d');
+                        context
+                            .read<CreateNewEpisodeCubit>()
+                            .changeHref('test');
+                        convertAACtoMP3(listRecorded.first.path, "$mergePath/output.mp3");
+                        context
+                            .read<CreateNewEpisodeCubit>()
+                            .createEpisode(audioUploaded: listRecorded.first);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green, // Màu nền xanh lá
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(8.0), // Góc bo tròn
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 24.0),
-                      child: Text(
-                        'Save Podcast',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 24.0),
+                        child: Text(
+                          'Save Podcast',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
-
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
-      );
-    }
+      ),
+    );
+  }
 
-    void _showImageOptions() {
+  void _showImageOptions() {
       showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {

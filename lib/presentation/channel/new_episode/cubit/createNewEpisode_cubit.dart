@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/repositories/unit_of_work.dart';
 import 'package:join_podcast/domain/use_cases/episode_page_usecase.dart';
+import 'package:join_podcast/models/episode_model.dart';
 import 'package:join_podcast/models/request/episode/create_request.dart';
 
 import '../../../../../domain/repositories/unit_of_work.dart';
@@ -43,8 +44,17 @@ class CreateNewEpisodeCubit extends Cubit<CreateNewEpisodeState> {
     emit(state.copyWith(podcastID: podcastID));
   }
 
-  Future<void> createEpisode({required File audioUpload})
+  Future<void> createEpisode({required File audioUploaded})
   async {
-    await episodeUseCases.createEpisode(name: state.name, description: state.description, duration: state.duration, href: state.href, image: state.image, podcastID: state.podcastID, audioUpload: audioUpload);
+    emit(state.copyWith(state: Status.submitting));
+    EpisodeModel? epi = await episodeUseCases.createEpisode(name: state.name, description: state.description, duration: state.duration, href: state.href, image: state.image ?? state.initImage, podcastID: state.podcastID, audioUpload: audioUploaded).onError((error, stackTrace) {
+      emit(state.copyWith(state: Status.error));
+      return null;
+    });
+    if (epi != null) {
+      emit(state.copyWith(state: Status.success));
+    } else {
+      emit(state.copyWith(state: Status.error));
+    }
   }
 }

@@ -22,15 +22,19 @@ class EpisodeUseCases {
   }
 
   Future<EpisodeModel?> createEpisode({required String name, required String description, required double duration, required String href, required String image, required String podcastID, required File audioUpload}) async {
-      final file = File(image);
+
+    //if (audioUpload.existsSync()) {
+
+      MediaResponse? link = await unitOfWork.media.uploadAudio(audioUpload);
+      href = link!.url!;
+    // } else {
+    //   href = audioUpload.path;
+    // }
+
+    final file = File(image);
       if (file.existsSync()) {
         MediaResponse? link = await unitOfWork.media.uploadImage(file);
-        image = link as String;
-      }
-
-      if (audioUpload.existsSync()) {
-        MediaResponse? link = await unitOfWork.media.uploadAudio(audioUpload);
-        href = link as String;
+        image = link!.url!;
       }
 
       EpisodeResponse? newEpi = await unitOfWork.episode.createEpisode(EpisodeCreateRequest(name: name, description: description, duration: duration, href: href, image: image, podcastId: podcastID));
