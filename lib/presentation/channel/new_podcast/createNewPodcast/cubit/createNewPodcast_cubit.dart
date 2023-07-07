@@ -37,8 +37,18 @@ class CreateNewPodcastCubit extends Cubit<CreateNewPodcastState> {
     emit(state.copyWith(categoryId: category));
   }
 
-  void createPodcast()
-  {
-    podcastUseCases.unitOfWork.podcast.createPodcast(PodcastCreateRequest(name: state.name, description: state.description, image: state.image!, categoryId: state.categoryId));
+  Future<bool?> createPodcast()
+  async {
+    emit(state.copyWith(state: Status.submitting));
+    PodcastModel? isSuccess = await podcastUseCases.createPodcast(name: state.name, description: state.description, image: state.image ?? state.initImage, categoryID: state.categoryId).onError((error, stackTrace) {
+      emit(state.copyWith(state: Status.error));
+      return null;
+    });
+    if(isSuccess == null) {
+      emit(state.copyWith(state: Status.error));
+      return false;
+    };
+    emit(state.copyWith(state: Status.success));
+    return true;
   }
 }
