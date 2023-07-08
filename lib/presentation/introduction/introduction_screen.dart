@@ -95,7 +95,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                               text:
                                   "Listen to the best podcasts every day with "),
                           TextSpan(
-                              text: "WeTalk",
+                              text: "Join Podcast",
                               style: mST32M.copyWith(color: mCPrimary)),
                           TextSpan(text: " now!")
                         ]),
@@ -131,16 +131,16 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                     routerIds[LoginRoute]!),
                 background: mCPrimary),
           ),
-          Container(
-            width: double.maxFinite,
-            height: 50,
-            margin: EdgeInsets.all(10),
-            child: MPrimaryButton(
-                text: MultiLanguage.of(context).tryIt,
-                onPressed: null,
-                // onPressed: () => XMDRouter.pushNamed(routerIds[HomeRoute]!),
-                background: mCSecondary),
-          )
+          // Container(
+          //   width: double.maxFinite,
+          //   height: 50,
+          //   margin: EdgeInsets.all(10),
+          //   child: MPrimaryButton(
+          //       text: MultiLanguage.of(context).tryIt,
+          //       onPressed: null,
+          //       // onPressed: () => XMDRouter.pushNamed(routerIds[HomeRoute]!),
+          //       background: mCSecondary),
+          // )
         ],
       ),
     );

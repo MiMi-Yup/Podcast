@@ -68,7 +68,9 @@ class PodcastScreen extends StatelessWidget {
           )
         ],
       ),
-      body: CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(), 
+        slivers: [
         MultiSliver(children: [
           Container(
             margin: const EdgeInsets.all(10.0),
