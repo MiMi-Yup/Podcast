@@ -192,12 +192,10 @@ class PlayerCubit extends Cubit<PlayerState> {
   }
 
   void seekToNextEpisode() async {
-    final author = await episodePlayerManager
-        .currentListEpisodes[state.currentIndex! + 1].podcastEx;
+    final author = await listEpisodes[state.currentIndex! + 1].podcastEx;
     emit(state.copyWith(
         currentIndex: state.currentIndex! + 1,
-        episode:
-            episodePlayerManager.currentListEpisodes[state.currentIndex! + 1],
+        episode: listEpisodes[state.currentIndex! + 1],
         author: author?.author?.name));
     episodePlayerManager.updateEpisode(
         episodePlayerManager.currentListEpisodes[state.currentIndex ?? 0]);
@@ -205,12 +203,10 @@ class PlayerCubit extends Cubit<PlayerState> {
   }
 
   void seekToPreviousEpisode() async {
-    final author = await episodePlayerManager
-        .currentListEpisodes[state.currentIndex! - 1].podcastEx;
+    final author = await listEpisodes[state.currentIndex! - 1].podcastEx;
     emit(state.copyWith(
         currentIndex: state.currentIndex! - 1,
-        episode:
-            episodePlayerManager.currentListEpisodes[state.currentIndex! - 1],
+        episode: listEpisodes[state.currentIndex! - 1],
         author: author?.author?.name));
     episodePlayerManager.updateEpisode(
         episodePlayerManager.currentListEpisodes[state.currentIndex ?? 0]);
