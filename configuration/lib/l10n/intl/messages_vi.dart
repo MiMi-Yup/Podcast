@@ -117,8 +117,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "m_continue": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
         "markDone": MessageLookupByLibrary.simpleMessage("Đánh hoàn thành"),
         "mins": MessageLookupByLibrary.simpleMessage("phút"),
+        "mostListened":
+            MessageLookupByLibrary.simpleMessage("Nhiều lượt nghe nhất"),
         "new_playlist":
             MessageLookupByLibrary.simpleMessage("Danh sách phát mới"),
+        "newestEpisode": MessageLookupByLibrary.simpleMessage("Tập mới nhất"),
         "nickname": MessageLookupByLibrary.simpleMessage("Nickname"),
         "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
         "otherLogin":
@@ -137,6 +140,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminder": MessageLookupByLibrary.simpleMessage("Nhắc nhở"),
         "removeCompletedAfter":
             MessageLookupByLibrary.simpleMessage("Xóa các phần đã xem"),
+        "removeFavourite":
+            MessageLookupByLibrary.simpleMessage("Xóa khỏi yêu thích"),
         "removeFromPlaylist":
             MessageLookupByLibrary.simpleMessage("Xóa khỏi danh sách phát này"),
         "removeUnfinishedAfter":

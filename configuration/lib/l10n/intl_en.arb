@@ -129,5 +129,6 @@
     "new_playlist": "New Playlist",
     "finished": "Finished",
     "addToFavourite": "Add to favourite",
-    "addFavouriteSuccess": "Add favourite success"
+    "addFavouriteSuccess": "Add favourite success",
+    "removeFavourite": "Remove favourite"
 }

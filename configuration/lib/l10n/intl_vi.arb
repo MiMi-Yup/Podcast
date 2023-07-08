@@ -252,5 +252,6 @@
   "new_playlist": "Danh sách phát mới",
   "finished": "Xong",
   "addToFavourite": "Thêm vào yêu thích",
-  "addFavouriteSuccess": "Thêm yêu thích thành công"
+  "addFavouriteSuccess": "Thêm yêu thích thành công",
+  "removeFavourite": "Xóa khỏi yêu thích"
 }
