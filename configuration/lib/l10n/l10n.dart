@@ -1249,6 +1249,16 @@ class MultiLanguage {
       args: [],
     );
   }
+
+  /// `Remove favourite`
+  String get removeFavourite {
+    return Intl.message(
+      'Remove favourite',
+      name: 'removeFavourite',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<MultiLanguage> {

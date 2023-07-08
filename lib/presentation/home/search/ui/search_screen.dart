@@ -4,8 +4,8 @@ import 'package:configuration/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_author_full.dart';
-import 'package:join_podcast/common/widgets/m_episode_component.dart';
 import 'package:join_podcast/common/widgets/m_episode_component_with_event.dart';
+import 'package:join_podcast/common/widgets/m_podcast_component.dart';
 import 'package:join_podcast/common/widgets/m_search_bar.dart' as mSearch;
 import 'package:join_podcast/manifest.dart';
 import 'package:join_podcast/presentation/home/search/cubit/search_cubit.dart';
@@ -135,12 +135,16 @@ class _SearchScreenState extends State<SearchScreen>
                         physics: const BouncingScrollPhysics(),
                         padding:
                             EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-                        itemBuilder: (context, index) => MEpisodeComponent(
-                          title:
-                              "927: Deep Dive | How to Quit Your Job the Right Way",
-                          author: "Apple Talk",
-                          duration: Duration(minutes: 52, seconds: 25),
-                          networkImage: null,
+                        itemBuilder: (context, index) => PodcastComponent(
+                          title: state.podcasts?[index].name ?? '',
+                          author: state.podcasts?[index].author?.name ?? '',
+                          networkImage: state.podcasts?[index].image,
+                          episodes: state.podcasts?[index].count ?? 0,
+                          listens: state.podcasts?[index].episodes
+                                  ?.where(
+                                      (element) => element.isListened == true)
+                                  .length ??
+                              0,
                         ),
                         separatorBuilder: (context, index) => SizedBox(
                           height: 16.0,
