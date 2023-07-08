@@ -109,6 +109,7 @@
     "search": "Search",
     "sortByDate": "Sort by Date",
     "channel": "Channel",
+    "manageChannel": "Manage Channel",
     "podcast": "Podcast",
     "episode": "Episode",
     "pause": "Pause",
@@ -130,5 +131,7 @@
     "finished": "Finished",
     "addToFavourite": "Add to favourite",
     "addFavouriteSuccess": "Add favourite success",
+    "listens": "listens",
+    "myPodcast": "My Podcast"
     "removeFavourite": "Remove favourite"
 }

@@ -99,10 +99,10 @@ class _PodcastComponent extends State<PodcastComponent> {
                     widget.author,
                     style: mST16R,
                   ),
-                  Text(
-                    "${widget.episodes} Episodes | ${widget.listens} Listens",
-                    style: mST14R,
-                  ),
+                  // Text(
+                  //   "${widget.episodes} Episodes | ${widget.listens} Listens",
+                  //   style: mST14R,
+                  // ),
 
                 ],
               ),

@@ -108,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "languageName": MessageLookupByLibrary.simpleMessage("Tiếng việt"),
         "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
+        "listens": MessageLookupByLibrary.simpleMessage("nghe"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "loginSuggest":
             MessageLookupByLibrary.simpleMessage("Bạn đã có tài khoản? "),
@@ -115,10 +116,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Đăng nhập vào tài khoản của bạn"),
         "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "m_continue": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
+        "manageChannel": MessageLookupByLibrary.simpleMessage("Quản lý kênh"),
         "markDone": MessageLookupByLibrary.simpleMessage("Đánh hoàn thành"),
         "mins": MessageLookupByLibrary.simpleMessage("phút"),
         "mostListened":
             MessageLookupByLibrary.simpleMessage("Nhiều lượt nghe nhất"),
+        "myPodcast": MessageLookupByLibrary.simpleMessage("Podcast của tôi"),
         "new_playlist":
             MessageLookupByLibrary.simpleMessage("Danh sách phát mới"),
         "newestEpisode": MessageLookupByLibrary.simpleMessage("Tập mới nhất"),

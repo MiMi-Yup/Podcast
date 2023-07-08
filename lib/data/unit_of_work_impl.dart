@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/data/session_info.dart';
 import 'package:join_podcast/domain/repositories/auth_repository.dart';
+import 'package:join_podcast/domain/repositories/category_repository.dart';
 import 'package:join_podcast/domain/repositories/download_repository.dart';
 import 'package:join_podcast/domain/repositories/episode_repository.dart';
 import 'package:join_podcast/domain/repositories/media_repository.dart';
@@ -21,7 +22,8 @@ class UnitOfWorkImpl implements UnitOfWork {
       required this.playlist,
       required this.episode,
       required this.podcast,
-      required this.download});
+      required this.download,
+      required this.category});
 
   @override
   final AuthRepository auth;
@@ -49,4 +51,7 @@ class UnitOfWorkImpl implements UnitOfWork {
 
   @override
   final DownloadRepository download;
+
+  @override
+  final CategoryRepository category;
 }

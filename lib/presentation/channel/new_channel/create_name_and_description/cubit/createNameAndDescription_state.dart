@@ -1,24 +1,38 @@
 part of 'createNameAndDescription_cubit.dart';
 
 @immutable
-abstract class CreateNameAndDescriptionState extends Equatable {}
+class CreateNameAndDescriptionState extends Equatable {
+  final String? nameChannel;
+  final int? countPodcast;
+  final int? countListened;
+  final List<PodcastModel>? podcasts;
 
-class CreateNameAndDescriptionStateInitial extends CreateNameAndDescriptionState {
-  final int currentIndex;
-  final bool isHidden;
+  const CreateNameAndDescriptionState(
+      {required this.nameChannel,
+      required this.countPodcast,
+      required this.countListened,
+      required this.podcasts});
 
-  CreateNameAndDescriptionStateInitial({required this.currentIndex, this.isHidden = false});
+  factory CreateNameAndDescriptionState.initial() =>
+      const CreateNameAndDescriptionState(
+          nameChannel: null,
+          countPodcast: null,
+          countListened: null,
+          podcasts: null);
 
   @override
-  List<Object?> get props => [currentIndex, isHidden];
+  List<Object?> get props =>
+      [nameChannel, countPodcast, countListened, podcasts];
 
-  CreateNameAndDescriptionStateInitial copyWith({
-    int? currentIndex,
-    bool? isHidden,
-  }) {
-    return CreateNameAndDescriptionStateInitial(
-      currentIndex: currentIndex ?? this.currentIndex,
-      isHidden: isHidden ?? this.isHidden,
-    );
+  CreateNameAndDescriptionState copyWith(
+      {String? nameChannel,
+      int? countPodcast,
+      int? countListened,
+      List<PodcastModel>? podcasts}) {
+    return CreateNameAndDescriptionState(
+        countListened: countListened ?? this.countListened,
+        countPodcast: countPodcast ?? this.countPodcast,
+        nameChannel: nameChannel ?? this.nameChannel,
+        podcasts: podcasts ?? this.podcasts);
   }
 }

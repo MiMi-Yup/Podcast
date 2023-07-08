@@ -110,6 +110,7 @@
   "search": "Tìm kiếm",
   "sortByDate": "Sắp xếp theo ngày",
   "channel": "Kênh",
+  "manageChannel": "Quản lý kênh",
   "podcast": "Podcast",
   "episode": "Tập",
   "pause": "Tạm dừng",
@@ -253,5 +254,7 @@
   "finished": "Xong",
   "addToFavourite": "Thêm vào yêu thích",
   "addFavouriteSuccess": "Thêm yêu thích thành công",
+  "listens": "nghe",
+  "myPodcast": "Podcast của tôi"
   "removeFavourite": "Xóa khỏi yêu thích"
 }

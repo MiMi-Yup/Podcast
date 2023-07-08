@@ -60,7 +60,7 @@ class _MediaService implements MediaService {
     )
             .compose(
               _dio.options,
-              '/media/audo/upload',
+              '/media/audio/upload',
               queryParameters: queryParameters,
               data: _data,
             )

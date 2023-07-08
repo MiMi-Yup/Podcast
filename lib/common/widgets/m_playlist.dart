@@ -60,7 +60,7 @@ class MPlaylist extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          "${quantity} podcasts",
+                          "${quantity} ${MultiLanguage.of(context).episode}",
                           style: mST14R,
                         ),
                       ]),
