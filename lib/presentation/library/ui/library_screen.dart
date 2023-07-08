@@ -118,7 +118,22 @@ class _LibraryScreenState extends State<LibraryScreen>
                                 left: 10.0, right: 10.0, top: 15.0),
                             itemBuilder: (context, index) =>
                                 MEpisodeComponentWithEvent(
-                                    data: state.favourites[index]),
+                              data: state.favourites[index],
+                              listOption: [
+                                Text(MultiLanguage.of(context).removeFavourite)
+                              ],
+                              onMore: (p0) {
+                                switch (p0) {
+                                  case 2:
+                                    context
+                                        .read<LibraryCubit>()
+                                        .removeFavourite(
+                                            state.favourites[index]);
+                                    break;
+                                  default:
+                                }
+                              },
+                            ),
                             separatorBuilder: (context, index) => SizedBox(
                               height: 16.0,
                             ),

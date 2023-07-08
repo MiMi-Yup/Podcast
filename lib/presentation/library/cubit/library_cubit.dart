@@ -34,4 +34,13 @@ class LibraryCubit extends Cubit<LibraryState> {
           playlists: List.from(state.playlists)..remove(playlist)));
     }
   }
+
+  void removeFavourite(EpisodeModel episode) async {
+    if (state.favourites.contains(episode) &&
+        await usecase.removeFavourite(episode) == true &&
+        !isClosed) {
+      emit(state.copyWith(
+          favourites: List.from(state.favourites)..remove(episode)));
+    }
+  }
 }

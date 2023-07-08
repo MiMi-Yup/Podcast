@@ -51,6 +51,11 @@ class EpisodePlayerManager {
   void play() {
     _audioPlayer.play();
     _isPlaying = true;
+
+    if (currentEpisode?.id != null) {
+      final log = getIt<UserRepository>();
+      log.addHistory(currentEpisode!.id!);
+    }
   }
 
   void pause() {
