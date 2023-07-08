@@ -11,7 +11,8 @@ class MTextField extends StatefulWidget {
       this.preIcon,
       this.readOnly = false,
       this.onTap,
-      this.errorText})
+      this.errorText,
+      this.maxLine = 1})
       : super(key: key);
 
   final TextEditingController? controller;
@@ -22,6 +23,7 @@ class MTextField extends StatefulWidget {
   final bool readOnly;
   final void Function()? onTap;
   final String? errorText;
+  final int maxLine;
 
   @override
   State<MTextField> createState() => _MTextFieldState();
@@ -39,6 +41,7 @@ class _MTextFieldState extends State<MTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLines: widget.maxLine,
       controller: widget.controller,
       onChanged: widget.onChanged,
       readOnly: widget.readOnly,

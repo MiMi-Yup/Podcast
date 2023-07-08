@@ -1,15 +1,21 @@
+import 'package:join_podcast/di/di.dart';
+import 'package:join_podcast/domain/repositories/user_repository.dart';
 import 'package:join_podcast/models/category_model.dart';
 import 'package:join_podcast/models/episode_model.dart';
 import 'package:join_podcast/models/response/list_response.dart';
 import 'package:join_podcast/models/response/podcasts/podcast_response.dart';
 import 'package:join_podcast/models/user_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'podcast_model.g.dart';
+
+@JsonSerializable()
 class PodcastModel {
   String? id;
   String? name;
   String? description;
   CategoryModel? category;
-  UserModel? author;
+  dynamic author;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? image;
@@ -58,4 +64,25 @@ class PodcastModel {
       episodes: ListResponse(count: count, items: episodes),
       numListening: numListening,
       isSubscribed: isSubscribed);
+
+  factory PodcastModel.fromJson(Map<String, dynamic> json) =>
+      _$PodcastModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PodcastModelToJson(this);
+}
+
+extension PodcastModelExtension on PodcastModel {
+  Future<UserModel?> get authorEx async {
+    if (author is String) {
+      final user = await getIt<UserRepository>().getUserById(author);
+      if (user != null) {
+        author = user.toModel();
+        return author;
+      }
+    } else if (author is Map) {
+      author = UserModel.fromJson(author);
+      return author;
+    }
+    return null;
+  }
 }

@@ -1050,6 +1050,16 @@ class MultiLanguage {
     );
   }
 
+  /// `Manage Channel`
+  String get manageChannel {
+    return Intl.message(
+      'Manage Channel',
+      name: 'manageChannel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Podcast`
   String get podcast {
     return Intl.message(
@@ -1245,6 +1255,26 @@ class MultiLanguage {
     return Intl.message(
       'Add favourite success',
       name: 'addFavouriteSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `listens`
+  String get listens {
+    return Intl.message(
+      'listens',
+      name: 'listens',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Podcast`
+  String get myPodcast {
+    return Intl.message(
+      'My Podcast',
+      name: 'myPodcast',
       desc: '',
       args: [],
     );

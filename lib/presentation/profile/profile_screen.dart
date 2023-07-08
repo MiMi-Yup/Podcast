@@ -130,7 +130,7 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: (_) => XMDRouter.pushNamed(routerIds[AddInfoRoute]!),
               ),
               MButtonSetting(
-                title: MultiLanguage.of(context).channel,
+                title: MultiLanguage.of(context).manageChannel,
                 icon: Icon(Icons.person_pin),
                 onPressed: (_) => XMDRouter.pushNamed(routerIds[CreateNewChannelRoute]!),
               ),

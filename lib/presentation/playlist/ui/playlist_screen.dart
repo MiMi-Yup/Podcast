@@ -305,7 +305,7 @@ class PlaylistScreen extends StatelessWidget {
                   ],
                   onMore: (p0) {
                     switch (p0) {
-                      case 0:
+                      case 2:
                         context
                             .read<PlaylistCubit>()
                             .removeFromPlaylist(state.episodes[index]);
