@@ -2,6 +2,7 @@ part of 'player_cubit.dart';
 
 abstract class ExamplePlayerState extends Equatable {
   final double selectedSpeed;
+  final bool isDownloaded;
   final DateTime? selectedTime;
   final SeekBarData seekBarData;
   final String? author;
@@ -10,6 +11,7 @@ abstract class ExamplePlayerState extends Equatable {
 
   const ExamplePlayerState(
       {required this.selectedSpeed,
+      required this.isDownloaded,
       required this.selectedTime,
       required this.seekBarData,
       required this.author,
@@ -22,6 +24,7 @@ abstract class ExamplePlayerState extends Equatable {
   List<Object?> get props => [selectedSpeed, selectedTime, seekBarData];
   ExamplePlayerState copyWith({
     AudioPlayer? audioPlayer,
+    bool isDownloaded,
     double? selectedSpeed,
     DateTime? selectedTime,
     SeekBarData? seekBarData,
@@ -34,6 +37,7 @@ abstract class ExamplePlayerState extends Equatable {
 class PlayerState extends ExamplePlayerState {
   const PlayerState(
       {required super.selectedSpeed,
+      required super.isDownloaded,
       required super.selectedTime,
       required super.seekBarData,
       required super.author,
@@ -42,6 +46,7 @@ class PlayerState extends ExamplePlayerState {
 
   factory PlayerState.initial() => PlayerState(
       selectedSpeed: 1,
+      isDownloaded: false,
       selectedTime: null,
       seekBarData: SeekBarData(Duration.zero, Duration.zero),
       author: null,
@@ -49,22 +54,22 @@ class PlayerState extends ExamplePlayerState {
       currentIndex: 0);
 
   @override
-  PlayerState copyWith({
-    AudioPlayer? audioPlayer,
-    double? selectedSpeed,
-    DateTime? selectedTime,
-    SeekBarData? seekBarData,
-    String? author,
-    EpisodeModel? episode,
-    int? currentIndex
-  }) {
+  PlayerState copyWith(
+      {AudioPlayer? audioPlayer,
+      bool? isDownloaded,
+      double? selectedSpeed,
+      DateTime? selectedTime,
+      SeekBarData? seekBarData,
+      String? author,
+      EpisodeModel? episode,
+      int? currentIndex}) {
     return PlayerState(
-      selectedSpeed: selectedSpeed ?? this.selectedSpeed,
-      selectedTime: selectedTime ?? this.selectedTime,
-      seekBarData: seekBarData ?? this.seekBarData,
-      author: author ?? this.author,
-      episode: episode ?? this.episode,
-      currentIndex: currentIndex ?? this.currentIndex
-    );
+        selectedSpeed: selectedSpeed ?? this.selectedSpeed,
+        isDownloaded: isDownloaded ?? this.isDownloaded,
+        selectedTime: selectedTime ?? this.selectedTime,
+        seekBarData: seekBarData ?? this.seekBarData,
+        author: author ?? this.author,
+        episode: episode ?? this.episode,
+        currentIndex: currentIndex ?? this.currentIndex);
   }
 }
