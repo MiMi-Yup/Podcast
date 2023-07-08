@@ -1,6 +1,5 @@
 import 'package:configuration/l10n/l10n.dart';
 import 'package:configuration/route/xmd_router.dart';
-import 'package:configuration/utility/constants/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/manifest.dart';
@@ -10,28 +9,17 @@ import 'package:join_podcast/presentation/channel/new_podcast/editPodcast/editPo
 import '../../../../../common/widgets/m_podcast_component.dart';
 import '../../../new_podcast/createNewPodcast/createNewPodcast_route.dart';
 
-class Podcast {
-  final String title;
-  final String description;
-  final String imageUrl;
-
-  Podcast(this.title, this.description, this.imageUrl);
-}
-List<Podcast> podcastList = [
-  Podcast('Podcast 1', 'Description 1', 'Image URL 1'),
-  Podcast('Podcast 2', 'Description 2', 'Image URL 2'),
-  Podcast('Podcast 3', 'Description 3', 'Image URL 3'),
-];
 class CreateNameAndDescriptionScreen extends StatelessWidget {
   const CreateNameAndDescriptionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.read<CreateNameAndDescriptionCubit>().init();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0.0,
-        title: Text('Quản lý kênh'),
+        title: Text(MultiLanguage.of(context).manageChannel),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +32,9 @@ class CreateNameAndDescriptionScreen extends StatelessWidget {
                 Row(
                   children: [
                     CircleAvatar(
-                      backgroundImage: NetworkImage(context.read<CreateNameAndDescriptionCubit>().avatar!),
+                      backgroundImage: NetworkImage(context
+                          .read<CreateNameAndDescriptionCubit>()
+                          .avatar!),
                       radius: 40,
                     ),
                     SizedBox(width: 16),
@@ -52,21 +42,31 @@ class CreateNameAndDescriptionScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          context.read<CreateNameAndDescriptionCubit>().channelName ?? MultiLanguage().username,
+                          context
+                                  .read<CreateNameAndDescriptionCubit>()
+                                  .channelName ??
+                              MultiLanguage().username,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(height: 4),
-                        Text('null Podcasts • null Listens'),
+                        BlocBuilder<CreateNameAndDescriptionCubit,
+                                CreateNameAndDescriptionState>(
+                            buildWhen: (previous, current) =>
+                                previous.countListened !=
+                                    current.countListened ||
+                                previous.countPodcast != current.countPodcast,
+                            builder: (context, state) => Text(
+                                '${state.countPodcast} ${MultiLanguage.of(context).podcast} • ${state.countListened} ${MultiLanguage.of(context).listens}')),
                       ],
                     ),
                   ],
                 ),
                 SizedBox(height: 16),
                 Text(
-                  'My Podcasts',
+                  MultiLanguage.of(context).myPodcast,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -75,27 +75,32 @@ class CreateNameAndDescriptionScreen extends StatelessWidget {
               ],
             ),
           ),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            padding:
-            EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-            itemBuilder: (context, index) {
-              Podcast podcast = podcastList[index];
-              return PodcastComponent(
-                title: podcast.title,
-                author: podcast.description,
-                networkImage: null/*podcast.imageUrl*/,
-                episodes: 0,
-                listens: 0,
-                onPressed: () => XMDRouter.pushNamed(
-                    routerIds[EditPodcastRoute]!,
-                    arguments: {index: index}),
-                // Truyền các giá trị cần thiết vào component podcast
-              );
-            }, separatorBuilder: (BuildContext context, int index) => SizedBox(
-            height: 16.0,
-          ), itemCount: podcastList.length,
+          BlocBuilder<CreateNameAndDescriptionCubit,
+              CreateNameAndDescriptionState>(
+            buildWhen: (previous, current) =>
+                previous.podcasts != current.podcasts,
+            builder: (context, state) => ListView.separated(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
+              itemBuilder: (context, index) {
+                return PodcastComponent(
+                  title: state.podcasts?[index].name ?? '',
+                  author: state.podcasts?[index].description ?? '',
+                  networkImage: null /*podcast.imageUrl*/,
+                  episodes: 0,
+                  listens: 0,
+                  onPressed: () => XMDRouter.pushNamed(
+                      routerIds[EditPodcastRoute]!,
+                      arguments: {index: index}),
+                  // Truyền các giá trị cần thiết vào component podcast
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) => SizedBox(
+                height: 16.0,
+              ),
+              itemCount: state.podcasts?.length ?? 0,
+            ),
           )
         ],
       ),
