@@ -88,10 +88,9 @@ class PlayerCubit extends Cubit<PlayerState> {
       final author = await episodePlayerManager.currentEpisode?.podcastEx;
       emit(state.copyWith(
           episode: episodePlayerManager.currentEpisode,
-          author: author?.author?.name));
-      episodePlayerManager.play();
-      emit(state.copyWith(
+          author: author?.author?.name,
           selectedSpeed: episodePlayerManager.audioPlayer.speed));
+      episodePlayerManager.play();
     }
     bool result = await episodeUseCases.unitOfWork.download.isDownloaded(id);
     emit(state.copyWith(isDownloaded: result));
@@ -192,10 +191,12 @@ class PlayerCubit extends Cubit<PlayerState> {
   }
 
   void seekToNextEpisode() async {
-    final author = await listEpisodes[state.currentIndex! + 1].podcastEx;
+    final author = await episodePlayerManager
+        .currentListEpisodes[state.currentIndex ?? 0 + 1].podcastEx;
     emit(state.copyWith(
-        currentIndex: state.currentIndex! + 1,
-        episode: listEpisodes[state.currentIndex! + 1],
+        currentIndex: state.currentIndex ?? 0 + 1,
+        episode: episodePlayerManager
+            .currentListEpisodes[state.currentIndex ?? 0 + 1],
         author: author?.author?.name));
     episodePlayerManager.updateEpisode(
         episodePlayerManager.currentListEpisodes[state.currentIndex ?? 0]);
@@ -203,10 +204,12 @@ class PlayerCubit extends Cubit<PlayerState> {
   }
 
   void seekToPreviousEpisode() async {
-    final author = await listEpisodes[state.currentIndex! - 1].podcastEx;
+    final author = await episodePlayerManager
+        .currentListEpisodes[state.currentIndex ?? 0 - 1].podcastEx;
     emit(state.copyWith(
-        currentIndex: state.currentIndex! - 1,
-        episode: listEpisodes[state.currentIndex! - 1],
+        currentIndex: state.currentIndex ?? 0 - 1,
+        episode: episodePlayerManager
+            .currentListEpisodes[state.currentIndex ?? 0 - 1],
         author: author?.author?.name));
     episodePlayerManager.updateEpisode(
         episodePlayerManager.currentListEpisodes[state.currentIndex ?? 0]);
@@ -218,7 +221,7 @@ class PlayerCubit extends Cubit<PlayerState> {
   }
 
   void downloadEpisode() {
-    DownloadUtil.downloadEpisode(
+    EpisodeDownloadUtil.downloadEpisode(
         episodePlayerManager.currentEpisode?.href ?? "",
         episodePlayerManager.currentEpisode?.id ?? "");
   }

@@ -75,3 +75,74 @@ class DownloadUtil {
     });
   }
 }
+
+enum DownloadState {
+  notStarted,
+  downloading,
+  completed,
+  failed,
+}
+
+class EpisodeDownloadUtil {
+  static Future<bool> _checkPermission() async {
+    bool gotPermissions = false;
+
+    var androidInfo = await DeviceInfoPlugin().androidInfo;
+    var sdkInt = androidInfo.version.sdkInt; // SDK, example: 31
+
+    if (Platform.isAndroid) {
+      var storage = await Permission.storage.status;
+
+      if (storage != PermissionStatus.granted) {
+        await Permission.storage.request();
+      }
+
+      if (sdkInt >= 30) {
+        var storage_external = await Permission.manageExternalStorage.status;
+
+        if (storage_external != PermissionStatus.granted) {
+          await Permission.manageExternalStorage.request();
+        }
+
+        storage_external = await Permission.manageExternalStorage.status;
+
+        if (storage_external == PermissionStatus.granted &&
+            storage == PermissionStatus.granted) {
+          gotPermissions = true;
+        }
+      } else {
+        // (SDK < 30)
+        storage = await Permission.storage.status;
+
+        if (storage == PermissionStatus.granted) {
+          gotPermissions = true;
+        }
+      }
+    }
+    return gotPermissions;
+  }
+
+  static late DownloadState stateDownload;
+
+  static Future<void> downloadEpisode(String episodeUrl, String episodeId) async {
+    stateDownload = DownloadState.notStarted;
+
+    var pathDevice = await FileUtil.getDownloadDirectory();
+    final savePath = '$pathDevice/$episodeId.mp3';
+    final dio = Dio();
+
+    var res3 = await _checkPermission();
+    if (res3 == false) {
+      return;
+    }
+
+    try {
+      stateDownload = DownloadState.downloading;
+      await dio.download(episodeUrl, savePath);
+      stateDownload = DownloadState.completed;
+      return;
+    } catch (error) {
+      stateDownload = DownloadState.failed;
+    }
+  }
+}
