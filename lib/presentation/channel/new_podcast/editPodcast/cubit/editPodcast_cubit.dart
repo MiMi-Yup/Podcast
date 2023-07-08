@@ -17,25 +17,31 @@ part 'editPodcast_state.dart';
 class EditPodcastCubit extends Cubit<EditPodcastState> {
   final PodcastUseCases podcastUseCases;
   final EpisodeUseCases episodeUseCases;
-  EditPodcastCubit(this.episodeUseCases, {required this.podcastUseCases})
+  final String idPodcast;
+  EditPodcastCubit(
+      {required this.episodeUseCases,
+      required this.podcastUseCases,
+      required this.idPodcast})
       : super(EditPodcastState.initial());
 
-  void setID(String id) {
-    emit(state.copyWith(id: id));
-  }
-
-  Future<PodcastResponse?> getPodcastForCreator({required String id}) async {
-    PodcastModel? getPodcast = await podcastUseCases.getPodcastById(id);
-    emit(state.copyWith(image: getPodcast?.image, name: getPodcast?.name, episodes: getPodcast?.episodes, count: getPodcast?.count, numListening: getPodcast?.numListening));
+  Future<PodcastResponse?> getPodcastForCreator() async {
+    PodcastModel? getPodcast = await podcastUseCases.getPodcastById(idPodcast);
+    if (!isClosed) {
+      emit(state.copyWith(podcast: getPodcast, episodes: getPodcast?.episodes));
+    }
     return getPodcast?.toResponse();
   }
 
-  void deletePodcast({required String id}) async {
-    if (state.episodes != null) {
-      for (EpisodeModel e in state.episodes!) {
-        await episodeUseCases.deleteEpisode(id: e.id!);
-      }
+  void deletePodcast() async {
+    await podcastUseCases.deletePodcast(id: state.podcast!.id!);
+  }
+
+  Future<bool> deleteEpisode({required EpisodeModel episode}) async {
+    final result = await episodeUseCases.deleteEpisode(id: episode.id!);
+    if (result && !isClosed) {
+      emit(state.copyWith(
+          episodes: List.from(state.episodes!)..remove(episode)));
     }
-    await podcastUseCases.deletePodcast(id: id);
+    return result;
   }
 }

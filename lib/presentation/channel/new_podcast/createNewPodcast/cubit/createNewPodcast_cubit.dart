@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:join_podcast/domain/use_cases/podcast_usecase.dart';
+import 'package:join_podcast/models/category_model.dart';
 import '../../../../../models/podcast_model.dart';
 
 part 'createNewPodcast_state.dart';
@@ -29,6 +30,15 @@ class CreateNewPodcastCubit extends Cubit<CreateNewPodcastState> {
     emit(state.copyWith(categoryId: category));
   }
 
+  Future<List<CategoryModel>?> getAllCategories() async {
+    final result = await podcastUseCases.unitOfWork.category.getAll();
+    if (result != null && (result.count ?? 0) > 0) {
+      return List.from(
+          result.items!.map((e) => CategoryModel.fromJson(e.toJson())));
+    }
+    return null;
+  }
+
   Future<bool?> createPodcast() async {
     emit(state.copyWith(state: Status.submitting));
     PodcastModel? isSuccess = await podcastUseCases
@@ -45,7 +55,6 @@ class CreateNewPodcastCubit extends Cubit<CreateNewPodcastState> {
       emit(state.copyWith(state: Status.error));
       return false;
     }
-    ;
     emit(state.copyWith(state: Status.success));
     return true;
   }

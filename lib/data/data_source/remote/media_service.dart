@@ -14,7 +14,7 @@ abstract class MediaService {
   @MultiPart()
   Future<ApiResponse<MediaResponse>> uploadImage(@Body() FormData file);
 
-  @POST('/media/audo/upload')
+  @POST('/media/audio/upload')
   @MultiPart()
   Future<ApiResponse<MediaResponse>> uploadAudio(@Body() FormData file);
 }

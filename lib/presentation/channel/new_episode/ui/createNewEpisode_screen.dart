@@ -454,8 +454,8 @@ Future<List<File>> getAudioFiles() async {
                       onPressed: () async {
                         // TODO: Xử lý khi nhấn nút Save Podcast
                         await loadAudioFiles();
-                        loadMergedFolder();
-                        loadAudioFolder();
+                        await loadMergedFolder();
+                        await loadAudioFolder();
                         if (listRecorded.length > 1) {
                           await mergeAudioFiles2(
                               listRecorded.map((file) => file.path).toList(),
@@ -468,14 +468,11 @@ Future<List<File>> getAudioFiles() async {
                             '#${_podcastNameTag.text} ${_podcastName.text}');
                         context
                             .read<CreateNewEpisodeCubit>()
-                            .changeDuration(12000);
-                        context
-                            .read<CreateNewEpisodeCubit>()
-                            .changePodcastID('64a7ad368510aa77b042d92d');
+                            .changeDuration(100);
                         context
                             .read<CreateNewEpisodeCubit>()
                             .changeHref('test');
-                        convertAACtoMP3(listRecorded.first.path, "$mergePath/output.mp3");
+                        // convertAACtoMP3(listRecorded.first.path, "$mergePath/output.mp3");
                         context
                             .read<CreateNewEpisodeCubit>()
                             .createEpisode(audioUploaded: listRecorded.first);

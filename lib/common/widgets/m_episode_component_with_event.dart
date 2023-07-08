@@ -47,7 +47,7 @@ class MEpisodeComponentWithEvent extends StatelessWidget {
         "id": data.id,
         "listEpisodes": [data],
       }),
-      onPlay: null,
+      onPlay: (state) => !state,
       onDownload: (state) => !state,
       onMore: (index) {
         switch (index) {

@@ -87,12 +87,15 @@ class CreateNameAndDescriptionScreen extends StatelessWidget {
                 return PodcastComponent(
                   title: state.podcasts?[index].name ?? '',
                   author: state.podcasts?[index].description ?? '',
-                  networkImage: null /*podcast.imageUrl*/,
-                  episodes: 0,
-                  listens: 0,
+                  networkImage: state.podcasts?[index].image,
+                  episodes: state.podcasts?[index].count ?? 0,
+                  listens: state.podcasts?[index].episodes
+                          ?.where((element) => element.isListened == true)
+                          .length ??
+                      0,
                   onPressed: () => XMDRouter.pushNamed(
                       routerIds[EditPodcastRoute]!,
-                      arguments: {index: index}),
+                      arguments: {'id': state.podcasts?[index].id}),
                   // Truyền các giá trị cần thiết vào component podcast
                 );
               },
