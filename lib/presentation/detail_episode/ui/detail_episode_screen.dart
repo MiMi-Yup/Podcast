@@ -20,6 +20,12 @@ class DetailEpisodeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
+        title: BlocBuilder<DetailEpisodeCubit, DetailEpisodeState>(
+            builder: (context, state) => Text(
+                  state.episode?.name ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.clip,
+                )),
       ),
       body: CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
         MultiSliver(children: [

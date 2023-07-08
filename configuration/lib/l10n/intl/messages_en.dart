@@ -139,6 +139,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminder": MessageLookupByLibrary.simpleMessage("Reminder"),
         "removeCompletedAfter":
             MessageLookupByLibrary.simpleMessage("Remove Completed Episodes"),
+        "removeFavourite":
+            MessageLookupByLibrary.simpleMessage("Remove favourite"),
         "removeFromPlaylist":
             MessageLookupByLibrary.simpleMessage("Remove from this playlist"),
         "removeUnfinishedAfter":

@@ -143,6 +143,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminder": MessageLookupByLibrary.simpleMessage("Nhắc nhở"),
         "removeCompletedAfter":
             MessageLookupByLibrary.simpleMessage("Xóa các phần đã xem"),
+        "removeFavourite":
+            MessageLookupByLibrary.simpleMessage("Xóa khỏi yêu thích"),
         "removeFromPlaylist":
             MessageLookupByLibrary.simpleMessage("Xóa khỏi danh sách phát này"),
         "removeUnfinishedAfter":

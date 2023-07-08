@@ -133,4 +133,5 @@
     "addFavouriteSuccess": "Add favourite success",
     "listens": "listens",
     "myPodcast": "My Podcast"
+    "removeFavourite": "Remove favourite"
 }

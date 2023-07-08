@@ -69,4 +69,8 @@ class PlaylistUseCases {
   Future<bool?> addEpisodeToFavourite({required String idEpisode}) {
     return unitOfWork.user.addIntoFavourite(idEpisode);
   }
+
+  Future<bool?> removeFavourite(EpisodeModel episode) {
+    return unitOfWork.user.removeEpisodeInFavourite(episode.id!);
+  }
 }

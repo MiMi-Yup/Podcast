@@ -30,19 +30,18 @@ class EpisodePlayerManager {
 
   List<EpisodeModel> get currentListEpisodes => _currentListEpisodes;
 
-  void playEpisode(String idEpisode) async {
-    if (idEpisode != _currentEpisode?.id) {
-      final episodeUseCases = getIt<EpisodeUseCases>();
-      final episode = await episodeUseCases.getEpisodeById(idEpisode);
-      _currentEpisode = episode;
-      _audioPlayer.setUrl(episode?.href ?? '');
-      _audioPlayer.play();
-      _isPlaying = true;
+  // void playEpisode(String idEpisode) async {
+  //   if (idEpisode != _currentEpisode?.id) {
+  //     final episodeUseCases = getIt<EpisodeUseCases>();
+  //     final episode = await episodeUseCases.getEpisodeById(idEpisode);
+  //     _audioPlayer.setUrl(episode?.href ?? '');
+  //     _audioPlayer.play();
+  //     _isPlaying = true;
 
-      final log = getIt<UserRepository>();
-      await log.addHistory(idEpisode);
-    }
-  }
+  //     final log = getIt<UserRepository>();
+  //     await log.addHistory(idEpisode);
+  //   }
+  // }
 
   void setListEpisodes(List<EpisodeModel> list) {
     _currentListEpisodes = list;
@@ -51,6 +50,11 @@ class EpisodePlayerManager {
   void play() {
     _audioPlayer.play();
     _isPlaying = true;
+
+    if (currentEpisode?.id != null) {
+      final log = getIt<UserRepository>();
+      log.addHistory(currentEpisode!.id!);
+    }
   }
 
   void pause() {
@@ -64,6 +68,10 @@ class EpisodePlayerManager {
       index: _audioPlayer.effectiveIndices!.first,
     );
     _isPlaying = true;
+  }
+
+  void updateEpisode(EpisodeModel episode) {
+    _currentEpisode = episode;
   }
 
   void setSpeed(double speed) {

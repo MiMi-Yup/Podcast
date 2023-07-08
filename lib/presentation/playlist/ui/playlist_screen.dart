@@ -8,6 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:join_podcast/common/widgets/m_episode_component_with_event.dart';
 import 'package:join_podcast/common/widgets/m_section.dart';
 import 'package:join_podcast/common/widgets/m_text_field_bottom_modal.dart';
+import 'package:join_podcast/data/data_source/runtime/player_storage_service.dart';
+import 'package:join_podcast/di/di.dart';
+import 'package:join_podcast/manifest.dart';
+import 'package:join_podcast/presentation/player/player_route.dart';
 import 'package:join_podcast/presentation/playlist/cubit/playlist_cubit.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -83,8 +87,8 @@ class PlaylistScreen extends StatelessWidget {
                     }
                     break;
                   case 2:
-                  await context.read<PlaylistCubit>().deletePlaylist();
-                  XMDRouter.pop();
+                    await context.read<PlaylistCubit>().deletePlaylist();
+                    XMDRouter.pop();
                     break;
                   default:
                     break;
@@ -215,7 +219,19 @@ class PlaylistScreen extends StatelessWidget {
                           color: mCPrimary,
                           borderRadius: BorderRadius.circular(50.0)),
                       child: TextButton(
-                          onPressed: null,
+                          onPressed: () {
+                            final episodes =
+                                context.read<PlaylistCubit>().state.episodes;
+                            if (episodes.isNotEmpty) {
+                              getIt<EpisodePlayerManager>()
+                                  .setListEpisodes(episodes);
+                              XMDRouter.pushNamed(routerIds[PlayerRoute]!,
+                                  arguments: {
+                                    'listEpisodes': episodes,
+                                    'id': episodes.first.id
+                                  });
+                            }
+                          },
                           child: Row(
                             children: [
                               Icon(

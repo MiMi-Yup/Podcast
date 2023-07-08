@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,9 +64,10 @@ class PlayerCubit extends Cubit<PlayerState> {
         episodePlayerManager.setListEpisodes(newListEpisodes);
         episodePlayerManager.audioPlayer
             .setAudioSource(ConcatenatingAudioSource(children: listSources));
-
         // Khởi chạy
         await episodePlayerManager.audioPlayer.seek(Duration.zero, index: 0);
+        episodePlayerManager.updateEpisode(
+            episodePlayerManager.currentListEpisodes[state.currentIndex ?? 0]);
         episodePlayerManager.play();
       } else {
         final int index =
@@ -75,6 +78,8 @@ class PlayerCubit extends Cubit<PlayerState> {
             author: author?.author?.name));
         await episodePlayerManager.audioPlayer
             .seek(Duration.zero, index: state.currentIndex);
+        episodePlayerManager.updateEpisode(
+            episodePlayerManager.currentListEpisodes[state.currentIndex ?? 0]);
         episodePlayerManager.play();
       }
       updateSelectedSpeed(1);
@@ -87,6 +92,8 @@ class PlayerCubit extends Cubit<PlayerState> {
       emit(state.copyWith(
           selectedSpeed: episodePlayerManager.audioPlayer.speed));
     }
+    bool result = await episodeUseCases.unitOfWork.download.isDownloaded(id);
+    emit(state.copyWith(isDownloaded: result));
   }
 
 // Change speed
@@ -189,6 +196,8 @@ class PlayerCubit extends Cubit<PlayerState> {
         currentIndex: state.currentIndex! + 1,
         episode: listEpisodes[state.currentIndex! + 1],
         author: author?.author?.name));
+    episodePlayerManager.updateEpisode(
+        episodePlayerManager.currentListEpisodes[state.currentIndex ?? 0]);
     episodePlayerManager.audioPlayer.seekToNext();
   }
 
@@ -198,10 +207,16 @@ class PlayerCubit extends Cubit<PlayerState> {
         currentIndex: state.currentIndex! - 1,
         episode: listEpisodes[state.currentIndex! - 1],
         author: author?.author?.name));
+    episodePlayerManager.updateEpisode(
+        episodePlayerManager.currentListEpisodes[state.currentIndex ?? 0]);
     episodePlayerManager.audioPlayer.seekToPrevious();
   }
 
   Future addToFavourite() {
     return playlistUseCases.addEpisodeToFavourite(idEpisode: id);
+  }
+
+  void downloadEpisode() async {
+    await episodeUseCases.unitOfWork.download.getEpisode(id);
   }
 }
