@@ -50,7 +50,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     value: 1,
                     child: Row(
                       children: [
-                        const Icon(Icons.download),
+                        state.isDownloaded
+                            ? const Icon(Icons.download_done)
+                            : const Icon(Icons.download),
                         const SizedBox(
                           width: 10.0,
                         ),
@@ -90,6 +92,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       playerCubit.showPlaybackSpeedModal(context);
                       break;
                     case 1:
+                      !state.isDownloaded
+                          ? playerCubit.downloadEpisode()
+                          : null;
                       break;
                     case 2:
                       playerCubit.showModalPlaylist(context);
