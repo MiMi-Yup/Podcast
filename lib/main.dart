@@ -12,7 +12,7 @@ import 'package:join_podcast/domain/repositories/user_repository.dart';
 import 'manifest.dart';
 import 'presentation/main/main_application.dart';
 
-const env = String.fromEnvironment('env', defaultValue: CustomEnv.prod);
+const env = String.fromEnvironment('env', defaultValue: CustomEnv.dev);
 
 /// EndPoint default
 main() {
