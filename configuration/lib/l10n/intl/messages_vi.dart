@@ -75,7 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "downloads": MessageLookupByLibrary.simpleMessage("Tải xuống"),
         "edit": MessageLookupByLibrary.simpleMessage("Chỉnh sửa"),
         "editProfile":
-            MessageLookupByLibrary.simpleMessage("Chỉnh sử thông tin"),
+            MessageLookupByLibrary.simpleMessage("Chỉnh sửa thông tin"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailInvalid":
             MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
@@ -97,7 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "goodNight": MessageLookupByLibrary.simpleMessage("Chào khuya"),
         "helpCenter": MessageLookupByLibrary.simpleMessage("Trung tâm hỗ trợ"),
         "hintSearch":
-            MessageLookupByLibrary.simpleMessage("Search and find out..."),
+            MessageLookupByLibrary.simpleMessage("Tìm kiếm và tra cứu..."),
         "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "inValidInput": MessageLookupByLibrary.simpleMessage(

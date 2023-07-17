@@ -61,16 +61,17 @@ class SubscriptionScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.all(10.0),
           itemBuilder: (context, index) => MAuthorFull(
-            author: "Apple Talk",
-            quantity: 888,
-            networkImage: null,
+            author: "Trân trọng bản thân mỗi ngày",
+            quantity: 2,
+            networkImage:
+                "https://www.rd.com/wp-content/uploads/2021/05/GettyImages-1271148946-e1620838088898.jpg?resize=700,467",
             onPressed: () => XMDRouter.pushNamed(routerIds[PodcastRoute]!,
                 arguments: {index: index}),
           ),
           separatorBuilder: (context, index) => SizedBox(
             height: 16.0,
           ),
-          itemCount: 10,
+          itemCount: 1,
         ));
   }
 }
